@@ -1,0 +1,22 @@
+Package: augmentedRCBD
+Title: What the Package Does (one line, title case)
+Version: 0.9.0
+Authors@R: c(
+    person(c("J.", "Aravind"),
+    email = "j.aravind@icar.gov.in",
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-4791-442X")),
+    person("ICAR-NBGPR",
+    role = "cph"))
+Copyright: 2017, ICAR-NBPGR
+License: GPL-2 | GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.0.1)
+RoxygenNote: 6.0.1
+Imports:
+    data.table,
+    ggplot2,
+    plyr,
+    Rdpack
+RdMacros: Rdpack
