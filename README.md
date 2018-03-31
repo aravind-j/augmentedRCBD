@@ -7,8 +7,8 @@
 
 1.  Division of Germplasm Conservation, ICAR-National Bureau of Plant
     Genetic Resources, New Delhi
-2.  Division of Crop Physiology, ICAR-Indian Agricultural Research
-    Institute, New Delhi
+2.  Division of Genetics, ICAR-Indian Agricultural Research Institute,
+    New Delhi
 
 -----
 
