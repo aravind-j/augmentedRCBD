@@ -4,17 +4,19 @@
 \alias{augmentedRCBD}
 \title{Analysis of Augmented Randomised Complete Block Design}
 \usage{
-augmentedRCBD(block, treatment, y, method = c("lsd", "tukey"), alpha = 0.05,
-  group = TRUE, console = TRUE)
+augmentedRCBD(block, treatment, y, checks = NULL, method.comp = c("lsd",
+  "tukey"), alpha = 0.05, group = TRUE, console = TRUE)
 }
 \arguments{
-\item{block}{Vector of blocks.}
+\item{block}{Vector of blocks (as a factor).}
 
-\item{treatment}{Vector of treatments(genotypes).}
+\item{treatment}{Vector of treatments/genotypes (as a factor).}
 
-\item{y}{Vector of response variable (Trait).}
+\item{y}{Numeric vector of response variable (Trait).}
 
-\item{method}{Method for comparison of treatments (\code{"lsd"} for least
+\item{checks}{Character vector of the checks present in \code{treatment} levels.}
+
+\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for least
 significant difference or \code{"tukey"} for Tukey's honest significant
 difference).}
 
@@ -22,7 +24,7 @@ difference).}
 multiple comparisons.}
 
 \item{group}{If \code{TRUE}, genotypes will be grouped according to
-\code{"method"}.}
+\code{"method.comp"}.}
 
 \item{console}{If \code{TRUE}, output will be printed to console.}
 }
@@ -37,7 +39,7 @@ A list with the following components:  \item{\code{Details}}{Details
   of block effects.} \item{\code{Treatment effects}}{A vector of treatment
   effects.} \item{\code{Std. Errors}}{A data frame of standard error of
   difference between various combinations along with critical difference and
-  tukey's honest significant difference (when \code{method = "tukey"}) at
+  tukey's honest significant difference (when \code{method.comp = "tukey"}) at
   \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted mean.}
   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
   data frame of pairwise comparisons of treatments.} \item{\code{Groups}}{A
@@ -48,7 +50,7 @@ A list with the following components:  \item{\code{Details}}{Details
 \description{
 \code{augmentedRCBD} is a function for analysis of variance of an augmented
 randomised block design and the generation as well as comparison of the
-adjusted means of the treatments (genotypes).
+adjusted means of the treatments/genotypes.
 }
 \details{
 This function borrows code from \code{DAU.test} function of \code{agricolae}
@@ -59,6 +61,27 @@ et al., 2008.
 Data should be balanced (all the check genotypes should be present in
   all the blocks). There should not be any missing values. The number of test
   genotypes can vary within a block.
+}
+\examples{
+# Example data
+blk <- c(rep(1,7),rep(2,6),rep(3,7))
+trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+        70, 75, 74)
+y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
+        240, 268, 287, 226, 395, 450)
+data <- data.frame(blk, trt, y1, y2)
+# Convert block and treatment to factors
+data$blk <- as.factor(data$blk)
+data$trt <- as.factor(data$trt)
+# Results for variable y1
+out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE)
+# Results for variable y2
+out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                     alpha = 0.05, group = TRUE, console = TRUE)
+
+
 }
 \references{
 \insertRef{federer_augmented_1956}{augmentedRCBD}

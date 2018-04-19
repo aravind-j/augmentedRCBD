@@ -2,26 +2,30 @@
 #'
 #' \code{augmentedRCBD} is a function for analysis of variance of an augmented
 #' randomised block design and the generation as well as comparison of the
-#' adjusted means of the treatments (genotypes).
+#' adjusted means of the treatments/genotypes.
 #'
 #' This function borrows code from \code{DAU.test} function of \code{agricolae}
 #' package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur
 #' et al., 2008.
 #'
-#' @note Data should be balanced (all the check genotypes should be present in
-#'   all the blocks). There should not be any missing values. The number of test
-#'   genotypes can vary within a block.
+#' @note \itemize{ \item Data should preferably be balanced i.e. all the check
+#'   genotypes should be present in all the blocks. If not, a warning is issued.
+#'   \item  There should not be any missing values. \item The number of test
+#'   genotypes can vary within a block. }
 #'
-#' @param block Vector of blocks.
-#' @param treatment Vector of treatments(genotypes).
-#' @param y Vector of response variable (Trait).
-#' @param method Method for comparison of treatments (\code{"lsd"} for least
-#'   significant difference or \code{"tukey"} for Tukey's honest significant
-#'   difference).
+#' @param block Vector of blocks (as a factor).
+#' @param treatment Vector of treatments/genotypes (as a factor).
+#' @param y Numeric vector of response variable (Trait).
+#' @param checks Character vector of the checks present in \code{treatment}
+#'   levels. If not specified, checks are inferred from the data on the basis of
+#'   number of replications of treatments/genotypes.
+#' @param method.comp Method for comparison of treatments (\code{"lsd"} for
+#'   least significant difference or \code{"tukey"} for Tukey's honest
+#'   significant difference).
 #' @param alpha Type I error probability (Significance level) to be used for
 #'   multiple comparisons.
 #' @param group If \code{TRUE}, genotypes will be grouped according to
-#'   \code{"method"}.
+#'   \code{"method.comp"}.
 #' @param console If \code{TRUE}, output will be printed to console.
 #'
 #' @return A list with the following components:  \item{\code{Details}}{Details
@@ -34,32 +38,51 @@
 #'   of block effects.} \item{\code{Treatment effects}}{A vector of treatment
 #'   effects.} \item{\code{Std. Errors}}{A data frame of standard error of
 #'   difference between various combinations along with critical difference and
-#'   tukey's honest significant difference (when \code{method = "tukey"}) at
-#'   \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted mean.}
-#'   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
-#'   data frame of pairwise comparisons of treatments.} \item{\code{Groups}}{A
-#'   data frame with compact letter display of pairwise comparisons of
-#'   treatments. Means with at least one letter common are not significantly
-#'   different statistically.}
+#'   tukey's honest significant difference (when \code{method.comp = "tukey"})
+#'   at \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted
+#'   mean.} \item{\code{CV}}{Coefficient of variation.}
+#'   \item{\code{Comparisons}}{A data frame of pairwise comparisons of
+#'   treatments.} \item{\code{Groups}}{A data frame with compact letter display
+#'   of pairwise comparisons of treatments. Means with at least one letter
+#'   common are not significantly different statistically.}
 #'
-#' @import lsmeans
+#' @import emmeans
 #' @import multcompView
 #' @export
 #'
 #' @references
 #'
-#'  \insertRef{federer_augmented_1956}{augmentedRCBD}
+#' \insertRef{federer_augmented_1956}{augmentedRCBD}
 #'
-#'  \insertRef{federer_augmented_1961}{augmentedRCBD}
+#' \insertRef{federer_augmented_1961}{augmentedRCBD}
 #'
-#'  \insertRef{mathur_data_2008}{augmentedRCBD}
+#' \insertRef{mathur_data_2008}{augmentedRCBD}
 #'
-#'  \insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
+#' \insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
 #'
 #' @examples
-augmentedRCBD <- function(block, treatment, y,
-                           method = c("lsd","tukey"),
-                           alpha=0.05, group=TRUE, console = TRUE) {
+#' # Example data
+#' blk <- c(rep(1,7),rep(2,6),rep(3,7))
+#' trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+#' y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+#'         70, 75, 74)
+#' y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
+#'         240, 268, 287, 226, 395, 450)
+#' data <- data.frame(blk, trt, y1, y2)
+#' # Convert block and treatment to factors
+#' data$blk <- as.factor(data$blk)
+#' data$trt <- as.factor(data$trt)
+#' # Results for variable y1
+#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE)
+#' # Results for variable y2
+#' out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                      alpha = 0.05, group = TRUE, console = TRUE)
+#'
+#'
+augmentedRCBD <- function(block, treatment, y, checks = NULL,
+                          method.comp = c("lsd","tukey"),
+                          alpha=0.05, group=TRUE, console = TRUE) {
   # Checks
   # block
   if (!is.factor(block)) {
@@ -76,25 +99,58 @@ augmentedRCBD <- function(block, treatment, y,
   if (!(length(y) == length(treatment) && length(treatment) == length(block))) {
     stop('"block", "treatment" and "y" are of unequal lengths')
   }
+  if (TRUE %in% is.na(y)) { # check for missing values
+    stop('"y" has missing value(s)')
+  }
   # alpha
   if (!(0 < alpha && alpha < 1)) {
     stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
   }
-  # method
-  method <- match.arg(method, c("lsd","tukey"), several.ok = FALSE)
+  # method.comp
+  method.comp <- match.arg(method.comp, c("lsd","tukey"), several.ok = FALSE)
+
+  #if (!missing(checks)) {
+  if (is.null(checks)) {
+    checks <- as.character("checks")
+    # checks are present in treatment levels
+    if (FALSE %in% c(checks %in% levels(treatment))) {
+      miss <- paste(checks[!(checks %in% levels(treatment))], collapse = ", ")
+      warning(paste("Following check(s) are not present in treatment levels:\n",
+                    miss))
+    }
+  }
 
   # Fix treatment order so that checks are in the beginning
-  treatmentorder <- data.frame(table(treatment))
-  treatmentorder <- treatmentorder[with(treatmentorder,
-                                        order(-Freq, treatment)), ]
-  treatment <- factor(treatment, levels = treatmentorder$treatment)
+  #if (!missing(checks)) {
+  if (is.null(checks)) {
+    treatmentorder <- data.frame(table(treatment))
 
-  checks <- as.character(treatmentorder[treatmentorder$Freq != 1,]$treatment)
-  tests <- as.character(treatmentorder[treatmentorder$Freq == 1,]$treatment)
+    tests <- levels(treatment)[!(levels(treatment) %in% checks)]
+
+    nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
+                 tests)
+    treatment <- factor(treatment, levels = nworder)
+
+  } else {
+    treatmentorder <- data.frame(table(treatment))
+    treatmentorder <- treatmentorder[with(treatmentorder,
+                                          order(-Freq, treatment)), ]
+    nworder <- treatmentorder$treatment
+    treatment <- factor(treatment, levels = treatmentorder$treatment)
+
+    checks <- as.character(treatmentorder[treatmentorder$Freq != 1,]$treatment)
+    tests <- as.character(treatmentorder[treatmentorder$Freq == 1,]$treatment)
+  }
+
 
   r <- unique(table(treatment))
   b <- nlevels(block) # no. of blocks
   ntr <- nlevels(treatment)  # no. of treatments
+
+  blockwisechecks <- as.data.frame.matrix(table(treatment, block))
+  blockwisechecks <- cbind(treatment = rownames(blockwisechecks), blockwisechecks)
+  blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks,]
+  rownames(blockwisechecks) <- NULL
 
   Details <-   t(data.frame(`Number of blocks` = b, `Number of treatments` = ntr,
                             `    Number of check treatments` = length(checks),
@@ -102,6 +158,9 @@ augmentedRCBD <- function(block, treatment, y,
                             `Check treatments` =  paste(checks, collapse = ", "),
                             check.names = FALSE))
   colnames(Details) <- c("")
+
+  Details2  <- blockwisechecks
+
 
   tb <- data.frame(treatment, block)
   tb$block <- as.character(tb$block)
@@ -125,12 +184,12 @@ augmentedRCBD <- function(block, treatment, y,
   options(contrasts = c("contr.helmert","contr.poly"))
   augmented.aov <- aov(y ~ block + treatment)
 
-  df.check <- length(checks)-1
-  df.treatment <- length(levels(treatment))-1
+  df.check <- length(checks) - 1
+  df.treatment <- length(levels(treatment)) - 1
 
   A1 <- summary(augmented.aov,
                 split = list(treatment = list(Check = 1:df.check,
-                                              `Test and Test vs. Check` = (df.check+1):df.treatment)))
+                                              `Test and Test vs. Check` = (df.check + 1):df.treatment)))
 
   # Calculate adjusted treatment effects
   options(contrasts = c("contr.sum", "contr.poly"))
@@ -185,8 +244,8 @@ augmentedRCBD <- function(block, treatment, y,
   #
   #   Means <- merge.data.frame(Means, mean.adj, by = "Treatment", all = TRUE)
 
-  LSMeans <- lsmeans::lsmeans(augmented3.aov, "treatment")
-  LSMeans2 <- summary(LSMeans)[, c("treatment", "lsmean")]
+  LSMeans <- emmeans::emmeans(augmented3.aov, "treatment")
+  LSMeans2 <- summary(LSMeans)[, c("treatment", "emmean")]
   colnames(LSMeans2) <- c("Treatment", "Adjusted Means")
 
   Means <- merge.data.frame(Means, LSMeans2, by = "Treatment", all = TRUE)
@@ -198,12 +257,12 @@ augmentedRCBD <- function(block, treatment, y,
   Comparison <- NULL
   Groups <- NULL
 
-  if (group==TRUE) {
-    if (method == "lsd") adjust = "none"
-    if (method == "tukey") adjust = "tukey"
+  if (group == TRUE) {
+    if (method.comp == "lsd") adjust = "none"
+    if (method.comp == "tukey") adjust = "tukey"
 
     Comparison <- data.frame(summary(pairs(LSMeans, adjust = adjust)))
-    Groups <- data.frame(lsmeans::cld(LSMeans, adjust = adjust))
+    Groups <- data.frame(emmeans::cld(LSMeans, adjust = adjust))
 
     Comparison$sig <- ifelse(Comparison$p.value < 0.001, "***",
                              ifelse(Comparison$p.value < 0.01, "**",
@@ -220,7 +279,7 @@ augmentedRCBD <- function(block, treatment, y,
 
   r <- augmented3.anova$Df[1] + 1 # Number of blocks
   c <- length(checks) # Number of check treatments
-  t0 <- qt(1-(alpha/2), augmented3.aov$df.residual)
+  t0 <- qt(1 - (alpha/2), augmented3.aov$df.residual)
 
   S <- c("Control Treatment Means", "Two Test Treatments (Same Block)",
          "Two Test Treatments (Different Blocks)",
@@ -228,8 +287,8 @@ augmentedRCBD <- function(block, treatment, y,
 
   SE.check <- sqrt(2*MSE/r) #Two Control Treatments
   SE.test1 <- sqrt(2*MSE) #Two Augmented Treatments (Same Block)
-  SE.test2 <- sqrt(2*MSE*(1+(1/c))) #Two Augmented Treatments(Different Blocks)
-  SE.testcheck <- sqrt(MSE*(1+(1/r)+(1/c)-(1/(r*c)))) #A Test Treatment and a Control Treatment
+  SE.test2 <- sqrt(2*MSE*(1 + (1/c))) #Two Augmented Treatments(Different Blocks)
+  SE.testcheck <- sqrt(MSE*(1 + (1/r) + (1/c) - (1/(r*c)))) #A Test Treatment and a Control Treatment
 
   SECD <- data.frame(`Std. Error of Diff.` =  c(SE.check, SE.test1,
                                                 SE.test2, SE.testcheck),
@@ -238,8 +297,8 @@ augmentedRCBD <- function(block, treatment, y,
   colnames(SECD) <- c("Std. Error of Diff.",
                       paste("CD (", alpha*100, "%)", sep = ""))
 
-  if (method == "tukey") {
-    q0 <- qtukey(1-(alpha/2), nlevels(treatment),
+  if (method.comp == "tukey") {
+    q0 <- qtukey(1 - (alpha/2), nlevels(treatment),
                  df = augmented3.aov$df.residual)
 
     SECD$THSD <- q0*SECD$`Std. Error of Diff.`
@@ -279,7 +338,7 @@ augmentedRCBD <- function(block, treatment, y,
     if (group) {
       cat("\nTreatment groups\n")
       cat("==================\n")
-      cat(paste("\nMethod : ", method, "\n\n", sep = ""))
+      cat(paste("\nMethod : ", method.comp, "\n\n", sep = ""))
       print(Groups)
     }
   }
