@@ -23,5 +23,6 @@ Imports:
     data.table,
     ggplot2,
     plyr,
-    Rdpack
+    Rdpack,
+    ReporteRs
 RdMacros: Rdpack
