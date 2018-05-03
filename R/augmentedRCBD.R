@@ -28,23 +28,26 @@
 #'   \code{"method.comp"}.
 #' @param console If \code{TRUE}, output will be printed to console.
 #'
-#' @return A list with the following components:  \item{\code{Details}}{Details
-#'   of the augmented design used.} \item{\code{Means}}{A data frame with the
-#'   "Means", "Block", "SE", "Mix", "Max" and "Adjusted Means" for each
-#'   "Treatment".} \item{\code{ANOVA, Treatment Adjusted}}{An object of class
-#'   \code{summary.aov} for ANOVA table with treatments adjusted.}
-#'   \item{\code{ANOVA, Block Adjusted}}{An object of class \code{summary.aov}
-#'   for ANOVA table with block adjusted.} \item{\code{Block effects}}{A vector
-#'   of block effects.} \item{\code{Treatment effects}}{A vector of treatment
-#'   effects.} \item{\code{Std. Errors}}{A data frame of standard error of
-#'   difference between various combinations along with critical difference and
-#'   tukey's honest significant difference (when \code{method.comp = "tukey"})
-#'   at \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted
-#'   mean.} \item{\code{CV}}{Coefficient of variation.}
-#'   \item{\code{Comparisons}}{A data frame of pairwise comparisons of
-#'   treatments.} \item{\code{Groups}}{A data frame with compact letter display
-#'   of pairwise comparisons of treatments. Means with at least one letter
-#'   common are not significantly different statistically.}
+#' @return A list of class \code{augmentedRCBD} containing the following
+#'   components:  \item{\code{Details}}{Details of the augmented design used.}
+#'   \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
+#'   "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
+#'   Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
+#'   with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
+#'   class \code{summary.aov} for ANOVA table with block adjusted.}
+#'   \item{\code{Block effects}}{A vector of block effects.}
+#'   \item{\code{Treatment effects}}{A vector of treatment effects.}
+#'   \item{\code{Std. Errors}}{A data frame of standard error of difference
+#'   between various combinations along with critical difference and tukey's
+#'   honest significant difference (when \code{method.comp = "tukey"}) at
+#'   \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted mean.}
+#'   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
+#'   data frame of pairwise comparisons of treatments. This is computed only if
+#'   argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
+#'   with compact letter display of pairwise comparisons of treatments. Means
+#'   with at least one letter common are not significantly different
+#'   statistically. This is computed only if argument \code{group} is
+#'   \code{TRUE} }
 #'
 #' @import emmeans
 #' @import multcompView
@@ -313,34 +316,11 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                  `Overall Adjusted mean` = `Overall Adjusted mean`,
                  `CV` = CV, Comparisons = Comparison, Groups = Groups)
 
+  # Set Class
+  class(output) <- "augmentedRCBD"
+
   if (console) {
-    cat("\nAugmented design details\n")
-    cat("========================\n")
-    print(Details)
-    cat("\nANOVA, Treatment Adjusted\n")
-    cat("=========================\n")
-    print(A1)
-    cat("\nANOVA, Block Adjusted\n")
-    cat("=====================\n")
-    print(A2)
-    cat("\nTreatment means\n")
-    cat("===============\n")
-    print(Means)
-    cat("\nCoefficient of variation\n")
-    cat("========================\n")
-    cat(CV)
-    cat("\n\nOverall adjusted mean\n")
-    cat("=====================\n")
-    cat(`Overall Adjusted mean`)
-    cat("\n\nStandard errors\n")
-    cat("===================\n")
-    print(SECD)
-    if (group) {
-      cat("\nTreatment groups\n")
-      cat("==================\n")
-      cat(paste("\nMethod : ", method.comp, "\n\n", sep = ""))
-      print(Groups)
-    }
+    print.augmentedRCBD(output)
   }
 
   return(output)
