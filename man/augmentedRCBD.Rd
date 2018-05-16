@@ -14,11 +14,13 @@ augmentedRCBD(block, treatment, y, checks = NULL, method.comp = c("lsd",
 
 \item{y}{Numeric vector of response variable (Trait).}
 
-\item{checks}{Character vector of the checks present in \code{treatment} levels.}
+\item{checks}{Character vector of the checks present in \code{treatment}
+levels. If not specified, checks are inferred from the data on the basis of
+number of replications of treatments/genotypes.}
 
-\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for least
-significant difference or \code{"tukey"} for Tukey's honest significant
-difference).}
+\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for
+least significant difference or \code{"tukey"} for Tukey's honest
+significant difference).}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
 multiple comparisons.}
@@ -29,38 +31,42 @@ multiple comparisons.}
 \item{console}{If \code{TRUE}, output will be printed to console.}
 }
 \value{
-A list with the following components:  \item{\code{Details}}{Details
-  of the augmented design used.} \item{\code{Means}}{A data frame with the
-  "Means", "Block", "SE", "Mix", "Max" and "Adjusted Means" for each
-  "Treatment".} \item{\code{ANOVA, Treatment Adjusted}}{An object of class
-  \code{summary.aov} for ANOVA table with treatments adjusted.}
-  \item{\code{ANOVA, Block Adjusted}}{An object of class \code{summary.aov}
-  for ANOVA table with block adjusted.} \item{\code{Block effects}}{A vector
-  of block effects.} \item{\code{Treatment effects}}{A vector of treatment
-  effects.} \item{\code{Std. Errors}}{A data frame of standard error of
-  difference between various combinations along with critical difference and
-  tukey's honest significant difference (when \code{method.comp = "tukey"}) at
-  \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted mean.}
+A list of class \code{augmentedRCBD} containing the following
+  components:  \item{\code{Details}}{Details of the augmented design used.}
+  \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
+  "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
+  Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
+  with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
+  class \code{summary.aov} for ANOVA table with block adjusted.}
+  \item{\code{Block effects}}{A vector of block effects.}
+  \item{\code{Treatment effects}}{A vector of treatment effects.}
+  \item{\code{Std. Errors}}{A data frame of standard error of difference
+  between various combinations along with critical difference and tukey's
+  honest significant difference (when \code{method.comp = "tukey"}) at
+  \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
-  data frame of pairwise comparisons of treatments.} \item{\code{Groups}}{A
-  data frame with compact letter display of pairwise comparisons of
-  treatments. Means with at least one letter common are not significantly
-  different statistically.}
+  data frame of pairwise comparisons of treatments. This is computed only if
+  argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
+  with compact letter display of pairwise comparisons of treatments. Means
+  with at least one letter common are not significantly different
+  statistically. This is computed only if argument \code{group} is
+  \code{TRUE} }
 }
 \description{
 \code{augmentedRCBD} is a function for analysis of variance of an augmented
-randomised block design and the generation as well as comparison of the
-adjusted means of the treatments/genotypes.
+randomised block design (Federer, 1956; Federer, 1961) and the generation as
+well as comparison of the adjusted means of the treatments/genotypes.
 }
 \details{
 This function borrows code from \code{DAU.test} function of \code{agricolae}
 package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur
-et al., 2008.
+et al., (2008).
 }
 \note{
-Data should be balanced (all the check genotypes should be present in
-  all the blocks). There should not be any missing values. The number of test
-  genotypes can vary within a block.
+\itemize{ \item Data should preferably be balanced i.e. all the check
+  genotypes should be present in all the blocks. If not, a warning is issued.
+  \item  There should not be any missing values. \item The number of test
+  genotypes can vary within a block. }
 }
 \examples{
 # Example data
@@ -86,9 +92,9 @@ out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 \references{
 \insertRef{federer_augmented_1956}{augmentedRCBD}
 
- \insertRef{federer_augmented_1961}{augmentedRCBD}
+\insertRef{federer_augmented_1961}{augmentedRCBD}
 
- \insertRef{mathur_data_2008}{augmentedRCBD}
+\insertRef{mathur_data_2008}{augmentedRCBD}
 
- \insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
+\insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
 }

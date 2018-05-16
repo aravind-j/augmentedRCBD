@@ -1,4 +1,4 @@
-#' Prints summary of \code{augmentedRCBD} object.
+#' Prints summary of \code{augmentedRCBD} object
 #'
 #' \code{print.augmentedRCBD} prints to console the summary of an object of
 #' class \code{augmentedRCBD} including the augmented design details, ANOVA
@@ -15,30 +15,30 @@ print.augmentedRCBD <- function(x, ...){
 
   cat("\nAugmented design details\n")
   cat("========================\n")
-  print(Details)
+  print(x$Details)
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
-  print(A1)
+  print(x$`ANOVA, Treatment Adjusted`)
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
-  print(A2)
+  print(x$`ANOVA, Block Adjusted`)
   cat("\nTreatment means\n")
   cat("===============\n")
-  print(Means)
+  print(x$Means)
   cat("\nCoefficient of variation\n")
   cat("========================\n")
-  cat(CV)
+  cat(x$CV)
   cat("\n\nOverall adjusted mean\n")
   cat("=====================\n")
-  cat(`Overall Adjusted mean`)
+  cat(x$`Overall adjusted mean`)
   cat("\n\nStandard errors\n")
   cat("===================\n")
-  print(SECD)
-  if (group) {
+  print(x$`Std. Errors`)
+  if (!is.null(x$Groups)) {
     cat("\nTreatment groups\n")
     cat("==================\n")
-    cat(paste("\nMethod : ", method.comp, "\n\n", sep = ""))
-    print(Groups)
+    cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
+    print(x$Groups)
   }
 }
 

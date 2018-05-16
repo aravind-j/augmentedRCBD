@@ -1,12 +1,12 @@
 #' Analysis of Augmented Randomised Complete Block Design
 #'
 #' \code{augmentedRCBD} is a function for analysis of variance of an augmented
-#' randomised block design and the generation as well as comparison of the
-#' adjusted means of the treatments/genotypes.
+#' randomised block design (Federer, 1956; Federer, 1961) and the generation as
+#' well as comparison of the adjusted means of the treatments/genotypes.
 #'
 #' This function borrows code from \code{DAU.test} function of \code{agricolae}
 #' package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur
-#' et al., 2008.
+#' et al., (2008).
 #'
 #' @note \itemize{ \item Data should preferably be balanced i.e. all the check
 #'   genotypes should be present in all the blocks. If not, a warning is issued.
@@ -40,7 +40,7 @@
 #'   \item{\code{Std. Errors}}{A data frame of standard error of difference
 #'   between various combinations along with critical difference and tukey's
 #'   honest significant difference (when \code{method.comp = "tukey"}) at
-#'   \code{alpha}.} \item{\code{Overall Adjusted mean}}{Overall adjusted mean.}
+#'   \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
 #'   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
 #'   data frame of pairwise comparisons of treatments. This is computed only if
 #'   argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
@@ -112,8 +112,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   # method.comp
   method.comp <- match.arg(method.comp, c("lsd","tukey"), several.ok = FALSE)
 
-  #if (!missing(checks)) {
-  if (is.null(checks)) {
+  if (!missing(checks)) {
+  #if (!is.null(checks)) {
     checks <- as.character("checks")
     # checks are present in treatment levels
     if (FALSE %in% c(checks %in% levels(treatment))) {
@@ -124,8 +124,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   }
 
   # Fix treatment order so that checks are in the beginning
-  #if (!missing(checks)) {
-  if (is.null(checks)) {
+  if (!missing(checks)) {
+  #if (is.null(checks)) {
     treatmentorder <- data.frame(table(treatment))
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
@@ -202,8 +202,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   co.treatment <- co[augmented3.aov$assign == 2]
   effects.treatment <- c(co.treatment, -sum(co.treatment))
   names(effects.treatment) <- levels(treatment)
-  `Overall Adjusted mean` = co[1]
-  names(`Overall Adjusted mean`) <- NULL
+  `Overall adjusted mean` = co[1]
+  names(`Overall adjusted mean`) <- NULL
 
   # Calculate adjusted block effects
   co.block <- co[augmented3.aov$assign == 1]
@@ -239,9 +239,9 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   rownames(A2[[1]])[5] <- "Block (eliminating Treatments)"
 
   # Adjusted means
-  #   mean.adj1 <- data.frame(mean.adj = `Overall Adjusted mean` + effects.treatment[1:(df.check + 1)])
+  #   mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
   #   mean.adj1$Treatment <- rownames(mean.adj1)
-  #   mean.adj2 <- data.frame(mean.adj = `Overall Adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
+  #   mean.adj2 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
   #   mean.adj2$Treatment <- rownames(mean.adj2)
   #   mean.adj <- rbind(mean.adj1, mean.adj2)
   #
@@ -313,8 +313,9 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   output <- list(Details = Details, Means = Means, `ANOVA, Treatment Adjusted` = A1,
                  `ANOVA, Block Adjusted` = A2, `Block effects` = effects.block,
                  `Treatment effects` = effects.treatment, `Std. Errors` = SECD,
-                 `Overall Adjusted mean` = `Overall Adjusted mean`,
-                 `CV` = CV, Comparisons = Comparison, Groups = Groups)
+                 `Overall adjusted mean` = `Overall adjusted mean`,
+                 `CV` = CV, `Comparison method` = method.comp,
+                 Comparisons = Comparison, Groups = Groups)
 
   # Set Class
   class(output) <- "augmentedRCBD"
