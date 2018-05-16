@@ -98,3 +98,7 @@ out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 
 \insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
 }
+\seealso{
+\code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},
+\code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}}, \code{\link[plantbreeding]{aug.rcb}}
+}

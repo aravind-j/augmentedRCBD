@@ -53,6 +53,8 @@
 #' @import multcompView
 #' @export
 #'
+#' @seealso \code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},
+#' \code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}}, \code{\link[plantbreeding]{aug.rcb}}
 #' @references
 #'
 #' \insertRef{federer_augmented_1956}{augmentedRCBD}

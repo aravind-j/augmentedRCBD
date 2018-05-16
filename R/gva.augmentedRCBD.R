@@ -80,6 +80,12 @@
 #'</sub>100</sub><big>]</big></em></p>}}{\deqn{GA = k \times \sigma_{g} \times
 #'\frac{H^{2}}{100}}}
 #'
+#'Where the constant \ifelse{html}{\out{<i>k</i>}}{\eqn{k}} is the standardized
+#'selection differential or selection intensity. The value of
+#'\ifelse{html}{\out{<i>k</i>}}{\eqn{k}} at 5\% proportion selected is 2.063.
+#'Values of \ifelse{html}{\out{<i>k</i>}}{\eqn{k}} at other selected proportions
+#'are available in Appendix Table A of Falconer and Mackay (1996).
+#'
 #'\ifelse{html}{\out{<p style="text-align: center;"><em>GAM = <big>[</big>
 #'<sup>GA</sup> &frasl; <sub><span
 #'style="text-decoration:overline">x</span></sub> <big>]</big> &times;
@@ -90,7 +96,9 @@
 #'\ifelse{html}{\out{&le;}}{\eqn{\le}} x \ifelse{html}{\out{<}}{\eqn{<}} 20 \tab
 #'Medium \cr \ifelse{html}{\out{&ge;}}{\eqn{\ge}} 20 \tab High }
 #'
-#'@param aug An object of class \code{augmentedRCBD}.
+#'@inheritParams describe.augmentedRCBD
+#'@param k The standardized selection differential or selection intensity.
+#'  Default is 2.063 for 5\% selection proportion (see \strong{Details}).
 #'
 #'@return A list with the following descriptive statistics:  \item{Count}{The
 #'  number of treatments/genotypes.} \item{Mean}{The mean value.}
@@ -114,30 +122,52 @@
 #'
 #'\insertRef{robinson_quantitative_1966}{augmentedRCBD}
 #'
+#'\insertRef{dudley_interpretation_1969}{augmentedRCBD}
+#'
 #'\insertRef{sivasubramanian_genotypic_1973}{augmentedRCBD}
+#'
+#'\insertRef{falconer_introduction_1996}{augmentedRCBD}
+#'
+#'@note Genetic variability analysis needs to be performed only if the sum of
+#'  squares of "Treatment: Test" are significant.
+#'
+#'  Negative estimates of variance components if computed are not abnormal. For
+#'  information on how to deal with these, refer Dudley and Moll (1969).
 #'
 #'@export
 #'
-#' @examples
-
-
+#'@examples
+#' # Example data
+#' blk <- c(rep(1,7),rep(2,6),rep(3,7))
+#' trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+#' y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+#'         70, 75, 74)
+#' y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
+#'         240, 268, 287, 226, 395, 450)
+#' data <- data.frame(blk, trt, y1, y2)
+#' # Convert block and treatment to factors
+#' data$blk <- as.factor(data$blk)
+#' data$trt <- as.factor(data$trt)
+#' # Results for variable y1
+#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE)
+#' # Results for variable y2
+#' out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                      alpha = 0.05, group = TRUE, console = TRUE)
 #'
-#' gva not necessary if "Treatment: Test" non significant
-#'
-#' values
-
-
-
-# https://juniperpublishers.com/artoaj/ARTOAJ.MS.ID.555744.php
-
-gva.augmentedRCBD <- function(aug, k = 2.06) {
+#' # Genetic variability analysis
+#' gva.augmentedRCBD(out1)
+#' gva.augmentedRCBD(out2)
+gva.augmentedRCBD <- function(aug, k = 2.063) {
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class augmentedRCBD')
   }
 
   PV <- aug$`ANOVA, Block Adjusted`[[1]]$`Sum Sq`["Test"]
+  PV <- unname(PV)
   EV <- aug$`ANOVA, Block Adjusted`[[1]]["Residuals", "Sum Sq"]
+  EV <- unname(EV)
   GV <- PV - EV
   Mean <- mean(aug$Means$`Adjusted Means`)
   GCV <- (sqrt(GV)/Mean)*100 # Burton 1951 1952
@@ -161,3 +191,23 @@ gva.augmentedRCBD <- function(aug, k = 2.06) {
 
 }
 
+
+
+# http://www.ihh.kvl.dk/htm/kc/popgen/genetics/8/1.htm
+# http://agtr.ilri.cgiar.org/Documents/compendia/Comp%20Selection%20Appendix.pdf
+# https://jvanderw.une.edu.au/Day1cChangeofVariance.pdf
+# https://wiki.groenkennisnet.nl/display/TAB/Chapter+9.5%3A+Selected+proportion+and+selection+intensity
+selection.intensity <- function(p, pop.size = 1000) {
+
+  selection.proportion <- p
+  threshold <- -qnorm(selection.proportion)
+  height.at.threshold <- exp(-0.5*(threshold^2))/sqrt(2*pi)
+  # infinite pop size
+  selection.intensity <- height.at.threshold/selection.proportion
+
+  # corrected for finite pop size
+  selection.intensity.corr <- selection.intensity-(pop.size-(pop.size*selection.proportion))/(2*selection.proportion*pop.size*((pop.size+1)*selection.intensity))
+
+  return(list(`Selection intensity` = selection.intensity,
+              `Corrected selection intensity` = selection.intensity.corr))
+}
