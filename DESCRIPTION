@@ -22,6 +22,7 @@ BugReports: https://github.com/aravind-j/augmentedRCBD/issues
 Imports:
     data.table,
     ggplot2,
+    moments,
     plyr,
     Rdpack,
     ReporteRs
