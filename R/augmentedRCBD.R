@@ -77,13 +77,38 @@
 #' # Convert block and treatment to factors
 #' data$blk <- as.factor(data$blk)
 #' data$trt <- as.factor(data$trt)
-#' # Results for variable y1
+#' # Results for variable y1 (checks inferred)
 #' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = TRUE)
-#' # Results for variable y2
+#' # Results for variable y2 (checks inferred)
 #' out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                      alpha = 0.05, group = TRUE, console = TRUE)
 #'
+#' # Results for variable y1 (checks specified)
+#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE,
+#'                       checks = c("1", "2", "3", "4"))
+#' # Results for variable y2 (checks specified)
+#' out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE),
+#' checks = c("1", "2", "3", "4"))
+#'
+#' # Error in case checks not replicated across all blocks
+#' # Check 1 and 4 not replicated in all 3 blocks
+#' trt <- c(1, 2, 3, 14, 7, 11, 12, 1, 2, 3, 4, 5, 9, 13, 2, 3, 4, 8, 6, 10)
+#' data$trt <- as.factor(trt)
+#' table(data$trt, data$blk)
+#' # Results for variable y1 (checks specified)
+#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE,
+#'                       checks = c("1", "2", "3", "4"))
+#'
+#' # Warning in case test treatments are replicated
+#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE)
+#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                       alpha = 0.05, group = TRUE, console = TRUE,
+#'                       checks = c("2", "3"))
 #'
 augmentedRCBD <- function(block, treatment, y, checks = NULL,
                           method.comp = c("lsd","tukey"),
@@ -114,37 +139,75 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   # method.comp
   method.comp <- match.arg(method.comp, c("lsd","tukey"), several.ok = FALSE)
 
-  if (!missing(checks)) {
+  if (!missing(checks) && !is.null(checks)) {
   #if (!is.null(checks)) {
-    checks <- as.character("checks")
+    checks <- as.character(checks)
     # checks are present in treatment levels
     if (FALSE %in% c(checks %in% levels(treatment))) {
       miss <- paste(checks[!(checks %in% levels(treatment))], collapse = ", ")
-      warning(paste("Following check(s) are not present in treatment levels:\n",
-                    miss))
+      stop(paste("Following check(s) are not present in treatment levels:\n",
+                    paste(miss, collapse = ", ")))
     }
   }
 
   # Fix treatment order so that checks are in the beginning
-  if (!missing(checks)) {
-  #if (is.null(checks)) {
-    treatmentorder <- data.frame(table(treatment))
+  if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
+  #if (!is.null(checks)) {
+    treatmentorder <- data.frame(table(treatment, block))
+    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+    treatmentorder <- dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder$Freq <- rowSums(subset(treatmentorder, select=-c(treatment)))
+    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+
+    nblocks <- length(levels(block))
+    rownames(treatmentorder) <- NULL
+
+    # check is specified checks are present in all the blocks
+    if(!(all(treatmentorder[treatmentorder$treatment %in% checks,]$Freq == nblocks))){
+      print(treatmentorder)
+      stop(paste('"checks" are not replicated across all the blocks (',
+                 nblocks, ')', sep = ""))
+    }
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
+    if(!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
+      warning("Test treatments are replicated")
+    }
 
     nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
                  tests)
     treatment <- factor(treatment, levels = nworder)
 
-  } else {
-    treatmentorder <- data.frame(table(treatment))
+  } else { # i.e. checks are not specified
+    treatmentorder <- data.frame(table(treatment, block))
+    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+    treatmentorder <- dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder$Freq <- rowSums(subset(treatmentorder, select=-c(treatment)))
+    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
     treatmentorder <- treatmentorder[with(treatmentorder,
                                           order(-Freq, treatment)), ]
     nworder <- treatmentorder$treatment
     treatment <- factor(treatment, levels = treatmentorder$treatment)
 
-    checks <- as.character(treatmentorder[treatmentorder$Freq != 1,]$treatment)
-    tests <- as.character(treatmentorder[treatmentorder$Freq == 1,]$treatment)
+    nblocks <- length(levels(block))
+    rownames(treatmentorder) <- NULL
+
+    # check if the checks can be inferred.
+    # i.e. if any treatments are present in all the blocks
+    if(!(nblocks %in% treatmentorder$Freq)){
+      print(treatmentorder)
+      stop(paste("Checks cannot be inferred as none of the treatments are",
+                 "replicated across all the blocks (",
+                 nblocks, ")", sep = ""))
+    }
+
+    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks,]$treatment)
+    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks,]$treatment)
+
+    tests <- levels(treatment)[!(levels(treatment) %in% checks)]
+    if(!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
+      warning("Test treatments are replicated")
+    }
   }
 
 
@@ -157,15 +220,12 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks,]
   rownames(blockwisechecks) <- NULL
 
-  Details <-   t(data.frame(`Number of blocks` = b, `Number of treatments` = ntr,
-                            `    Number of check treatments` = length(checks),
-                            `    Number of test treatments` = length(tests),
-                            `Check treatments` =  paste(checks, collapse = ", "),
-                            check.names = FALSE))
-  colnames(Details) <- c("")
+  Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
+                  `Number of check treatments` = length(checks),
+                  `Number of test treatments` = length(tests),
+                  `Check treatments` =  checks)
 
-  Details2  <- blockwisechecks
-
+  #Details2  <- blockwisechecks
 
   tb <- data.frame(treatment, block)
   tb$block <- as.character(tb$block)
@@ -180,7 +240,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   n.rep <- tapply(y, treatment, function(x) length(na.omit(x)))
   sds <- tapply(y, treatment, function(x) sd(x,na.rm = TRUE))
   std.err <- sds/sqrt(n.rep)
-  Means <- data.frame(Treatment = names(Means), Means, SE = sds, r = n.rep,
+  Means <- data.frame(Treatment = names(Means), Means, SE = std.err, r = n.rep,
                       Min = mi, Max = ma)
   Means <- merge(Means, tb, by.x = "Treatment", by.y = "treatment")
   Means <- Means[c("Treatment", "Block", "Means", "SE", "r", "Min", "Max")]

@@ -15,7 +15,19 @@ print.augmentedRCBD <- function(x, ...){
 
   cat("\nAugmented design details\n")
   cat("========================\n")
-  print(x$Details)
+  Details <- x$Details
+  b <- Details$`Number of blocks`
+  ntr <- Details$`Number of treatments`
+  checks <- Details$`Check treatments`
+  ltests <- Details$`Number of test treatments`
+
+  Details <- t(data.frame(`Number of blocks` = b, `Number of treatments` = ntr,
+                  `Number of check treatments` = length(checks),
+                  `Number of test treatments` = ltests,
+                  `Check treatments` =  paste(checks, collapse = ", ")))
+  rownames(Details) <- gsub("\\.", " ", rownames(Details))
+  colnames(Details) <- c("")
+  print(Details)
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
   print(x$`ANOVA, Treatment Adjusted`)

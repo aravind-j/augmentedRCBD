@@ -152,7 +152,7 @@
 #' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = TRUE)
 #' # Results for variable y2
-#' out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#' out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
 #'                      alpha = 0.05, group = TRUE, console = TRUE)
 #'
 #' # Genetic variability analysis
