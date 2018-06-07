@@ -50,7 +50,6 @@
 #'   \code{TRUE} }
 #'
 #' @import emmeans
-#' @import multcompView
 #' @export
 #'
 #' @seealso \code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},
@@ -155,7 +154,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   #if (!is.null(checks)) {
     treatmentorder <- data.frame(table(treatment, block))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
     treatmentorder$Freq <- rowSums(subset(treatmentorder, select=-c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
 
@@ -181,7 +180,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   } else { # i.e. checks are not specified
     treatmentorder <- data.frame(table(treatment, block))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
     treatmentorder$Freq <- rowSums(subset(treatmentorder, select=-c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
     treatmentorder <- treatmentorder[with(treatmentorder,
@@ -326,7 +325,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     if (method.comp == "lsd") adjust = "none"
     if (method.comp == "tukey") adjust = "tukey"
 
-    Comparison <- data.frame(summary(pairs(LSMeans, adjust = adjust)))
+    Comparison <- data.frame(summary(emmeans::pairs(LSMeans, adjust = adjust)))
     Groups <- data.frame(emmeans::cld(LSMeans, adjust = adjust))
 
     Comparison$sig <- ifelse(Comparison$p.value < 0.001, "***",
