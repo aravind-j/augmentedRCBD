@@ -5,7 +5,7 @@
 \title{Analysis of Augmented Randomised Complete Block Design}
 \usage{
 augmentedRCBD(block, treatment, y, checks = NULL, method.comp = c("lsd",
-  "tukey"), alpha = 0.05, group = TRUE, console = TRUE)
+  "tukey", "none"), alpha = 0.05, group = TRUE, console = TRUE)
 }
 \arguments{
 \item{block}{Vector of blocks (as a factor).}
@@ -28,7 +28,8 @@ multiple comparisons.}
 \item{group}{If \code{TRUE}, genotypes will be grouped according to
 \code{"method.comp"}.}
 
-\item{console}{If \code{TRUE}, output will be printed to console.}
+\item{console}{If \code{TRUE}, output will be printed to console. Default is
+\code{TRUE}.}
 }
 \value{
 A list of class \code{augmentedRCBD} containing the following
@@ -125,5 +126,6 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 }
 \seealso{
 \code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},
-\code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}}, \code{\link[plantbreeding]{aug.rcb}}
+  \code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}},
+  \code{\link[plantbreeding]{aug.rcb}}
 }

@@ -7,14 +7,48 @@ Traits/Characters}
 \usage{
 augmentedRCBD.bulk(data, block, treatment, traits, checks = NULL,
   method.comp = c("lsd", "tukey"), alpha = 0.05, describe = TRUE,
-  freqdist = TRUE, gva = TRUE, round.digits)
+  freqdist = TRUE, gva = TRUE, check.col = "red")
 }
 \arguments{
-\item{data}{}
+\item{data}{The data as a data.frame object. The data.frame should possess
+columns specifying the block, treatment and multiple traits/characters.}
 
-\item{round.digits}{}
+\item{block}{Name of column specifying the blocks in the design as a
+character string.}
+
+\item{treatment}{Name of column specifying the treatments as a character
+string.}
+
+\item{traits}{Name of columns specifying the treatments as a character
+vector.}
+
+\item{checks}{Character vector of the checks present in \code{treatment}
+levels. If not specified, checks are inferred from the data on the basis of
+number of replications of treatments/genotypes.}
+
+\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for
+least significant difference or \code{"tukey"} for Tukey's honest
+significant difference).}
+
+\item{alpha}{Type I error probability (Significance level) to be used for
+multiple comparisons.}
+
+\item{describe}{If \code{TRUE}, descriptive statistics will be computed.
+Default is \code{TRUE}.}
+
+\item{freqdist}{If \code{TRUE}, frequency distributions be plotted. Default
+is \code{TRUE}.}
+
+\item{gva}{If \code{TRUE}, genetic variability analysis will be done. Default
+is \code{TRUE}.}
+
+\item{check.col}{The colour(s) to be used to highlight check values in the
+plot as a character vector.}
 }
 \description{
-Analysis of Augmented Randomised Complete Block Design for Multiple
-Traits/Characters
+\code{augmentedRCBD.bulk} is a wrapper around the functions
+\code{augmentedRCBD}, \code{describe.augmentedRCBD},
+\code{freqdist.augmentedRCBD} and \code{gva.augmentedRCBD}. It will carry out
+these analyses for multiple traits/characters from the input data as a
+data.frame object.
 }
