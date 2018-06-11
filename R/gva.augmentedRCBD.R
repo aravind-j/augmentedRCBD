@@ -164,10 +164,19 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
     stop('"aug" is not of class augmentedRCBD')
   }
 
-  PV <- aug$`ANOVA, Block Adjusted`[[1]]$`Sum Sq`["Test"]
-  PV <- unname(PV)
-  EV <- aug$`ANOVA, Block Adjusted`[[1]]["Residuals", "Sum Sq"]
-  EV <- unname(EV)
+  if(is.data.frame(aug$`ANOVA, Block Adjusted`)){
+    PV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Treatment: Test","Mean.Sq"]
+    PV <- unname(PV)
+    EV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Residuals","Mean.Sq"]
+    EV <- unname(EV)
+
+  } else {
+    PV <- aug$`ANOVA, Block Adjusted`[[1]]$`Mean Sq`["Test"]
+    PV <- unname(PV)
+    EV <- aug$`ANOVA, Block Adjusted`[[1]]["Residuals", "Mean Sq"]
+    EV <- unname(EV)
+  }
+
   GV <- PV - EV
   Mean <- mean(aug$Means$`Adjusted Means`)
   GCV <- (sqrt(GV)/Mean)*100 # Burton 1951 1952

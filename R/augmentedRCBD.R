@@ -26,7 +26,8 @@
 #'   multiple comparisons.
 #' @param group If \code{TRUE}, genotypes will be grouped according to
 #'   \code{"method.comp"}.
-#' @param console If \code{TRUE}, output will be printed to console.
+#' @param console If \code{TRUE}, output will be printed to console. Default is
+#'   \code{TRUE}.
 #'
 #' @return A list of class \code{augmentedRCBD} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used.}
@@ -53,7 +54,8 @@
 #' @export
 #'
 #' @seealso \code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},
-#' \code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}}, \code{\link[plantbreeding]{aug.rcb}}
+#'   \code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}},
+#'   \code{\link[plantbreeding]{aug.rcb}}
 #' @references
 #'
 #' \insertRef{federer_augmented_1956}{augmentedRCBD}
@@ -110,8 +112,9 @@
 #'                       checks = c("2", "3"))
 #'
 augmentedRCBD <- function(block, treatment, y, checks = NULL,
-                          method.comp = c("lsd","tukey"),
-                          alpha=0.05, group=TRUE, console = TRUE) {
+                          method.comp = c("lsd","tukey", "none"),
+                          alpha=0.05, group=TRUE, console = TRUE,
+                          simplify = FALSE) {
   # Checks
   # block
   if (!is.factor(block)) {
@@ -136,7 +139,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
   }
   # method.comp
-  method.comp <- match.arg(method.comp, c("lsd","tukey"), several.ok = FALSE)
+  method.comp <- match.arg(method.comp, c("lsd","tukey", "none"), several.ok = FALSE)
 
   if (!missing(checks) && !is.null(checks)) {
   #if (!is.null(checks)) {
@@ -300,32 +303,49 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   rownames(A2[[1]])[5] <- "Block (eliminating Treatments)"
 
   # Adjusted means
-  #   mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
-  #   mean.adj1$Treatment <- rownames(mean.adj1)
-  #   mean.adj2 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
-  #   mean.adj2$Treatment <- rownames(mean.adj2)
-  #   mean.adj <- rbind(mean.adj1, mean.adj2)
-  #
-  #   Means <- merge.data.frame(Means, mean.adj, by = "Treatment", all = TRUE)
+  if(method.comp == "none") {
+    mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
+    mean.adj1$Treatment <- rownames(mean.adj1)
+    mean.adj2 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
+    mean.adj2$Treatment <- rownames(mean.adj2)
+    mean.adj <- rbind(mean.adj1, mean.adj2)
 
-  LSMeans <- emmeans::emmeans(augmented3.aov, "treatment")
-  LSMeans2 <- summary(LSMeans)[, c("treatment", "emmean")]
-  colnames(LSMeans2) <- c("Treatment", "Adjusted Means")
+    Means <- merge.data.frame(Means, mean.adj, by = "Treatment", all = TRUE)
 
-  Means <- merge.data.frame(Means, LSMeans2, by = "Treatment", all = TRUE)
+    colnames(Means) <- c("Treatment", "Block", "Means", "SE", "r",
+                         "Min", "Max", "Adjusted Means")
 
-  colnames(Means) <- c("Treatment", "Block", "Means", "SE", "r",
-                       "Min", "Max", "Adjusted Means")
+  } else {
+    LSMeans <- emmeans::emmeans(augmented3.aov, "treatment")
+    LSMeans2 <- summary(LSMeans)[, c("treatment", "emmean")]
+    colnames(LSMeans2) <- c("Treatment", "Adjusted Means")
+
+    Means <- merge.data.frame(Means, LSMeans2, by = "Treatment", all = TRUE)
+
+    colnames(Means) <- c("Treatment", "Block", "Means", "SE", "r",
+                         "Min", "Max", "Adjusted Means")
+  }
+
+  if(simplify == TRUE) {
+    A1 <- data.frame(A1[[1]])
+    A1 <- cbind(Source = trimws(rownames(A1)), A1)
+    A2 <- data.frame(A2[[1]])
+    A2 <- cbind(Source = trimws(rownames(A2)), A2)
+    rownames(A1) <- NULL
+    rownames(A2) <- NULL
+    }
 
   # Grouping of treatments
   Comparison <- NULL
   Groups <- NULL
 
+  if(method.comp == "none") group = FALSE
+
   if (group == TRUE) {
     if (method.comp == "lsd") adjust = "none"
     if (method.comp == "tukey") adjust = "tukey"
 
-    Comparison <- data.frame(summary(emmeans::pairs(LSMeans, adjust = adjust)))
+    Comparison <- data.frame(summary(pairs(LSMeans, adjust = adjust)))
     Groups <- data.frame(emmeans::cld(LSMeans, adjust = adjust))
 
     Comparison$sig <- ifelse(Comparison$p.value < 0.001, "***",
@@ -370,6 +390,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                         paste("CD (", alpha*100, "%)",sep = ""),
                         paste("Tukey HSD (", alpha*100, "%)",sep = ""))
   }
+
+  rm(augmented.aov, augmented2.aov, augmented3.aov, augmented3.anova)
 
   output <- list(Details = Details, Means = Means, `ANOVA, Treatment Adjusted` = A1,
                  `ANOVA, Block Adjusted` = A2, `Block effects` = effects.block,
