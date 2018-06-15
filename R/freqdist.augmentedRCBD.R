@@ -97,7 +97,8 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
                   n = NN, bw = bw), colour = "blue") +
     labs(x = xlab, y = "Frequency") +
     theme_bw() +
-    theme(axis.text = element_text(colour = "black"))
+    theme(axis.text = element_text(colour = "black"),
+          plot.margin = unit(c(0, 1, 1, 1), "lines"))
 
   if (highlight.check) {
     G1 <- G1 +
@@ -124,11 +125,11 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
       theme(plot.margin = unit(c(0.25,0.1,0,0.25),"cm"),
             axis.text = element_text(colour = "black"))
 
-    G <- rbind(ggplotGrob(G2)[-c(1,7),], ggplotGrob(G1)[-1,], size = "last")
+    G <- rbind(ggplotGrob(G2)[-c(7),], ggplotGrob(G1), size = "last")
     G <- resize_heights(G, c(1,3))
 
   } else {
-    G <- ggplotGrob(G1)
+    G <- ggplotGrob(G1 + theme(plot.margin = unit(c(1, 1, 1, 1), "lines")))
   }
 
 return(G)
