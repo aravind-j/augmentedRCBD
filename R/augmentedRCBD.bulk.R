@@ -78,21 +78,78 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
   }
 
-  # convert to factor
-  data[, block] <- as.factor(data[, block])
-  data[, treatment] <- as.factor(data[, treatment])
+  # check.col
+  if (!all(iscolour(check.col))) {
+    stop('"check.col" specifies invalid colour(s)')
+  }
 
-  if (!missing(checks) && !is.null(checks)) {
-  #if (!is.null(checks)) {
-    checks <- as.character("checks")
-    # checks are present in treatment levels
-    if (FALSE %in% c(checks %in% levels(data[, treatment]))) {
-      miss <- paste(checks[!(checks %in% levels(data[, treatment]))], collapse = ", ")
-      stop(paste("Following check(s) are not present in treatment levels:\n",
-                    miss))
+  # convert to factor
+  data[, block] <- as.factor(as.character(data[, block]))
+  data[, treatment] <- as.factor(as.character(data[, treatment]))
+
+  # Fix treatment order so that checks are in the beginning
+  if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
+    #if (!is.null(checks)) {
+    treatmentorder <- data.frame(table(treatment = data[, treatment],
+                                       block = data[, block]))
+    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                          select = -c(treatment)))
+    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+
+    nblocks <- length(levels(data[,block]))
+    rownames(treatmentorder) <- NULL
+
+
+    # check if "checks" are present in all the blocks
+    if (!(all(treatmentorder[treatmentorder$treatment %in% checks,]$Freq == nblocks))) {
+      print(treatmentorder)
+      stop(paste('"checks" are not replicated across all the blocks (',
+                 nblocks, ')', sep = ""))
+    }
+
+    tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
+    if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
+      warning("Test treatments are replicated")
+    }
+
+  } else {# i.e. "checks" is not specified
+    treatmentorder <- data.frame(table(treatment = data[, treatment],
+                                       block = data[, block]))
+    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                          select = -c(treatment)))
+    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+    treatmentorder <- treatmentorder[with(treatmentorder,
+                                          order(-Freq, treatment)), ]
+    nblocks <- length(levels(data[,block]))
+    rownames(treatmentorder) <- NULL
+
+    # check if the checks can be inferred.
+    # i.e. if any treatments are present in all the blocks
+    if (!(nblocks %in% treatmentorder$Freq)) {
+      print(treatmentorder)
+      stop(paste("Checks cannot be inferred as none of the treatments are",
+                 "replicated across all the blocks (",
+                 nblocks, ")", sep = ""))
+    }
+
+    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks,]$treatment)
+    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks,]$treatment)
+
+    tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
+    if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
+      warning("Test treatments are replicated")
     }
   }
 
+  if (length(check.col) != 1) {
+   if (length(check.col) != length(checks)) {
+     stop('"checks" and "check.col" are of unequal lengths')
+   }
+ }
 
   output <- vector("list", length(traits))
   names(output) <- traits
@@ -113,37 +170,32 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       invokeRestart("muffleWarning")
     })
 
-    print(traits[i])
+    #print(traits[i])
+    cat(paste("\nANOVA for ", traits[i], " computed (", i,  "/",
+              length(traits), ")\n", sep = ""))
     gc()
   }
 
   # Details
   Details <- output[[1]]$Details
+  Details <- append(Details, list(`Number of Traits` = length(traits),
+                                  Traits = traits))
 
   # ANOVA table
   anovata <- lapply(output, function(x) x$`ANOVA, Treatment Adjusted`)
   anovaba <- lapply(output, function(x) x$`ANOVA, Block Adjusted`)
 
-  if(!all(unlist(lapply(X = anovata, FUN = is.data.frame)))){
+  if (!all(unlist(lapply(X = anovata, FUN = is.data.frame)))) {
     anovata <- lapply(anovata, function(x) data.frame(x[[1]]))
-    anovata <- lapply(anovata, function(x) cbind(Type = "ANOVA, Treatment Adjusted",
-                                                 Source = rownames(x), x))
-  } else {
-    anovata <- lapply(anovata, function(x) cbind(Type = "ANOVA, Treatment Adjusted",
-                                                 x))
+    anovata <- lapply(anovata, function(x) cbind(Source = rownames(x), x))
   }
-  if(!all(unlist(lapply(X = anovaba, FUN = is.data.frame)))){
+  if (!all(unlist(lapply(X = anovaba, FUN = is.data.frame)))) {
     anovaba <- lapply(anovaba, function(x) data.frame(x[[1]]))
-    anovaba <- lapply(anovaba, function(x) cbind(Type = "ANOVA, Block Adjusted",
-                                                 Source = rownames(x), x))
-  } else {
-    anovaba <- lapply(anovaba, function(x) cbind(Type = "ANOVA, Block Adjusted",
-                                                 x))
+    anovaba <- lapply(anovaba, function(x) cbind(Source = rownames(x), x))
   }
 
   anovata <- Map(cbind, anovata, Trait = names(anovata))
   anovaba <- Map(cbind, anovaba, Trait = names(anovaba))
-
 
   anovata <- lapply(anovata, function(x) dplyr::mutate_if(x, is.factor, as.character))
   anovaba <- lapply(anovaba, function(x) dplyr::mutate_if(x, is.factor, as.character))
@@ -156,30 +208,39 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovaba$sig <- ifelse(anovaba$Pr..F. < 0.01, "**",
                         ifelse(anovaba$Pr..F. < 0.05, "*", ""))
 
-  anovatable <- dplyr::bind_rows(anovata, anovaba)
-  anovatable$Source <- trimws(anovatable$Source)
-  anovatable$sig[is.na(anovatable$sig)] <- ""
+  anovata$Source <- trimws(anovata$Source)
+  anovaba$Source <- trimws(anovaba$Source)
+
+  anovata$sig[is.na(anovata$sig)] <- ""
+  anovaba$sig[is.na(anovaba$sig)] <- ""
 
   # Round off the MSS values according to value
-  anovatable$MSS <- ifelse(round(anovatable$Mean.Sq, 2) != 0,
-                           as.character(round(anovatable$Mean.Sq, 2)),
+  anovata$MSS <- ifelse(round(anovata$Mean.Sq, 2) != 0,
+                           as.character(round(anovata$Mean.Sq, 2)),
                            sub("\\.$", "", sub(".0+$", "",
-                                               sprintf("%f", signif(anovatable$Mean.Sq, 2)))))
+                                               sprintf("%f", signif(anovata$Mean.Sq, 2)))))
+  anovaba$MSS <- ifelse(round(anovaba$Mean.Sq, 2) != 0,
+                           as.character(round(anovaba$Mean.Sq, 2)),
+                           sub("\\.$", "", sub(".0+$", "",
+                                               sprintf("%f", signif(anovaba$Mean.Sq, 2)))))
 
+  anovata$MSS <- paste(anovata$MSS, stringi::stri_pad_right(anovata$sig, 3), sep = " ")
+  anovaba$MSS <- paste(anovaba$MSS, stringi::stri_pad_right(anovaba$sig, 3), sep = " ")
 
-  anovaout <- dcast(anovatable, Type + Source + Df ~ Trait, value.var = "MSS")
-  anovasig <- dcast(anovatable, Type + Source + Df ~ Trait, value.var = "sig")
-  colnames(anovasig) <- c("Type", "Source",
-                          paste(setdiff(colnames(anovasig),c("Type", "Source")),
-                                "sig", sep = "_"))
+  anovataout <- dcast(anovata, Source + Df ~ Trait, value.var = "MSS")
+  rm(anovata)
 
-  ind <- rbind(names(anovaout),names(anovasig))
-  ind <-  unique(as.vector(ind))
+  anovabaout <- dcast(anovaba, Source + Df ~ Trait, value.var = "MSS")
+  rm(anovaba)
 
-  anovaout <- merge(anovaout, anovasig, by = c("Type", "Source"))
-  anovaout <- anovaout[, ind]
+  anovataout$sl <- c(1, 5, 2, 3, 4)
+  anovataout <- arrange(anovataout, sl)
 
-  rm(anovasig, anovata, anovaba, anovatable)
+  anovabaout$sl <- c(5, 6, 1, 2, 4, 3)
+  anovabaout <- arrange(anovabaout, sl)
+
+  anovataout$sl <- NULL
+  anovabaout$sl <- NULL
 
   # Adjusted means
   adjmeans <- lapply(output, function(x) x$Means)
@@ -214,10 +275,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   secd <- lapply(secd, function(x) dplyr::mutate_if(x, is.factor, as.character))
   secd <- dplyr::bind_rows(secd)
   secd$`Std. Error of Diff.` <- round.conditional(secd$`Std. Error of Diff.`)
-  secd$`CD (5%)` <- round.conditional(secd$`CD (5%)`)
+  secd[,grepl("CD \\(", colnames(secd))] <- round.conditional(secd[,grepl("CD \\(", colnames(secd))])
 
   seout <- reshape2::dcast(secd, Comparison ~ Trait, value.var = "Std. Error of Diff.")
-  cdout <- reshape2::dcast(secd, Comparison ~ Trait, value.var = "CD (5%)")
+  cdout <- reshape2::dcast(secd, Comparison ~ Trait, value.var = colnames(secd)[grepl("CD \\(", colnames(secd))])
 
   # Descriptive statistics
   descout <- vector("list", length(traits))
@@ -244,6 +305,11 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error", "Std.Deviation",
                          "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
                          "Kurtosis_sig")
+  descout$Skewness <- paste(descout$Skewness, stringi::stri_pad_right(descout$Skewness_sig, 3), sep = " ")
+  descout$Kurtosis <- paste(descout$Kurtosis, stringi::stri_pad_right(descout$Kurtosis_sig, 3), sep = " ")
+  descout <- descout[, c("Trait", "Count", "Mean", "Std.Error", "Std.Deviation",
+                         "Min", "Max", "Skewness", "Kurtosis")]
+
 
   # GVA
   gvaout <- vector("list", length(traits))
@@ -366,13 +432,26 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     })
   }
 
+  out <- list(Details = Details, `ANOVA, Treatment Adjusted` = anovataout,
+              `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans, alpha = alpha,
+              `Std. Errors` = seout, CD = cdout,
+              `Overall adjusted mean` = oadjmean,
+              `CV` = cvout, `Descriptive statistics` = descout,
+              `Frequency distribution` = fqout,
+              `Genetic variability analysis` = gvaout,
+              `GVA plots` = list(`Phenotypic and Genotypic CV` = gvaplot_cvg,
+                                 `Broad sense heritability` = gvaplot_hbsg,
+                                 `Genetic advance over mean` = gvaplot_gamg),
+              warnings = list(warn, fqwarn))
+
+  # Set Class
+  class(out) <- "augmentedRCBD.bulk"
+
+  return(out)
 
 }
 
-
-
 round.conditional <- function(x, digits = 2){
-
   x <- ifelse(round(x, digits) != 0,
          as.character(round(x, digits)),
          as.character(signif(x, digits)))
@@ -380,18 +459,28 @@ round.conditional <- function(x, digits = 2){
 
 }
 
+iscolour <- function(x) {
+  sapply(x, function(x) {
+    tryCatch(is.matrix(col2rgb(x)),
+             error = function(e) FALSE)
+  })
+}
 
-library(cowplot)
-plot_grid(gvaplot_cvg, gvaplot_hbsg, gvaplot_gamg, ncol = 1, align = "v")
 
-rows = 4
-cols = 2
-perpage = rows*cols
-npage <- plyr::round_any(length(fqout)/perpage, 1, ceiling)
-FqDistPlotsMulti <- split(fqout, seq.int(1, length(fqout), perpage))
 
-pdf(file = "Freq distribution.pdf", height = 16.5, width =  11.7, onefile=TRUE)
-plot_grid(plotlist = FqDistPlotsMulti[[1]], ncol = cols, nrow = rows, scale = 0.9)
-plot_grid(plotlist = FqDistPlotsMulti[[2]], ncol = cols, nrow = rows, scale = 0.9)
-dev.off()
+# library(cowplot)
+# plot_grid(gvaplot_cvg, gvaplot_hbsg, gvaplot_gamg, ncol = 1, align = "v")
+#
+# rows = 4
+# cols = 2
+# perpage = rows*cols
+# npage <- plyr::round_any(length(fqout)/perpage, 1, ceiling)
+# FqDistPlotsMulti <- split(fqout, seq.int(1, length(fqout), perpage))
+#
+# pdf(file = "Freq distribution.pdf", height = 16.5, width =  11.7, onefile=TRUE)
+# plot_grid(plotlist = FqDistPlotsMulti[[1]], ncol = cols, nrow = rows, scale = 0.9)
+# plot_grid(plotlist = FqDistPlotsMulti[[2]], ncol = cols, nrow = rows, scale = 0.9)
+# dev.off()
+
+
 

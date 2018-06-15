@@ -62,11 +62,23 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
                                    check.col = "red") {
 
   if (!is(aug, "augmentedRCBD")) {
-    stop('"aug" is not of class augmentedRCBD')
+    stop('"aug" is not of class "augmentedRCBD"')
   }
+
+  # check.col
+  if (!all(iscolour(check.col))) {
+    stop('"check.col" specifies invalid colour(s)')
+  }
+
 
   checks <- aug$Details$`Check treatments`
   dat <- aug$Means$`Adjusted Means`
+
+  if (length(check.col) != 1) {
+    if (length(check.col) != length(checks)) {
+      stop('"checks" and "check.col" are of unequal lengths')
+    }
+  }
 
   NN <- length(dat)
   bw <- binw(dat, "sturges")
@@ -87,7 +99,7 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
     theme_bw() +
     theme(axis.text = element_text(colour = "black"))
 
-  if(highlight.check) {
+  if (highlight.check) {
     G1 <- G1 +
       geom_vline(xintercept = aug$Means[aug$Means$Treatment %in% checks,]$`Adjusted Means`,
                  size = 1, colour = check.col)
@@ -108,8 +120,8 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
       theme_bw() +
       # theme(axis.text.x = element_blank(),
       #       axis.ticks.x = element_blank()) +
-      theme(legend.position="none") +
-      theme(plot.margin=unit(c(0.25,0.1,0,0.25),"cm"),
+      theme(legend.position = "none") +
+      theme(plot.margin = unit(c(0.25,0.1,0,0.25),"cm"),
             axis.text = element_text(colour = "black"))
 
     G <- rbind(ggplotGrob(G2)[-c(1,7),], ggplotGrob(G1)[-1,], size = "last")

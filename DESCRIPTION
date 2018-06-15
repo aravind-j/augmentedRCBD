@@ -9,6 +9,12 @@ Authors@R: c(
   	person(c("Mukesh", "Sankar", "S."),
     email = "mukeshsankar@gmail.com",
     role = c("aut")),
+    person(c("Dhammaprakash", "Pandhari", "Wankhede"),
+    email = "d.wankhede@icar.gov.in",
+    role = c("aut")),
+    person(c("Vikender", "Kaur"),
+    email = "vikender.kaur@icar.gov.in",
+    role = c("aut")),
     person("ICAR-NBGPR",
     role = c("cph")))
 Copyright: 2015-2018, ICAR-NBPGR
@@ -21,9 +27,11 @@ URL: https://github.com/aravind-j/augmentedRCBD
 BugReports: https://github.com/aravind-j/augmentedRCBD/issues
 Imports:
     dplyr,
+    flextable,
     ggplot2,
     moments,
     Rdpack,
-    ReporteRs,
+    stringi,
+    officer,
     reshape2
 RdMacros: Rdpack

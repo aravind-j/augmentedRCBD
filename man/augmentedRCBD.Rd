@@ -5,7 +5,8 @@
 \title{Analysis of Augmented Randomised Complete Block Design}
 \usage{
 augmentedRCBD(block, treatment, y, checks = NULL, method.comp = c("lsd",
-  "tukey", "none"), alpha = 0.05, group = TRUE, console = TRUE)
+  "tukey", "none"), alpha = 0.05, group = TRUE, console = TRUE,
+  simplify = FALSE)
 }
 \arguments{
 \item{block}{Vector of blocks (as a factor).}

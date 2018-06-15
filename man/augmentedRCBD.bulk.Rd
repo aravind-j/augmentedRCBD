@@ -6,8 +6,8 @@
 Traits/Characters}
 \usage{
 augmentedRCBD.bulk(data, block, treatment, traits, checks = NULL,
-  method.comp = c("lsd", "tukey"), alpha = 0.05, describe = TRUE,
-  freqdist = TRUE, gva = TRUE, check.col = "red")
+  alpha = 0.05, describe = TRUE, freqdist = TRUE, gva = TRUE,
+  check.col = "red")
 }
 \arguments{
 \item{data}{The data as a data.frame object. The data.frame should possess
@@ -25,10 +25,6 @@ vector.}
 \item{checks}{Character vector of the checks present in \code{treatment}
 levels. If not specified, checks are inferred from the data on the basis of
 number of replications of treatments/genotypes.}
-
-\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for
-least significant difference or \code{"tukey"} for Tukey's honest
-significant difference).}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
 multiple comparisons.}

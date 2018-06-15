@@ -161,7 +161,7 @@
 gva.augmentedRCBD <- function(aug, k = 2.063) {
 
   if (!is(aug, "augmentedRCBD")) {
-    stop('"aug" is not of class augmentedRCBD')
+    stop('"aug" is not of class "augmentedRCBD"')
   }
 
   if(is.data.frame(aug$`ANOVA, Block Adjusted`)){

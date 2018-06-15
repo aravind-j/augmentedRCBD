@@ -158,21 +158,22 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     treatmentorder <- data.frame(table(treatment, block))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
     treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
-    treatmentorder$Freq <- rowSums(subset(treatmentorder, select=-c(treatment)))
+    treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                          select = -c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
 
     nblocks <- length(levels(block))
     rownames(treatmentorder) <- NULL
 
-    # check is specified checks are present in all the blocks
-    if(!(all(treatmentorder[treatmentorder$treatment %in% checks,]$Freq == nblocks))){
+    # check if "checks" are present in all the blocks
+    if (!(all(treatmentorder[treatmentorder$treatment %in% checks,]$Freq == nblocks))) {
       print(treatmentorder)
       stop(paste('"checks" are not replicated across all the blocks (',
                  nblocks, ')', sep = ""))
     }
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
-    if(!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
+    if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
       warning("Test treatments are replicated")
     }
 
@@ -180,11 +181,12 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                  tests)
     treatment <- factor(treatment, levels = nworder)
 
-  } else { # i.e. checks are not specified
+  } else {# i.e. "checks" is not specified
     treatmentorder <- data.frame(table(treatment, block))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
     treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
-    treatmentorder$Freq <- rowSums(subset(treatmentorder, select=-c(treatment)))
+    treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                          select = -c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
     treatmentorder <- treatmentorder[with(treatmentorder,
                                           order(-Freq, treatment)), ]
@@ -196,7 +198,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     # check if the checks can be inferred.
     # i.e. if any treatments are present in all the blocks
-    if(!(nblocks %in% treatmentorder$Freq)){
+    if (!(nblocks %in% treatmentorder$Freq)) {
       print(treatmentorder)
       stop(paste("Checks cannot be inferred as none of the treatments are",
                  "replicated across all the blocks (",
@@ -207,7 +209,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks,]$treatment)
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
-    if(!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
+    if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
       warning("Test treatments are replicated")
     }
   }
@@ -303,7 +305,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   rownames(A2[[1]])[5] <- "Block (eliminating Treatments)"
 
   # Adjusted means
-  if(method.comp == "none") {
+  if (method.comp == "none") {
     mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
     mean.adj1$Treatment <- rownames(mean.adj1)
     mean.adj2 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
@@ -326,7 +328,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                          "Min", "Max", "Adjusted Means")
   }
 
-  if(simplify == TRUE) {
+  if (simplify == TRUE) {
     A1 <- data.frame(A1[[1]])
     A1 <- cbind(Source = trimws(rownames(A1)), A1)
     A2 <- data.frame(A2[[1]])
@@ -339,7 +341,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   Comparison <- NULL
   Groups <- NULL
 
-  if(method.comp == "none") group = FALSE
+  if (method.comp == "none") group = FALSE
 
   if (group == TRUE) {
     if (method.comp == "lsd") adjust = "none"
