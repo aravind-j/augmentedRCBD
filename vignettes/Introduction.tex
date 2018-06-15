@@ -1,0 +1,470 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={The augmentedRCBD package: A brief introduction},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{The \textbf{augmentedRCBD} package: A brief introduction}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LE,RO]{\slshape \rightmark}
+\fancyfoot[C]{\thepage}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+\hypersetup{linktoc=all}
+\hypersetup{linkcolor=blue}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+\fancyhead[LO,RE]{The augmentedRCBD package{:} A brief introduction}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+ {\it J. Aravind\textsuperscript{1} , Mukesh Sankar S.\textsuperscript{2}}
+\end{center}
+
+\begin{center}
+ Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi
+ Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi
+\end{center}
+
+\begin{center}
+2018-06-15
+\end{center}
+
+\begin{center}
+\vspace{6pt}
+\hrule
+\end{center}
+
+\tableofcontents
+
+\hypertarget{overview}{%
+\subsection{Overview}\label{overview}}
+
+\hypertarget{installation}{%
+\subsection{Installation}\label{installation}}
+
+The package can be installed using the following functions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Install from CRAN}
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{'augmentedRCBD'}\NormalTok{, }\DataTypeTok{dependencies=}\OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# Install development version from Github}
+\NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"aravind-j/augmentedRCBD"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Then the package can be loaded using the function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(augmentedRCBD)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{testing}{%
+\subsection{Testing}\label{testing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Example data}
+\NormalTok{blk <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{7}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{6}\NormalTok{),}\KeywordTok{rep}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\NormalTok{trt <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{y1 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{92}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{87}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{96}\NormalTok{, }\DecValTok{89}\NormalTok{, }\DecValTok{82}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{91}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{78}\NormalTok{, }\DecValTok{83}\NormalTok{, }\DecValTok{77}\NormalTok{, }\DecValTok{78}\NormalTok{, }\DecValTok{78}\NormalTok{,}
+\DecValTok{70}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{74}\NormalTok{)}
+\NormalTok{y2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{258}\NormalTok{, }\DecValTok{224}\NormalTok{, }\DecValTok{238}\NormalTok{, }\DecValTok{278}\NormalTok{, }\DecValTok{347}\NormalTok{, }\DecValTok{300}\NormalTok{, }\DecValTok{289}\NormalTok{, }\DecValTok{260}\NormalTok{, }\DecValTok{220}\NormalTok{, }\DecValTok{237}\NormalTok{, }\DecValTok{227}\NormalTok{, }\DecValTok{281}\NormalTok{, }\DecValTok{311}\NormalTok{, }\DecValTok{250}\NormalTok{,}
+\DecValTok{240}\NormalTok{, }\DecValTok{268}\NormalTok{, }\DecValTok{287}\NormalTok{, }\DecValTok{226}\NormalTok{, }\DecValTok{395}\NormalTok{, }\DecValTok{450}\NormalTok{)}
+\NormalTok{data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(blk, trt, y1, y2)}
+\CommentTok{# Convert block and treatment to factors}
+\NormalTok{data}\OperatorTok{$}\NormalTok{blk <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(data}\OperatorTok{$}\NormalTok{blk)}
+\NormalTok{data}\OperatorTok{$}\NormalTok{trt <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(data}\OperatorTok{$}\NormalTok{trt)}
+\CommentTok{# Results for variable y1}
+\NormalTok{out1 <-}\StringTok{ }\KeywordTok{augmentedRCBD}\NormalTok{(data}\OperatorTok{$}\NormalTok{blk, data}\OperatorTok{$}\NormalTok{trt, data}\OperatorTok{$}\NormalTok{y1, }\DataTypeTok{method =} \StringTok{"lsd"}\NormalTok{,}
+\DataTypeTok{alpha =} \FloatTok{0.05}\NormalTok{, }\DataTypeTok{group =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{console =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Augmented design details
+========================
+                                       
+Number of blocks           "3"         
+Number of treatments       "12"        
+Number of check treatments "4"         
+Number of test treatments  "8"         
+Check treatments           "1, 2, 3, 4"
+
+ANOVA, Treatment Adjusted
+=========================
+                                     Df Sum Sq Mean Sq F value Pr(>F)  
+Block (ignoring Treatments)           2  360.1  180.04   6.675 0.0298 *
+Treatment (eliminating Blocks)       11  285.1   25.92   0.961 0.5499  
+  Treatment: Check                    3   52.9   17.64   0.654 0.6092  
+  Treatment: Test and Test vs. Check  8  232.2   29.02   1.076 0.4779  
+Residuals                             6  161.8   26.97                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ANOVA, Block Adjusted
+=====================
+                               Df Sum Sq Mean Sq F value Pr(>F)
+Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
+  Treatment: Check              3   52.9   17.64   0.654  0.609
+  Treatment: Test               7  505.9   72.27   2.679  0.125
+  Treatment: Test vs. Check     1   16.9   16.87   0.626  0.459
+Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
+Residuals                       6  161.8   26.97               
+
+Treatment means
+===============
+   Treatment Block    Means       SE r Min Max Adjusted Means
+1          1       84.66667 3.844188 3  79  92       84.66667
+2         10     3 74.00000       NA 1  74  74       77.25000
+3         11     1 89.00000       NA 1  89  89       86.50000
+4         12     1 82.00000       NA 1  82  82       79.50000
+5          2       79.00000 1.154701 3  77  81       79.00000
+6          3       82.00000 2.645751 3  78  87       82.00000
+7          4       83.33333 3.929942 3  78  91       83.33333
+8          5     2 79.00000       NA 1  79  79       78.25000
+9          6     3 75.00000       NA 1  75  75       78.25000
+10         7     1 96.00000       NA 1  96  96       93.50000
+11         8     3 70.00000       NA 1  70  70       73.25000
+12         9     2 78.00000       NA 1  78  78       77.25000
+
+Coefficient of variation
+========================
+6.372367
+
+Overall adjusted mean
+=====================
+81.0625
+
+Standard errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             4.240458 10.37603
+Two Test Treatments (Same Block)                    7.344688 17.97180
+Two Test Treatments (Different Blocks)              8.211611 20.09309
+A Test Treatment and a Control Treatment            6.360687 15.56404
+
+Treatment groups
+==================
+
+Method : lsd
+
+   Treatment Adjusted Means       SE df lower.CL  upper.CL Group
+8          8       73.25000 5.609598  6 59.52381  86.97619    1 
+9          9       77.25000 5.609598  6 63.52381  90.97619    12
+10        10       77.25000 5.609598  6 63.52381  90.97619    12
+5          5       78.25000 5.609598  6 64.52381  91.97619    12
+6          6       78.25000 5.609598  6 64.52381  91.97619    12
+2          2       79.00000 2.998456  6 71.66304  86.33696    12
+12        12       79.50000 5.609598  6 65.77381  93.22619    12
+3          3       82.00000 2.998456  6 74.66304  89.33696    12
+4          4       83.33333 2.998456  6 75.99637  90.67029    12
+1          1       84.66667 2.998456  6 77.32971  92.00363    12
+11        11       86.50000 5.609598  6 72.77381 100.22619    12
+7          7       93.50000 5.609598  6 79.77381 107.22619     2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Results for variable y2}
+\NormalTok{out2 <-}\StringTok{ }\KeywordTok{augmentedRCBD}\NormalTok{(data}\OperatorTok{$}\NormalTok{blk, data}\OperatorTok{$}\NormalTok{trt, data}\OperatorTok{$}\NormalTok{y1, }\DataTypeTok{method =} \StringTok{"lsd"}\NormalTok{,}
+\DataTypeTok{alpha =} \FloatTok{0.05}\NormalTok{, }\DataTypeTok{group =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{console =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Augmented design details
+========================
+                                       
+Number of blocks           "3"         
+Number of treatments       "12"        
+Number of check treatments "4"         
+Number of test treatments  "8"         
+Check treatments           "1, 2, 3, 4"
+
+ANOVA, Treatment Adjusted
+=========================
+                                     Df Sum Sq Mean Sq F value Pr(>F)  
+Block (ignoring Treatments)           2  360.1  180.04   6.675 0.0298 *
+Treatment (eliminating Blocks)       11  285.1   25.92   0.961 0.5499  
+  Treatment: Check                    3   52.9   17.64   0.654 0.6092  
+  Treatment: Test and Test vs. Check  8  232.2   29.02   1.076 0.4779  
+Residuals                             6  161.8   26.97                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+ANOVA, Block Adjusted
+=====================
+                               Df Sum Sq Mean Sq F value Pr(>F)
+Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
+  Treatment: Check              3   52.9   17.64   0.654  0.609
+  Treatment: Test               7  505.9   72.27   2.679  0.125
+  Treatment: Test vs. Check     1   16.9   16.87   0.626  0.459
+Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
+Residuals                       6  161.8   26.97               
+
+Treatment means
+===============
+   Treatment Block    Means       SE r Min Max Adjusted Means
+1          1       84.66667 3.844188 3  79  92       84.66667
+2         10     3 74.00000       NA 1  74  74       77.25000
+3         11     1 89.00000       NA 1  89  89       86.50000
+4         12     1 82.00000       NA 1  82  82       79.50000
+5          2       79.00000 1.154701 3  77  81       79.00000
+6          3       82.00000 2.645751 3  78  87       82.00000
+7          4       83.33333 3.929942 3  78  91       83.33333
+8          5     2 79.00000       NA 1  79  79       78.25000
+9          6     3 75.00000       NA 1  75  75       78.25000
+10         7     1 96.00000       NA 1  96  96       93.50000
+11         8     3 70.00000       NA 1  70  70       73.25000
+12         9     2 78.00000       NA 1  78  78       77.25000
+
+Coefficient of variation
+========================
+6.372367
+
+Overall adjusted mean
+=====================
+81.0625
+
+Standard errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             4.240458 10.37603
+Two Test Treatments (Same Block)                    7.344688 17.97180
+Two Test Treatments (Different Blocks)              8.211611 20.09309
+A Test Treatment and a Control Treatment            6.360687 15.56404
+
+Treatment groups
+==================
+
+Method : lsd
+
+   Treatment Adjusted Means       SE df lower.CL  upper.CL Group
+8          8       73.25000 5.609598  6 59.52381  86.97619    1 
+9          9       77.25000 5.609598  6 63.52381  90.97619    12
+10        10       77.25000 5.609598  6 63.52381  90.97619    12
+5          5       78.25000 5.609598  6 64.52381  91.97619    12
+6          6       78.25000 5.609598  6 64.52381  91.97619    12
+2          2       79.00000 2.998456  6 71.66304  86.33696    12
+12        12       79.50000 5.609598  6 65.77381  93.22619    12
+3          3       82.00000 2.998456  6 74.66304  89.33696    12
+4          4       83.33333 2.998456  6 75.99637  90.67029    12
+1          1       84.66667 2.998456  6 77.32971  92.00363    12
+11        11       86.50000 5.609598  6 72.77381 100.22619    12
+7          7       93.50000 5.609598  6 79.77381 107.22619     2
+\end{verbatim}
+
+\hypertarget{citing-augmentedrcbd}{%
+\subsection{\texorpdfstring{Citing
+\texttt{augmentedRCBD}}{Citing augmentedRCBD}}\label{citing-augmentedrcbd}}
+
+\begin{verbatim}
+Warning in citation("augmentedRCBD"): no date field in DESCRIPTION file of
+package 'augmentedRCBD'
+Warning in citation("augmentedRCBD"): could not determine year for
+'augmentedRCBD' from package DESCRIPTION file
+
+To cite package 'augmentedRCBD' in publications use:
+
+  J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede
+  and Vikender Kaur (NA). augmentedRCBD: Analysis of Augmented
+  Randomised Complete Block Design. R package version 0.0.0.9000.
+  https://github.com/aravind-j/augmentedRCBD
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Design},
+    author = {{J. Aravind} and {Mukesh Sankar S.} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
+    note = {R package version 0.0.0.9000},
+    url = {https://github.com/aravind-j/augmentedRCBD},
+    year = {2018},
+  }
+\end{verbatim}
+
+\hypertarget{session-info}{%
+\subsection{Session Info}\label{session-info}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sessionInfo}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+R version 3.5.0 (2018-04-23)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows >= 8 x64 (build 9200)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_India.1252  LC_CTYPE=English_India.1252   
+[3] LC_MONETARY=English_India.1252 LC_NUMERIC=C                  
+[5] LC_TIME=English_India.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] augmentedRCBD_0.0.0.9000
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.16       mvtnorm_1.0-7      lattice_0.20-35   
+ [4] multcompView_0.1-7 zoo_1.8-1          assertthat_0.2.0  
+ [7] rprojroot_1.3-2    digest_0.6.15      R6_2.2.2          
+[10] plyr_1.8.4         backports_1.1.2    evaluate_0.10.1   
+[13] coda_0.19-1        ggplot2_2.2.1      pillar_1.2.2      
+[16] Rdpack_0.7-0       gdtools_0.1.7      rlang_0.2.0       
+[19] lazyeval_0.2.1     multcomp_1.4-8     uuid_0.1-2        
+[22] R.utils_2.6.0      R.oo_1.22.0        Matrix_1.2-14     
+[25] flextable_0.4.4    rmarkdown_1.9      devtools_1.13.5   
+[28] moments_0.14       splines_3.5.0      stringr_1.3.0     
+[31] munsell_0.4.3      compiler_3.5.0     pkgconfig_2.0.1   
+[34] base64enc_0.1-3    htmltools_0.3.6    tibble_1.4.2      
+[37] roxygen2_6.0.1     codetools_0.2-15   dplyr_0.7.4       
+[40] withr_2.1.2        MASS_7.3-49        R.methodsS3_1.7.1 
+[43] commonmark_1.5     grid_3.5.0         nlme_3.1-137      
+[46] xtable_1.8-2       gtable_0.2.0       magrittr_1.5      
+[49] scales_0.5.0       bibtex_0.4.2       zip_1.0.0         
+[52] estimability_1.3   stringi_1.1.7      reshape2_1.4.3    
+[55] bindrcpp_0.2.2     xml2_1.2.0         sandwich_2.4-0    
+[58] TH.data_1.0-8      tools_3.5.0        glue_1.2.0        
+[61] officer_0.3.0      emmeans_1.1.3      survival_2.42-3   
+[64] yaml_2.1.18        colorspace_1.3-2   gbRd_0.4-11       
+[67] memoise_1.1.0      knitr_1.20         bindr_0.1.1       
+\end{verbatim}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+
+\end{document}

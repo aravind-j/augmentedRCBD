@@ -1,9 +1,15 @@
-aug.bulk <- out
+#' Generate MS Word report from \code{augmentedRCBD.bulk} Output
+#'
+#' @param aug.bulk
+#'
+#' @return
+#' @export
+#'
+#' @examples
+report.augmentedRCBD.bulk <- function(aug.bulk){
 
-
-
-if (!is(aug, "augmentedRCBD.bulk")) {
-  stop('"aug" is not of class "augmentedRCBD.bulk"')
+if (!is(aug.bulk, "augmentedRCBD.bulk")) {
+  stop('"aug.bulk" is not of class "augmentedRCBD.bulk"')
 }
 
 augreport <- read_docx("./inst/template.docx")
@@ -96,3 +102,8 @@ augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
 
 
 print(augreport, target = "test.docx")
+
+}
+
+
+# aug.bulk <- out

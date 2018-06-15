@@ -3,12 +3,16 @@
 
 ###### Version : [0.0.0.9000](https://aravind-j.github.io/augmentedRCBD/articles/Introduction.html#version-history); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
 
-##### *J. Aravind<sup>1</sup> and Mukesh Sankar S.<sup>2</sup>*
+##### *J. Aravind<sup>1</sup>, Mukesh Sankar S.<sup>2</sup>, Dhammaprakahs P. Wankhede<sup>3</sup> and Vikender Kaur<sup>4</sup>*
 
 1.  Division of Germplasm Conservation, ICAR-National Bureau of Plant
     Genetic Resources, New Delhi
 2.  Division of Genetics, ICAR-Indian Agricultural Research Institute,
     New Delhi
+3.  Division of Genomic Resources, ICAR-National Bureau of Plant Genetic
+    Resources, New Delhi
+4.  Division of Germplasm Evaluation, ICAR-National Bureau of Plant
+    Genetic Resources, New Delhi
 
 -----
 
@@ -24,7 +28,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Project Status:
 WIP](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--03--31-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--06--15-yellowgreen.svg)](/commits/master)
 <!-- [![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD) -->
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.841963.svg)](https://doi.org/10.5281/zenodo.841963) -->
 [![Analytics](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
@@ -78,15 +82,16 @@ citation("augmentedRCBD")
     
     To cite package 'augmentedRCBD' in publications use:
     
-      J. Aravind and Mukesh Sankar S. (NA). augmentedRCBD: Analysis of
-      Augmented Randomised Complete Block Design. R package version
-      0.0.0.9000. https://github.com/aravind-j/augmentedRCBD
+      J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede
+      and Vikender Kaur (NA). augmentedRCBD: Analysis of Augmented
+      Randomised Complete Block Design. R package version 0.0.0.9000.
+      https://github.com/aravind-j/augmentedRCBD
     
     A BibTeX entry for LaTeX users is
     
       @Manual{,
         title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Design},
-        author = {{J. Aravind} and {Mukesh Sankar S.}},
+        author = {{J. Aravind} and {Mukesh Sankar S.} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
         note = {R package version 0.0.0.9000},
         url = {https://github.com/aravind-j/augmentedRCBD},
         year = {2018},
