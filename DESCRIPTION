@@ -17,6 +17,10 @@ Authors@R: c(
     role = c("aut")),
     person("ICAR-NBGPR",
     role = c("cph")))
+Description: Functions for analysis of data generated from experiments in
+    augmented randomised complete block design. Computes analysis of variance,
+    adjusted means, descriptive statistics, genetic variability statistics etc.
+    Further includes data visualization and report generation functions.
 Copyright: 2015-2018, ICAR-NBPGR
 License: GPL-2 | GPL-3
 Encoding: UTF-8
