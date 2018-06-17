@@ -4,10 +4,10 @@
 #' \code{augmentedRCBD.bulk} is a wrapper around the functions
 #' \code{augmentedRCBD}, \code{describe.augmentedRCBD},
 #' \code{freqdist.augmentedRCBD} and \code{gva.augmentedRCBD}. It will carry out
-#' these analyses for multiple traits/characters from the input data as a
-#' data.frame object.
+#' these analyses for multiple traits/characters from the input data as a data
+#' frame object.
 #'
-#' @param data The data as a data.frame object. The data.frame should possess
+#' @param data The data as a data frame object. The data.frame should possess
 #'   columns specifying the block, treatment and multiple traits/characters.
 #' @param block Name of column specifying the blocks in the design as a
 #'   character string.
@@ -28,6 +28,55 @@
 #'   is \code{TRUE}.
 #' @param check.col The colour(s) to be used to highlight check values in the
 #'   plot as a character vector.
+#'
+#' @return A list of class \code{augmentedRCBD.bulk} containing the following
+#'   components:  \item{\code{Details}}{Details of the augmented design used and
+#'   the traits/characters.} \item{\code{ANOVA, Treatment Adjusted}}{A data
+#'   frame of mean sum of squares of the specified traits from treatment
+#'   adjusted ANOVA.} \item{\code{ANOVA, Block Adjusted}}{A data frame of mean
+#'   sum of squares of the specified traits from block adjusted ANOVA}
+#'   \item{\code{Means}}{A data frame of the adjusted means of the treaments for
+#'   the specified traits.} \item{\code{alpha}}{Type I error probability
+#'   (Significance level) used.} \item{\code{Std. Errors}}{A data frame of
+#'   standard error of difference between various combinations for the specified
+#'   traits.} \item{\code{CD}}{A data frame of critical difference (at the
+#'   specified alpha) between various combinations for the specified traits.}
+#'   \item{\code{Overall adjusted mean}}{A data frame of the overall adjusted
+#'   mean for the specified traits.} \item{\code{CV}}{A data frame of the
+#'   coefficient of variance for the specified traits.} \item{\code{Descriptive
+#'   statistics}}{A data frame of descriptive statistics for the specified
+#'   traits.} \item{\code{Frequency distribution}}{A list of ggplot2 plot grobs
+#'   of the frequency distribution plots.} \item{\code{Genetic variability
+#'   analysis}}{A data frame of genetic variability statistics for the specified
+#'   traits.} \item{\code{GVA plots}}{A list of three ggplot2 objects with the
+#'   plots for (a) Phenotypic and Genotypic CV, (b) Broad sense heritability and
+#'   (c) Genetic advance over mean} \item{\code{warnings}}{A list of warning
+#'   messages (if any) caputed during model fitting and frequency distribution
+#'   plotting.}
+#'
+#' @examples
+#' # Example data
+#' blk <- c(rep(1,7),rep(2,6),rep(3,7))
+#' trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+#'
+#' y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+#'         70, 75, 74)
+#' y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
+#'         240, 268, 287, 226, 395, 450)
+#' dataf <- data.frame(blk, trt, y1, y2)
+#'
+#' bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
+#'                            treatment = "trt", traits = c("y1", "y2"),
+#'                            checks = NULL, alpha = 0.05, describe = TRUE,
+#'                            freqdist = TRUE, gva = TRUE,
+#'                            check.col = c("brown", "darkcyan",
+#'                                          "forestgreen", "purple"))
+#'
+#'
+#' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}},
+#'   \code{\link[augmentedRCBD]{describe.augmentedRCBD}},
+#'   \code{\link[augmentedRCBD]{freqdist.augmentedRCBD}},
+#'   \code{\link[augmentedRCBD]{gva.augmentedRCBD}}
 #'
 #' @import reshape2
 #' @import dplyr
@@ -203,10 +252,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovata <- dplyr::bind_rows(anovata)
   anovaba <- dplyr::bind_rows(anovaba)
 
-  anovata$sig <- ifelse(anovata$Pr..F. < 0.01, "**",
-                        ifelse(anovata$Pr..F. < 0.05, "*", ""))
-  anovaba$sig <- ifelse(anovaba$Pr..F. < 0.01, "**",
-                        ifelse(anovaba$Pr..F. < 0.05, "*", ""))
+  anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
+                        ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
+  anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
+                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
 
   anovata$Source <- trimws(anovata$Source)
   anovaba$Source <- trimws(anovaba$Source)
@@ -291,13 +340,16 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   descout <- lapply(descout, function(x) data.frame(x)[1,])
   descout <- Map(cbind, Trait = names(descout), descout)
 
-  descout <- lapply(descout, function(x) dplyr::mutate_if(x, is.factor, as.character))
+  descout <- lapply(descout, function(x) dplyr::mutate_if(x, is.factor,
+                                                          as.character))
   descout <- dplyr::bind_rows(descout)
 
-  descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. < 0.01, "**",
-                        ifelse(descout$Skewness.p.value. < 0.05, "*", ""))
-  descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. < 0.01, "**",
-                                      ifelse(descout$Kurtosis.p.value. < 0.05, "*", ""))
+  descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
+                        ifelse(descout$Skewness.p.value. <= 0.05,
+                               "*", "ns"))
+  descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
+                                      ifelse(descout$Kurtosis.p.value. <= 0.05,
+                                             "*", "ns"))
   desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
             "Max", "Skewness.statistic.", "Kurtosis.statistic.")
   descout[,desc] <- apply(descout[,desc], MARGIN = 2, FUN = round.conditional)
@@ -442,7 +494,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
               `GVA plots` = list(`Phenotypic and Genotypic CV` = gvaplot_cvg,
                                  `Broad sense heritability` = gvaplot_hbsg,
                                  `Genetic advance over mean` = gvaplot_gamg),
-              warnings = list(warn, fqwarn))
+              warnings = list(Model = warn, `Freq. dist` = fqwarn))
 
   # Set Class
   class(out) <- "augmentedRCBD.bulk"

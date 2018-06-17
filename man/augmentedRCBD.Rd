@@ -21,7 +21,10 @@ number of replications of treatments/genotypes.}
 
 \item{method.comp}{Method for comparison of treatments (\code{"lsd"} for
 least significant difference or \code{"tukey"} for Tukey's honest
-significant difference).}
+significant difference). If \code{"none"}, no comparisons will be made, the
+ANOVA output will be given as a data frame and the adjusted means will be
+computed directly from treatment and block effects instead of using
+\code{\link[emmeans]{emmeans}}.}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
 multiple comparisons.}
@@ -31,6 +34,9 @@ multiple comparisons.}
 
 \item{console}{If \code{TRUE}, output will be printed to console. Default is
 \code{TRUE}.}
+
+\item{simplify}{If \code{TRUE}, ANOVA output will be given as a data frame
+instead of a \code{summary.aov} object}
 }
 \value{
 A list of class \code{augmentedRCBD} containing the following
@@ -69,6 +75,11 @@ et al., (2008).
   genotypes should be present in all the blocks. If not, a warning is issued.
   \item  There should not be any missing values. \item The number of test
   genotypes can vary within a block. }
+
+  In case the large number of treatments or genotypes, it is advisable to
+  avoid comparisons with the \code{group =  FALSE} argument as it will be
+  memory and processor intensive. Further it is advised to simplify output
+  with \code{simplify = TRUE} in order to reduce output object size.
 }
 \examples{
 # Example data

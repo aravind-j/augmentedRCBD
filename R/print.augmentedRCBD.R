@@ -2,8 +2,8 @@
 #'
 #' \code{print.augmentedRCBD} prints to console the summary of an object of
 #' class \code{augmentedRCBD} including the augmented design details, ANOVA
-#' (Treatment adjusted), ANOVA (Block adjusted), Treatment means, Coefficient of
-#' variation, overall adjusted mean and standard errors. The treatment/genotype
+#' (Treatment adjusted), ANOVA (Block adjusted), treatment means, coefficient of
+#' variation, overall adjusted mean, critical differences and standard errors. The treatment/genotype
 #' groups along with the grouping method are also printed if they were computed.
 #'
 #' @param x An object of class \code{augmentedRCBD}.
@@ -13,7 +13,7 @@
 #' @export
 print.augmentedRCBD <- function(x, ...){
 
-  cat("\nAugmented design details\n")
+  cat("\nAugmented Design Details\n")
   cat("========================\n")
   Details <- x$Details
   b <- Details$`Number of blocks`
@@ -34,20 +34,20 @@ print.augmentedRCBD <- function(x, ...){
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
   print(x$`ANOVA, Block Adjusted`)
-  cat("\nTreatment means\n")
+  cat("\nTreatment Means\n")
   cat("===============\n")
   print(x$Means)
-  cat("\nCoefficient of variation\n")
+  cat("\nCoefficient of Variation\n")
   cat("========================\n")
   cat(x$CV)
-  cat("\n\nOverall adjusted mean\n")
+  cat("\n\nOverall Adjusted Mean\n")
   cat("=====================\n")
   cat(x$`Overall adjusted mean`)
-  cat("\n\nStandard errors\n")
+  cat("\n\nStandard Errors\n")
   cat("===================\n")
   print(x$`Std. Errors`)
   if (!is.null(x$Groups)) {
-    cat("\nTreatment groups\n")
+    cat("\nTreatment Groups\n")
     cat("==================\n")
     cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
     print(x$Groups)

@@ -13,6 +13,11 @@
 #'   \item  There should not be any missing values. \item The number of test
 #'   genotypes can vary within a block. }
 #'
+#'   In case the large number of treatments or genotypes, it is advisable to
+#'   avoid comparisons with the \code{group =  FALSE} argument as it will be
+#'   memory and processor intensive. Further it is advised to simplify output
+#'   with \code{simplify = TRUE} in order to reduce output object size.
+#'
 #' @param block Vector of blocks (as a factor).
 #' @param treatment Vector of treatments/genotypes (as a factor).
 #' @param y Numeric vector of response variable (Trait).
@@ -21,13 +26,18 @@
 #'   number of replications of treatments/genotypes.
 #' @param method.comp Method for comparison of treatments (\code{"lsd"} for
 #'   least significant difference or \code{"tukey"} for Tukey's honest
-#'   significant difference).
+#'   significant difference). If \code{"none"}, no comparisons will be made, the
+#'   ANOVA output will be given as a data frame and the adjusted means will be
+#'   computed directly from treatment and block effects instead of using
+#'   \code{\link[emmeans]{emmeans}}.
 #' @param alpha Type I error probability (Significance level) to be used for
 #'   multiple comparisons.
 #' @param group If \code{TRUE}, genotypes will be grouped according to
 #'   \code{"method.comp"}.
 #' @param console If \code{TRUE}, output will be printed to console. Default is
 #'   \code{TRUE}.
+#' @param simplify If \code{TRUE}, ANOVA output will be given as a data frame
+#'   instead of a \code{summary.aov} object
 #'
 #' @return A list of class \code{augmentedRCBD} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used.}
@@ -139,7 +149,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
   }
   # method.comp
-  method.comp <- match.arg(method.comp, c("lsd","tukey", "none"), several.ok = FALSE)
+  method.comp <- match.arg(method.comp, c("lsd","tukey", "none"),
+                           several.ok = FALSE)
+  if (method.comp == "none") group = FALSE
+  if (group == FALSE) method.comp = "none"
 
   if (!missing(checks) && !is.null(checks)) {
   #if (!is.null(checks)) {
@@ -341,7 +354,6 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   Comparison <- NULL
   Groups <- NULL
 
-  if (method.comp == "none") group = FALSE
 
   if (group == TRUE) {
     if (method.comp == "lsd") adjust = "none"
