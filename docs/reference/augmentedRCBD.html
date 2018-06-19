@@ -161,11 +161,11 @@ number of replications of treatments/genotypes.</p></td>
     </tr>
     <tr>
       <th>method.comp</th>
-      <td><p>Method for comparison of treatments (<code>"lsd"</code> for
-least significant difference or <code>"tukey"</code> for Tukey's honest
-significant difference). If <code>"none"</code>, no comparisons will be made, the
-ANOVA output will be given as a data frame and the adjusted means will be
-computed directly from treatment and block effects instead of using
+      <td><p>Method for comparison of treatments (<code>"lsd"</code> for least
+significant difference or <code>"tukey"</code> for Tukey's honest significant
+difference). If <code>"none"</code>, no comparisons will be made, the ANOVA output
+will be given as a data frame and the adjusted means will be computed
+directly from treatment and block effects instead of using
 <code><a href='http://www.rdocumentation.org/packages/emmeans/topics/emmeans'>emmeans</a></code>.</p></td>
     </tr>
     <tr>
@@ -193,47 +193,46 @@ instead of a <code>summary.aov</code> object</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of class <code>augmentedRCBD</code> containing the following
-  components:</p>
+ components:</p>
 <dt><code>Details</code></dt><dd><p>Details of the augmented design used.</p></dd>
-  <dt><code>Means</code></dt><dd><p>A data frame with the "Means", "Block", "SE", "Mix",
-  "Max" and "Adjusted Means" for each "Treatment".</p></dd> <dt><code>ANOVA,
-  Treatment Adjusted</code></dt><dd><p>An object of class <code>summary.aov</code> for ANOVA table
-  with treatments adjusted.</p></dd> <dt><code>ANOVA, Block Adjusted</code></dt><dd><p>An object of
-  class <code>summary.aov</code> for ANOVA table with block adjusted.</p></dd>
-  <dt><code>Block effects</code></dt><dd><p>A vector of block effects.</p></dd>
-  <dt><code>Treatment effects</code></dt><dd><p>A vector of treatment effects.</p></dd>
-  <dt><code>Std. Errors</code></dt><dd><p>A data frame of standard error of difference
-  between various combinations along with critical difference and tukey's
-  honest significant difference (when <code>method.comp = "tukey"</code>) at
-  <code>alpha</code>.</p></dd> <dt><code>Overall adjusted mean</code></dt><dd><p>Overall adjusted mean.</p></dd>
-  <dt><code>CV</code></dt><dd><p>Coefficient of variation.</p></dd> <dt><code>Comparisons</code></dt><dd><p>A
-  data frame of pairwise comparisons of treatments. This is computed only if
-  argument <code>group</code> is <code>TRUE</code></p></dd> <dt><code>Groups</code></dt><dd><p>A data frame
-  with compact letter display of pairwise comparisons of treatments. Means
-  with at least one letter common are not significantly different
-  statistically. This is computed only if argument <code>group</code> is
-  <code>TRUE</code></p></dd>
+ <dt><code>Means</code></dt><dd><p>A data frame with the "Means", "Block", "SE", "Mix",
+ "Max" and "Adjusted Means" for each "Treatment".</p></dd> <dt><code>ANOVA,
+ Treatment Adjusted</code></dt><dd><p>An object of class <code>summary.aov</code> for ANOVA table
+ with treatments adjusted.</p></dd> <dt><code>ANOVA, Block Adjusted</code></dt><dd><p>An object of
+ class <code>summary.aov</code> for ANOVA table with block adjusted.</p></dd>
+ <dt><code>Block effects</code></dt><dd><p>A vector of block effects.</p></dd>
+ <dt><code>Treatment effects</code></dt><dd><p>A vector of treatment effects.</p></dd>
+ <dt><code>Std. Errors</code></dt><dd><p>A data frame of standard error of difference
+ between various combinations along with critical difference and tukey's
+ honest significant difference (when <code>method.comp = "tukey"</code>) at
+ <code>alpha</code>.</p></dd> <dt><code>Overall adjusted mean</code></dt><dd><p>Overall adjusted mean.</p></dd>
+ <dt><code>CV</code></dt><dd><p>Coefficient of variation.</p></dd> <dt><code>Comparisons</code></dt><dd><p>A data
+ frame of pairwise comparisons of treatments. This is computed only if
+ argument <code>group</code> is <code>TRUE</code></p></dd> <dt><code>Groups</code></dt><dd><p>A data frame with
+ compact letter display of pairwise comparisons of treatments. Means with at
+ least one letter common are not significantly different statistically. This
+ is computed only if argument <code>group</code> is <code>TRUE</code></p></dd>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function borrows code from <code>DAU.test</code> function of <code>agricolae</code>
-package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur
-et al., (2008).</p>
+package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur et
+al., (2008).</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <ul>
 <li><p>Data should preferably be balanced i.e. all the check
-  genotypes should be present in all the blocks. If not, a warning is issued.</p></li>
+ genotypes should be present in all the blocks. If not, a warning is issued.</p></li>
 <li><p>There should not be any missing values.</p></li>
 <li><p>The number of test
-  genotypes can vary within a block.</p></li>
+ genotypes can vary within a block.</p></li>
 </ul>
     <p>In case the large number of treatments or genotypes, it is advisable to
-  avoid comparisons with the <code>group =  FALSE</code> argument as it will be
-  memory and processor intensive. Further it is advised to simplify output
-  with <code>simplify = TRUE</code> in order to reduce output object size.</p>
+ avoid comparisons with the <code>group =  FALSE</code> argument as it will be
+ memory and processor intensive. Further it is advised to simplify output
+ with <code>simplify = TRUE</code> in order to reduce output object size.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -254,9 +253,10 @@ R package version 1.2-8.
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/agricolae/topics/DAU.test'>DAU.test</a></code>, <code>ea1</code>,
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/agricolae/topics/DAU.test'>DAU.test</a></code>,
+ <a href='https://www.rdocumentation.org/packages/easyanova/versions/5.0/topics/ea1'><code>ea1</code></a>,
   <code><a href='http://www.rdocumentation.org/packages/emmeans/topics/emmeans'>emmeans</a></code>, <code><a href='http://www.rdocumentation.org/packages/emmeans/topics/cld.emmGrid'>cld</a></code>,
-  <code>aug.rcb</code></p></div>
+ <a href='https://rdrr.io/rforge/plantbreeding/man/aug.rcb.html'><code>aug.rcb</code></a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
