@@ -1,5 +1,5 @@
 Package: augmentedRCBD
-Title: Analysis of Augmented Randomised Complete Block Design
+Title: Analysis of Augmented Randomised Complete Block Designs
 Version: 0.0.0.9000
 Authors@R: c(
     person(c("J.", "Aravind"),

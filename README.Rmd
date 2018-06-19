@@ -10,11 +10,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+<!-- 
 ```{r, out.width = '20%', echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png")
 ```
+-->
 
-## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Design
+## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
 ```{r,echo = FALSE, message = FALSE}
 devtools::load_all(".")
