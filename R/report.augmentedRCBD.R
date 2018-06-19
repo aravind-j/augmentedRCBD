@@ -34,11 +34,13 @@
 #' out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = FALSE)
 #'
+#' \dontrun{
 #' targetpath <- file.path(system.file(package = "augmentedRCBD"),
 #'                         "examples/augRCBD_test.docx")
 #' targetpath
 #'
 #' report.augmentedRCBD(out, targetpath)
+#' }
 #'
 report.augmentedRCBD <- function(aug, target){
 

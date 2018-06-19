@@ -35,12 +35,13 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                                          "forestgreen", "purple"),
                            console = FALSE)
 
+\dontrun{
 targetpath <- file.path(system.file(package = "augmentedRCBD"),
                         "examples/augRCBDbulk_test.docx")
 targetpath
 
 report.augmentedRCBD.bulk(bout, targetpath)
-
+}
 }
 \seealso{
 \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
