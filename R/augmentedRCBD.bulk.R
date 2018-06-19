@@ -75,6 +75,11 @@
 #'                                          "forestgreen", "purple"),
 #'                            console = TRUE)
 #'
+#' # Frequency distribution plots
+#' lapply(bout$`Frequency distribution`, plot)
+#'
+#' # GVA plots
+#' bout$`GVA plots`
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}},
 #'   \code{\link[augmentedRCBD]{describe.augmentedRCBD}},

@@ -96,6 +96,11 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                                          "forestgreen", "purple"),
                            console = TRUE)
 
+# Frequency distribution plots
+lapply(bout$`Frequency distribution`, plot)
+
+# GVA plots
+bout$`GVA plots`
 
 }
 \seealso{
