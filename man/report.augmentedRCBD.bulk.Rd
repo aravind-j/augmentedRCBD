@@ -32,9 +32,14 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            checks = NULL, alpha = 0.05, describe = TRUE,
                            freqdist = TRUE, gva = TRUE,
                            check.col = c("brown", "darkcyan",
-                                         "forestgreen", "purple"))
+                                         "forestgreen", "purple"),
+                           console = FALSE)
 
-report.augmentedRCBD.bulk(bout, "test.docx")
+targetpath <- file.path(system.file(package = "augmentedRCBD"),
+                        "examples/augRCBDbulk_test.docx")
+targetpath
+
+report.augmentedRCBD.bulk(bout, targetpath)
 
 }
 \seealso{

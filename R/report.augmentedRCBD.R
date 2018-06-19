@@ -34,7 +34,11 @@
 #' out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = FALSE)
 #'
-#' report.augmentedRCBD(out, "test.docx")
+#' targetpath <- file.path(system.file(package = "augmentedRCBD"),
+#'                         "examples/augRCBD_test.docx")
+#' targetpath
+#'
+#' report.augmentedRCBD(out, targetpath)
 #'
 report.augmentedRCBD <- function(aug, target){
 
@@ -178,7 +182,7 @@ report.augmentedRCBD <- function(aug, target){
   augreport <- body_add_flextable(augreport, descout)
 
   augreport <- body_add_par(augreport,
-                            value = "ns P > 0.05; * P ≤ 0.05; ** P ≤ 0.01",
+                            value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
                             style = "Normal")
 
   # GVA
