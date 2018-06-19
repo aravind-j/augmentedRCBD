@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^Release\.R$
 ^test\.docx$
+^vignettes$
