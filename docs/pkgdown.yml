@@ -1,0 +1,8 @@
+pandoc: 2.1.3
+pkgdown: 1.0.0
+pkgdown_sha: eee7b395f49ca46a6c3686e55a4a9dd9358ec762
+articles: []
+urls:
+  reference: https://aravind-j.github.io/augmentedRCBD//reference
+  article: https://aravind-j.github.io/augmentedRCBD//articles
+

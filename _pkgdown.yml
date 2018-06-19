@@ -1,0 +1,27 @@
+template:
+  params:
+    bootswatch: united
+
+development:
+  mode: unreleased
+
+url: https://aravind-j.github.io/augmentedRCBD/
+
+navbar:
+  title: augmentedRCBD
+  type: default
+  left:
+    - icon: fa-home fa-lg
+      text: Home
+      href: /index.html
+    - icon: fa-code
+      text: Reference
+      href: reference/index.html
+    - icon: fa-newspaper-o
+      text: News
+      href: news/index.html
+  right:
+    - icon: fa-github-alt
+      text: Github
+      href: https://github.com/aravind-j/augmentedRCBD
+

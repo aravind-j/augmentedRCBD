@@ -3,3 +3,5 @@
 ^Release\.R$
 ^test\.docx$
 ^vignettes$
+^_pkgdown\.yml$
+^docs$
