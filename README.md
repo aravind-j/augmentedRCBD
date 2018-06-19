@@ -61,6 +61,16 @@ To know whats new in this version type:
 news(package='augmentedRCBD')
 ```
 
+## Links
+
+<!-- [CRAN page](https://cran.r-project.org/package=augmentedRCBD) -->
+
+[Github page](https://github.com/aravind-j/augmentedRCBD)
+
+[Github website](https://aravind-j.github.io/augmentedRCBD/)
+
+<!-- [Zenodo DOI](https://doi.org/10.5281/zenodo.841963) -->
+
 ## Citing `augmentedRCBD`
 
 To cite the methods in the package
