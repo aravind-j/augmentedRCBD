@@ -5,3 +5,7 @@
 ^vignettes$
 ^_pkgdown\.yml$
 ^docs$
+^augmentedRCBD\.pdf$
+^README\.Rmd$
+^README\.html$
+^pkgdown$
