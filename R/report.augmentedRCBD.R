@@ -46,7 +46,8 @@ report.augmentedRCBD <- function(aug, target){
     stop(target, " should have '.docx' extension.")
   }
 
-  augreport <- read_docx("./inst/template.docx")
+  augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
+                                   "template.docx"))
 
   augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
   augreport <- body_add_toc(augreport, level = 2)

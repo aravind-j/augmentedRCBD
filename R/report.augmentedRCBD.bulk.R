@@ -50,7 +50,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
     stop(target, " should have '.docx' extension.")
   }
 
-  augreport <- read_docx("./inst/template.docx")
+  augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
+                                   "template.docx"))
 
   augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
   augreport <- body_add_toc(augreport, level = 2)
@@ -95,7 +96,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   augreport <- body_add_flextable(augreport, anovaba)
 
   augreport <- body_add_par(augreport,
-                            value = "ns P > 0.05; * P ≤ 0.05; ** P ≤ 0.01",
+                            value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
                             style = "Normal")
 
   # Std. error
@@ -133,72 +134,83 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   augreport <- body_add_flextable(augreport, oadjmean)
 
   # Descriptive statistics
-  augreport <- body_add_par(augreport, value = "Descriptive Statistics",
-                            style = "heading 1")
-  descout <- aug.bulk$`Descriptive statistics`
-  descout <- autofit(flextable(descout))
-  descout <- bold(descout, part = "header")
-  augreport <- body_add_flextable(augreport, descout)
+  if (!is.null(aug.bulk$`Descriptive statistics`)){
+    augreport <- body_add_par(augreport, value = "Descriptive Statistics",
+                              style = "heading 1")
+    descout <- aug.bulk$`Descriptive statistics`
+    descout <- autofit(flextable(descout))
+    descout <- bold(descout, part = "header")
+    augreport <- body_add_flextable(augreport, descout)
 
-  augreport <- body_add_par(augreport,
-                            value = "ns P > 0.05; * P ≤ 0.05; ** P ≤ 0.01",
-                            style = "Normal")
+    augreport <- body_add_par(augreport,
+                              value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+                              style = "Normal")
+  }
 
   # Frequency distribution
-  augreport <- body_add_par(augreport, value = "Frequency Distribution",
-                            style = "heading 1")
+  if (!is.null(aug.bulk$`Frequency distribution`)) {
+    augreport <- body_add_par(augreport, value = "Frequency Distribution",
+                              style = "heading 1")
 
-  for (i in 1:aug.bulk$Details$`Number of Traits`) {
-    augreport <- body_add_par(augreport, value = aug.bulk$Details$Traits[i],
+    for (i in 1:aug.bulk$Details$`Number of Traits`) {
+      augreport <- body_add_par(augreport, value = aug.bulk$Details$Traits[i],
+                                style = "heading 2")
+      src <- tempfile(fileext = ".png")
+      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+      plot(aug.bulk$`Frequency distribution`[[aug.bulk$Details$Traits[i]]])
+      dev.off()
+      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+      rm(src)
+    }
+  }
+
+  # GVA
+  if (!is.null(aug.bulk$`Genetic variability analysis`)) {
+    augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
+                              style = "heading 1")
+    GVA <- aug.bulk$`Genetic variability analysis`
+    GVA <- autofit(flextable(GVA))
+    GVA <- bold(GVA, part = "header")
+    augreport <- body_add_flextable(augreport, GVA)
+  }
+
+  # GVA plots
+  if (all(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
+
+    augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis Plots",
+                              style = "heading 1")
+
+    augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
                               style = "heading 2")
+
     src <- tempfile(fileext = ".png")
     png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-    plot(aug.bulk$`Frequency distribution`[[aug.bulk$Details$Traits[i]]])
+    plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
+    dev.off()
+    augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+    rm(src)
+
+    augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
+                              style = "heading 2")
+
+    src <- tempfile(fileext = ".png")
+    png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+    plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
+    dev.off()
+    augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+    rm(src)
+
+    augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
+                              style = "heading 2")
+
+    src <- tempfile(fileext = ".png")
+    png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+    plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
     dev.off()
     augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
     rm(src)
   }
 
-  # GVA
-  augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
-                            style = "heading 1")
-  GVA <- aug.bulk$`Genetic variability analysis`
-  GVA <- autofit(flextable(GVA))
-  GVA <- bold(GVA, part = "header")
-  augreport <- body_add_flextable(augreport, GVA)
-
-  # GVA plots
-  augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis Plots",
-                            style = "heading 1")
-  augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
-                            style = "heading 2")
-
-  src <- tempfile(fileext = ".png")
-  png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-  plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
-  dev.off()
-  augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-  rm(src)
-
-  augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
-                            style = "heading 2")
-
-  src <- tempfile(fileext = ".png")
-  png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-  plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
-  dev.off()
-  augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-  rm(src)
-
-  augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
-                            style = "heading 2")
-
-  src <- tempfile(fileext = ".png")
-  png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-  plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
-  dev.off()
-  augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-  rm(src)
 
   # Adjusted Means
   augreport <- body_add_par(augreport, value = "Adjusted Means",

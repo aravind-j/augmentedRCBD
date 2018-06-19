@@ -111,9 +111,10 @@
 #'                       checks = c("1", "2", "3", "4"))
 #' # Results for variable y2 (checks specified)
 #' out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-#'                       alpha = 0.05, group = TRUE, console = TRUE),
-#' checks = c("1", "2", "3", "4"))
+#'                       alpha = 0.05, group = TRUE, console = TRUE,
+#'                       checks = c("1", "2", "3", "4"))
 #'
+#'\dontrun{
 #' # Error in case checks not replicated across all blocks
 #' # Check 1 and 4 not replicated in all 3 blocks
 #' trt <- c(1, 2, 3, 14, 7, 11, 12, 1, 2, 3, 4, 5, 9, 13, 2, 3, 4, 8, 6, 10)
@@ -123,6 +124,7 @@
 #' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = TRUE,
 #'                       checks = c("1", "2", "3", "4"))
+#'}
 #'
 #' # Warning in case test treatments are replicated
 #' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",

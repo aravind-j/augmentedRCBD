@@ -7,7 +7,7 @@ Traits/Characters}
 \usage{
 augmentedRCBD.bulk(data, block, treatment, traits, checks = NULL,
   alpha = 0.05, describe = TRUE, freqdist = TRUE, gva = TRUE,
-  check.col = "red")
+  check.col = "red", console = TRUE)
 }
 \arguments{
 \item{data}{The data as a data frame object. The data.frame should possess
@@ -40,6 +40,9 @@ is \code{TRUE}.}
 
 \item{check.col}{The colour(s) to be used to highlight check values in the
 plot as a character vector.}
+
+\item{console}{If \code{TRUE}, output will be printed to console. Default is
+\code{TRUE}.}
 }
 \value{
 A list of class \code{augmentedRCBD.bulk} containing the following
@@ -90,7 +93,8 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            checks = NULL, alpha = 0.05, describe = TRUE,
                            freqdist = TRUE, gva = TRUE,
                            check.col = c("brown", "darkcyan",
-                                         "forestgreen", "purple"))
+                                         "forestgreen", "purple"),
+                           console = TRUE)
 
 
 }

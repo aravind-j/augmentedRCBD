@@ -28,6 +28,8 @@
 #'   is \code{TRUE}.
 #' @param check.col The colour(s) to be used to highlight check values in the
 #'   plot as a character vector.
+#' @param console If \code{TRUE}, output will be printed to console. Default is
+#'   \code{TRUE}.
 #'
 #' @return A list of class \code{augmentedRCBD.bulk} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used and
@@ -70,7 +72,8 @@
 #'                            checks = NULL, alpha = 0.05, describe = TRUE,
 #'                            freqdist = TRUE, gva = TRUE,
 #'                            check.col = c("brown", "darkcyan",
-#'                                          "forestgreen", "purple"))
+#'                                          "forestgreen", "purple"),
+#'                            console = TRUE)
 #'
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}},
@@ -93,7 +96,7 @@
 augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                alpha = 0.05, describe = TRUE,
                                freqdist = TRUE, gva = TRUE,
-                               check.col = "red") {
+                               check.col = "red", console = TRUE) {
 
   # Check if data.frame
   if (!is.data.frame(data)) {
@@ -275,8 +278,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovaba$sig[is.na(anovaba$sig)] <- ""
 
   # Round off the MSS values according to value
-  anovata$MSS <- round.conditional(anovata$MSS)
-  anovaba$MSS <- round.conditional(anovaba$MSS)
+  anovata$MSS <- round.conditional(anovata$Mean.Sq)
+  anovaba$MSS <- round.conditional(anovaba$Mean.Sq)
 
   anovata$MSS <- paste(anovata$MSS, stringi::stri_pad_right(anovata$sig, 3),
                        sep = " ")
@@ -344,172 +347,191 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                            value.var = colnames(secd)[grepl("CD \\(", colnames(secd))])
 
   # Descriptive statistics
-  descout <- vector("list", length(traits))
-  names(descout) <- traits
+  descout <- NULL
+  if(describe == TRUE) {
+    descout <- vector("list", length(traits))
+    names(descout) <- traits
 
-  for (i in seq_along(traits)) {
-    descout[[i]] <- describe.augmentedRCBD(output[[traits[i]]])
+    for (i in seq_along(traits)) {
+      descout[[i]] <- describe.augmentedRCBD(output[[traits[i]]])
+    }
+
+    descout <- lapply(descout, function(x) data.frame(x)[1, ])
+    descout <- Map(cbind, Trait = names(descout), descout)
+
+    descout <- lapply(descout, function(x) dplyr::mutate_if(x, is.factor,
+                                                            as.character))
+    descout <- dplyr::bind_rows(descout)
+
+    descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
+                                        ifelse(descout$Skewness.p.value. <= 0.05,
+                                               "*", "ns"))
+    descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
+                                        ifelse(descout$Kurtosis.p.value. <= 0.05,
+                                               "*", "ns"))
+    desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
+              "Max", "Skewness.statistic.", "Kurtosis.statistic.")
+    descout[, desc] <- apply(descout[, desc], MARGIN = 2,
+                             FUN = round.conditional)
+
+    colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error",
+                           "Std.Deviation", "Min", "Max", "Skewness",
+                           "Skewness_sig", "Kurtosis", "Kurtosis_sig")
+    descout$Skewness <- paste(descout$Skewness,
+                              stringi::stri_pad_right(descout$Skewness_sig, 3),
+                              sep = " ")
+    descout$Kurtosis <- paste(descout$Kurtosis,
+                              stringi::stri_pad_right(descout$Kurtosis_sig, 3),
+                              sep = " ")
+    descout <- descout[, c("Trait", "Count", "Mean", "Std.Error",
+                           "Std.Deviation", "Min", "Max", "Skewness",
+                           "Kurtosis")]
   }
-
-  descout <- lapply(descout, function(x) data.frame(x)[1, ])
-  descout <- Map(cbind, Trait = names(descout), descout)
-
-  descout <- lapply(descout, function(x) dplyr::mutate_if(x, is.factor,
-                                                          as.character))
-  descout <- dplyr::bind_rows(descout)
-
-  descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
-                        ifelse(descout$Skewness.p.value. <= 0.05,
-                               "*", "ns"))
-  descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
-                                      ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                             "*", "ns"))
-  desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
-            "Max", "Skewness.statistic.", "Kurtosis.statistic.")
-  descout[, desc] <- apply(descout[, desc], MARGIN = 2, FUN = round.conditional)
-
-  colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error", "Std.Deviation",
-                         "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
-                         "Kurtosis_sig")
-  descout$Skewness <- paste(descout$Skewness,
-                            stringi::stri_pad_right(descout$Skewness_sig, 3),
-                            sep = " ")
-  descout$Kurtosis <- paste(descout$Kurtosis,
-                            stringi::stri_pad_right(descout$Kurtosis_sig, 3),
-                            sep = " ")
-  descout <- descout[, c("Trait", "Count", "Mean", "Std.Error", "Std.Deviation",
-                         "Min", "Max", "Skewness", "Kurtosis")]
-
 
   # GVA
-  gvaout <- vector("list", length(traits))
-  names(gvaout) <- traits
+  gvaout <- NULL
+  gvaplot_cvg <- NULL
+  gvaplot_hbsg <- NULL
+  gvaplot_gamg <- NULL
 
-  for (i in seq_along(traits)) {
-    gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]])
+  if(gva == TRUE) {
+    gvaout <- vector("list", length(traits))
+    names(gvaout) <- traits
+
+    for (i in seq_along(traits)) {
+      gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]])
+    }
+
+    gvaout <- lapply(gvaout, function(x) data.frame(x))
+    gvaout <- Map(cbind, Trait = names(gvaout), gvaout)
+
+    gvaout <- lapply(gvaout, function(x) dplyr::mutate_if(x, is.factor,
+                                                          as.character))
+    gvaout <- dplyr::bind_rows(gvaout)
+
+    gvaplot <- gvaout
+
+    gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
+    gvaout[, gvap] <- apply(gvaout[, gvap], MARGIN = 2, FUN = round.conditional)
+
+    # GVA plot
+    themecustom <- theme(axis.text.x = element_text(color = "black", angle = 45,
+                                                    hjust = 1),
+                         axis.text.y = element_text(color = "black"))
+    # PCV GCV
+    gvaplot_cv <- reshape2::melt(gvaplot, id.vars = c("Trait"),
+                                 measure.vars = c("PCV", "GCV"))
+    gvaplot_2 <- gvaplot[, c("Trait", "PCV", "GCV")]
+    gvaplot_2$max <- apply(gvaplot_2[, c("PCV", "GCV")], 1, function(x) max(x))
+    gvaplot_2$min <- apply(gvaplot_2[, c("PCV", "GCV")], 1, function(x) min(x))
+
+    gvacat <- data.frame(xmin = 0,
+                         xmax = 0.10,
+                         ymin = c(-Inf, 10, 20),
+                         ymax = c(10, 20, Inf),
+                         Category = as.factor(c("Low", "Medium", "High")))
+    gvacat$Category <- factor(gvacat$Category,
+                              levels = c("Low", "Medium", "High"))
+
+
+    gvaplot_cvg <- ggplot(gvaplot_cv, aes(x = Trait, colour = variable,
+                                          group = variable)) +
+      geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
+      geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
+                                         y = -Inf, yend = min),
+                   inherit.aes = F) +
+      geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
+                                         y = min, yend = max),
+                   inherit.aes = F, size = 2, colour = "gray70") +
+      geom_point(aes(y = value)) +
+      scale_color_manual("Type", values = c("red", "blue")) +
+      scale_y_continuous(breaks = seq(0,
+                                      ceiling(max(gvaplot_2[, c("PCV", "GCV")])) + 10,
+                                      by = 10)) +
+      geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
+                                   xmax = xmax, ymax = ymax, fill = Category),
+                alpha = 0.5, inherit.aes = FALSE) +
+      scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
+      ylab("Coefficient of variation") +
+      theme_bw() + themecustom
+
+    # hBS
+    gvacat2 <- data.frame(xmin = 0,
+                          xmax = 0.10,
+                          ymin = c(-Inf, 30, 60),
+                          ymax = c(30, 60, Inf),
+                          Category = as.factor(c("Low", "Medium", "High")))
+    gvacat2$Category <- factor(gvacat2$Category,
+                               levels = c("Low", "Medium", "High"))
+    gvaplot_hbs <- reshape2::melt(gvaplot, id.vars = c("Trait"),
+                                  measure.vars = "hBS")
+
+    gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable,
+                                            group = variable)) +
+      geom_hline(yintercept = c(30, 60), color = "black", linetype = 3) +
+      geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf,
+                                           yend = value),
+                   colour = "black") +
+      geom_point(aes(y = value), colour = "black") +
+      scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"])) + 10,
+                                      by = 10)) +
+      geom_rect(data = gvacat2, aes(xmin = xmin, ymin = ymin,
+                                    xmax = xmax, ymax = ymax, fill = Category),
+                alpha = 0.5, inherit.aes = FALSE) +
+      scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
+      ylab("Broad sense heritability") +
+      theme_bw() + themecustom
+
+    # GAM
+    gvaplot_gam <- reshape2::melt(gvaplot, id.vars = c("Trait"),
+                                  measure.vars = "GAM")
+
+    gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable,
+                                            group = variable)) +
+      geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
+      geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf,
+                                           yend = value),
+                   colour = "black") +
+      geom_point(aes(y = value), colour = "black") +
+      scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"])) + 10,
+                                      by = 10)) +
+      geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
+                                   xmax = xmax, ymax = ymax, fill = Category),
+                alpha = 0.5, inherit.aes = FALSE) +
+      scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
+      ylab("Genetic advance over mean") +
+      theme_bw() + themecustom
   }
 
-  gvaout <- lapply(gvaout, function(x) data.frame(x))
-  gvaout <- Map(cbind, Trait = names(gvaout), gvaout)
-
-  gvaout <- lapply(gvaout, function(x) dplyr::mutate_if(x, is.factor,
-                                                        as.character))
-  gvaout <- dplyr::bind_rows(gvaout)
-
-  gvaplot <- gvaout
-
-  gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
-  gvaout[, gvap] <- apply(gvaout[, gvap], MARGIN = 2, FUN = round.conditional)
-
-  # GVA plot
-  themecustom <- theme(axis.text.x = element_text(color = "black", angle = 45,
-                                                  hjust = 1),
-                       axis.text.y = element_text(color = "black"))
-  # PCV GCV
-  gvaplot_cv <- reshape2::melt(gvaplot, id.vars = c("Trait"),
-                               measure.vars = c("PCV", "GCV"))
-  gvaplot_2 <- gvaplot[, c("Trait", "PCV", "GCV")]
-  gvaplot_2$max <- apply(gvaplot_2[, c("PCV", "GCV")], 1, function(x) max(x))
-  gvaplot_2$min <- apply(gvaplot_2[, c("PCV", "GCV")], 1, function(x) min(x))
-
-  gvacat <- data.frame(xmin = 0,
-                           xmax = 0.10,
-                           ymin = c(-Inf, 10, 20),
-                           ymax = c(10, 20, Inf),
-                           Category = as.factor(c("Low", "Medium", "High")))
-  gvacat$Category <- factor(gvacat$Category,
-                            levels = c("Low", "Medium", "High"))
-
-
-  gvaplot_cvg <- ggplot(gvaplot_cv, aes(x = Trait, colour = variable,
-                                        group = variable)) +
-    geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
-    geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
-                                       y = -Inf, yend = min),
-                 inherit.aes = F) +
-    geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
-                                       y = min, yend = max),
-                 inherit.aes = F, size = 2, colour = "gray70") +
-    geom_point(aes(y = value)) +
-    scale_color_manual("Type", values = c("red", "blue")) +
-    scale_y_continuous(breaks = seq(0,
-                                    ceiling(max(gvaplot_2[, c("PCV", "GCV")])) + 10,
-                                    by = 10)) +
-    geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
-                                 xmax = xmax, ymax = ymax, fill = Category),
-              alpha = 0.5, inherit.aes = FALSE) +
-    scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
-    ylab("Coefficient of variation") +
-     theme_bw() + themecustom
-
-  # hBS
-  gvacat2 <- data.frame(xmin = 0,
-                       xmax = 0.10,
-                       ymin = c(-Inf, 30, 60),
-                       ymax = c(30, 60, Inf),
-                       Category = as.factor(c("Low", "Medium", "High")))
-  gvacat2$Category <- factor(gvacat2$Category,
-                            levels = c("Low", "Medium", "High"))
-  gvaplot_hbs <- reshape2::melt(gvaplot, id.vars = c("Trait"),
-                                measure.vars = "hBS")
-
-  gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable,
-                                          group = variable)) +
-    geom_hline(yintercept = c(30, 60), color = "black", linetype = 3) +
-    geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf,
-                                         yend = value),
-                 colour = "black") +
-    geom_point(aes(y = value), colour = "black") +
-    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"])) + 10,
-                                    by = 10)) +
-    geom_rect(data = gvacat2, aes(xmin = xmin, ymin = ymin,
-                                 xmax = xmax, ymax = ymax, fill = Category),
-              alpha = 0.5, inherit.aes = FALSE) +
-    scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
-    ylab("Broad sense heritability") +
-    theme_bw() + themecustom
-
-  # GAM
-  gvaplot_gam <- reshape2::melt(gvaplot, id.vars = c("Trait"),
-                                measure.vars = "GAM")
-
-  gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable,
-                                          group = variable)) +
-    geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
-    geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf,
-                                         yend = value),
-                 colour = "black") +
-    geom_point(aes(y = value), colour = "black") +
-    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"])) + 10,
-                                    by = 10)) +
-    geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
-                                 xmax = xmax, ymax = ymax, fill = Category),
-              alpha = 0.5, inherit.aes = FALSE) +
-    scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
-    ylab("Genetic advance over mean") +
-    theme_bw() + themecustom
+  gvaplots <- list(`Phenotypic and Genotypic CV` = gvaplot_cvg,
+                   `Broad sense heritability` = gvaplot_hbsg,
+                   `Genetic advance over mean` = gvaplot_gamg)
 
   # Freq Dist
-
-  fqout <- vector("list", length(traits))
-  names(fqout) <- traits
-
-  fqwarn <- data.frame(Trait = traits, Message = NA_character_,
-                       stringsAsFactors = F)
-
+  fqout <- NULL
   fqwarn <- NULL
-  for (i in seq_along(traits)) {
+  if (freqdist == TRUE) {
+    fqout <- vector("list", length(traits))
+    names(fqout) <- traits
 
-    withCallingHandlers({
-      fqout[[i]] <- freqdist.augmentedRCBD(output[[traits[i]]],
-                                           xlab = traits[i],
-                                           check.col = check.col)
-    }, warning = function(w) {
-      fqwarn <<- append(fqwarn, traits[i])
-      fqwarn <<- append(fqwarn, conditionMessage(w))
-      invokeRestart("muffleWarning")
-    })
+    fqwarn <- data.frame(Trait = traits, Message = NA_character_,
+                         stringsAsFactors = F)
+
+    fqwarn <- NULL
+    for (i in seq_along(traits)) {
+
+      withCallingHandlers({
+        fqout[[i]] <- freqdist.augmentedRCBD(output[[traits[i]]],
+                                             xlab = traits[i],
+                                             check.col = check.col)
+      }, warning = function(w) {
+        fqwarn <<- append(fqwarn, traits[i])
+        fqwarn <<- append(fqwarn, conditionMessage(w))
+        invokeRestart("muffleWarning")
+      })
+    }
   }
+
 
   out <- list(Details = Details, `ANOVA, Treatment Adjusted` = anovataout,
               `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans,
@@ -518,13 +540,15 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
               `CV` = cvout, `Descriptive statistics` = descout,
               `Frequency distribution` = fqout,
               `Genetic variability analysis` = gvaout,
-              `GVA plots` = list(`Phenotypic and Genotypic CV` = gvaplot_cvg,
-                                 `Broad sense heritability` = gvaplot_hbsg,
-                                 `Genetic advance over mean` = gvaplot_gamg),
+              `GVA plots` = gvaplots,
               warnings = list(Model = warn, `Freq. dist` = fqwarn))
 
   # Set Class
   class(out) <- "augmentedRCBD.bulk"
+
+  if (console == TRUE) {
+    print.augmentedRCBD.bulk(out)
+  }
 
   return(out)
 
