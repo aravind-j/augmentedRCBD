@@ -37,9 +37,12 @@ Imports:
     grDevices,
     methods,
     moments,
+    multcomp,
+    multcompView,
     Rdpack,
     stats,
     stringi,
     officer,
-    reshape2
+    reshape2,
+    utils
 RdMacros: Rdpack
