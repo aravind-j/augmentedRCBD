@@ -44,10 +44,6 @@ devtools::load_all(".")
 
 ***
 
-## Warning
-
-Package is not stable at present. It is under development. Please use only after release of stable version.
-
 ## Installation
 
 ### Install development version from Github
