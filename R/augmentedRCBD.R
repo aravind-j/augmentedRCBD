@@ -122,7 +122,7 @@
 #'                       checks = c("2", "3"))
 #'
 augmentedRCBD <- function(block, treatment, y, checks = NULL,
-                          method.comp = c("lsd","tukey", "none"),
+                          method.comp = c("lsd", "tukey", "none"),
                           alpha=0.05, group=TRUE, console = TRUE,
                           simplify = FALSE) {
   # Checks
@@ -149,10 +149,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
   }
   # method.comp
-  method.comp <- match.arg(method.comp, c("lsd","tukey", "none"),
+  method.comp <- match.arg(method.comp, c("lsd", "tukey", "none"),
                            several.ok = FALSE)
-  if (method.comp == "none") group = FALSE
-  if (group == FALSE) method.comp = "none"
+  if (method.comp == "none") group <- FALSE
+  if (group == FALSE) method.comp <- "none"
 
   if (!missing(checks) && !is.null(checks)) {
   #if (!is.null(checks)) {
@@ -170,7 +170,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   #if (!is.null(checks)) {
     treatmentorder <- data.frame(table(treatment, block))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                      value.var = "Freq")
     treatmentorder$Freq <- rowSums(subset(treatmentorder,
                                           select = -c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
@@ -179,7 +180,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     rownames(treatmentorder) <- NULL
 
     # check if "checks" are present in all the blocks
-    if (!(all(treatmentorder[treatmentorder$treatment %in% checks,]$Freq == nblocks))) {
+    if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
       print(treatmentorder)
       stop(paste('"checks" are not replicated across all the blocks (',
                  nblocks, ')', sep = ""))
@@ -197,7 +198,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   } else {# i.e. "checks" is not specified
     treatmentorder <- data.frame(table(treatment, block))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                      value.var = "Freq")
     treatmentorder$Freq <- rowSums(subset(treatmentorder,
                                           select = -c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
@@ -218,8 +220,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                  nblocks, ")", sep = ""))
     }
 
-    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks,]$treatment)
-    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks,]$treatment)
+    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
+    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
     if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
@@ -233,16 +235,15 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   ntr <- nlevels(treatment)  # no. of treatments
 
   blockwisechecks <- as.data.frame.matrix(table(treatment, block))
-  blockwisechecks <- cbind(treatment = rownames(blockwisechecks), blockwisechecks)
-  blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks,]
+  blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
+                           blockwisechecks)
+  blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
   rownames(blockwisechecks) <- NULL
 
   Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
                   `Number of check treatments` = length(checks),
                   `Number of test treatments` = length(tests),
                   `Check treatments` =  checks)
-
-  #Details2  <- blockwisechecks
 
   tb <- data.frame(treatment, block)
   tb$block <- as.character(tb$block)
@@ -251,19 +252,19 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   tb <- unique(tb)
 
   # Get means table
-  Means <- tapply(y,treatment, function(x) mean(x,na.rm = TRUE))
-  mi <- tapply(y, treatment, function(x) min(x,na.rm = TRUE))
-  ma <- tapply(y, treatment, function(x) max(x,na.rm = TRUE))
+  Means <- tapply(y, treatment, function(x) mean(x, na.rm = TRUE))
+  mi <- tapply(y, treatment, function(x) min(x, na.rm = TRUE))
+  ma <- tapply(y, treatment, function(x) max(x, na.rm = TRUE))
   n.rep <- tapply(y, treatment, function(x) length(na.omit(x)))
-  sds <- tapply(y, treatment, function(x) sd(x,na.rm = TRUE))
-  std.err <- sds/sqrt(n.rep)
+  sds <- tapply(y, treatment, function(x) sd(x, na.rm = TRUE))
+  std.err <- sds / sqrt(n.rep)
   Means <- data.frame(Treatment = names(Means), Means, SE = std.err, r = n.rep,
                       Min = mi, Max = ma)
   Means <- merge(Means, tb, by.x = "Treatment", by.y = "treatment")
   Means <- Means[c("Treatment", "Block", "Means", "SE", "r", "Min", "Max")]
 
   # ANOVA 1 - `ANOVA, Treatment Adjusted`
-  options(contrasts = c("contr.helmert","contr.poly"))
+  options(contrasts = c("contr.helmert", "contr.poly"))
   augmented.aov <- aov(y ~ block + treatment)
 
   df.check <- length(checks) - 1
@@ -281,7 +282,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   co.treatment <- co[augmented3.aov$assign == 2]
   effects.treatment <- c(co.treatment, -sum(co.treatment))
   names(effects.treatment) <- levels(treatment)
-  `Overall adjusted mean` = co[1]
+  `Overall adjusted mean` <- co[1]
   names(`Overall adjusted mean`) <- NULL
 
   # Calculate adjusted block effects
@@ -290,12 +291,12 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   names(effects.block) <- levels(block)
 
   # ANOVA 2 - `ANOVA, Block Adjusted`
-  contr.augmented <- function(n1,n2){
+  contr.augmented <- function(n1, n2){
     m1 <- contr.helmert(n1)
     m2 <- contr.helmert(n2)
-    m10 <- cbind(m1,matrix(0,nrow(m1),ncol(m2)))
-    m02 <- cbind(matrix(0,nrow(m2),ncol(m1)),m2)
-    rbind(m10,m02)
+    m10 <- cbind(m1, matrix(0, nrow(m1), ncol(m2)))
+    m02 <- cbind(matrix(0, nrow(m2), ncol(m1)), m2)
+    rbind(m10, m02)
   }
 
   contrasts(treatment) <- contr.augmented(df.check + 1,
@@ -356,8 +357,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
 
   if (group == TRUE) {
-    if (method.comp == "lsd") adjust = "none"
-    if (method.comp == "tukey") adjust = "tukey"
+    if (method.comp == "lsd") adjust <- "none"
+    if (method.comp == "tukey") adjust <- "tukey"
 
     Comparison <- data.frame(summary(pairs(LSMeans, adjust = adjust)))
     Groups <- data.frame(emmeans::cld(LSMeans, adjust = adjust))
@@ -365,49 +366,50 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     Comparison$sig <- ifelse(Comparison$p.value < 0.001, "***",
                              ifelse(Comparison$p.value < 0.01, "**",
                                     ifelse(Comparison$p.value < 0.05, "*", "")))
-    colnames(Groups) <- c("Treatment", "Adjusted Means", "SE", "df", "lower.CL", "upper.CL",
-                          "Group")
+    colnames(Groups) <- c("Treatment", "Adjusted Means", "SE", "df",
+                          "lower.CL", "upper.CL", "Group")
   }
 
   # Compute SE and CD for various comparisons
   augmented3.anova <- anova(augmented3.aov)
   MSE <- augmented3.anova[[3]][3]
 
-  CV <- sqrt(MSE)*100/mean(augmented3.aov$fitted.values)
+  CV <- sqrt(MSE) * 100 / mean(augmented3.aov$fitted.values)
 
   r <- augmented3.anova$Df[1] + 1 # Number of blocks
   c <- length(checks) # Number of check treatments
-  t0 <- qt(1 - (alpha/2), augmented3.aov$df.residual)
+  t0 <- qt(1 - (alpha / 2), augmented3.aov$df.residual)
 
   S <- c("Control Treatment Means", "Two Test Treatments (Same Block)",
          "Two Test Treatments (Different Blocks)",
          "A Test Treatment and a Control Treatment")
 
-  SE.check <- sqrt(2*MSE/r) #Two Control Treatments
-  SE.test1 <- sqrt(2*MSE) #Two Augmented Treatments (Same Block)
-  SE.test2 <- sqrt(2*MSE*(1 + (1/c))) #Two Augmented Treatments(Different Blocks)
-  SE.testcheck <- sqrt(MSE*(1 + (1/r) + (1/c) - (1/(r*c)))) #A Test Treatment and a Control Treatment
+  SE.check <- sqrt(2 * MSE / r) #Two Control Treatments
+  SE.test1 <- sqrt(2 * MSE) #Two Augmented Treatments (Same Block)
+  SE.test2 <- sqrt(2 * MSE * (1 + (1 / c))) #Two Augmented Treatments(Different Blocks)
+  SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) - (1 / (r * c)))) #A Test Treatment and a Control Treatment
 
   SECD <- data.frame(`Std. Error of Diff.` =  c(SE.check, SE.test1,
                                                 SE.test2, SE.testcheck),
                      row.names = S, check.names = FALSE)
-  SECD$CD <- t0*SECD$`Std. Error of Diff.`
+  SECD$CD <- t0 * SECD$`Std. Error of Diff.`
   colnames(SECD) <- c("Std. Error of Diff.",
-                      paste("CD (", alpha*100, "%)", sep = ""))
+                      paste("CD (", alpha * 100, "%)", sep = ""))
 
   if (method.comp == "tukey") {
-    q0 <- qtukey(1 - (alpha/2), nlevels(treatment),
+    q0 <- qtukey(1 - (alpha / 2), nlevels(treatment),
                  df = augmented3.aov$df.residual)
 
-    SECD$THSD <- q0*SECD$`Std. Error of Diff.`
+    SECD$THSD <- q0 * SECD$`Std. Error of Diff.`
     colnames(SECD) <- c("Std. Error of Diff.",
-                        paste("CD (", alpha*100, "%)",sep = ""),
-                        paste("Tukey HSD (", alpha*100, "%)",sep = ""))
+                        paste("CD (", alpha * 100, "%)", sep = ""),
+                        paste("Tukey HSD (", alpha * 100, "%)", sep = ""))
   }
 
   rm(augmented.aov, augmented2.aov, augmented3.aov, augmented3.anova)
 
-  output <- list(Details = Details, Means = Means, `ANOVA, Treatment Adjusted` = A1,
+  output <- list(Details = Details, Means = Means,
+                 `ANOVA, Treatment Adjusted` = A1,
                  `ANOVA, Block Adjusted` = A2, `Block effects` = effects.block,
                  `Treatment effects` = effects.treatment, `Std. Errors` = SECD,
                  `Overall adjusted mean` = `Overall adjusted mean`,

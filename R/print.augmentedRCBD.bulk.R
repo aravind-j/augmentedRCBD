@@ -71,4 +71,3 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("===============\n")
   print(x$Means)
 }
-

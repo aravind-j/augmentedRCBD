@@ -37,8 +37,8 @@ report.augmentedRCBD <- function(aug, target){
     stop('"aug" is not of class "augmentedRCBD"')
   }
 
-  if(!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)){
-    stop(target , " should have '.docx' extension.")
+  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)){
+    stop(target, " should have '.docx' extension.")
   }
 
   augreport <- read_docx("./inst/template.docx")
@@ -66,13 +66,14 @@ report.augmentedRCBD <- function(aug, target){
   # ANOVA, TA
   augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                             style = "heading 1")
-  if(is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
+  if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
     anovata <- aug$`ANOVA, Treatment Adjusted`
   } else {
     anovata <- data.frame(aug$`ANOVA, Treatment Adjusted`[[1]])
     anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
   }
-  colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq", "F value", "Pr(>F)")
+  colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
+                         "F value", "Pr(>F)")
   anovata$Df <- as.character(anovata$Df)
   anovata <- dplyr::mutate_if(anovata, is.numeric, round.conditional)
   anovata <- autofit(regulartable(anovata))
@@ -82,13 +83,14 @@ report.augmentedRCBD <- function(aug, target){
   # ANOVA, BA
   augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                             style = "heading 1")
-  if(is.data.frame(aug$`ANOVA, Block Adjusted`)){
+  if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
     anovaba <- aug$`ANOVA, Block Adjusted`
   } else {
     anovaba <- data.frame(aug$`ANOVA, Block Adjusted`[[1]])
     anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
   }
-  colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq", "F value", "Pr(>F)")
+  colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
+                         "F value", "Pr(>F)")
   anovaba$Df <- as.character(anovaba$Df)
   anovaba <- dplyr::mutate_if(anovaba, is.numeric, round.conditional)
   anovaba <- autofit(regulartable(anovaba))
@@ -96,7 +98,8 @@ report.augmentedRCBD <- function(aug, target){
   augreport <- body_add_flextable(augreport, anovaba)
 
   # Std. Errors
-  augreport <- body_add_par(augreport, value = "Standard Errors and Critical Differences",
+  augreport <- body_add_par(augreport,
+                            value = "Standard Errors and Critical Differences",
                             style = "heading 1")
   se <- aug$`Std. Errors`
   se <- dplyr::mutate_if(se, is.numeric, round.conditional)
@@ -114,7 +117,8 @@ report.augmentedRCBD <- function(aug, target){
   # Coefficient of variation
   augreport <- body_add_par(augreport, value = "Coefficient of Variation",
                             style = "heading 1")
-  augreport <- body_add_par(augreport, value = as.character(round.conditional(aug$CV)),
+  augreport <- body_add_par(augreport,
+                            value = as.character(round.conditional(aug$CV)),
                             style = "Normal")
 
   # Means
@@ -136,7 +140,7 @@ report.augmentedRCBD <- function(aug, target){
   rm(src)
 
   # Desc stat
-  descout <- data.frame(describe.augmentedRCBD(aug))[1,]
+  descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
   descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
                                       ifelse(descout$Skewness.p.value. <= 0.05,
                                              "*", "ns"))
@@ -146,12 +150,16 @@ report.augmentedRCBD <- function(aug, target){
 
   desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
             "Max", "Skewness.statistic.", "Kurtosis.statistic.")
-  descout[,desc] <- apply(descout[,desc], MARGIN = 2, FUN = round.conditional)
+  descout[, desc] <- apply(descout[, desc], MARGIN = 2, FUN = round.conditional)
   colnames(descout) <- c("Count", "Mean", "Std.Error", "Std.Deviation",
                          "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
                          "Kurtosis_sig")
-  descout$Skewness <- paste(descout$Skewness, stringi::stri_pad_right(descout$Skewness_sig, 3), sep = " ")
-  descout$Kurtosis <- paste(descout$Kurtosis, stringi::stri_pad_right(descout$Kurtosis_sig, 3), sep = " ")
+  descout$Skewness <- paste(descout$Skewness,
+                            stringi::stri_pad_right(descout$Skewness_sig, 3),
+                            sep = " ")
+  descout$Kurtosis <- paste(descout$Kurtosis,
+                            stringi::stri_pad_right(descout$Kurtosis_sig, 3),
+                            sep = " ")
   descout <- descout[, c("Count", "Mean", "Std.Error", "Std.Deviation",
                          "Min", "Max", "Skewness", "Kurtosis")]
   descout <- data.frame(t(descout))
@@ -180,7 +188,7 @@ report.augmentedRCBD <- function(aug, target){
   augreport <- body_add_flextable(augreport, gvaout)
 
   # Comparisons
-  if(!is.null(aug$Comparisons)) {
+  if (!is.null(aug$Comparisons)) {
     augreport <- body_add_par(augreport, value = "Comparisons",
                               style = "heading 1")
     augreport <- body_add_par(augreport,
@@ -199,7 +207,7 @@ report.augmentedRCBD <- function(aug, target){
   }
 
   # Groups
-  if(!is.null(aug$Groups)) {
+  if (!is.null(aug$Groups)) {
     augreport <- body_add_par(augreport, value = "Groups",
                               style = "heading 1")
     augreport <- body_add_par(augreport,

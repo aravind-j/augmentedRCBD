@@ -53,4 +53,3 @@ print.augmentedRCBD <- function(x, ...){
     print(x$Groups)
   }
 }
-

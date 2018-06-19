@@ -66,8 +66,8 @@ describe.augmentedRCBD <- function(aug) { # all treatments (test + checks)
   Skewness <- moments::agostino.test(adjmeans, alternative = "two.sided")
   Kurtosis <- moments::anscombe.test(adjmeans, alternative = "two.sided")
   Range <- range(adjmeans)
-  stddev = sd(adjmeans)
-  stderror = stddev/sqrt(Count)
+  stddev <- sd(adjmeans)
+  stderror <- stddev / sqrt(Count)
 
   out <- list(Count = Count, Mean = Mean, `Std.Error` = stderror,
               `Std.Deviation` = stddev, Min = Range[1], Max = Range[2],

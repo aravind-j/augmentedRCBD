@@ -88,10 +88,10 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
   G1 <- ggplot(dat, aes(x = dat)) +
     geom_histogram(colour = "black", fill = "grey",
                    binwidth = bw) +
-    scale_x_continuous(limits = c((min(dat$dat, na.rm = TRUE)),
+    scale_x_continuous(limits = c( (min(dat$dat, na.rm = TRUE)),
                                   (max(dat$dat, na.rm = TRUE)))) +
     stat_function(geom = "line", fun = function(x, mean, sd, n, bw){
-      dnorm(x = x, mean = mean, sd = sd) * n * bw },
+      dnorm(x = x, mean = mean, sd = sd) * n * bw},
       args = list(mean = mean(dat$dat, na.rm = TRUE),
                   sd = sd(dat$dat, na.rm = TRUE),
                   n = NN, bw = bw), colour = "blue") +
@@ -102,18 +102,19 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
 
   if (highlight.check) {
     G1 <- G1 +
-      geom_vline(xintercept = aug$Means[aug$Means$Treatment %in% checks,]$`Adjusted Means`,
+      geom_vline(xintercept = aug$Means[aug$Means$Treatment %in% checks, ]$`Adjusted Means`,
                  size = 1, colour = check.col)
 
-    dat2 <- aug$Means[aug$Means$Treatment %in% checks,]
+    dat2 <- aug$Means[aug$Means$Treatment %in% checks, ]
     dat2$lower <- dat2$`Adjusted Means` - dat2$SE
     dat2$upper <- dat2$`Adjusted Means` + dat2$SE
 
     G2 <- ggplot(dat2, aes(x = Treatment, y = Means)) +
-      geom_errorbar(aes(ymin = lower, ymax = upper), colour = check.col, width  = 0.25) +
+      geom_errorbar(aes(ymin = lower, ymax = upper), colour = check.col,
+                    width  = 0.25) +
       geom_point(colour = check.col) +
       labs(x = NULL, y = NULL) +
-      scale_y_continuous(limits = c((min(dat$dat, na.rm = TRUE)),
+      scale_y_continuous(limits = c( (min(dat$dat, na.rm = TRUE)),
                                     (max(dat$dat, na.rm = TRUE)))) +
       # geom_hline(yintercept = aug$Means[aug$Means$Treatment %in% checks,]$`Adjusted Means`,
       #            colour = check.col) +
@@ -122,11 +123,11 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
       # theme(axis.text.x = element_blank(),
       #       axis.ticks.x = element_blank()) +
       theme(legend.position = "none") +
-      theme(plot.margin = unit(c(0.25,0.1,0,0.25),"cm"),
+      theme(plot.margin = unit(c(0.25, 0.1, 0, 0.25), "cm"),
             axis.text = element_text(colour = "black"))
 
-    G <- rbind(ggplotGrob(G2)[-c(7),], ggplotGrob(G1), size = "last")
-    G <- resize_heights(G, c(1,3))
+    G <- rbind(ggplotGrob(G2)[-c(7), ], ggplotGrob(G1), size = "last")
+    G <- resize_heights(G, c(1, 3))
 
   } else {
     G <- ggplotGrob(G1 + theme(plot.margin = unit(c(1, 1, 1, 1), "lines")))
@@ -141,23 +142,29 @@ binw <- function(x, method = c("fd", "scott", "sturges")) {
   method <- match.arg(method)
 
   if (method == "fd") {
-    bw <-   pretty(range(x, na.rm = TRUE), n = nclass.FD(na.omit(x)), min.n = 1, right = TRUE)[2] -
-      pretty(range(x, na.rm = TRUE), n = nclass.FD(na.omit(x)), min.n = 1, right = TRUE)[1]
+    bw <-   pretty(range(x, na.rm = TRUE), n = nclass.FD(na.omit(x)),
+                   min.n = 1, right = TRUE)[2] -
+      pretty(range(x, na.rm = TRUE), n = nclass.FD(na.omit(x)),
+             min.n = 1, right = TRUE)[1]
   }
   if (method == "scott") {
-    bw <-   pretty(range(x, na.rm = TRUE), n = nclass.scott(na.omit(x)), min.n = 1, right = TRUE)[2] -
-      pretty(range(x, na.rm = TRUE), n = nclass.scott(na.omit(x)), min.n = 1, right = TRUE)[1]
+    bw <-   pretty(range(x, na.rm = TRUE), n = nclass.scott(na.omit(x)),
+                   min.n = 1, right = TRUE)[2] -
+      pretty(range(x, na.rm = TRUE), n = nclass.scott(na.omit(x)),
+             min.n = 1, right = TRUE)[1]
   }
   if (method == "sturges") {
-    bw <-   pretty(range(x, na.rm = TRUE), n = nclass.Sturges(na.omit(x)), min.n = 1, right = TRUE)[2] -
-      pretty(range(x, na.rm = TRUE), n = nclass.Sturges(na.omit(x)), min.n = 1, right = TRUE)[1]
+    bw <-   pretty(range(x, na.rm = TRUE), n = nclass.Sturges(na.omit(x)),
+                   min.n = 1, right = TRUE)[2] -
+      pretty(range(x, na.rm = TRUE), n = nclass.Sturges(na.omit(x)),
+             min.n = 1, right = TRUE)[1]
   }
   return(bw)
 }
 
 
 resize_heights <- function(g, heights = rep(1, length(idpanels))){
-  idpanels <- unique(g$layout[grepl("panel",g$layout$name), "t"])
+  idpanels <- unique(g$layout[grepl("panel", g$layout$name), "t"])
   g$heights <- grid:::unit.list(g$heights)
   hunits <- lapply(heights, unit, "null")
   class(hunits) <- class(g$heights[idpanels])

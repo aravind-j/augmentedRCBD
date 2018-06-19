@@ -41,8 +41,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
     stop('"aug.bulk" is not of class "augmentedRCBD.bulk"')
   }
 
-  if(!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)){
-    stop(target , " should have '.docx' extension.")
+  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)){
+    stop(target, " should have '.docx' extension.")
   }
 
   augreport <- read_docx("./inst/template.docx")
@@ -104,7 +104,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   # CD
   augreport <- body_add_par(augreport,
                             value = paste("Critical Difference (",
-                                          aug.bulk$alpha*100, "%)", sep = ""),
+                                          aug.bulk$alpha * 100, "%)", sep = ""),
                             style = "heading 1")
   CD <- aug.bulk$CD
   CD <- autofit(flextable(CD))
@@ -143,7 +143,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   augreport <- body_add_par(augreport, value = "Frequency Distribution",
                             style = "heading 1")
 
-  for(i in 1:aug.bulk$Details$`Number of Traits`) {
+  for (i in 1:aug.bulk$Details$`Number of Traits`) {
     augreport <- body_add_par(augreport, value = aug.bulk$Details$Traits[i],
                               style = "heading 2")
     src <- tempfile(fileext = ".png")
@@ -204,24 +204,24 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   augreport <- body_add_flextable(augreport, adj.means)
 
   # Warnings
-  if(!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
+  if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
     augreport <- body_add_par(augreport, value = "Warnings",
                               style = "heading 1")
 
-    if(!is.null(aug.bulk$warnings$Model)) {
+    if (!is.null(aug.bulk$warnings$Model)) {
       augreport <- body_add_par(augreport, value = "Model",
                                 style = "heading 2")
-      for(i in 1:length(aug.bulk$warnings$Model)) {
+      for (i in 1:length(aug.bulk$warnings$Model)) {
         augreport <- body_add_par(augreport,
                                   value = aug.bulk$warnings$Model[i],
                                   style = "Code")
       }
     }
 
-    if(!is.null(aug.bulk$warnings$`Freq. dist`)) {
+    if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
       augreport <- body_add_par(augreport, value = "Frequency distribution",
                                 style = "heading 2")
-      for(i in 1:length(aug.bulk$warnings$`Freq. dist`)) {
+      for (i in 1:length(aug.bulk$warnings$`Freq. dist`)) {
         augreport <- body_add_par(augreport,
                                    value = aug.bulk$warnings$`Freq. dist`[i],
                                    style = "Code")
@@ -237,5 +237,3 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
 print(augreport, target = target)
 
 }
-
-

@@ -164,10 +164,10 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
     stop('"aug" is not of class "augmentedRCBD"')
   }
 
-  if(is.data.frame(aug$`ANOVA, Block Adjusted`)){
-    PV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Treatment: Test","Mean.Sq"]
+  if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
+    PV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Treatment: Test", "Mean.Sq"]
     PV <- unname(PV)
-    EV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Residuals","Mean.Sq"]
+    EV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Residuals", "Mean.Sq"]
     EV <- unname(EV)
 
   } else {
@@ -179,16 +179,16 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
 
   GV <- PV - EV
   Mean <- mean(aug$Means$`Adjusted Means`)
-  GCV <- (sqrt(GV)/Mean)*100 # Burton 1951 1952
+  GCV <- (sqrt(GV) / Mean) * 100 # Burton 1951 1952
   GCV_category <- ifelse(GCV >= 20, "High", ifelse(GCV >= 10, "Medium", "Low"))
-  PCV <- (sqrt(PV)/Mean)*100 # Burton 1951 1952
+  PCV <- (sqrt(PV) / Mean) * 100 # Burton 1951 1952
   PCV_category <- ifelse(PCV >= 20, "High", ifelse(PCV >= 10, "Medium", "Low"))
-  ECV <- (sqrt(EV)/Mean)*100 # Burton 1951 1952
-  hBS <- (GV/PV)*100 # Lush 1940
+  ECV <- (sqrt(EV) / Mean) * 100 # Burton 1951 1952
+  hBS <- (GV / PV) * 100 # Lush 1940
   hBS <- ifelse(hBS < 0, NA, hBS) # for negative hbs
   hBS_categroy <- ifelse(hBS >= 60, "High", ifelse(hBS >= 30, "Medium", "Low")) # Robinson 1966
-  GA <- k * sqrt(PV) * (hBS/100) # Johnson et al. 1955
-  GAM <- (GA/Mean)*100
+  GA <- k * sqrt(PV) * (hBS / 100) # Johnson et al. 1955
+  GAM <- (GA / Mean) * 100
   GAM_category <-  ifelse(GAM >= 20, "High", ifelse(GAM >= 10, "Medium", "Low"))
 
   out <- list(Mean = Mean, PV = PV, GV = GV, EV = EV,
@@ -210,12 +210,12 @@ selection.intensity <- function(p, pop.size = 1000) {
 
   selection.proportion <- p
   threshold <- -qnorm(selection.proportion)
-  height.at.threshold <- exp(-0.5*(threshold^2))/sqrt(2*pi)
+  height.at.threshold <- exp(-0.5 * (threshold ^ 2)) / sqrt(2 * pi)
   # infinite pop size
-  selection.intensity <- height.at.threshold/selection.proportion
+  selection.intensity <- height.at.threshold / selection.proportion
 
   # corrected for finite pop size
-  selection.intensity.corr <- selection.intensity-(pop.size-(pop.size*selection.proportion))/(2*selection.proportion*pop.size*((pop.size+1)*selection.intensity))
+  selection.intensity.corr <- selection.intensity - (pop.size - (pop.size * selection.proportion)) / (2 * selection.proportion * pop.size * ((pop.size + 1) * selection.intensity))
 
   return(list(`Selection intensity` = selection.intensity,
               `Corrected selection intensity` = selection.intensity.corr))

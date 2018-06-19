@@ -116,7 +116,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                paste(names(missvcols[missvcols]), collapse = ", ")))
   }
   # check if trait columns are of type numeric/integer
-  inttraitcols <- unlist(lapply(data[,traits],
+  inttraitcols <- unlist(lapply(data[, traits],
                                 function(x) FALSE %in% (is.vector(x, mode = "integer") | is.vector(x, mode = "numeric"))))
   if (TRUE %in% inttraitcols) {
     stop(paste('The following trait column(s) in "data" are not of type numeric:\n',
@@ -142,17 +142,18 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     treatmentorder <- data.frame(table(treatment = data[, treatment],
                                        block = data[, block]))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                      value.var = "Freq")
     treatmentorder$Freq <- rowSums(subset(treatmentorder,
                                           select = -c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
 
-    nblocks <- length(levels(data[,block]))
+    nblocks <- length(levels(data[, block]))
     rownames(treatmentorder) <- NULL
 
 
     # check if "checks" are present in all the blocks
-    if (!(all(treatmentorder[treatmentorder$treatment %in% checks,]$Freq == nblocks))) {
+    if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
       print(treatmentorder)
       stop(paste('"checks" are not replicated across all the blocks (',
                  nblocks, ')', sep = ""))
@@ -167,13 +168,14 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     treatmentorder <- data.frame(table(treatment = data[, treatment],
                                        block = data[, block]))
     treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block, value.var = "Freq")
+    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                      value.var = "Freq")
     treatmentorder$Freq <- rowSums(subset(treatmentorder,
                                           select = -c(treatment)))
     treatmentorder <- treatmentorder[, c("treatment", "Freq")]
     treatmentorder <- treatmentorder[with(treatmentorder,
                                           order(-Freq, treatment)), ]
-    nblocks <- length(levels(data[,block]))
+    nblocks <- length(levels(data[, block]))
     rownames(treatmentorder) <- NULL
 
     # check if the checks can be inferred.
@@ -185,8 +187,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                  nblocks, ")", sep = ""))
     }
 
-    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks,]$treatment)
-    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks,]$treatment)
+    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
+    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
 
     tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
     if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
@@ -219,7 +221,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       invokeRestart("muffleWarning")
     })
 
-    #print(traits[i])
     cat(paste("\nANOVA for ", traits[i], " computed (", i,  "/",
               length(traits), ")\n", sep = ""))
     gc()
@@ -246,8 +247,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovata <- Map(cbind, anovata, Trait = names(anovata))
   anovaba <- Map(cbind, anovaba, Trait = names(anovaba))
 
-  anovata <- lapply(anovata, function(x) dplyr::mutate_if(x, is.factor, as.character))
-  anovaba <- lapply(anovaba, function(x) dplyr::mutate_if(x, is.factor, as.character))
+  anovata <- lapply(anovata, function(x) dplyr::mutate_if(x, is.factor,
+                                                          as.character))
+  anovaba <- lapply(anovaba, function(x) dplyr::mutate_if(x, is.factor,
+                                                          as.character))
 
   anovata <- dplyr::bind_rows(anovata)
   anovaba <- dplyr::bind_rows(anovaba)
@@ -264,17 +267,13 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovaba$sig[is.na(anovaba$sig)] <- ""
 
   # Round off the MSS values according to value
-  anovata$MSS <- ifelse(round(anovata$Mean.Sq, 2) != 0,
-                           as.character(round(anovata$Mean.Sq, 2)),
-                           sub("\\.$", "", sub(".0+$", "",
-                                               sprintf("%f", signif(anovata$Mean.Sq, 2)))))
-  anovaba$MSS <- ifelse(round(anovaba$Mean.Sq, 2) != 0,
-                           as.character(round(anovaba$Mean.Sq, 2)),
-                           sub("\\.$", "", sub(".0+$", "",
-                                               sprintf("%f", signif(anovaba$Mean.Sq, 2)))))
+  anovata$MSS <- round.conditional(anovata$MSS)
+  anovaba$MSS <- round.conditional(anovaba$MSS)
 
-  anovata$MSS <- paste(anovata$MSS, stringi::stri_pad_right(anovata$sig, 3), sep = " ")
-  anovaba$MSS <- paste(anovaba$MSS, stringi::stri_pad_right(anovaba$sig, 3), sep = " ")
+  anovata$MSS <- paste(anovata$MSS, stringi::stri_pad_right(anovata$sig, 3),
+                       sep = " ")
+  anovaba$MSS <- paste(anovaba$MSS, stringi::stri_pad_right(anovaba$sig, 3),
+                       sep = " ")
 
   anovataout <- dcast(anovata, Source + Df ~ Trait, value.var = "MSS")
   rm(anovata)
@@ -283,10 +282,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   rm(anovaba)
 
   anovataout$sl <- c(1, 5, 2, 3, 4)
-  anovataout <- arrange(anovataout, sl)
+  anovataout <- dplyr::arrange(anovataout, sl)
 
   anovabaout$sl <- c(5, 6, 1, 2, 4, 3)
-  anovabaout <- arrange(anovabaout, sl)
+  anovabaout <- dplyr::arrange(anovabaout, sl)
 
   anovataout$sl <- NULL
   anovabaout$sl <- NULL
@@ -294,26 +293,31 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   # Adjusted means
   adjmeans <- lapply(output, function(x) x$Means)
   adjmeans <- Map(cbind, adjmeans, Trait = names(adjmeans))
-  adjmeans <- lapply(adjmeans, function(x) dplyr::mutate_if(x, is.factor, as.character))
+  adjmeans <- lapply(adjmeans, function(x) dplyr::mutate_if(x, is.factor,
+                                                            as.character))
   adjmeans <- dplyr::bind_rows(adjmeans)
   adjmeans <- reshape2::dcast(adjmeans, Treatment ~ Trait,
-                              value.var = "Adjusted Means", fun.aggregate = mean)
-  adjmeans[, traits] <- lapply(adjmeans[,traits], round.conditional)
+                              value.var = "Adjusted Means",
+                              fun.aggregate = mean)
+  adjmeans[, traits] <- lapply(adjmeans[, traits], round.conditional)
 
 
   # CV
   cvout <- lapply(output, function(x) x$CV)
   cvout <- lapply(cvout, function(x) data.frame(CV = x))
   cvout <- Map(cbind, Trait = names(cvout), cvout)
-  cvout <- lapply(cvout, function(x) dplyr::mutate_if(x, is.factor, as.character))
+  cvout <- lapply(cvout, function(x) dplyr::mutate_if(x, is.factor,
+                                                      as.character))
   cvout <- dplyr::bind_rows(cvout)
   cvout$CV <- round.conditional(cvout$CV)
 
   # overall adj mean
   oadjmean <- lapply(output, function(x) x$`Overall adjusted mean`)
-  oadjmean <- lapply(oadjmean, function(x) data.frame(Overall.adjusted.mean = x))
+  oadjmean <- lapply(oadjmean,
+                     function(x) data.frame(Overall.adjusted.mean = x))
   oadjmean <- Map(cbind, Trait = names(oadjmean), oadjmean)
-  oadjmean <- lapply(oadjmean, function(x) dplyr::mutate_if(x, is.factor, as.character))
+  oadjmean <- lapply(oadjmean, function(x) dplyr::mutate_if(x, is.factor,
+                                                            as.character))
   oadjmean <- dplyr::bind_rows(oadjmean)
   oadjmean$Overall.adjusted.mean <- round.conditional(oadjmean$Overall.adjusted.mean)
 
@@ -324,10 +328,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   secd <- lapply(secd, function(x) dplyr::mutate_if(x, is.factor, as.character))
   secd <- dplyr::bind_rows(secd)
   secd$`Std. Error of Diff.` <- round.conditional(secd$`Std. Error of Diff.`)
-  secd[,grepl("CD \\(", colnames(secd))] <- round.conditional(secd[,grepl("CD \\(", colnames(secd))])
+  secd[, grepl("CD \\(", colnames(secd))] <- round.conditional(secd[, grepl("CD \\(", colnames(secd))])
 
-  seout <- reshape2::dcast(secd, Comparison ~ Trait, value.var = "Std. Error of Diff.")
-  cdout <- reshape2::dcast(secd, Comparison ~ Trait, value.var = colnames(secd)[grepl("CD \\(", colnames(secd))])
+  seout <- reshape2::dcast(secd, Comparison ~ Trait,
+                           value.var = "Std. Error of Diff.")
+  cdout <- reshape2::dcast(secd, Comparison ~ Trait,
+                           value.var = colnames(secd)[grepl("CD \\(", colnames(secd))])
 
   # Descriptive statistics
   descout <- vector("list", length(traits))
@@ -337,7 +343,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     descout[[i]] <- describe.augmentedRCBD(output[[traits[i]]])
   }
 
-  descout <- lapply(descout, function(x) data.frame(x)[1,])
+  descout <- lapply(descout, function(x) data.frame(x)[1, ])
   descout <- Map(cbind, Trait = names(descout), descout)
 
   descout <- lapply(descout, function(x) dplyr::mutate_if(x, is.factor,
@@ -352,13 +358,17 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                              "*", "ns"))
   desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
             "Max", "Skewness.statistic.", "Kurtosis.statistic.")
-  descout[,desc] <- apply(descout[,desc], MARGIN = 2, FUN = round.conditional)
+  descout[, desc] <- apply(descout[, desc], MARGIN = 2, FUN = round.conditional)
 
   colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error", "Std.Deviation",
                          "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
                          "Kurtosis_sig")
-  descout$Skewness <- paste(descout$Skewness, stringi::stri_pad_right(descout$Skewness_sig, 3), sep = " ")
-  descout$Kurtosis <- paste(descout$Kurtosis, stringi::stri_pad_right(descout$Kurtosis_sig, 3), sep = " ")
+  descout$Skewness <- paste(descout$Skewness,
+                            stringi::stri_pad_right(descout$Skewness_sig, 3),
+                            sep = " ")
+  descout$Kurtosis <- paste(descout$Kurtosis,
+                            stringi::stri_pad_right(descout$Kurtosis_sig, 3),
+                            sep = " ")
   descout <- descout[, c("Trait", "Count", "Mean", "Std.Error", "Std.Deviation",
                          "Min", "Max", "Skewness", "Kurtosis")]
 
@@ -374,13 +384,14 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   gvaout <- lapply(gvaout, function(x) data.frame(x))
   gvaout <- Map(cbind, Trait = names(gvaout), gvaout)
 
-  gvaout <- lapply(gvaout, function(x) dplyr::mutate_if(x, is.factor, as.character))
+  gvaout <- lapply(gvaout, function(x) dplyr::mutate_if(x, is.factor,
+                                                        as.character))
   gvaout <- dplyr::bind_rows(gvaout)
 
   gvaplot <- gvaout
 
   gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
-  gvaout[,gvap] <- apply(gvaout[,gvap], MARGIN = 2, FUN = round.conditional)
+  gvaout[, gvap] <- apply(gvaout[, gvap], MARGIN = 2, FUN = round.conditional)
 
   # GVA plot
   themecustom <- theme(axis.text.x = element_text(color = "black", angle = 45,
@@ -397,20 +408,24 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                            xmax = 0.10,
                            ymin = c(-Inf, 10, 20),
                            ymax = c(10, 20, Inf),
-                           Category = as.factor(c("Low","Medium", "High")))
+                           Category = as.factor(c("Low", "Medium", "High")))
   gvacat$Category <- factor(gvacat$Category,
                             levels = c("Low", "Medium", "High"))
 
 
-  gvaplot_cvg <- ggplot(gvaplot_cv, aes(x = Trait, colour = variable, group = variable)) +
+  gvaplot_cvg <- ggplot(gvaplot_cv, aes(x = Trait, colour = variable,
+                                        group = variable)) +
     geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
-    geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait, y = -Inf, yend = min),
+    geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
+                                       y = -Inf, yend = min),
                  inherit.aes = F) +
-    geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait, y = min, yend = max),
+    geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
+                                       y = min, yend = max),
                  inherit.aes = F, size = 2, colour = "gray70") +
     geom_point(aes(y = value)) +
     scale_color_manual("Type", values = c("red", "blue")) +
-    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot_2[, c("PCV", "GCV")])) + 10 ,
+    scale_y_continuous(breaks = seq(0,
+                                    ceiling(max(gvaplot_2[, c("PCV", "GCV")])) + 10,
                                     by = 10)) +
     geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
                                  xmax = xmax, ymax = ymax, fill = Category),
@@ -424,18 +439,20 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                        xmax = 0.10,
                        ymin = c(-Inf, 30, 60),
                        ymax = c(30, 60, Inf),
-                       Category = as.factor(c("Low","Medium", "High")))
+                       Category = as.factor(c("Low", "Medium", "High")))
   gvacat2$Category <- factor(gvacat2$Category,
                             levels = c("Low", "Medium", "High"))
   gvaplot_hbs <- reshape2::melt(gvaplot, id.vars = c("Trait"),
                                 measure.vars = "hBS")
 
-  gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable, group = variable)) +
+  gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable,
+                                          group = variable)) +
     geom_hline(yintercept = c(30, 60), color = "black", linetype = 3) +
-    geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf, yend = value),
+    geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf,
+                                         yend = value),
                  colour = "black") +
     geom_point(aes(y = value), colour = "black") +
-    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"])) + 10 ,
+    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"])) + 10,
                                     by = 10)) +
     geom_rect(data = gvacat2, aes(xmin = xmin, ymin = ymin,
                                  xmax = xmax, ymax = ymax, fill = Category),
@@ -448,12 +465,14 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   gvaplot_gam <- reshape2::melt(gvaplot, id.vars = c("Trait"),
                                 measure.vars = "GAM")
 
-  gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable, group = variable)) +
+  gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable,
+                                          group = variable)) +
     geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
-    geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf, yend = value),
+    geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf,
+                                         yend = value),
                  colour = "black") +
     geom_point(aes(y = value), colour = "black") +
-    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"])) + 10 ,
+    scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"])) + 10,
                                     by = 10)) +
     geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
                                  xmax = xmax, ymax = ymax, fill = Category),
@@ -485,8 +504,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   }
 
   out <- list(Details = Details, `ANOVA, Treatment Adjusted` = anovataout,
-              `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans, alpha = alpha,
-              `Std. Errors` = seout, CD = cdout,
+              `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans,
+              alpha = alpha, `Std. Errors` = seout, CD = cdout,
               `Overall adjusted mean` = oadjmean,
               `CV` = cvout, `Descriptive statistics` = descout,
               `Frequency distribution` = fqout,
@@ -517,22 +536,3 @@ iscolour <- function(x) {
              error = function(e) FALSE)
   })
 }
-
-
-
-# library(cowplot)
-# plot_grid(gvaplot_cvg, gvaplot_hbsg, gvaplot_gamg, ncol = 1, align = "v")
-#
-# rows = 4
-# cols = 2
-# perpage = rows*cols
-# npage <- plyr::round_any(length(fqout)/perpage, 1, ceiling)
-# FqDistPlotsMulti <- split(fqout, seq.int(1, length(fqout), perpage))
-#
-# pdf(file = "Freq distribution.pdf", height = 16.5, width =  11.7, onefile=TRUE)
-# plot_grid(plotlist = FqDistPlotsMulti[[1]], ncol = cols, nrow = rows, scale = 0.9)
-# plot_grid(plotlist = FqDistPlotsMulti[[2]], ncol = cols, nrow = rows, scale = 0.9)
-# dev.off()
-
-
-
