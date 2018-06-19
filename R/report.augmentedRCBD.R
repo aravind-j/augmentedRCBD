@@ -32,6 +32,7 @@
 #' @importFrom grDevices dev.off
 #' @importFrom methods is
 #' @importFrom stringi stri_pad_right
+#' @importFrom graphics plot
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
 #'

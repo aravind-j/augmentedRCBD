@@ -32,6 +32,7 @@
 #' @importFrom grDevices dev.off
 #' @importFrom methods is
 #' @importFrom stats qnorm
+#' @importFrom graphics plot
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
 #'
