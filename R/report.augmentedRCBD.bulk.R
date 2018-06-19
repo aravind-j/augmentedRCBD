@@ -38,11 +38,7 @@
 #'                            console = FALSE)
 #'
 #' \dontrun{
-#' targetpath <- file.path(system.file(package = "augmentedRCBD"),
-#'                         "examples/augRCBDbulk_test.docx")
-#' targetpath
-#'
-#' report.augmentedRCBD.bulk(bout, targetpath)
+#' report.augmentedRCBD.bulk(bout, "augmentedRCBD bulk output.docx")
 #' }
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
 #'

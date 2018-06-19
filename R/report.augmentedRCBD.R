@@ -35,11 +35,7 @@
 #'                       alpha = 0.05, group = TRUE, console = FALSE)
 #'
 #' \dontrun{
-#' targetpath <- file.path(system.file(package = "augmentedRCBD"),
-#'                         "examples/augRCBD_test.docx")
-#' targetpath
-#'
-#' report.augmentedRCBD(out, targetpath)
+#' report.augmentedRCBD.bulk(bout, "augmentedRCBD output.docx")
 #' }
 #'
 report.augmentedRCBD <- function(aug, target){
