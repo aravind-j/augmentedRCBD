@@ -36,6 +36,7 @@
 #'@importFrom methods is
 #'@importFrom stats dnorm
 #'@importFrom stats sd
+#'@importFrom utils getFromNamespace
 #'
 #'@export
 #'
@@ -184,10 +185,11 @@ binw <- function(x, method = c("fd", "scott", "sturges")) {
   return(bw)
 }
 
+unit.list <- getFromNamespace("unit.list", "grid")
 
 resize_heights <- function(g, heights = rep(1, length(idpanels))){
   idpanels <- unique(g$layout[grepl("panel", g$layout$name), "t"])
-  g$heights <- grid:::unit.list(g$heights)
+  g$heights <- unit.list(g$heights)
   hunits <- lapply(heights, unit, "null")
   class(hunits) <- class(g$heights[idpanels])
   g$heights[idpanels] <- hunits
