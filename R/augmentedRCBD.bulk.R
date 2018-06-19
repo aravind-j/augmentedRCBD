@@ -44,7 +44,9 @@
 #' @param gva If \code{TRUE}, genetic variability analysis will be done. Default
 #'   is \code{TRUE}.
 #' @param check.col The colour(s) to be used to highlight check values in the
-#'   plot as a character vector.
+#'   plot as a character vector. Must be valid colour values in R (named colours,
+#'  hexadecimal representation, index of colours [\code{1:8}] in default R
+#'  `palette()` etc.).
 #' @param console If \code{TRUE}, output will be printed to console. Default is
 #'   \code{TRUE}.
 #'

@@ -39,7 +39,9 @@ is \code{TRUE}.}
 is \code{TRUE}.}
 
 \item{check.col}{The colour(s) to be used to highlight check values in the
-plot as a character vector.}
+ plot as a character vector. Must be valid colour values in R (named colours,
+hexadecimal representation, index of colours [\code{1:8}] in default R
+`palette()` etc.).}
 
 \item{console}{If \code{TRUE}, output will be printed to console. Default is
 \code{TRUE}.}

@@ -26,7 +26,9 @@
 #'@param highlight.check If \code{TRUE}, the check means and standard errors are
 #'  also plotted. Default is \code{TRUE}.
 #'@param check.col The colour(s) to be used to highlight check values in the
-#'  plot as a character vector.
+#'  plot as a character vector. Must be valid colour values in R (named colours,
+#'  hexadecimal representation, index of colours [\code{1:8}] in default R
+#'  `palette()` etc.).
 #'
 #'@return The frequency distribution plot as a ggplot2 plot grob.
 #'
