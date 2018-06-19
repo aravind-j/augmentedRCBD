@@ -26,3 +26,24 @@ navbar:
       text: Github
       href: https://github.com/aravind-j/augmentedRCBD
 
+reference:
+    - title: Core anlaysis function
+      contents:
+         - '`augmentedRCBD`'
+
+    - title: Supplementary functions
+      contents:
+         - '`describe.augmentedRCBD`'
+         - '`gva.augmentedRCBD`'
+         - '`freqdist.augmentedRCBD`'
+         - '`augmentedRCBD.bulk`'
+
+    - title: Print methods
+      contents:
+         - '`print.augmentedRCBD`'
+         - '`print.augmentedRCBD.bulk`'
+
+    - title: MS Word report generation
+      contents:
+         - '`report.augmentedRCBD`'
+         - '`report.augmentedRCBD.bulk`'
