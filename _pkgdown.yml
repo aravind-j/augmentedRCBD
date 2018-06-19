@@ -1,6 +1,7 @@
 template:
   params:
     bootswatch: united
+    ganalytics: UA-116716530-2
 
 development:
   mode: unreleased
