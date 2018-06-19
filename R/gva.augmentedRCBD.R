@@ -63,7 +63,7 @@
 #'\frac{\sigma^{2}_{g}}{\sigma^{2}_{p}}}}
 #'
 #'The estimates of broad-sense heritability
-#'(\ifelse{html}{\out{<i>H<sup>2</sup></i>}}{\eqn{H^{2}}}) are cateogrised
+#'(\ifelse{html}{\out{<i>H<sup>2</sup></i>}}{\eqn{H^{2}}}) are categorised
 #'according to Robinson (1966) as follows:
 #'
 #'\tabular{ll}{ \strong{\ifelse{html}{\out{<i>H<sup>2</sup></i>}}{\eqn{H^{2}}}}

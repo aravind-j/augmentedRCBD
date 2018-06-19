@@ -23,7 +23,7 @@ devtools::load_all(".")
 
 ###### Version : [`r getNamespaceVersion("augmentedRCBD")`](https://aravind-j.github.io/augmentedRCBD/articles/Introduction.html#version-history); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
 
-##### *J. Aravind^1^, Mukesh Sankar S.^2^, Dhammaprakahs P. Wankhede^3^ and Vikender Kaur^4^*
+##### *J. Aravind^1^, Mukesh Sankar S.^2^, Dhammaprakash P. Wankhede^3^ and Vikender Kaur^4^*
 
 1. Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi
 2. Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi
