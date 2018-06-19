@@ -21,7 +21,7 @@ plot as a character vector.}
 The frequency distribution plot as a ggplot2 plot grob.
 }
 \description{
-\code{freqdist.augmentedRCBD} plots frequncy distribution from an object of
+\code{freqdist.augmentedRCBD} plots frequency distribution from an object of
 class \code{augmentedRCBD} along with the corresponding normal curve and check
 means with standard errors (if specified by argument \code{highlight.check}).
 }

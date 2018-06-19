@@ -60,7 +60,17 @@
 #'   statistically. This is computed only if argument \code{group} is
 #'   \code{TRUE} }
 #'
-#' @import emmeans
+#' @importFrom emmeans emmeans
+#' @importFrom emmeans cld
+#' @importFrom reshape2 dcast
+#' @importFrom stats anova
+#' @importFrom stats aov
+#' @importFrom stats contr.helmert
+#' @importFrom stats coef
+#' @importFrom stats na.omit
+#' @importFrom stats qt
+#' @importFrom stats qtukey
+#' @importFrom stats sd
 #' @export
 #'
 #' @seealso \code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},

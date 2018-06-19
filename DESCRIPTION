@@ -33,8 +33,11 @@ Imports:
     dplyr,
     flextable,
     ggplot2,
+    grDevices,
+    methods,
     moments,
     Rdpack,
+    stats,
     stringi,
     officer,
     reshape2

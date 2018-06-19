@@ -78,9 +78,17 @@
 #'   \code{\link[augmentedRCBD]{freqdist.augmentedRCBD}},
 #'   \code{\link[augmentedRCBD]{gva.augmentedRCBD}}
 #'
-#' @import reshape2
-#' @import dplyr
 #' @import ggplot2
+#' @importFrom reshape2 dcast
+#' @importFrom reshape2 melt
+#' @importFrom dplyr arrange
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr mutate_if
+#' @importFrom stringi stri_pad_right
+#' @importFrom grDevices nclass.FD
+#' @importFrom grDevices nclass.scott
+#' @importFrom grDevices nclass.Sturges
+#' @importFrom stats na.omit
 #' @export
 augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                alpha = 0.05, describe = TRUE,

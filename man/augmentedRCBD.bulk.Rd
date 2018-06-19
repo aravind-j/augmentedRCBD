@@ -48,8 +48,8 @@ A list of class \code{augmentedRCBD.bulk} containing the following
   frame of mean sum of squares of the specified traits from treatment
   adjusted ANOVA.} \item{\code{ANOVA, Block Adjusted}}{A data frame of mean
   sum of squares of the specified traits from block adjusted ANOVA}
-  \item{\code{Means}}{A data frame of the adjusted means of the treaments for
-  the specified traits.} \item{\code{alpha}}{Type I error probability
+  \item{\code{Means}}{A data frame of the adjusted means of the treatments
+  for the specified traits.} \item{\code{alpha}}{Type I error probability
   (Significance level) used.} \item{\code{Std. Errors}}{A data frame of
   standard error of difference between various combinations for the specified
   traits.} \item{\code{CD}}{A data frame of critical difference (at the
@@ -64,7 +64,7 @@ A list of class \code{augmentedRCBD.bulk} containing the following
   traits.} \item{\code{GVA plots}}{A list of three ggplot2 objects with the
   plots for (a) Phenotypic and Genotypic CV, (b) Broad sense heritability and
   (c) Genetic advance over mean} \item{\code{warnings}}{A list of warning
-  messages (if any) caputed during model fitting and frequency distribution
+  messages (if any) captured during model fitting and frequency distribution
   plotting.}
 }
 \description{

@@ -134,6 +134,8 @@
 #'  Negative estimates of variance components if computed are not abnormal. For
 #'  information on how to deal with these, refer Dudley and Moll (1969).
 #'
+#'@importFrom methods is
+#'@importFrom grDevices col2rgb
 #'@export
 #'
 #'@examples

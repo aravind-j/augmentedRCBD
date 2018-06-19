@@ -10,6 +10,11 @@
 #' @export
 #' @import officer
 #' @import flextable
+#' @importFrom dplyr mutate_if
+#' @importFrom grDevices png
+#' @importFrom grDevices dev.off
+#' @importFrom methods is
+#' @importFrom stringi stri_pad_right
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
 #'

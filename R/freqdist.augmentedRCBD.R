@@ -14,6 +14,9 @@
 #'@return The frequency distribution plot as a ggplot2 plot grob.
 #'
 #'@import ggplot2
+#'@importFrom methods is
+#'@importFrom stats dnorm
+#'@importFrom stats sd
 #'
 #'@export
 #'

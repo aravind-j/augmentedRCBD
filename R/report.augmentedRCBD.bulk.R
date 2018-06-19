@@ -10,6 +10,11 @@
 #' @export
 #' @import officer
 #' @import flextable
+#' @import ggplot2
+#' @importFrom grDevices png
+#' @importFrom grDevices dev.off
+#' @importFrom methods is
+#' @importFrom stats qnorm
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
 #'

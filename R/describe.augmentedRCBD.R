@@ -30,6 +30,10 @@
 #'
 #' \insertRef{anscombe_distribution_1983}{augmentedRCBD}
 #'
+#' @importFrom methods is
+#' @importFrom moments agostino.test
+#' @importFrom moments anscombe.test
+#' @importFrom stats sd
 #' @export
 #'
 #'@examples

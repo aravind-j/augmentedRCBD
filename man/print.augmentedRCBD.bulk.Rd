@@ -16,9 +16,9 @@
 class \code{augmentedRCBD.bulk} including the augmented design details,
 trait-wise mean sum of squares from ANOVA (Treatment adjusted) and ANOVA
 (Block adjusted), adjusted means, coefficient of variation, overall adjusted
-means crtical differences, standard errors, descriptive statistics, frequency
-distribution plots, genetic variability statistics and plots of genetic
-variablity parameters.
+means critical differences, standard errors, descriptive statistics,
+frequency distribution plots, genetic variability statistics and plots of
+genetic variability parameters.
 }
 \seealso{
 \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
