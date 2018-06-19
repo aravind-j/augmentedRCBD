@@ -15,93 +15,99 @@
 #  A copy of the GNU General Public License is available at
 #  https://www.r-project.org/Licenses/
 
-#' Analysis of Augmented Randomised Complete Block Design
+#'Analysis of Augmented Randomised Complete Block Design
 #'
-#' \code{augmentedRCBD} is a function for analysis of variance of an augmented
-#' randomised block design (Federer, 1956; Federer, 1961) and the generation as
-#' well as comparison of the adjusted means of the treatments/genotypes.
+#'\code{augmentedRCBD} is a function for analysis of variance of an augmented
+#'randomised block design (Federer, 1956; Federer, 1961) and the generation as
+#'well as comparison of the adjusted means of the treatments/genotypes.
 #'
-#' This function borrows code from \code{DAU.test} function of \code{agricolae}
-#' package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur
-#' et al., (2008).
+#'This function borrows code from \code{DAU.test} function of \code{agricolae}
+#'package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur et
+#'al., (2008).
 #'
-#' @note \itemize{ \item Data should preferably be balanced i.e. all the check
-#'   genotypes should be present in all the blocks. If not, a warning is issued.
-#'   \item  There should not be any missing values. \item The number of test
-#'   genotypes can vary within a block. }
+#'@note \itemize{ \item Data should preferably be balanced i.e. all the check
+#'  genotypes should be present in all the blocks. If not, a warning is issued.
+#'  \item  There should not be any missing values. \item The number of test
+#'  genotypes can vary within a block. }
 #'
-#'   In case the large number of treatments or genotypes, it is advisable to
-#'   avoid comparisons with the \code{group =  FALSE} argument as it will be
-#'   memory and processor intensive. Further it is advised to simplify output
-#'   with \code{simplify = TRUE} in order to reduce output object size.
+#'  In case the large number of treatments or genotypes, it is advisable to
+#'  avoid comparisons with the \code{group =  FALSE} argument as it will be
+#'  memory and processor intensive. Further it is advised to simplify output
+#'  with \code{simplify = TRUE} in order to reduce output object size.
 #'
-#' @param block Vector of blocks (as a factor).
-#' @param treatment Vector of treatments/genotypes (as a factor).
-#' @param y Numeric vector of response variable (Trait).
-#' @param checks Character vector of the checks present in \code{treatment}
-#'   levels. If not specified, checks are inferred from the data on the basis of
-#'   number of replications of treatments/genotypes.
-#' @param method.comp Method for comparison of treatments (\code{"lsd"} for
-#'   least significant difference or \code{"tukey"} for Tukey's honest
-#'   significant difference). If \code{"none"}, no comparisons will be made, the
-#'   ANOVA output will be given as a data frame and the adjusted means will be
-#'   computed directly from treatment and block effects instead of using
-#'   \code{\link[emmeans]{emmeans}}.
-#' @param alpha Type I error probability (Significance level) to be used for
-#'   multiple comparisons.
-#' @param group If \code{TRUE}, genotypes will be grouped according to
-#'   \code{"method.comp"}.
-#' @param console If \code{TRUE}, output will be printed to console. Default is
-#'   \code{TRUE}.
-#' @param simplify If \code{TRUE}, ANOVA output will be given as a data frame
-#'   instead of a \code{summary.aov} object
+#'@param block Vector of blocks (as a factor).
+#'@param treatment Vector of treatments/genotypes (as a factor).
+#'@param y Numeric vector of response variable (Trait).
+#'@param checks Character vector of the checks present in \code{treatment}
+#'  levels. If not specified, checks are inferred from the data on the basis of
+#'  number of replications of treatments/genotypes.
+#'@param method.comp Method for comparison of treatments (\code{"lsd"} for least
+#'  significant difference or \code{"tukey"} for Tukey's honest significant
+#'  difference). If \code{"none"}, no comparisons will be made, the ANOVA output
+#'  will be given as a data frame and the adjusted means will be computed
+#'  directly from treatment and block effects instead of using
+#'  \code{\link[emmeans]{emmeans}}.
+#'@param alpha Type I error probability (Significance level) to be used for
+#'  multiple comparisons.
+#'@param group If \code{TRUE}, genotypes will be grouped according to
+#'  \code{"method.comp"}.
+#'@param console If \code{TRUE}, output will be printed to console. Default is
+#'  \code{TRUE}.
+#'@param simplify If \code{TRUE}, ANOVA output will be given as a data frame
+#'  instead of a \code{summary.aov} object
 #'
-#' @return A list of class \code{augmentedRCBD} containing the following
-#'   components:  \item{\code{Details}}{Details of the augmented design used.}
-#'   \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
-#'   "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
-#'   Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
-#'   with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
-#'   class \code{summary.aov} for ANOVA table with block adjusted.}
-#'   \item{\code{Block effects}}{A vector of block effects.}
-#'   \item{\code{Treatment effects}}{A vector of treatment effects.}
-#'   \item{\code{Std. Errors}}{A data frame of standard error of difference
-#'   between various combinations along with critical difference and tukey's
-#'   honest significant difference (when \code{method.comp = "tukey"}) at
-#'   \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
-#'   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
-#'   data frame of pairwise comparisons of treatments. This is computed only if
-#'   argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
-#'   with compact letter display of pairwise comparisons of treatments. Means
-#'   with at least one letter common are not significantly different
-#'   statistically. This is computed only if argument \code{group} is
-#'   \code{TRUE} }
+#'@return A list of class \code{augmentedRCBD} containing the following
+#'  components:  \item{\code{Details}}{Details of the augmented design used.}
+#'  \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
+#'  "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
+#'  Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
+#'  with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
+#'  class \code{summary.aov} for ANOVA table with block adjusted.}
+#'  \item{\code{Block effects}}{A vector of block effects.}
+#'  \item{\code{Treatment effects}}{A vector of treatment effects.}
+#'  \item{\code{Std. Errors}}{A data frame of standard error of difference
+#'  between various combinations along with critical difference and tukey's
+#'  honest significant difference (when \code{method.comp = "tukey"}) at
+#'  \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
+#'  \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A data
+#'  frame of pairwise comparisons of treatments. This is computed only if
+#'  argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame with
+#'  compact letter display of pairwise comparisons of treatments. Means with at
+#'  least one letter common are not significantly different statistically. This
+#'  is computed only if argument \code{group} is \code{TRUE} }
 #'
-#' @importFrom emmeans emmeans
-#' @importFrom emmeans cld
-#' @importFrom reshape2 dcast
-#' @importFrom stats anova
-#' @importFrom stats aov
-#' @importFrom stats contr.helmert
-#' @importFrom stats coef
-#' @importFrom stats na.omit
-#' @importFrom stats qt
-#' @importFrom stats qtukey
-#' @importFrom stats sd
-#' @export
+#'@import multcompView
+#'@importFrom multcomp cld
+#'@importFrom emmeans emmeans
+#'@importFrom reshape2 dcast
+#'@importFrom stats anova
+#'@importFrom stats aov
+#'@importFrom stats contr.helmert
+#'@importFrom stats coef
+#'@importFrom stats na.omit
+#'@importFrom stats qt
+#'@importFrom stats qtukey
+#'@importFrom stats sd
+#'@importFrom stats contrasts<-
+#'@importFrom graphics pairs
+#'@export
 #'
-#' @seealso \code{\link[agricolae]{DAU.test}}, \code{\link[easyanova]{ea1}},
+#'@seealso \code{\link[agricolae]{DAU.test}},
+#'  \href{https://www.rdocumentation.org/packages/easyanova/versions/5.0/topics/ea1}{\code{ea1}},
 #'   \code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld}},
-#'   \code{\link[plantbreeding]{aug.rcb}}
-#' @references
+#'  \href{https://rdrr.io/rforge/plantbreeding/man/aug.rcb.html}{\code{aug.rcb}}
 #'
-#' \insertRef{federer_augmented_1956}{augmentedRCBD}
+#'@references
 #'
-#' \insertRef{federer_augmented_1961}{augmentedRCBD}
 #'
-#' \insertRef{mathur_data_2008}{augmentedRCBD}
 #'
-#' \insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
+#'\insertRef{federer_augmented_1956}{augmentedRCBD}
+#'
+#'\insertRef{federer_augmented_1961}{augmentedRCBD}
+#'
+#'\insertRef{mathur_data_2008}{augmentedRCBD}
+#'
+#'\insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
 #'
 #' @examples
 #' # Example data
