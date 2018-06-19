@@ -1,4 +1,6 @@
 
+<img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" width="20%" />
+
 ## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Design
 
 ###### Version : [0.0.0.9000](https://aravind-j.github.io/augmentedRCBD/articles/Introduction.html#version-history); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
@@ -28,17 +30,20 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Project Status:
 WIP](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--06--15-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--06--19-yellowgreen.svg)](/commits/master)
 <!-- [![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD) -->
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.841963.svg)](https://doi.org/10.5281/zenodo.841963) -->
 [![Analytics](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
 
 -----
 
-## Warning
+## Description
 
-Package is not stable at present. It is under development. Please use
-only after release of stable version.
+Functions for analysis of data generated from experiments in augmented
+randomised complete block design. Computes analysis of variance,
+adjusted means, descriptive statistics, genetic variability statistics
+etc. Further includes data visualization and report generation
+functions.
 
 ## Installation
 
@@ -48,14 +53,6 @@ only after release of stable version.
 devtools::install_github("aravind-j/augmentedRCBD")
 ```
 
-## Detailed tutorial
-
-For a detailed tutorial on how to used this package type:
-
-``` r
-browseVignettes(package = 'augmentedRCBD')
-```
-
 ## What’s new
 
 To know whats new in this version type:
@@ -63,8 +60,6 @@ To know whats new in this version type:
 ``` r
 news(package='augmentedRCBD')
 ```
-
-## Links
 
 ## Citing `augmentedRCBD`
 

@@ -10,6 +10,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, out.width = '20%', echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png")
+```
+
 ## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Design
 
 ```{r,echo = FALSE, message = FALSE}
@@ -44,18 +48,14 @@ devtools::load_all(".")
 
 ***
 
+## Description
+`r gsub("\\n", " ", packageDescription("augmentedRCBD", fields = "Description"))`
+
 ## Installation
 
 ### Install development version from Github
 ```{r, eval=FALSE}
 devtools::install_github("aravind-j/augmentedRCBD")
-```
-
-## Detailed tutorial
-For a detailed tutorial on how to used this package type:
-
-```{r, eval=FALSE}
-browseVignettes(package = 'augmentedRCBD')
 ```
 
 ## What's new
@@ -64,8 +64,6 @@ To know whats new in this version type:
 ```{r, eval=FALSE}
 news(package='augmentedRCBD')
 ```
-
-## Links
 
 ## Citing `augmentedRCBD`
 To cite the methods in the package use:
