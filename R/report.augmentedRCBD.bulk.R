@@ -211,7 +211,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
     if (!is.null(aug.bulk$warnings$Model)) {
       augreport <- body_add_par(augreport, value = "Model",
                                 style = "heading 2")
-      for (i in 1:length(aug.bulk$warnings$Model)) {
+      for (i in seq_along(aug.bulk$warnings$Model)) {
         augreport <- body_add_par(augreport,
                                   value = aug.bulk$warnings$Model[i],
                                   style = "Code")
@@ -221,7 +221,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
     if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
       augreport <- body_add_par(augreport, value = "Frequency distribution",
                                 style = "heading 2")
-      for (i in 1:length(aug.bulk$warnings$`Freq. dist`)) {
+      for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
         augreport <- body_add_par(augreport,
                                    value = aug.bulk$warnings$`Freq. dist`[i],
                                    style = "Code")

@@ -206,7 +206,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   names(output) <- traits
 
   warn <- NULL
-  for (i in 1:length(traits)) {
+  for (i in seq_along(traits)) {
 
     withCallingHandlers({
       output[[i]] <- augmentedRCBD(block = data[, block],
@@ -339,7 +339,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   descout <- vector("list", length(traits))
   names(descout) <- traits
 
-  for (i in 1:length(traits)) {
+  for (i in seq_along(traits)) {
     descout[[i]] <- describe.augmentedRCBD(output[[traits[i]]])
   }
 
@@ -377,7 +377,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   gvaout <- vector("list", length(traits))
   names(gvaout) <- traits
 
-  for (i in 1:length(traits)) {
+  for (i in seq_along(traits)) {
     gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]])
   }
 
@@ -490,7 +490,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                        stringsAsFactors = F)
 
   fqwarn <- NULL
-  for (i in 1:length(traits)) {
+  for (i in seq_along(traits)) {
 
     withCallingHandlers({
       fqout[[i]] <- freqdist.augmentedRCBD(output[[traits[i]]],
