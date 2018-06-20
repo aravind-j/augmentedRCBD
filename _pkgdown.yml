@@ -2,6 +2,9 @@ template:
   params:
     bootswatch: united
     ganalytics: UA-116716530-2
+    docsearch:
+      api_key: bdafb7ea4490644e670f470ee3ef537f
+      index_name: augmentedrcbd
 
 development:
   mode: unreleased
