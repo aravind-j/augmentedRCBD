@@ -1,0 +1,28 @@
+citHeader("To cite the R package 'augmentedRCBD' in publications use:")
+
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("augmentedRCBD")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
+
+citEntry(entry  = "Manual",
+         title  = "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
+         author = personList(person(c("Aravind", "J"),
+                                    email = "aravindj@nbpgr.ernet.in",
+                                    role = c("aut", "cre")),
+							 person(c("Mukesh Sankar", "S"), 
+                                    email = "mukeshsankar@gmail.com", role = "aut"),
+                             person(c("Dhammaprakash", "Pandhari", "Wankhede"), 
+                                    email = "d.wankhede@icar.gov.in", role = "aut"),
+                             person(c("Vikender", "Kaur"),
+                                    email = "vikender.kaur@icar.gov.in", role = "aut")),
+         year = year,
+         textVersion = paste(
+           "J. Aravind, Mukesh Sankar S., Dhammaprakash P. Wankhede, and Vikender Kaur (",
+           year, ").  augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. ",
+           vers, ", ", "https://aravind-j.github.io/augmentedRCBD/",
+           ".", sep=""),
+         note = {c(paste(vers), "https://aravind-j.github.io/augmentedRCBD/")})
+           
+citFooter("This free and open-source software implements academic
+research by the authors and co-workers. If you use it, please support
+the project by citing the package.")
