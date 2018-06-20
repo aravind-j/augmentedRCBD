@@ -153,6 +153,7 @@
 #'
 #'@importFrom methods is
 #'@importFrom grDevices col2rgb
+#'@importFrom Rdpack reprompt
 #'@export
 #'
 #'@examples

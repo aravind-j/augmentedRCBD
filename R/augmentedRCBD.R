@@ -90,6 +90,7 @@
 #'@importFrom stats sd
 #'@importFrom stats contrasts<-
 #'@importFrom graphics pairs
+#'@importFrom Rdpack reprompt
 #'@export
 #'
 #'@seealso \code{\link[agricolae]{DAU.test}},
