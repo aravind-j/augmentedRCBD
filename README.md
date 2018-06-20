@@ -5,7 +5,7 @@
 
 ## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
-###### Version : [0.0.0.9000](https://aravind-j.github.io/augmentedRCBD/); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.1.0](https://aravind-j.github.io/augmentedRCBD/); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### *J. Aravind<sup>1</sup>, Mukesh Sankar S.<sup>2</sup>, Dhammaprakash P. Wankhede<sup>3</sup> and Vikender Kaur<sup>4</sup>*
 
@@ -91,7 +91,7 @@ citation("augmentedRCBD")
     
       J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede
       and Vikender Kaur (NA). augmentedRCBD: Analysis of Augmented
-      Randomised Complete Block Designs. R package version 0.0.0.9000.
+      Randomised Complete Block Designs. R package version 0.1.0.
       https://github.com/aravind-j/augmentedRCBD
     
     A BibTeX entry for LaTeX users is
@@ -99,7 +99,7 @@ citation("augmentedRCBD")
       @Manual{,
         title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
         author = {{J. Aravind} and {Mukesh Sankar S.} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
-        note = {R package version 0.0.0.9000},
+        note = {R package version 0.1.0},
         url = {https://github.com/aravind-j/augmentedRCBD},
         year = {2018},
       }
