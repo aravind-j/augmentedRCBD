@@ -51,7 +51,7 @@ devtools::load_all(".")
 ***
 
 ## Description
-`r gsub("\\n", " ", packageDescription("augmentedRCBD", fields = "Description"))`
+`r gsub("(<doi:)(.+)(>)", "[doi:\\2](https://doi.org/\\2)", gsub("\\n", " ", packageDescription("augmentedRCBD", fields = "Description")))`
 
 ## Installation
 

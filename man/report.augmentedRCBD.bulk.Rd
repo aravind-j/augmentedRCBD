@@ -36,7 +36,8 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            console = FALSE)
 
 \dontrun{
-report.augmentedRCBD.bulk(bout, "augmentedRCBD bulk output.docx")
+report.augmentedRCBD.bulk(bout,
+                          file.path(tempdir(), "augmentedRCBD bulk output.docx"))
 }
 }
 \seealso{

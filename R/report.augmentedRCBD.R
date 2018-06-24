@@ -53,7 +53,8 @@
 #'                       alpha = 0.05, group = TRUE, console = FALSE)
 #'
 #' \dontrun{
-#' report.augmentedRCBD(out, "augmentedRCBD output.docx")
+#' report.augmentedRCBD(out,
+#'                      file.path(tempdir(), "augmentedRCBD output.docx"))
 #' }
 #'
 report.augmentedRCBD <- function(aug, target){

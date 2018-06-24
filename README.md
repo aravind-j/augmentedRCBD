@@ -32,7 +32,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Project Status:
 WIP](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--06--20-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--06--24-yellowgreen.svg)](/commits/master)
 <!-- [![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD) -->
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.841963.svg)](https://doi.org/10.5281/zenodo.841963) -->
 [![Analytics](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
@@ -42,10 +42,11 @@ WIP](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org
 ## Description
 
 Functions for analysis of data generated from experiments in augmented
-randomised complete block design. Computes analysis of variance,
-adjusted means, descriptive statistics, genetic variability statistics
-etc. Further includes data visualization and report generation
-functions.
+randomised complete block design according to Federer, W.T. (1961)
+[doi:10.2307/2527837](https://doi.org/10.2307/2527837). Computes
+analysis of variance, adjusted means, descriptive statistics, genetic
+variability statistics etc. Further includes data visualization and
+report generation functions.
 
 ## Installation
 
@@ -75,31 +76,32 @@ news(package='augmentedRCBD')
 
 ## Citing `augmentedRCBD`
 
-To cite the methods in the package
-    use:
+To cite the methods in the package use:
 
 ``` r
 citation("augmentedRCBD")
 ```
 
-    Warning in citation("augmentedRCBD"): no date field in DESCRIPTION file of
-    package 'augmentedRCBD'
-    Warning in citation("augmentedRCBD"): could not determine year for
-    'augmentedRCBD' from package DESCRIPTION file
-    
-    To cite package 'augmentedRCBD' in publications use:
-    
-      J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede
-      and Vikender Kaur (NA). augmentedRCBD: Analysis of Augmented
-      Randomised Complete Block Designs. R package version 0.1.0.
-      https://github.com/aravind-j/augmentedRCBD
-    
-    A BibTeX entry for LaTeX users is
-    
-      @Manual{,
-        title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
-        author = {{J. Aravind} and {Mukesh Sankar S.} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
-        note = {R package version 0.1.0},
-        url = {https://github.com/aravind-j/augmentedRCBD},
-        year = {2018},
-      }
+``` 
+
+To cite the R package 'augmentedRCBD' in publications use:
+
+  J. Aravind, Mukesh Sankar S., Dhammaprakash P. Wankhede, and
+  Vikender Kaur (2018).  augmentedRCBD: Analysis of Augmented
+  Randomised Complete Block Designs. R package version 0.1.0,
+  https://aravind-j.github.io/augmentedRCBD/.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
+    author = {{Aravind J} and {Mukesh Sankar S} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
+    note = {R package version 0.1.0},
+    note = {https://aravind-j.github.io/augmentedRCBD/},
+    year = {2018},
+  }
+
+This free and open-source software implements academic research by
+the authors and co-workers. If you use it, please support the
+project by citing the package.
+```
