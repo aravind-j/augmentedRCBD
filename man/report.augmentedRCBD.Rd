@@ -32,9 +32,8 @@ data$trt <- as.factor(data$trt)
 out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = FALSE)
 
-\dontrun{
-report.augmentedRCBD(out,
-                     file.path(tempdir(), "augmentedRCBD output.docx"))
+\donttest{
+report.augmentedRCBD(out, file.path(tempdir(), "augmentedRCBD output.docx"))
 }
 
 }

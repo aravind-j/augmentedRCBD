@@ -35,10 +35,11 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                                          "forestgreen", "purple"),
                            console = FALSE)
 
-\dontrun{
-report.augmentedRCBD.bulk(bout,
-                          file.path(tempdir(), "augmentedRCBD bulk output.docx"))
+\donttest{
+report.augmentedRCBD.bulk(bout, file.path(tempdir(),
+                          "augmentedRCBD bulk output.docx"))
 }
+
 }
 \seealso{
 \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}

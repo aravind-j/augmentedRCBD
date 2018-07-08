@@ -52,9 +52,8 @@
 #' out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = FALSE)
 #'
-#' \dontrun{
-#' report.augmentedRCBD(out,
-#'                      file.path(tempdir(), "augmentedRCBD output.docx"))
+#' \donttest{
+#' report.augmentedRCBD(out, file.path(tempdir(), "augmentedRCBD output.docx"))
 #' }
 #'
 report.augmentedRCBD <- function(aug, target){
@@ -63,7 +62,7 @@ report.augmentedRCBD <- function(aug, target){
     stop('"aug" is not of class "augmentedRCBD"')
   }
 
-  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)){
+  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
     stop(target, " should have '.docx' extension.")
   }
 

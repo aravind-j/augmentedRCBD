@@ -32,7 +32,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Project Status:
 WIP](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--06--24-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--07--08-yellowgreen.svg)](/commits/master)
 <!-- [![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD) -->
 <!-- [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.841963.svg)](https://doi.org/10.5281/zenodo.841963) -->
 [![Analytics](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)

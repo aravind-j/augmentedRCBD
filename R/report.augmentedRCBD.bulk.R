@@ -55,10 +55,11 @@
 #'                                          "forestgreen", "purple"),
 #'                            console = FALSE)
 #'
-#' \dontrun{
-#' report.augmentedRCBD.bulk(bout,
-#'                           file.path(tempdir(), "augmentedRCBD bulk output.docx"))
+#' \donttest{
+#' report.augmentedRCBD.bulk(bout, file.path(tempdir(),
+#'                           "augmentedRCBD bulk output.docx"))
 #' }
+#'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
 #'
 #'
@@ -68,7 +69,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
     stop('"aug.bulk" is not of class "augmentedRCBD.bulk"')
   }
 
-  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)){
+  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
     stop(target, " should have '.docx' extension.")
   }
 
