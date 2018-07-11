@@ -182,7 +182,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   }
   # alpha
   if (!(0 < alpha && alpha < 1)) {
-    stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
+    stop('"alpha" should be between 0 and 1 (0 < alpha < 1)')
   }
   # method.comp
   method.comp <- match.arg(method.comp, c("lsd", "tukey", "none"),

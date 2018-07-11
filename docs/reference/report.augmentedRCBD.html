@@ -81,7 +81,7 @@ officer package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">augmentedRCBD</a>
-        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0</span>
+        <span class="label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased package">0.1.0.9000</span>
       </span>
     </div>
 
@@ -137,7 +137,9 @@ officer package." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate MS Word Report from <code>augmentedRCBD</code> Output</h1>
-    <small class="dont-index">Source: <a href='https://github.com/aravind-j/augmentedRCBD/blob/master/R/report.augmentedRCBD.R'><code>R/report.augmentedRCBD.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/aravind-j/augmentedRCBD
+    https://CRAN.R-project.org/package=augmentedRCBD
+    https://aravind-j.github.io/augmentedRCBD/blob/master/R/report.augmentedRCBD.R'><code>R/report.augmentedRCBD.R</code></a></small>
     <div class="hidden name"><code>report.augmentedRCBD.Rd</code></div>
     </div>
 
@@ -183,7 +185,7 @@ class <code>augmentedRCBD</code> as docx MS word file using the
 <span class='no'>data</span>$<span class='no'>trt</span> <span class='kw'>&lt;-</span> <span class='fu'>as.factor</span>(<span class='no'>data</span>$<span class='no'>trt</span>)
 <span class='co'># Results for variable y1 (checks inferred)</span>
 <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='augmentedRCBD.html'>augmentedRCBD</a></span>(<span class='no'>data</span>$<span class='no'>blk</span>, <span class='no'>data</span>$<span class='no'>trt</span>, <span class='no'>data</span>$<span class='no'>y1</span>, <span class='kw'>method.comp</span> <span class='kw'>=</span> <span class='st'>"lsd"</span>,
-                      <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>console</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'><span class='fu'>report.augmentedRCBD</span>(<span class='no'>out</span>, <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"augmentedRCBD output.docx"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_bar).</span></div><div class='output co'>#&gt; [1] "C:/Users/J80FC~1.ARA/AppData/Local/Temp/RtmpiKKxR4/augmentedRCBD output.docx"</div><div class='input'>
+                      <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>console</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'><span class='fu'>report.augmentedRCBD</span>(<span class='no'>out</span>, <span class='fu'>file.path</span>(<span class='fu'>tempdir</span>(), <span class='st'>"augmentedRCBD output.docx"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 1 rows containing missing values (geom_bar).</span></div><div class='output co'>#&gt; [1] "C:/Users/J80FC~1.ARA/AppData/Local/Temp/RtmpSG6YYY/augmentedRCBD output.docx"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

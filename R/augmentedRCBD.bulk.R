@@ -159,7 +159,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   }
   # alpha
   if (!(0 < alpha && alpha < 1)) {
-    stop('"alpha" should be between 0 and 1 (0 < alpha <1)')
+    stop('"alpha" should be between 0 and 1 (0 < alpha < 1)')
   }
 
   # check.col
