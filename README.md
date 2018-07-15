@@ -33,7 +33,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=gre
 [![Project Status:
 WIP](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--07--12-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--07--15-yellowgreen.svg)](/commits/master)
 [![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
@@ -52,9 +52,17 @@ report generation functions.
 
 ## Installation
 
-### Install development version from Github
+The package can be installed from CRAN as follows:
 
 ``` r
+# Install from CRAN
+install.packages('augmentedRCBD', dependencies=TRUE)
+```
+
+The development version can be installed from github as follows:
+
+``` r
+# Install development version from Github
 devtools::install_github("aravind-j/augmentedRCBD")
 ```
 
@@ -98,9 +106,9 @@ A BibTeX entry for LaTeX users is
   @Manual{,
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {{Aravind J} and {Mukesh Sankar S} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
+    year = {2018},
     note = {R package version 0.1.0.9000},
     note = {https://aravind-j.github.io/augmentedRCBD/},
-    year = {2018},
   }
 
 This free and open-source software implements academic research by

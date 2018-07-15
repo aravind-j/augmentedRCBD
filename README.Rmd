@@ -39,7 +39,7 @@ devtools::load_all(".")
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green)](https://CRAN.R-project.org/package=augmentedRCBD)
 <!-- [![packageversion](https://img.shields.io/badge/Package%20version-0.2.3.3-orange.svg)](https://github.com/aravind-j/augmentedRCBD) -->
-[![develVersion](https://img.shields.io/badge/devel%20version-0.1.0.9000-orange.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![develVersion](https://img.shields.io/badge/devel%20version-`r gsub("Version:\\s*", "", readLines(paste0("https://raw.githubusercontent.com/", "aravind-j/augmentedRCBD", "/master/DESCRIPTION"))[grep("Version:", readLines(paste0("https://raw.githubusercontent.com/", "aravind-j/augmentedRCBD", "/master/DESCRIPTION")))])`-orange.svg)](https://github.com/aravind-j/augmentedRCBD)
 <!-- [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/aravind-j/augmentedRCBD/total.svg)] -->
 [![Project Status: WIP](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
@@ -54,9 +54,17 @@ devtools::load_all(".")
 `r gsub("(<doi:)(.+)(>)", "[doi:\\2](https://doi.org/\\2)", gsub("\\n", " ", packageDescription("augmentedRCBD", fields = "Description")))`
 
 ## Installation
+The package can be installed from CRAN as follows:
 
-### Install development version from Github
 ```{r, eval=FALSE}
+# Install from CRAN
+install.packages('augmentedRCBD', dependencies=TRUE)
+```
+
+The development version can be installed from github as follows:
+
+```{r, eval=FALSE}
+# Install development version from Github
 devtools::install_github("aravind-j/augmentedRCBD")
 ```
 
@@ -86,15 +94,17 @@ citation("augmentedRCBD")
 ```
 
 ```{r, echo = FALSE}
+detach("package:augmentedRCBD", unload=TRUE)
+suppressPackageStartupMessages(library(augmentedRCBD))
 cit <- citation("augmentedRCBD")
-yr <- format(Sys.Date(), "%Y")
-cit[1]$year <- yr
-oc <- class(cit)
-
-cit <- unclass(cit)
-attr(cit[[1]],"textVersion") <- gsub("\\(\\)",
-                                     paste("\\(", yr, "\\)", sep = ""),
-                                     attr(cit[[1]],"textVersion"))
-class(cit) <- oc
+# yr <- format(Sys.Date(), "%Y")
+# cit[1]$year <- yr
+# oc <- class(cit)
+# 
+# cit <- unclass(cit)
+# attr(cit[[1]],"textVersion") <- gsub("\\(\\)",
+#                                      paste("\\(", yr, "\\)", sep = ""),
+#                                      attr(cit[[1]],"textVersion"))
+# class(cit) <- oc
 cit
 ```

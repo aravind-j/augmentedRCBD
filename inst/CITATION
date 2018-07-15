@@ -2,6 +2,9 @@ citHeader("To cite the R package 'augmentedRCBD' in publications use:")
 
 if(!exists("meta") || is.null(meta)) meta <- packageDescription("augmentedRCBD")
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+if (!length(year)) {
+ year <- format(packageDate("augmentedRCBD"), "%Y")
+}
 vers <- paste("R package version", meta$Version)
 
 citEntry(entry  = "Manual",
