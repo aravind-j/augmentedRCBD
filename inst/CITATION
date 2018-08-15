@@ -9,23 +9,27 @@ vers <- paste("R package version", meta$Version)
 
 citEntry(entry  = "Manual",
          title  = "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
-         author = personList(person(c("Aravind", "J"),
+         author = personList(person(given = "J.", family = "Aravind",
                                     email = "aravindj@nbpgr.ernet.in",
-                                    role = c("aut", "cre")),
-							 person(c("Mukesh Sankar", "S"), 
-                                    email = "mukeshsankar@gmail.com", role = "aut"),
-                             person(c("Dhammaprakash", "Pandhari", "Wankhede"), 
-                                    email = "d.wankhede@icar.gov.in", role = "aut"),
-                             person(c("Vikender", "Kaur"),
-                                    email = "vikender.kaur@icar.gov.in", role = "aut")),
+                                    role = c("aut", "cre"),
+							        comment = c(ORCID = "0000-0002-4791-442X")),
+							 person(given = "S.", family = c("Mukesh Sankar"),
+                                    email = "mukeshsankar@gmail.com",
+									role = "aut"),
+                             person(given = c("Dhammaprakash", "Pandhari"), family = "Wankhede",
+                                    email = "d.wankhede@icar.gov.in",
+									role = "aut"),
+                             person(given = "Vikender", family = "Kaur",
+                                    email = "vikender.kaur@icar.gov.in",
+									role = "aut")),
          year = year,
          textVersion = paste(
-           "J. Aravind, Mukesh Sankar S., Dhammaprakash P. Wankhede, and Vikender Kaur (",
+           "Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (",
            year, ").  augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. ",
-           vers, ", ", "https://aravind-j.github.io/augmentedRCBD/",
+           vers, ", ", "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD",
            ".", sep=""),
-         note = {c(paste(vers), "https://aravind-j.github.io/augmentedRCBD/")})
-           
+         note = {c(paste(vers), "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD")})
+
 citFooter("This free and open-source software implements academic
 research by the authors and co-workers. If you use it, please support
 the project by citing the package.")

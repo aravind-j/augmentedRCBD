@@ -8,5 +8,7 @@
 ^augmentedRCBD\.pdf$
 ^README\.Rmd$
 ^README\.html$
+^README\.utf8.Rmd$
+^README-*\.png$
 ^pkgdown$
 ^cran-comments\.md$

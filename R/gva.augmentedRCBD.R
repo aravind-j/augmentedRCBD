@@ -1,4 +1,4 @@
-### This file is part of 'augmentedRCBD' package for R.
+ ### This file is part of 'augmentedRCBD' package for R.
 
 ### Copyright (C) 2015, ICAR-NBPGR.
 #
@@ -120,7 +120,7 @@
 #'@return A list with the following descriptive statistics:  \item{Count}{The
 #'  number of treatments/genotypes.} \item{Mean}{The mean value.}
 #'  \item{Std.Error}{The standard error.} \item{Std.Deviation}{The standard
-#'  deviation.} \item{Min}{The minimum value} \item{Max}{The maximum value}
+#'  deviation.} \item{Min}{The minimum value.} \item{Max}{The maximum value.}
 #'  \item{Skewness(statistic)}{The skewness estimator.}
 #'  \item{Skewness(p.value)}{The p-value from D'Agostino test of skewness.}
 #'  \item{Kurtosis(statistic)}{The kurtosis estimator.}
@@ -141,7 +141,7 @@
 #'
 #'\insertRef{dudley_interpretation_1969}{augmentedRCBD}
 #'
-#'\insertRef{sivasubramanian_genotypic_1973}{augmentedRCBD}
+#'\insertRef{sivasubramaniam_genotypic_1973}{augmentedRCBD}
 #'
 #'\insertRef{falconer_introduction_1996}{augmentedRCBD}
 #'

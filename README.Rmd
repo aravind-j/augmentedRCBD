@@ -25,12 +25,12 @@ devtools::load_all(".")
 
 ###### Version : [`r getNamespaceVersion("augmentedRCBD")`](https://aravind-j.github.io/augmentedRCBD/); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
 
-##### *J. Aravind^1^, Mukesh Sankar S.^2^, Dhammaprakash P. Wankhede^3^ and Vikender Kaur^4^*
+##### *Aravind, J.^1^, Mukesh Sankar, S.^2^, Wankhede, D. P.^3^, and Kaur, V.^4^*
 
-1. Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi
-2. Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi
-3. Division of Genomic Resources, ICAR-National Bureau of Plant Genetic Resources, New Delhi
-4. Division of Germplasm Evaluation, ICAR-National Bureau of Plant Genetic Resources, New Delhi
+1. Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.
+2. Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi.
+3. Division of Genomic Resources, ICAR-National Bureau of Plant Genetic Resources, New Delhi.
+4. Division of Germplasm Evaluation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.
 
 ***
 
@@ -68,6 +68,14 @@ The development version can be installed from github as follows:
 devtools::install_github("aravind-j/augmentedRCBD")
 ```
 
+## Detailed tutorial
+For a detailed tutorial (vignette) on how to used this package type:
+
+```{r, eval=FALSE}
+browseVignettes(package = 'augmentedRCBD')
+```
+The vignette for the latest version is also available [online](https://aravind-j.github.io/augmentedRCBD/articles/How_to_Use_augmetedRCBD.html).
+
 ## What's new
 To know whats new in this version type:
 
@@ -81,7 +89,7 @@ news(package='augmentedRCBD')
 
 [Github page](https://github.com/aravind-j/augmentedRCBD)
 
-[Github website](https://aravind-j.github.io/augmentedRCBD/)
+[Documentation website](https://aravind-j.github.io/augmentedRCBD/)
 
 [Zenodo DOI](https://doi.org/10.5281/zenodo.1310011)
 

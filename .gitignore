@@ -3,4 +3,6 @@
 .RData
 Release.R
 test.docx
-vignettes
+vignettes/Introduction.tex
+vignettes/Introduction.aux
+vignettes/Introduction.out

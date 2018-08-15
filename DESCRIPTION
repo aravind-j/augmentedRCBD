@@ -2,21 +2,22 @@ Package: augmentedRCBD
 Title: Analysis of Augmented Randomised Complete Block Designs
 Version: 0.1.0.9000
 Authors@R: c(
-    person(c("J.", "Aravind"),
-    email = "j.aravind@icar.gov.in",
-    role = c("aut", "cre"),
-    comment = c(ORCID = "0000-0002-4791-442X")),
-  	person(c("Mukesh", "Sankar", "S."),
-    email = "mukeshsankar@gmail.com",
-    role = c("aut")),
-    person(c("Dhammaprakash", "Pandhari", "Wankhede"),
-    email = "d.wankhede@icar.gov.in",
-    role = c("aut")),
-    person(c("Vikender", "Kaur"),
-    email = "vikender.kaur@icar.gov.in",
-    role = c("aut")),
+    person(given = "J.", family = "Aravind",
+           email = "aravindj@nbpgr.ernet.in",
+           role = c("aut", "cre"),
+		       comment = c(ORCID = "0000-0002-4791-442X")),
+	  person(given = "S.", family = "Mukesh Sankar", 
+           email = "mukeshsankar@gmail.com",
+		       role = "aut"),
+    person(given = c("Dhammaprakash", "Pandhari"), family = "Wankhede", 
+           email = "d.wankhede@icar.gov.in",
+		       role = "aut"),
+    person(given = "Vikender", family = "Kaur",
+           email = "vikender.kaur@icar.gov.in",
+		       role = "aut"),
     person("ICAR-NBGPR",
-    role = c("cph")))
+           role = c("cph"),
+		       comment = c(url = "www.nbpgr.ernet.in")))
 Description: Functions for analysis of data generated from experiments in
     augmented randomised complete block design according to Federer, W.T. (1961)
     <doi:10.2307/2527837>. Computes analysis of variance, adjusted means,
@@ -27,10 +28,12 @@ License: GPL-2 | GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.0.1)
-RoxygenNote: 6.0.1
+VignetteBuilder: knitr
+RoxygenNote: 6.1.0
 URL: https://github.com/aravind-j/augmentedRCBD
     https://CRAN.R-project.org/package=augmentedRCBD
     https://aravind-j.github.io/augmentedRCBD
+    https://doi.org/10.5281/zenodo.1310011
 BugReports: https://github.com/aravind-j/augmentedRCBD/issues
 Imports:
     emmeans,
@@ -48,4 +51,8 @@ Imports:
     officer,
     reshape2,
     utils
+Suggests:
+    knitr,
+	  rmarkdown,
+	  pander
 RdMacros: Rdpack
