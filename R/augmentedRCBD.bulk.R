@@ -24,6 +24,11 @@
 #' these analyses for multiple traits/characters from the input data as a data
 #' frame object.
 #'
+#' @note In this case treatment comparisons/grouping by least significant
+#'   difference or Tukey's honest significant difference method is not computed.
+#'   Also the output object size is reduced using the \code{simplify = TRUE}
+#'   argument in the \code{augmentedRCBD} function.
+#'
 #' @param data The data as a data frame object. The data frame should possess
 #'   columns specifying the block, treatment and multiple traits/characters.
 #' @param block Name of column specifying the blocks in the design as a
@@ -44,9 +49,9 @@
 #' @param gva If \code{TRUE}, genetic variability analysis will be done. Default
 #'   is \code{TRUE}.
 #' @param check.col The colour(s) to be used to highlight check values in the
-#'   plot as a character vector. Must be valid colour values in R (named colours,
-#'  hexadecimal representation, index of colours [\code{1:8}] in default R
-#'  `palette()` etc.).
+#'   plot as a character vector. Must be valid colour values in R (named
+#'   colours, hexadecimal representation, index of colours [\code{1:8}] in
+#'   default R `palette()` etc.).
 #' @param console If \code{TRUE}, output will be printed to console. Default is
 #'   \code{TRUE}.
 #'
@@ -126,12 +131,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   if (!is.data.frame(data)) {
     stop('"data" should be a data frame object')
   }
-  
+
   if (any(c("tbl_dataf", "tbl") %in% class(data))) {
     warning('"data" is of type tibble\nCoercing to data frame')
     data <- as.data.frame(data)
   }
-  
+
   # check if block column present in data
   if (!(block %in% colnames(data))) {
     stop(paste('Column ', block,

@@ -39,9 +39,9 @@ is \code{TRUE}.}
 is \code{TRUE}.}
 
 \item{check.col}{The colour(s) to be used to highlight check values in the
- plot as a character vector. Must be valid colour values in R (named colours,
-hexadecimal representation, index of colours [\code{1:8}] in default R
-`palette()` etc.).}
+plot as a character vector. Must be valid colour values in R (named
+colours, hexadecimal representation, index of colours [\code{1:8}] in
+default R `palette()` etc.).}
 
 \item{console}{If \code{TRUE}, output will be printed to console. Default is
 \code{TRUE}.}
@@ -78,6 +78,12 @@ A list of class \code{augmentedRCBD.bulk} containing the following
 \code{freqdist.augmentedRCBD} and \code{gva.augmentedRCBD}. It will carry out
 these analyses for multiple traits/characters from the input data as a data
 frame object.
+}
+\note{
+In this case treatment comparisons/grouping by least significant
+  difference or Tukey's honest significant difference method is not computed.
+  Also the output object size is reduced using the \code{simplify = TRUE}
+  argument in the \code{augmentedRCBD} function.
 }
 \examples{
 # Example data
