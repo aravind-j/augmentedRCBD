@@ -17,10 +17,13 @@ navbar:
   left:
     - icon: fa-home fa-lg
       text: Home
-      href: /index.html
+      href: index.html
     - icon: fa-code
       text: Reference
       href: reference/index.html
+    - icon: fa-file-o
+      text: Tutorial
+      href: articles/Data_Analysis_with_augmentedRCBD.html
     - icon: fa-newspaper-o
       text: News
       href: news/index.html
