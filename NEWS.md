@@ -6,6 +6,9 @@
 ## VIGNETTE:
 * Added vignette "Data Analysis with augmentedRCBD".
 
+## OTHER NOTES:
+* Fixed return/value in `gva.augmentedRCBD` documentation.
+
 # augmentedRCBD  0.1.0
 
 * First release

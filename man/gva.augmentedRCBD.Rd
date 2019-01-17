@@ -13,14 +13,26 @@ gva.augmentedRCBD(aug, k = 2.063)
 Default is 2.063 for 5\% selection proportion (see \strong{Details}).}
 }
 \value{
-A list with the following descriptive statistics:  \item{Count}{The
- number of treatments/genotypes.} \item{Mean}{The mean value.}
- \item{Std.Error}{The standard error.} \item{Std.Deviation}{The standard
- deviation.} \item{Min}{The minimum value.} \item{Max}{The maximum value.}
- \item{Skewness(statistic)}{The skewness estimator.}
- \item{Skewness(p.value)}{The p-value from D'Agostino test of skewness.}
- \item{Kurtosis(statistic)}{The kurtosis estimator.}
- \item{Kurtosis(p.value)}{The p-value from Anscombe-Glynn test of kurtosis.}
+A list with the following descriptive statistics:  \item{Mean}{The
+ mean value.} \item{PV}{Phenotyic variance.} \item{GV}{Genotyic variance.}
+ \item{EV}{Environmental variance.} \item{GCV}{Genotypic coefficient of
+ variation} \item{GCV category}{The GCV category according to
+ \insertCite{sivasubramaniam_genotypic_1973;textual}{augmentedRCBD}.}
+ \item{PCV}{Phenotypic coefficient of variation} \item{PCV category}{The PCV
+ category according to
+ \insertCite{sivasubramaniam_genotypic_1973;textual}{augmentedRCBD}.}
+ \item{ECV}{Environmental coefficient of variation} \item{hBS}{The
+ broad-sense heritability
+ (\ifelse{html}{\out{<i>H<sup>2</sup></i>}}{\eqn{H^{2}}})
+ \insertCite{lush_intra-sire_1940}{augmentedRCBD}.} \item{hBS category}{The
+ \ifelse{html}{\out{<i>H<sup>2</sup></i>}}{\eqn{H^{2}}} category according to
+ \insertCite{robinson_quantitative_1966;textual}{augmentedRCBD}.}
+ \item{GA}{Genetic advance
+ \insertCite{johnson_estimates_1955}{augmentedRCBD}.} \item{GAM}{Genetic
+ advance as per cent of mean
+ \insertCite{johnson_estimates_1955}{augmentedRCBD}.} \item{GAM category}{The
+ GAM category according to
+ \insertCite{johnson_estimates_1955;textual}{augmentedRCBD}.}
 }
 \description{
 \code{gva.augmentedRCBD} performs genetic variability analysis on an object of
