@@ -6,7 +6,7 @@ output:
   pdf_document:
     dev: cairo_pdf
     fig_caption: no
-    number_sections: yes
+    number_sections: no
     toc: no
   html_document:
     number_sections: yes
@@ -40,9 +40,6 @@ vignette: |
   %\VignetteIndexEntry{Data_Analysis_with_augmentedRCBD}
   %\usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown_notangle}
-pkgdown:
-  numbersections: true
-  toc: yes
 ---
 
 ```{r, echo=FALSE}
@@ -101,7 +98,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height = "200" style = "padding: 10px; border: none; float: right;">
 
-# Overview
+# 1 Overview
 
 The software `augmentedRCBD` is built on the [`R` statistical programming language](https://en.wikipedia.org/wiki/R_(programming_language)) as an add-on (or 'package' in the `R` *lingua franca*).  It performs the  analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. [-@federer_augmented_1956; -@federer_augmented_1961]. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.
 
@@ -123,7 +120,7 @@ if (!file.exists(rlogo_file <- 'rlogo.png')) download.file(rlogo_url, rlogo_file
 
 <img src="https://www.r-project.org/logo/Rlogo.png" align="right" alt="logo" width="173" height = "134" style = "padding: 10px; border: none; float: right;">
 
-# `R` software {#rsoft}
+# 2 `R` software {#rsoft}
 
 It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languates as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today [@tippmann_programming_2015].
 
@@ -138,11 +135,13 @@ rstudiopanes_url = 'https://github.com/aravind-j/augmentedRCBD/raw/master/vignet
 if (!file.exists(rstudiopanes_file <- 'rstudio panes.png')) download.file(rstudiopanes_url, rstudiopanes_file, mode = 'wb')
 ```
 
-# Getting Started
+\clearpage
+
+# 3 Getting Started
 
 This section details the steps required to set up the `R` programming environment under a third-party interface called `RStudio` in Windows.
 
-## Installing `R`
+## 3.1 Installing `R`
 
 Download and install `R` for Windows from http://cran.r-project.org/bin/windows/base/.
 
@@ -160,7 +159,7 @@ switch(out_type,
                 \\end{center}'))
 ```
 
-## Installing `RStudio`
+## 3.2 Installing `RStudio`
 
 The basic [command line interface](https://en.wikipedia.org/wiki/Command_line_interface) in native `R` is rather limiting. There are several interfaces which enhance it's functionality and ease of use, [`RStudio`](https://www.rstudio.com/) being one of the most popular among `R` programmers.
 
@@ -180,7 +179,7 @@ switch(out_type,
                 \\end{center}'))
 ```
 
-## The `RStudio` Interface
+## 3.3 The `RStudio` Interface
 
 On opening `RStudio`, the default interface with four panes/windows is visible as follows. Few panes have different tabs.
 
@@ -198,7 +197,7 @@ switch(out_type,
                 \\end{center}'))
 ```
 
-### Console
+### 3.3.1 Console
 
 This is where the action happens. Here any authentic `R` code typed after the '`>`' prompt will be executed after pressing 'Enter' to generate the output.
 
@@ -208,11 +207,11 @@ For example, type `1+1` in the console and press 'Enter'.
 1+1
 ```
 
-### Source
+### 3.3.2 Source
 
 This is where `R` Scripts (collection of code) can be created and edited. `R` scripts are text files with a `.R` extension. `R` Code for analysis can be typed and saved in such `R` scripts. New scripts can be opened by clicking 'File|New File' and selecting 'R Script'. Code can be selected from `R` Scripts and sent to console for evaluation by clicking 'Run' on the 'Source' pane or by pressing 'Ctrl + Enter'.
 
-### Environment|History|Connections
+### 3.3.3 Environment|History|Connections
 
 The 'Environment' tab shows the list of all the 'objects' (see [section 4.3](#ObjFun)) defined in the current `R` session. It has also some buttons up top to open, save and clear the environment as well as few options for import of data under `Import Dataset`.
 
@@ -220,7 +219,7 @@ The 'History' tab shows a history of all the code that was previously evaluated.
 
 The 'Connections' tab helps to establish and manage connections with different databases and data sources.
 
-### Files|Plots|Packages|Help|Viewer
+### 3.3.4 Files|Plots|Packages|Help|Viewer
 
 The 'Files' tab shows a sleek file browser to access the file directory in the computer with options to manage the working directory (see [section 4.1](#wdir)) under the More button.
 
@@ -230,11 +229,11 @@ The 'Packages' tab shows a list of all the `R` add-on packages installed. The ch
 
 The 'Viewer' tab shows any web content output generated by an `R` code.
 
-# Some Basics
+# 4 Some Basics
 
 This section describes some basics to enable the users to have a working knowledge in `R` in order to use `augmentedRCBD`.
 
-## Working Directory {#wdir}
+## 4.1 Working Directory {#wdir}
 
 It is a file path to a folder on the computer which is recognised by `R` as the default location to read files from or write files to. The code `getwd()` shows the current working directory, while `setwd()` can be used to change the existing working directory.
 
@@ -259,7 +258,7 @@ print("C:/Data Analysis/")
 
 One key detail is that file paths in `R` uses forward slashes (`/`) as in MacOS or Linux, unlike backward slashes (`\`) in Windows. This needs to be considered while copying paths from default Windows file explorer.
 
-## Expression and Assignment
+## 4.2 Expression and Assignment
 
 Expressions are instructions in the form of code to be entered after the `>` prompt in the console. Expressions can be a constant, an arithmetic or a condition. A more advanced and most useful expression is a function call (see [section 4.3](#ObjFun)).
 
@@ -285,12 +284,12 @@ a
 
 It is recommended to add comments to explain the code by using the '`#`' sign. Any code after the '`#`' sign will be ignored by `R`.
 
-## Objects and Functions {#ObjFun}
+## 4.3 Objects and Functions {#ObjFun}
 
 `R` is an object-oriented programming language (OOP). Any kind or construct created in `R` is an 'object'. Each object has a 'class' (shown using the `class()` function) and different 'attributes' which defines what operations can be done on that object.
 There are different types of data structure objects in `R` such as vectors, matrices, factors, data frames, and lists. A 'function' is also an object, which defines a procedure or a sequence of expressions.
 
-### Vector {#vector}
+### 4.3.1 Vector {#vector}
 
 A vector is a collection of elements of a single type (or 'mode'). The common vector modes are 'numeric', 'integer', 'character' and 'logical'. The `c()` function is used to create vectors. The functions `class()`, `str()` and `length()` show the attributes of vectors.
 
@@ -330,7 +329,7 @@ str(d)
 length(d)
 ```
 
-### Factor {#factor}
+### 4.3.2 Factor {#factor}
 
 A 'factor' in `R` stores data from categorical data in variables as different levels.
 
@@ -376,7 +375,7 @@ class(fac_c)
 str(fac_c)
 ```
 
-### Matrix
+### 4.3.3 Matrix
 
 A 'matrix' in `R` is a vector with the attributes '`nrow`' and '`ncol`'.
 
@@ -390,7 +389,7 @@ typeof(m)
 dim(m) 
 ```
 
-### List
+### 4.3.4 List
 
 A 'list' is a containter containing different objects. The contents of list need not be of the same type or mode. A list can encompass a mixture of data types such as vectors, matrices, data frames, other lists or any other data structure.
 
@@ -400,7 +399,7 @@ class(w)
 str(w)
 ```
 
-### Data Frame {#dataframe}
+### 4.3.5 Data Frame {#dataframe}
 
 A 'data frame' in `R` is a special kind of list with every element having equal length. It is very important for handling tabular data in `R`. It is a array like structure with rows and columns. Each column needs to be of a single data type, however data type can vary between columns.
 
@@ -416,7 +415,7 @@ rownames(df)
 colnames(df)
 ```
 
-### Functions
+### 4.3.6 Functions
 
 All of the work in `R` is done by functions. It is an object defining a procedure which takes one or more objects as input (or 'arguments'), performs some action on them and finally gives a new object as output (or 'return'). `class()`, `mean()`, `getwd()`, `+`, etc. are all functions.
 
@@ -437,7 +436,7 @@ foo <- function(n1, n2) {
 foo(2,3)
 ```
 
-## Special Elements
+## 4.4 Special Elements
 
 In addition to numbers and text, there are some special elements which can be included in different data objects.
 
@@ -464,7 +463,7 @@ is.na(a)
 0/0
 ```
 
-## Indexing
+## 4.5 Indexing
 
 The `[` function is used to extract elements of an object by indexing (numeric or logical). Named elements in lists and data frames can be extracted by using the `$` operator.
 
@@ -526,7 +525,7 @@ df$L
 df$z
 ```
 
-## Help Documentation
+## 4.6 Help Documentation
 
 The help documentation regarding any function can be viewed using the `?` or `help()` function. The help documentation shows the default usage of the function including, the arguments that are taken by the function and the type of output object returned ('Value').
 
@@ -539,7 +538,7 @@ help(ls)
 ?setwd
 ```
 
-## Packages {#pack}
+## 4.7 Packages {#pack}
 
 Packages in `R` are collections of `R` functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of `R` and at present, there are [`r  nrow(available.packages())`](https://cran.r-project.org/web/packages/available_packages_by_name.html) packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).
 
@@ -557,7 +556,7 @@ Installed packages can be loaded using the function `library()`.
 library(readxl)
 ```
 
-## Importing and Exporting Tabular Data {#impexp}
+## 4.8 Importing and Exporting Tabular Data {#impexp}
 
 Tabular data from a spreadsheet can be imported into `R` in different ways. Consider some data such as in Table 1. Copy this data in to a spreadsheet editor such as MS Excel and save it as `augdata.csv`, a comma-separated-value file and `augdata.xlsx`, an Excel file in the working directory (`getwd()`).
 
@@ -620,7 +619,7 @@ The tabular data can be exported from `R` to a `.csv` (comma-separated-value) fi
 write.csv(x = data, file = "augdata.csv")
 ```
 
-## Additional Resources
+## 4.9 Additional Resources
 To learn more about `R`, there are upteen number of online tutorials as well as free courses availble. Queries about various aspects can be put to the active and vibrant `R  community online.
 
  - Online tutorials
@@ -633,7 +632,7 @@ To learn more about `R`, there are upteen number of online tutorials as well as 
      - http://stackoverflow.com/
      - `R` help mailing lists : http://www.r-project.org/mail.html
 
-# Installation of `augmentedRCBD` {#install}
+# 5 Installation of `augmentedRCBD` {#install}
 The package `augmentedRCBD` can be installed using the following functions:
 
 ```{r, eval=FALSE}
@@ -648,7 +647,7 @@ install_github("aravind-j/augmentedRCBD")
 
 The stable release is hosted in [CRAN](https://CRAN.R-project.org/package=augmentedRCBD) [(see section 4.7)](#pack), while the under-development version is hosted as a [Github](https://github.com/aravind-j/augmentedRCBD) repository. To install from github, you need to use the [`install_github()`](https://devtools.r-lib.org/reference/reexports.html) function from [`devtools](https://devtools.r-lib.org/) package.
 
-# Data Format
+# 6 Data Format
 
 Certain details need to be considered for arranging experimental data for analysis using the `augmentedRCBD` package.
 
@@ -742,13 +741,11 @@ knitr::kable(augdata, row.names = F)
 
 Data should preferably be balanced i.e. all the check genotypes should be present in all the blocks. If not, a warning is issued. The number of test genotypes can vary within a block. There should not be any missing values. Rows of genotypes with missing values for one or more traits should be removed.
 
-Such a tabular data should be imported [see section 7.8](#impexp) into `R` as a data frame object [see section 4.3.5](#dataframe). The columns with the block and treatment categorical data should of the type factor [see section 4.3.2](#factor), while the column(s) with the trait data should be of the type integer or numeric [see section 4.3.1](#vector).
+Such a tabular data should be imported ([see section 7.8](#impexp)) into `R` as a data frame object ([see section 4.3.5](#dataframe)). The columns with the block and treatment categorical data should of the type factor ([see section 4.3.2](#factor)), while the column(s) with the trait data should be of the type integer or numeric ([see section 4.3.1](#vector)).
 
-Consider the example data in Table 1 in [section 4.8](#impexp). It can be imported as instructed.
+# 7 Data Analysis for a Single Trait
 
-# Data Analysis for a Single Trait
-
-Check genotypes are inferred by default on the basis of number of replications. However, if some test genotypes are also replicated, they may also be falsely detected as checks.
+Analysis of data for a single trait can be performed by using `augmentedRCBD` function. It generates an object of class `augmentedRCBD`. These objects can then be taken as input by the several functions to print the results to console (`print.augmentedRCBD`), generate descriptive statistics from adjusted means (`describe.augmentedRCBD`), plot frequency distribution (`freqdist.augmentedRCBD`) and computed genetic variability statistics (gva.augmentedRCBD). All these outputs can also be exported as a MS Word report using the `report.augmentedRCBD` function.
 
 ```{r, echo = FALSE}
 
@@ -799,7 +796,161 @@ for (i in 1:dim(elpostext)[1]) {
 
 **Fig. 4**. Workflow for analysis of single traits with `augmentedRCBD`.
 
-# Data Analysis for a Multiple Traits
+## 7.1 `augmentedRCBD()`
+
+Consider the data in [Table 1](#impexp). The data can be imported into `R` as [vectors](#vector) as follows.
+
+```{r}
+blk <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3)
+trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+        70, 75, 74)
+y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
+        240, 268, 287, 226, 395, 450)
+```
+
+The `blk` and `trt` vectors with the block and treatment data need to be converted into factors as follows before analysis.
+
+```{r}
+# Convert block and treatment to factors
+blk <- as.factor(blk)
+trt <- as.factor(trt)
+```
+
+With the data in appropriate format, the analysis can be performed as follows for the trait `y1` as follows.
+
+```{r}
+out1 <- augmentedRCBD(blk, trt, y1, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE)
+class(out1)
+```
+
+Similarly the analysis for the trait `y2` can be computed as follows.
+
+```{r}
+out2 <- augmentedRCBD(blk, trt, y2, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE)
+class(out2)
+```
+
+The data can also be imported as a [data frame](#dataframe) and then used for analysis. Consider the data frame `data` imported from [Table 1](#impexp) according to the instructions in [section 4.8](#impexp).
+
+```{r, echo = FALSE}
+data <- data.frame(blk, trt, y1, y2)
+```
+
+```{r}
+str(data)
+# Convert block and treatment to factors
+data$blk <- as.factor(data$blk)
+data$trt <- as.factor(data$trt)
+```
+
+```{r}
+# Results for variable y1
+out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE)
+class(out1)
+
+# Results for variable y2
+out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
+                     alpha = 0.05, group = TRUE, console = TRUE)
+class(out2)
+```
+
+Check genotypes are inferred by default on the basis of number of replications. However, if some test genotypes are also replicated, they may also be falsely detected as checks. To avoid this, the checks can be specified by the `checks` argument.
+
+```{r}
+# Results for variable y1 (checks specified)
+out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE,
+                      checks = c("1", "2", "3", "4"))
+
+# Results for variable y2 (checks specified)
+out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE,
+                      checks = c("1", "2", "3", "4"))
+```
+
+## 7.2 `print.augmentedRCBD()`
+
+The results of analysis in an object of class `augmentedRCBD` can be printed to the console as follows.
+
+```{r}
+# Print results for variable y1
+print(out1)
+
+# Print results for variable y2
+print(out2)
+```
+
+## 7.3 `describe.augmentedRCBD()`
+
+The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D'Agostino test of skewness (@dagostino_transformation_1970)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (@anscombe_distribution_1983)) for the adjusted means from the results in an object of class `augmentedRCBD` can be computed as follows.
+
+```{r}
+# Descriptive statistics for variable y1
+describe.augmentedRCBD(out1)
+
+# Descriptive statistics for variable y2
+describe.augmentedRCBD(out2)
+```
+
+## 7.4 `freqdist.augmentedRCBD()`
+
+The frequency distribution of the adjusted means from the results in an object of class `augmentedRCBD` can be plotted as follows.
+
+```{r}
+# Frequency distribution for variable y1
+freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
+plot(freq1)
+
+# Frequency distribution for variable y2
+freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
+plot(freq2)
+```
+
+The colours for the check values may be specified using the argument `check.col`.
+
+```{r}
+colset <- c("red3", "green4", "purple3", "darkorange3")
+
+# Frequency distribution for variable y1
+freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
+plot(freq1)
+
+# Frequency distribution for variable y2
+freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
+plot(freq2)
+```
+
+The default the check highlighting can be avoided using the argument `highlight.check = FALSE`.
+
+```{r}
+# Frequency distribution for variable y1
+freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
+                                highlight.check = FALSE)
+plot(freq1)
+
+# Frequency distribution for variable y2
+freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
+                                highlight.check = FALSE)
+plot(freq2)
+```
+
+## 7.5 `gva.augmentedRCBD()`
+
+The genetic variability statistics such as mean, phenotypic variation, genotypic variation, 
+
+```{r}
+```
+
+## 7.5 `report.augmentedRCBD()`
+
+```{r}
+```
+
+# 8 Data Analysis for a Multiple Traits
 
 ```{r, echo = FALSE}
 
@@ -857,7 +1008,7 @@ Then the package can be loaded using the function
 library(augmentedRCBD)
 ```
 
-# Citing `augmentedRCBD`
+# 9 Citing `augmentedRCBD`
 
 ```{r, echo = FALSE, collapse = TRUE}
 # detach("package:augmentedRCBD", unload=TRUE)
@@ -875,7 +1026,7 @@ cit <- citation("augmentedRCBD")
 cit
 ```
 
-# Session Info
+# 10 Session Info
 
 ```{r}
 sessionInfo()

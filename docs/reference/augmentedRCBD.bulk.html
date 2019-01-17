@@ -92,7 +92,7 @@ frame object." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
     Home
@@ -103,6 +103,13 @@ frame object." />
     <span class="fa fa-code"></span>
      
     Reference
+  </a>
+</li>
+<li>
+  <a href="../articles/Data_Analysis_with_augmentedRCBD.html">
+    <span class="fa fa-file-o"></span>
+     
+    Tutorial
   </a>
 </li>
 <li>
@@ -144,7 +151,8 @@ frame object." />
 Traits/Characters</h1>
     <small class="dont-index">Source: <a href='https://github.com/aravind-j/augmentedRCBD
     https://CRAN.R-project.org/package=augmentedRCBD
-    https://aravind-j.github.io/augmentedRCBD/blob/master/R/augmentedRCBD.bulk.R'><code>R/augmentedRCBD.bulk.R</code></a></small>
+    https://aravind-j.github.io/augmentedRCBD
+    https://doi.org/10.5281/zenodo.1310011/blob/master/R/augmentedRCBD.bulk.R'><code>R/augmentedRCBD.bulk.R</code></a></small>
     <div class="hidden name"><code>augmentedRCBD.bulk.Rd</code></div>
     </div>
 
@@ -167,7 +175,7 @@ frame object.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>The data as a data frame object. The data.frame should possess
+      <td><p>The data as a data frame object. The data frame should possess
 columns specifying the block, treatment and multiple traits/characters.</p></td>
     </tr>
     <tr>
@@ -182,8 +190,8 @@ string.</p></td>
     </tr>
     <tr>
       <th>traits</th>
-      <td><p>Name of columns specifying the treatments as a character
-vector.</p></td>
+      <td><p>Name of columns specifying the multiple traits/characters as a
+character vector.</p></td>
     </tr>
     <tr>
       <th>checks</th>
@@ -309,7 +317,7 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 #&gt;                           Source Df        y1           y2
 #&gt; 1    Treatment (ignoring Blocks) 11 52.33 ns    5882.5 ** 
 #&gt; 2               Treatment: Check  3 17.64 ns    716.75 ns 
-#&gt; 3      Treatment: Test vs. Check  1 16.87 ns  27694.41 ** 
+#&gt; 3      Treatment: Test vs. Check  1 16.88 ns  27694.41 ** 
 #&gt; 4                Treatment: Test  7 72.27 ns   4980.41 ** 
 #&gt; 5 Block (eliminating Treatments)  2 34.75 ns    638.58 ns 
 #&gt; 6                      Residuals  6 26.97       286.25    
@@ -415,7 +423,7 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 
       <footer>
       <div class="copyright">
-  <p>Developed by J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
+  <p>Developed by J. Aravind, S. Mukesh Sankar, Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
 </div>
 
 <div class="pkgdown">

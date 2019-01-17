@@ -49,7 +49,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="/index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
     Home
@@ -60,6 +60,13 @@
     <span class="fa fa-code"></span>
      
     Reference
+  </a>
+</li>
+<li>
+  <a href="articles/Data_Analysis_with_augmentedRCBD.html">
+    <span class="fa fa-file-o"></span>
+     
+    Tutorial
   </a>
 </li>
 <li>
@@ -110,15 +117,15 @@
 <h6>Version : <a href="https://aravind-j.github.io/augmentedRCBD/">0.1.0.9000</a>; Copyright (C) 2015-2018: <a href="http://www.nbpgr.ernet.in/">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/">GPL-2|GPL-3</a>
 </h6>
 </div>
-<div id="j--aravind1-mukesh-sankar-s-2-dhammaprakash-p--wankhede3-and-vikender-kaur4" class="section level5">
+<div id="aravind-j-1-mukesh-sankar-s-2-wankhede-d--p-3-and-kaur-v-4" class="section level5">
 <h5 class="hasAnchor">
-<a href="#j--aravind1-mukesh-sankar-s-2-dhammaprakash-p--wankhede3-and-vikender-kaur4" class="anchor"></a><em>J. Aravind<sup>1</sup>, Mukesh Sankar S.<sup>2</sup>, Dhammaprakash P. Wankhede<sup>3</sup> and Vikender Kaur<sup>4</sup></em>
+<a href="#aravind-j-1-mukesh-sankar-s-2-wankhede-d--p-3-and-kaur-v-4" class="anchor"></a><em>Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup></em>
 </h5>
 <ol style="list-style-type: decimal">
-<li>Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi</li>
-<li>Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi</li>
-<li>Division of Genomic Resources, ICAR-National Bureau of Plant Genetic Resources, New Delhi</li>
-<li>Division of Germplasm Evaluation, ICAR-National Bureau of Plant Genetic Resources, New Delhi</li>
+<li>Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.</li>
+<li>Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi.</li>
+<li>Division of Genomic Resources, ICAR-National Bureau of Plant Genetic Resources, New Delhi.</li>
+<li>Division of Germplasm Evaluation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.</li>
 </ol>
 <hr>
 <hr>
@@ -137,20 +144,27 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">'augmentedRCBD'</span>, <span class="dt">dependencies=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>The development version can be installed from github as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Install development version from Github</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"aravind-j/augmentedRCBD"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"aravind-j/augmentedRCBD"</span>)</a></code></pre></div>
+</div>
+<div id="detailed-tutorial" class="section level2">
+<h2 class="hasAnchor">
+<a href="#detailed-tutorial" class="anchor"></a>Detailed tutorial</h2>
+<p>For a detailed tutorial (vignette) on how to used this package type:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">browseVignettes</span>(<span class="dt">package =</span> <span class="st">'augmentedRCBD'</span>)</a></code></pre></div>
+<p>The vignette for the latest version is also available <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html">online</a>.</p>
 </div>
 <div id="whats-new" class="section level2">
 <h2 class="hasAnchor">
 <a href="#whats-new" class="anchor"></a>What’s new</h2>
 <p>To know whats new in this version type:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">news</span>(<span class="dt">package=</span><span class="st">'augmentedRCBD'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">news</span>(<span class="dt">package=</span><span class="st">'augmentedRCBD'</span>)</a></code></pre></div>
 </div>
 <div id="links" class="section level2">
 <h2 class="hasAnchor">
 <a href="#links" class="anchor"></a>Links</h2>
 <p><a href="https://cran.r-project.org/package=augmentedRCBD">CRAN page</a></p>
 <p><a href="https://github.com/aravind-j/augmentedRCBD">Github page</a></p>
-<p><a href="https://aravind-j.github.io/augmentedRCBD/">Github website</a></p>
+<p><a href="https://aravind-j.github.io/augmentedRCBD/">Documentation website</a></p>
 <p><a href="https://doi.org/10.5281/zenodo.1310011">Zenodo DOI</a></p>
 </div>
 <div id="citing-augmentedrcbd" class="section level2">
@@ -158,23 +172,24 @@
 <a href="#citing-augmentedrcbd" class="anchor"></a>Citing <code>augmentedRCBD</code>
 </h2>
 <p>To cite the methods in the package use:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">citation</span>(<span class="st">"augmentedRCBD"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">citation</span>(<span class="st">"augmentedRCBD"</span>)</a></code></pre></div>
 <pre><code>
 To cite the R package 'augmentedRCBD' in publications use:
 
-  J. Aravind, Mukesh Sankar S., Dhammaprakash P. Wankhede, and
-  Vikender Kaur (2018).  augmentedRCBD: Analysis of Augmented
-  Randomised Complete Block Designs. R package version 0.1.0.9000,
-  https://aravind-j.github.io/augmentedRCBD/.
+  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V.
+  (2019).  augmentedRCBD: Analysis of Augmented Randomised
+  Complete Block Designs. R package version 0.1.0.9000,
+  https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
 A BibTeX entry for LaTeX users is
 
   @Manual{,
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
-    author = {{Aravind J} and {Mukesh Sankar S} and {Dhammaprakash Pandhari Wankhede} and {Vikender Kaur}},
-    year = {2018},
+    author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
+    year = {2019},
     note = {R package version 0.1.0.9000},
     note = {https://aravind-j.github.io/augmentedRCBD/},
+    note = {https://cran.r-project.org/package=augmentedRCBD},
   }
 
 This free and open-source software implements academic research by
@@ -189,9 +204,10 @@ project by citing the package.</code></pre>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=augmentedRCBD">https://​cloud.r-project.org/​package=augmentedRCBD</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/aravind-j/augmentedRCBD%0D%0A%20%20%20%20https://CRAN.R-project.org/package=augmentedRCBD%0D%0A%20%20%20%20https://aravind-j.github.io/augmentedRCBD">https://​github.com/​aravind-j/​augmentedRCBD
+<li>Browse source code at <br><a href="https://github.com/aravind-j/augmentedRCBD%0D%0A%20%20%20%20https://CRAN.R-project.org/package=augmentedRCBD%0D%0A%20%20%20%20https://aravind-j.github.io/augmentedRCBD%0D%0A%20%20%20%20https://doi.org/10.5281/zenodo.1310011">https://​github.com/​aravind-j/​augmentedRCBD
     https://​CRAN.R-project.org/​package=augmentedRCBD
-    https://​aravind-j.github.io/​augmentedRCBD</a>
+    https://​aravind-j.github.io/​augmentedRCBD
+    https://​doi.org/​10.5281/​zenodo.1310011</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/aravind-j/augmentedRCBD/issues">https://​github.com/​aravind-j/​augmentedRCBD/​issues</a>
 </li>
@@ -215,7 +231,7 @@ project by citing the package.</code></pre>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>J. Aravind <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4791-442X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" height="16"></a> </li>
-<li>Mukesh Sankar S. <br><small class="roles"> Author </small>  </li>
+<li>S. Mukesh Sankar <br><small class="roles"> Author </small>  </li>
 <li>Dhammaprakash Pandhari Wankhede <br><small class="roles"> Author </small>  </li>
 <li>Vikender Kaur <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
@@ -232,7 +248,7 @@ project by citing the package.</code></pre>
 <li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/devel%20version-0.1.0.9000-orange.svg" alt="develVersion"></a></li>
 <li><a href="http://www.repostatus.org/#inactive"><img src="http://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: WIP"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/last%20change-2018--07--15-yellowgreen.svg" alt="Last-changedate"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/last%20change-2019--01--17-yellowgreen.svg" alt="Last-changedate"></a></li>
 <li><a href="http://www.rdocumentation.org/packages/augmentedRCBD"><img src="http://www.rdocumentation.org/badges/version/augmentedRCBD" alt="Rdoc"></a></li>
 <li><a href="https://doi.org/10.5281/zenodo.1310011"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg" alt="Zenodo DOI"></a></li>
 <li><a href="https://github.com/aravind-j/google-analytics-beacon"><img src="https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page" alt="Analytics"></a></li>
@@ -244,7 +260,7 @@ project by citing the package.</code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
+  <p>Developed by J. Aravind, S. Mukesh Sankar, Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
 </div>
 
 <div class="pkgdown">

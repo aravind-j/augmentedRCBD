@@ -2,9 +2,13 @@
 ^\.Rproj\.user$
 ^Release\.R$
 ^test\.docx$
-^vignettes$
 ^_pkgdown\.yml$
 ^docs$
+^.*\.dropbox$
+^\.dropbox\.attr$
+^desktop\.ini$
+^.*\.Rhistory$
+^.*\.git$
 ^augmentedRCBD\.pdf$
 ^README\.Rmd$
 ^README\.html$
@@ -12,3 +16,10 @@
 ^README-*\.png$
 ^pkgdown$
 ^cran-comments\.md$
+^vignettes/Data_Analysis_with_augmentedRCBD\.tex$
+^vignettes/Data_Analysis_with_augmentedRCBD\.aux$
+^vignettes/Data_Analysis_with_augmentedRCBD\.out$
+^vignettes/rlogo\.png$
+^vignettes/rbase\.png$
+^vignettes/rstudio panes\.png$
+^vignettes/rstudio\.png$

@@ -87,7 +87,7 @@ class augmentedRCBD." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
     Home
@@ -98,6 +98,13 @@ class augmentedRCBD." />
     <span class="fa fa-code"></span>
      
     Reference
+  </a>
+</li>
+<li>
+  <a href="../articles/Data_Analysis_with_augmentedRCBD.html">
+    <span class="fa fa-file-o"></span>
+     
+    Tutorial
   </a>
 </li>
 <li>
@@ -138,7 +145,8 @@ class augmentedRCBD." />
     <h1>Perform Genetic Variability Analysis on <code>augmentedRCBD</code> Output</h1>
     <small class="dont-index">Source: <a href='https://github.com/aravind-j/augmentedRCBD
     https://CRAN.R-project.org/package=augmentedRCBD
-    https://aravind-j.github.io/augmentedRCBD/blob/master/R/gva.augmentedRCBD.R'><code>R/gva.augmentedRCBD.R</code></a></small>
+    https://aravind-j.github.io/augmentedRCBD
+    https://doi.org/10.5281/zenodo.1310011/blob/master/R/gva.augmentedRCBD.R'><code>R/gva.augmentedRCBD.R</code></a></small>
     <div class="hidden name"><code>gva.augmentedRCBD.Rd</code></div>
     </div>
 
@@ -171,7 +179,7 @@ Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p>
 <dt>Count</dt><dd><p>The
  number of treatments/genotypes.</p></dd> <dt>Mean</dt><dd><p>The mean value.</p></dd>
  <dt>Std.Error</dt><dd><p>The standard error.</p></dd> <dt>Std.Deviation</dt><dd><p>The standard
- deviation.</p></dd> <dt>Min</dt><dd><p>The minimum value</p></dd> <dt>Max</dt><dd><p>The maximum value</p></dd>
+ deviation.</p></dd> <dt>Min</dt><dd><p>The minimum value.</p></dd> <dt>Max</dt><dd><p>The maximum value.</p></dd>
  <dt>Skewness(statistic)</dt><dd><p>The skewness estimator.</p></dd>
  <dt>Skewness(p.value)</dt><dd><p>The p-value from D'Agostino test of skewness.</p></dd>
  <dt>Kurtosis(statistic)</dt><dd><p>The kurtosis estimator.</p></dd>
@@ -278,16 +286,16 @@ style="text-decoration:overline">x</span></sub> <big>]</big> &times;
 <p>Burton GW (1952).
 &#8220;Qualitative inheritance in grasses. Vol. 1.&#8221;
 In <em>Proceedings of the 6th International Grassland Congress, Pennsylvania State College</em>, 17--23.</p>
-<p>Johnson HW, Robinson H, Comstock R (1955).
+<p>Johnson HW, Robinson HF, Comstock RE (1955).
 &#8220;Estimates of genetic and environmental variability in soybeans.&#8221;
 <em>Agronomy journal</em>, <b>47</b>(7), 314--318.</p>
-<p>Robinson H (1966).
+<p>Robinson HF (1966).
 &#8220;Quantitative genetics in relation to breeding on centennial of Mendelism.&#8221;
 <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
 <p>Dudley JW, Moll RH (1969).
 &#8220;Interpretation and Use of Estimates of Heritability and Genetic Variances in Plant Breeding.&#8221;
 <em>Crop Science</em>, <b>9</b>(3), 257--262.</p>
-<p>Sivasubramanian S, Madhavamenon P (1973).
+<p>Sivasubramaniam S, Madhavamenon P (1973).
 &#8220;Genotypic and phenotypic variability in rice.&#8221;
 <em>The Madras Agricultural Journal</em>, <b>60</b>(9-13), 1093--1096.</p>
 <p>Falconer DS, Mackay TFC (1996).
@@ -340,7 +348,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 #&gt; Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
 #&gt;   Treatment: Check              3   52.9   17.64   0.654  0.609
 #&gt;   Treatment: Test               7  505.9   72.27   2.679  0.125
-#&gt;   Treatment: Test vs. Check     1   16.9   16.87   0.626  0.459
+#&gt;   Treatment: Test vs. Check     1   16.9   16.88   0.626  0.459
 #&gt; Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
 #&gt; Residuals                       6  161.8   26.97               
 #&gt; 
@@ -412,7 +420,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 #&gt; Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
 #&gt;   Treatment: Check                    3   2150     717   2.504 0.156116    
 #&gt;   Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
-#&gt; Residuals                             6   1717     286                     
+#&gt; Residuals                             6   1718     286                     
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
@@ -424,7 +432,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 #&gt;   Treatment: Test               7  34863    4980  17.399 0.001366 ** 
 #&gt;   Treatment: Test vs. Check     1  27694   27694  96.749 6.36e-05 ***
 #&gt; Block (eliminating Treatments)  2   1277     639   2.231 0.188645    
-#&gt; Residuals                       6   1718     286                     
+#&gt; Residuals                       6   1717     286                     
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #&gt; 
@@ -586,7 +594,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by J. Aravind, Mukesh Sankar S., Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
+  <p>Developed by J. Aravind, S. Mukesh Sankar, Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
 </div>
 
 <div class="pkgdown">
