@@ -122,7 +122,7 @@ if (!file.exists(rlogo_file <- 'rlogo.png')) download.file(rlogo_url, rlogo_file
 
 # 2 `R` software {#rsoft}
 
-It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languates as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today [@tippmann_programming_2015].
+It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today [@tippmann_programming_2015].
 
 ```{r, echo=FALSE}
 rbase_url = 'https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/vignettes/rbase.png'
@@ -391,7 +391,7 @@ dim(m)
 
 ### 4.3.4 List
 
-A 'list' is a containter containing different objects. The contents of list need not be of the same type or mode. A list can encompass a mixture of data types such as vectors, matrices, data frames, other lists or any other data structure.
+A 'list' is a container containing different objects. The contents of list need not be of the same type or mode. A list can encompass a mixture of data types such as vectors, matrices, data frames, other lists or any other data structure.
 
 ```{r}
 w <- list(a, m, d, list(b, c))
@@ -620,7 +620,7 @@ write.csv(x = data, file = "augdata.csv")
 ```
 
 ## 4.9 Additional Resources
-To learn more about `R`, there are upteen number of online tutorials as well as free courses availble. Queries about various aspects can be put to the active and vibrant `R  community online.
+To learn more about `R`, there are umpteen number of online tutorials as well as free courses available. Queries about various aspects can be put to the active and vibrant `R  community online.
 
  - Online tutorials
      - http://www.cran.r-project.org/other-docs.html
@@ -633,19 +633,25 @@ To learn more about `R`, there are upteen number of online tutorials as well as 
      - `R` help mailing lists : http://www.r-project.org/mail.html
 
 # 5 Installation of `augmentedRCBD` {#install}
-The package `augmentedRCBD` can be installed using the following functions:
+The package `augmentedRCBD` can be installed using the following functions.
 
 ```{r, eval=FALSE}
 # Install from CRAN
 install.packages('augmentedRCBD', dependencies=TRUE)
 
 # Install development version from Github
-
+if (!require('devtools')) install.packages('devtools')
 library(devtools)
 install_github("aravind-j/augmentedRCBD")
 ```
 
 The stable release is hosted in [CRAN](https://CRAN.R-project.org/package=augmentedRCBD) [(see section 4.7)](#pack), while the under-development version is hosted as a [Github](https://github.com/aravind-j/augmentedRCBD) repository. To install from github, you need to use the [`install_github()`](https://devtools.r-lib.org/reference/reexports.html) function from [`devtools](https://devtools.r-lib.org/) package.
+
+Then the package can be loaded using the function
+```{r, eval=TRUE}
+library(augmentedRCBD)
+```
+
 
 # 6 Data Format
 
@@ -745,7 +751,7 @@ Such a tabular data should be imported ([see section 7.8](#impexp)) into `R` as 
 
 # 7 Data Analysis for a Single Trait
 
-Analysis of data for a single trait can be performed by using `augmentedRCBD` function. It generates an object of class `augmentedRCBD`. These objects can then be taken as input by the several functions to print the results to console (`print.augmentedRCBD`), generate descriptive statistics from adjusted means (`describe.augmentedRCBD`), plot frequency distribution (`freqdist.augmentedRCBD`) and computed genetic variability statistics (gva.augmentedRCBD). All these outputs can also be exported as a MS Word report using the `report.augmentedRCBD` function.
+Analysis of data for a single trait can be performed by using `augmentedRCBD` function. It generates an object of class `augmentedRCBD`. Such an object can then be taken as input by the several functions to print the results to console (`print.augmentedRCBD`), generate descriptive statistics from adjusted means (`describe.augmentedRCBD`), plot frequency distribution (`freqdist.augmentedRCBD`) and computed genetic variability statistics (gva.augmentedRCBD). All these outputs can also be exported as a MS Word report using the `report.augmentedRCBD` function.
 
 ```{r, echo = FALSE}
 
@@ -872,6 +878,8 @@ out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
                       checks = c("1", "2", "3", "4"))
 ```
 
+In case the large number of treatments or genotypes, it is advisable to avoid treatment comparisons with the `group = FALSE` argument as it will be memory and processor intensive. Further it is advised to simplify output with `simplify = TRUE` in order to reduce output object size.
+
 ## 7.2 `print.augmentedRCBD()`
 
 The results of analysis in an object of class `augmentedRCBD` can be printed to the console as follows.
@@ -940,17 +948,47 @@ plot(freq2)
 
 ## 7.5 `gva.augmentedRCBD()`
 
-The genetic variability statistics such as mean, phenotypic variation, genotypic variation, 
+The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation, phenotypic, genotypic and environmental coefficient of variation (@burton_quantitative_1951, @burton_qualitative_1952), category of phenotypic and genotypic coefficient of variation according to @sivasubramaniam_genotypic_1973, broad-sense heritability (*H^2^*) (@lush_intra-sire_1940), *H^2^* category according to @robinson_quantitative_1966, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to @johnson_estimates_1955 are computed from an object of class `augmentedRCBD`as follows.
 
 ```{r}
+# Genetic variability statistics for variable y1
+gva.augmentedRCBD(out1)
+
+# Genetic variability statistics for variable y2
+gva.augmentedRCBD(out2)
 ```
 
 ## 7.5 `report.augmentedRCBD()`
 
-```{r}
+The results generated by the analysis can be exported to a MS Word file as follows.
+
+```{r, eval=FALSE}
+# MS word report for variable y1
+report.augmentedRCBD(aug = out1,
+                     target = file.path(tempdir(), "augmentedRCBD output - y1.docx"))
+
+# MS word report for variable y2
+report.augmentedRCBD(aug = out1,
+                     target = file.path(tempdir(), "augmentedRCBD output - y2.docx"))
+```
+
+```{r, echo = FALSE, results='asis'}
+switch(out_type,
+    html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png" align="center" alt="The `R` download location.">'),
+    latex = cat('\\includegraphics{augRCBDword.png}'))
+```
+
+```{r, echo = FALSE, results='asis'}
+switch(out_type,
+    html = cat('<p style="text-align: left;"><strong>Fig. 6</strong>: MS Word report generated with `report.agumentedRCBD` function.</p>'),
+    latex = cat('\\begin{center}
+                \\textbf{Fig. 6}: MS Word report generated with \\texttt{report.agumentedRCBD} function.
+                \\end{center}'))
 ```
 
 # 8 Data Analysis for a Multiple Traits
+
+Analysis of data for a multiple traits simultaneously can be performed by using `augmentedRCBD.bulk` function. It generates an object of class `augmentedRCBD.bulk`. Such an object can then be taken as input by `print.augmentedRCBD.bulk` to print the results to console. The results can also be exported as a MS Word report using the `report.augmentedRCBD.bulk` function.
 
 ```{r, echo = FALSE}
 
@@ -999,13 +1037,71 @@ for (i in 1:dim(elpostext)[1]) {
 
 ```
 
-**Fig. 5**. Workflow for analysis of multiple traits with `augmentedRCBD`.
+**Fig. 7**. Workflow for analysis of multiple traits with `augmentedRCBD`.
 
-\clearpage
+## 8.1 `augmentedRCBD.bulk()`
 
-Then the package can be loaded using the function
-```{r, eval=TRUE}
-library(augmentedRCBD)
+Consider the data frame `data` imported from [Table 1](#impexp) according to the instructions in [section 4.8](#impexp).
+
+```{r, echo = FALSE}
+data <- data.frame(blk, trt, y1, y2)
+```
+
+```{r}
+str(data)
+# Convert block and treatment to factors
+data$blk <- as.factor(data$blk)
+data$trt <- as.factor(data$trt)
+```
+
+Rather than performing the analysis individually for each variable/trait separately using `augmentedRCBD`, the analysis can be performed simultaneously for for both the traits using `augmentedRCBD.bulk` function. It is a wrapper around the `augmentedRCBD` core function and its associated helper functions.
+
+However in this case treatment comparisons/grouping by least significant difference or Tukey's honest significant difference method is not computed. Also the output object size is reduced using the `simplify = TRUE` argument in the `augmentedRCBD` function.
+
+The logical arguments `describe`, `freqdist` and `gva` can be used to specify whether to generate the descriptive statistics, frequency distribution plots and genetic variability statistics respectively. If `gva = TRUE`, then plots to compare phenotypic and genotypic coefficient of variation, broad sense heritability and genetic advance over mean between traits are also generated.
+
+```{r}
+bout <- augmentedRCBD.bulk(data = data, block = "blk",
+                           treatment = "trt", traits = c("y1", "y2"),
+                           checks = NULL, alpha = 0.05, describe = TRUE,
+                           freqdist = TRUE, gva = TRUE,
+                           check.col = c("brown", "darkcyan",
+                                         "forestgreen", "purple"),
+                           console = TRUE)
+```
+
+## 8.2 `print.augmentedRCBD.bulk()`
+
+The results of analysis in an object of class `augmentedRCBD.bulk` can be printed to the console as follows.
+
+```{r}
+# Print results
+print(bout)
+```
+
+## 8.3 `report.augmentedRCBD.bulk()`
+
+The results generated by the analysis can be exported to a MS Word file as follows.
+
+```{r, eval=FALSE}
+# MS word report
+report.augmentedRCBD.bulk(aug.bulk = bout,
+                          target = file.path(tempdir(),
+                          "augmentedRCBD bulk output.docx"))
+```
+
+```{r, echo = FALSE, results='asis'}
+switch(out_type,
+    html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png" align="center" alt="The `R` download location.">'),
+    latex = cat('\\includegraphics{augRCBDbulkword.png}'))
+```
+
+```{r, echo = FALSE, results='asis'}
+switch(out_type,
+    html = cat('<p style="text-align: left;"><strong>Fig. 8</strong>: MS Word report generated with `report.agumentedRCBD.bulk` function.</p>'),
+    latex = cat('\\begin{center}
+                \\textbf{Fig. 8}: MS Word report generated with \\texttt{report.agumentedRCBD.bulk} function.
+                \\end{center}'))
 ```
 
 # 9 Citing `augmentedRCBD`
