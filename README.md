@@ -33,7 +33,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=gre
 [![Project Status:
 WIP](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--08--15-yellowgreen.svg)](/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--01--17-yellowgreen.svg)](/commits/master)
 [![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
@@ -75,7 +75,7 @@ browseVignettes(package = 'augmentedRCBD')
 ```
 
 The vignette for the latest version is also available
-[online](https://aravind-j.github.io/augmentedRCBD/articles/How_to_Use_augmetedRCBD.html).
+[online](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html).
 
 ## What’s new
 
@@ -108,7 +108,7 @@ citation("augmentedRCBD")
 To cite the R package 'augmentedRCBD' in publications use:
 
   Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V.
-  (2018).  augmentedRCBD: Analysis of Augmented Randomised
+  (2019).  augmentedRCBD: Analysis of Augmented Randomised
   Complete Block Designs. R package version 0.1.0.9000,
   https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
@@ -117,7 +117,7 @@ A BibTeX entry for LaTeX users is
   @Manual{,
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-    year = {2018},
+    year = {2019},
     note = {R package version 0.1.0.9000},
     note = {https://aravind-j.github.io/augmentedRCBD/},
     note = {https://cran.r-project.org/package=augmentedRCBD},
