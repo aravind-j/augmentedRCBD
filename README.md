@@ -63,6 +63,7 @@ The development version can be installed from github as follows:
 
 ``` r
 # Install development version from Github
+if (!require('devtools')) install.packages('devtools')
 devtools::install_github("aravind-j/augmentedRCBD")
 ```
 
