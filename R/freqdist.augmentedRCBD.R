@@ -143,13 +143,14 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
       #            colour = check.col) +
       coord_flip() +
       theme_bw() +
-      # theme(axis.text.x = element_blank(),
-      #       axis.ticks.x = element_blank()) +
+      theme(axis.text.x = element_blank(),
+            axis.ticks.x = element_blank()) +
       theme(legend.position = "none") +
       theme(plot.margin = unit(c(0.25, 0.1, 0, 0.25), "cm"),
             axis.text = element_text(colour = "black"))
 
-    G <- rbind(ggplotGrob(G2)[-c(7), ], ggplotGrob(G1), size = "last")
+    #G <- rbind(ggplotGrob(G2)[c(7), ], ggplotGrob(G1), size = "last")
+    G <- rbind(ggplotGrob(G2), ggplotGrob(G1), size = "last")
     G <- resize_heights(G, c(1, 3))
 
   } else {
@@ -194,4 +195,12 @@ resize_heights <- function(g, heights = rep(1, length(idpanels))){
   class(hunits) <- class(g$heights[idpanels])
   g$heights[idpanels] <- hunits
   g
+}
+
+
+iscolour <- function(x) {
+  sapply(x, function(X) {
+    tryCatch(is.matrix(col2rgb(X)),
+             error = function(e) FALSE)
+  })
 }
