@@ -62,7 +62,8 @@ a:hover{
   border-color: var(--lightOrange-hover) !important;
 }
 
-
-
-
-
+/*button formatting*/
+.btn, .btn-primary, .btn-copy-ex {
+  background-color: var(--lightOrange) !important;
+  border-color: var(--lightOrange) !important;
+}
