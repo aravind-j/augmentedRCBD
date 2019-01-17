@@ -14,7 +14,7 @@ Default is 2.063 for 5\% selection proportion (see \strong{Details}).}
 }
 \value{
 A list with the following descriptive statistics:  \item{Mean}{The
- mean value.} \item{PV}{Phenotyic variance.} \item{GV}{Genotyic variance.}
+ mean value.} \item{PV}{Phenotyic variance.} \item{GV}{Genotyipc variance.}
  \item{EV}{Environmental variance.} \item{GCV}{Genotypic coefficient of
  variation} \item{GCV category}{The GCV category according to
  \insertCite{sivasubramaniam_genotypic_1973;textual}{augmentedRCBD}.}
