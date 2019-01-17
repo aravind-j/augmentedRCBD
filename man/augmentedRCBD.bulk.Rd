@@ -10,7 +10,7 @@ augmentedRCBD.bulk(data, block, treatment, traits, checks = NULL,
   check.col = "red", console = TRUE)
 }
 \arguments{
-\item{data}{The data as a data frame object. The data.frame should possess
+\item{data}{The data as a data frame object. The data frame should possess
 columns specifying the block, treatment and multiple traits/characters.}
 
 \item{block}{Name of column specifying the blocks in the design as a
@@ -19,8 +19,8 @@ character string.}
 \item{treatment}{Name of column specifying the treatments as a character
 string.}
 
-\item{traits}{Name of columns specifying the treatments as a character
-vector.}
+\item{traits}{Name of columns specifying the multiple traits/characters as a
+character vector.}
 
 \item{checks}{Character vector of the checks present in \code{treatment}
 levels. If not specified, checks are inferred from the data on the basis of

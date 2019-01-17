@@ -24,14 +24,14 @@
 #' these analyses for multiple traits/characters from the input data as a data
 #' frame object.
 #'
-#' @param data The data as a data frame object. The data.frame should possess
+#' @param data The data as a data frame object. The data frame should possess
 #'   columns specifying the block, treatment and multiple traits/characters.
 #' @param block Name of column specifying the blocks in the design as a
 #'   character string.
 #' @param treatment Name of column specifying the treatments as a character
 #'   string.
-#' @param traits Name of columns specifying the treatments as a character
-#'   vector.
+#' @param traits Name of columns specifying the multiple traits/characters as a
+#'   character vector.
 #' @param checks Character vector of the checks present in \code{treatment}
 #'   levels. If not specified, checks are inferred from the data on the basis of
 #'   number of replications of treatments/genotypes.
@@ -126,6 +126,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   if (!is.data.frame(data)) {
     stop('"data" should be a data frame object')
   }
+  
+  if (any(c("tbl_dataf", "tbl") %in% class(data))) {
+    warning('"data" is of type tibble\nCoercing to data frame')
+    data <- as.data.frame(data)
+  }
+  
   # check if block column present in data
   if (!(block %in% colnames(data))) {
     stop(paste('Column ', block,
