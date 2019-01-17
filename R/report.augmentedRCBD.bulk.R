@@ -102,6 +102,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
                             style = "heading 1")
   anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
   anovata$Df <- as.character(anovata$Df)
+  colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
   anovata <- autofit(flextable(anovata))
   anovata <- bold(anovata, part = "header")
   augreport <- body_add_flextable(augreport, anovata)
@@ -114,6 +115,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
                             style = "heading 1")
   anovaba <- aug.bulk$`ANOVA, Block Adjusted`
   anovaba$Df <- as.character(anovaba$Df)
+  colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
   anovaba <- autofit(flextable(anovaba))
   anovaba <- bold(anovaba, part = "header")
   augreport <- body_add_flextable(augreport, anovaba)
@@ -126,6 +128,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   augreport <- body_add_par(augreport, value = "Standard Errors",
                             style = "heading 1")
   SE <- aug.bulk$`Std. Errors`
+  colnames(SE) <- make.names(colnames(SE), unique = TRUE)
   SE <- autofit(flextable(SE))
   SE <- bold(SE, part = "header")
   augreport <- body_add_flextable(augreport, SE)
@@ -136,6 +139,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
                                           aug.bulk$alpha * 100, "%)", sep = ""),
                             style = "heading 1")
   CD <- aug.bulk$CD
+  colnames(CD) <- make.names(colnames(CD), unique = TRUE)
   CD <- autofit(flextable(CD))
   CD <- bold(SE, part = "header")
   augreport <- body_add_flextable(augreport, CD)
@@ -239,6 +243,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   augreport <- body_add_par(augreport, value = "Adjusted Means",
                             style = "heading 1")
   adj.means <- aug.bulk$Means
+  colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
   adj.means <- autofit(flextable(adj.means))
   adj.means <- bold(adj.means, part = "header")
   augreport <- body_add_flextable(augreport, adj.means)
