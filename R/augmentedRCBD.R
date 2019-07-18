@@ -397,7 +397,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     if (method.comp == "tukey") adjust <- "tukey"
 
     Comparison <- data.frame(summary(pairs(LSMeans, adjust = adjust)))
-    Groups <- data.frame(emmeans::cld(LSMeans, adjust = adjust))
+    Groups <- data.frame(multcomp::cld(LSMeans, adjust = adjust))
 
     Comparison$sig <- ifelse(Comparison$p.value < 0.001, "***",
                              ifelse(Comparison$p.value < 0.01, "**",
