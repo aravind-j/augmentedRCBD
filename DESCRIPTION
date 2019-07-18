@@ -3,7 +3,7 @@ Title: Analysis of Augmented Randomised Complete Block Designs
 Version: 0.1.0.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
-           email = "aravindj@nbpgr.ernet.in",
+           email = "j.aravind@icar.gov.in",
            role = c("aut", "cre"),
 		       comment = c(ORCID = "0000-0002-4791-442X")),
 	  person(given = "S.", family = "Mukesh Sankar", 
