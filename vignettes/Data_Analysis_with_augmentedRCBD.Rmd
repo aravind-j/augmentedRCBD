@@ -2,6 +2,7 @@
 title: "Data Analysis with `augmentedRCBD`"
 author: "Aravind, J.^1^, Mukesh Sankar, S.^2^, Wankhede, D. P.^3^, and Kaur, V.^4^"
 date: "`r Sys.Date()`"
+geometry: margin=3cm
 output:
   pdf_document:
     dev: cairo_pdf
@@ -115,7 +116,7 @@ if (!file.exists(rlogo_file <- 'rlogo.png')) download.file(rlogo_url, rlogo_file
   \begin{center}
     \includegraphics[width=0.20\textwidth]{`r "rlogo.png"`}
   \end{center}
-    \vspace{-10pt}
+    \vspace{-5pt}
 \end{wrapfigure}
 
 <img src="https://www.r-project.org/logo/Rlogo.png" align="right" alt="logo" width="173" height = "134" style = "padding: 10px; border: none; float: right;">

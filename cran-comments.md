@@ -1,3 +1,16 @@
+# Version 0.1.1 - First submission
+
+* Changed `emmeans::cld` to `multcomp::cld` to account for the changes in `emmeans` 1.3.5.
+
+### Test environments
+* local Windows 10 Home v1803, R-release (R 3.6.1) & R-devel (R 3.7.0 Pre-release).
+* local Ubuntu 16.04, R-release (R 3.6.1) & R-devel (R 3.7.0 Pre-release).
+* win-builder, R-release (R 3.6.1) & R-devel (R 3.7.0 Pre-release).
+
+### R CMD check results
+* There were no ERRORs or WARNINGs.
+* On NOTE specifying that the DOI (10.2307/2527837) and corresponding URL (https://doi.org/10.2307/2527837) in `Readme.md` and DESCRIPTION as being invalid. The link is accessible, so this NOTE is false and can be safely ignored.
+
 # Version 0.1.0 - Third submission
 
 * \dontrun{} wrap in examples converted to \donttest{}. 
