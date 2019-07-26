@@ -19,7 +19,12 @@
 ^vignettes/Data_Analysis_with_augmentedRCBD\.tex$
 ^vignettes/Data_Analysis_with_augmentedRCBD\.aux$
 ^vignettes/Data_Analysis_with_augmentedRCBD\.out$
+^vignettes/Data_Analysis_with_augmentedRCBD\.log$
+^vignettes/Data_Analysis_with_augmentedRCBD\.html$
+^vignettes/Data_Analysis_with_augmentedRCBD\.knit.md$
+^vignettes/Data_Analysis_with_augmentedRCBD\.utf8.md$
 ^vignettes/rlogo\.png$
 ^vignettes/rbase\.png$
 ^vignettes/rstudio panes\.png$
 ^vignettes/rstudio\.png$
+^CRAN-RELEASE$
