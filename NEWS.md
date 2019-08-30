@@ -1,5 +1,11 @@
 # augmentedRCBD  0.1.2
 
+## UPDATED FUNCTIONS:
+* `augmentedRCBD` - Added features to handle negative adjusted means.
+* `gva.augmentedRCBD` - Added features to handle negative GV and/or hBS.
+* `augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
+* `report.augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
+
 # augmentedRCBD  0.1.1
 
 ## UPDATED FUNCTIONS:

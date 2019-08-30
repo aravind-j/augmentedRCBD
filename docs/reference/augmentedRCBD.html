@@ -164,7 +164,8 @@ well as comparison of the adjusted means of the treatments/genotypes.</p>
 
     <pre class="usage"><span class='fu'>augmentedRCBD</span>(<span class='no'>block</span>, <span class='no'>treatment</span>, <span class='no'>y</span>, <span class='kw'>checks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>method.comp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lsd"</span>, <span class='st'>"tukey"</span>, <span class='st'>"none"</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>console</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>console</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>simplify</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>truncate.means</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,17 +205,22 @@ multiple comparisons.</p></td>
     <tr>
       <th>group</th>
       <td><p>If <code>TRUE</code>, genotypes will be grouped according to
-<code>"method.comp"</code>.</p></td>
+<code>"method.comp"</code>. Default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>console</th>
       <td><p>If <code>TRUE</code>, output will be printed to console. Default is
-<code>TRUE</code>.</p></td>
+<code>TRUE</code>. Default is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>simplify</th>
       <td><p>If <code>TRUE</code>, ANOVA output will be given as a data frame
-instead of a <code>summary.aov</code> object</p></td>
+instead of a <code>summary.aov</code> object. Default is <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>truncate.means</th>
+      <td><p>If <code>TRUE</code>, the negative adjusted means will be
+truncated to zero. Default is <code>TRUE</code>.</p></td>
     </tr>
     </table>
     

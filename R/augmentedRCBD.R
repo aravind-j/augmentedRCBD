@@ -50,11 +50,13 @@
 #'@param alpha Type I error probability (Significance level) to be used for
 #'  multiple comparisons.
 #'@param group If \code{TRUE}, genotypes will be grouped according to
-#'  \code{"method.comp"}.
+#'  \code{"method.comp"}. Default is \code{TRUE}.
 #'@param console If \code{TRUE}, output will be printed to console. Default is
-#'  \code{TRUE}.
+#'  \code{TRUE}. Default is \code{TRUE}.
 #'@param simplify If \code{TRUE}, ANOVA output will be given as a data frame
-#'  instead of a \code{summary.aov} object
+#'  instead of a \code{summary.aov} object. Default is \code{TRUE}.
+#'@param truncate.means If \code{TRUE}, the negative adjusted means will be
+#'  truncated to zero. Default is \code{TRUE}.
 #'
 #'@return A list of class \code{augmentedRCBD} containing the following
 #'  components:  \item{\code{Details}}{Details of the augmented design used.}
@@ -160,7 +162,7 @@
 augmentedRCBD <- function(block, treatment, y, checks = NULL,
                           method.comp = c("lsd", "tukey", "none"),
                           alpha=0.05, group=TRUE, console = TRUE,
-                          simplify = FALSE) {
+                          simplify = FALSE, truncate.means = TRUE) {
   # Checks
   # block
   if (!is.factor(block)) {
@@ -404,6 +406,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                                     ifelse(Comparison$p.value < 0.05, "*", "")))
     colnames(Groups) <- c("Treatment", "Adjusted Means", "SE", "df",
                           "lower.CL", "upper.CL", "Group")
+
   }
 
   # Compute SE and CD for various comparisons
@@ -443,6 +446,25 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   }
 
   rm(augmented.aov, augmented2.aov, augmented3.aov, augmented3.anova)
+
+  # Truncate negative adjusted means
+  if (any(Means$`Adjusted Means` < 0)){
+    negadjmeans <- which(Means$`Adjusted Means` < 0)
+    negadjmeanst <- as.character(Means$Treatment[negadjmeans])
+
+    negmsg <- paste('Negative adjusted means for the following treatment(s)',
+                    '\n', paste(negadjmeanst, collapse = ", "))
+
+  if (truncate.means == TRUE) {
+    Means$`Adjusted Means`[Means$`Adjusted Means` < 0] <- 0
+    Groups$`Adjusted Means`[Groups$`Adjusted Means` < 0] <- 0
+
+    warning(paste(negmsg, '\n',
+                  'They were truncated to zero'))
+  } else {
+    warning(negmsg)
+  }
+  }
 
   output <- list(Details = Details, Means = Means,
                  `ANOVA, Treatment Adjusted` = A1,

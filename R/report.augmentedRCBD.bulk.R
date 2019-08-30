@@ -202,42 +202,47 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   }
 
   # GVA plots
-  if (all(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
+  if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
 
     augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis Plots",
                               style = "heading 1")
 
-    augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
-                              style = "heading 2")
+    if (!is.null(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)) {
+      augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
+                                style = "heading 2")
 
-    src <- tempfile(fileext = ".png")
-    png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-    plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
-    dev.off()
-    augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-    rm(src)
+      src <- tempfile(fileext = ".png")
+      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+      plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
+      dev.off()
+      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+      rm(src)
+    }
 
-    augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
-                              style = "heading 2")
+    if (!is.null(aug.bulk$`GVA plots`$`Broad sense heritability`)) {
+      augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
+                                style = "heading 2")
 
-    src <- tempfile(fileext = ".png")
-    png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-    plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
-    dev.off()
-    augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-    rm(src)
+      src <- tempfile(fileext = ".png")
+      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+      plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
+      dev.off()
+      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+      rm(src)
+    }
 
-    augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
-                              style = "heading 2")
+    if (!is.null(aug.bulk$`GVA plots`$`Genetic advance over mean`)) {
+      augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
+                                style = "heading 2")
 
-    src <- tempfile(fileext = ".png")
-    png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-    plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
-    dev.off()
-    augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-    rm(src)
+      src <- tempfile(fileext = ".png")
+      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+      plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
+      dev.off()
+      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+      rm(src)
+    }
   }
-
 
   # Adjusted Means
   augreport <- body_add_par(augreport, value = "Adjusted Means",
@@ -264,12 +269,22 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
     }
 
     if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
-      augreport <- body_add_par(augreport, value = "Frequency distribution",
+      augreport <- body_add_par(augreport, value = "Frequency Distribution",
                                 style = "heading 2")
       for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
         augreport <- body_add_par(augreport,
                                    value = aug.bulk$warnings$`Freq. dist`[i],
                                    style = "Code")
+      }
+    }
+
+    if (!is.null(aug.bulk$warnings$GVA)) {
+      augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis",
+                                style = "heading 2")
+      for (i in seq_along(aug.bulk$warnings$GVA)) {
+        augreport <- body_add_par(augreport,
+                                  value = aug.bulk$warnings$GVA[i],
+                                  style = "Code")
       }
     }
   }

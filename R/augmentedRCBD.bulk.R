@@ -428,13 +428,26 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   gvaplot_cvg <- NULL
   gvaplot_hbsg <- NULL
   gvaplot_gamg <- NULL
+  gvawarn <- NULL
 
   if(gva == TRUE) {
     gvaout <- vector("list", length(traits))
     names(gvaout) <- traits
 
+    # gvawarn <- data.frame(Trait = traits, Message = NA_character_,
+    #                      stringsAsFactors = FALSE)
+
+    gvawarn <- NULL
     for (i in seq_along(traits)) {
-      gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]])
+
+      withCallingHandlers({
+        gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]])
+
+      }, warning = function(w) {
+        gvawarn <<- append(gvawarn, traits[i])
+        gvawarn <<- append(gvawarn, conditionMessage(w))
+        invokeRestart("muffleWarning")
+      })
     }
 
     gvaout <- lapply(gvaout, function(x) data.frame(x))
@@ -481,7 +494,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       geom_point(aes(y = value)) +
       scale_color_manual("Type", values = c("red", "blue")) +
       scale_y_continuous(breaks = seq(0,
-                                      ceiling(max(gvaplot_2[, c("PCV", "GCV")])) + 10,
+                                      ceiling(max(gvaplot_2[, c("PCV", "GCV")],
+                                                  na.rm = TRUE)) + 10,
                                       by = 10)) +
       geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
                                    xmax = xmax, ymax = ymax, fill = Category),
@@ -491,51 +505,61 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       theme_bw() + themecustom
 
     # hBS
-    gvacat2 <- data.frame(xmin = 0,
-                          xmax = 0.10,
-                          ymin = c(-Inf, 30, 60),
-                          ymax = c(30, 60, Inf),
-                          Category = as.factor(c("Low", "Medium", "High")))
-    gvacat2$Category <- factor(gvacat2$Category,
-                               levels = c("Low", "Medium", "High"))
-    gvaplot_hbs <- reshape2::melt(gvaplot, id.vars = c("Trait"),
-                                  measure.vars = "hBS")
+    if (any(!is.na(gvaplot[, "hBS"]))) {
+      gvacat2 <- data.frame(xmin = 0,
+                            xmax = 0.10,
+                            ymin = c(-Inf, 30, 60),
+                            ymax = c(30, 60, Inf),
+                            Category = as.factor(c("Low", "Medium", "High")))
+      gvacat2$Category <- factor(gvacat2$Category,
+                                 levels = c("Low", "Medium", "High"))
+      gvaplot_hbs <- reshape2::melt(gvaplot, id.vars = c("Trait"),
+                                    measure.vars = "hBS")
 
-    gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable,
-                                            group = variable)) +
-      geom_hline(yintercept = c(30, 60), color = "black", linetype = 3) +
-      geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf,
-                                           yend = value),
-                   colour = "black") +
-      geom_point(aes(y = value), colour = "black") +
-      scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"])) + 10,
-                                      by = 10)) +
-      geom_rect(data = gvacat2, aes(xmin = xmin, ymin = ymin,
-                                    xmax = xmax, ymax = ymax, fill = Category),
-                alpha = 0.5, inherit.aes = FALSE) +
-      scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
-      ylab("Broad sense heritability") +
-      theme_bw() + themecustom
+      gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable,
+                                              group = variable)) +
+        geom_hline(yintercept = c(30, 60), color = "black", linetype = 3) +
+        geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf,
+                                             yend = value),
+                     colour = "black") +
+        geom_point(aes(y = value), colour = "black") +
+        scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"],
+                                                       na.rm = TRUE)) + 10,
+                                        by = 10)) +
+        geom_rect(data = gvacat2, aes(xmin = xmin, ymin = ymin,
+                                      xmax = xmax, ymax = ymax, fill = Category),
+                  alpha = 0.5, inherit.aes = FALSE) +
+        scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
+        ylab("Broad sense heritability") +
+        theme_bw() + themecustom
+    } else {
+      gvaplot_hbsg <- NULL
+    }
 
     # GAM
-    gvaplot_gam <- reshape2::melt(gvaplot, id.vars = c("Trait"),
-                                  measure.vars = "GAM")
+    if (any(!is.na(gvaplot[, "GAM"]))) {
+      gvaplot_gam <- reshape2::melt(gvaplot, id.vars = c("Trait"),
+                                    measure.vars = "GAM")
 
-    gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable,
-                                            group = variable)) +
-      geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
-      geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf,
-                                           yend = value),
-                   colour = "black") +
-      geom_point(aes(y = value), colour = "black") +
-      scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"])) + 10,
-                                      by = 10)) +
-      geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
-                                   xmax = xmax, ymax = ymax, fill = Category),
-                alpha = 0.5, inherit.aes = FALSE) +
-      scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
-      ylab("Genetic advance over mean") +
-      theme_bw() + themecustom
+      gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable,
+                                              group = variable)) +
+        geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
+        geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf,
+                                             yend = value),
+                     colour = "black") +
+        geom_point(aes(y = value), colour = "black") +
+        scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"],
+                                                       na.rm = TRUE)) + 10,
+                                        by = 10)) +
+        geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
+                                     xmax = xmax, ymax = ymax, fill = Category),
+                  alpha = 0.5, inherit.aes = FALSE) +
+        scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
+        ylab("Genetic advance over mean") +
+        theme_bw() + themecustom
+    } else {
+      gvaplot_gamg <- NULL
+    }
   }
 
   gvaplots <- list(`Phenotypic and Genotypic CV` = gvaplot_cvg,
@@ -549,8 +573,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     fqout <- vector("list", length(traits))
     names(fqout) <- traits
 
-    fqwarn <- data.frame(Trait = traits, Message = NA_character_,
-                         stringsAsFactors = F)
+    # fqwarn <- data.frame(Trait = traits, Message = NA_character_,
+    #                      stringsAsFactors = FALSE)
 
     fqwarn <- NULL
     for (i in seq_along(traits)) {
@@ -576,7 +600,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
               `Frequency distribution` = fqout,
               `Genetic variability analysis` = gvaout,
               `GVA plots` = gvaplots,
-              warnings = list(Model = warn, `Freq. dist` = fqwarn))
+              warnings = list(Model = warn, `Freq. dist` = fqwarn,
+                              GVA = gvawarn))
 
   # Set Class
   class(out) <- "augmentedRCBD.bulk"

@@ -211,17 +211,40 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
 
   GV <- PV - EV
   Mean <- mean(aug$Means$`Adjusted Means`)
-  GCV <- (sqrt(GV) / Mean) * 100 # Burton 1951 1952
-  GCV_category <- ifelse(GCV >= 20, "High", ifelse(GCV >= 10, "Medium", "Low"))
-  PCV <- (sqrt(PV) / Mean) * 100 # Burton 1951 1952
-  PCV_category <- ifelse(PCV >= 20, "High", ifelse(PCV >= 10, "Medium", "Low"))
-  ECV <- (sqrt(EV) / Mean) * 100 # Burton 1951 1952
-  hBS <- (GV / PV) * 100 # Lush 1940
-  hBS <- ifelse(hBS < 0, NA, hBS) # for negative hbs
-  hBS_categroy <- ifelse(hBS >= 60, "High", ifelse(hBS >= 30, "Medium", "Low")) # Robinson 1966
-  GA <- k * sqrt(PV) * (hBS / 100) # Johnson et al. 1955
-  GAM <- (GA / Mean) * 100
-  GAM_category <-  ifelse(GAM >= 20, "High", ifelse(GAM >= 10, "Medium", "Low"))
+  if (GV > 0) {
+    GCV <- (sqrt(GV) / Mean) * 100 # Burton 1951 1952
+    GCV_category <- ifelse(GCV >= 20, "High", ifelse(GCV >= 10, "Medium", "Low"))
+    PCV <- (sqrt(PV) / Mean) * 100 # Burton 1951 1952
+    PCV_category <- ifelse(PCV >= 20, "High", ifelse(PCV >= 10, "Medium", "Low"))
+    ECV <- (sqrt(EV) / Mean) * 100 # Burton 1951 1952
+    hBS <- (GV / PV) * 100 # Lush 1940
+    if (hBS < 0) {
+      hBS <- ifelse(hBS < 0, NA, hBS) # for negative hbs
+      warning('"hBS" computed was negative. Truncated to zero.')
+    }
+    hBS_categroy <- ifelse(hBS >= 60, "High", ifelse(hBS >= 30, "Medium", "Low")) # Robinson 1966
+    GA <- k * sqrt(PV) * (hBS / 100) # Johnson et al. 1955
+    GAM <- (GA / Mean) * 100
+    GAM_category <-  ifelse(GAM >= 20, "High", ifelse(GAM >= 10, "Medium", "Low"))
+
+  } else {
+    GV <- NA
+    GCV <- NA
+    GCV_category <- NA
+    PCV <- (sqrt(PV) / Mean) * 100 # Burton 1951 1952
+    PCV_category <- ifelse(PCV >= 20, "High", ifelse(PCV >= 10, "Medium", "Low"))
+    ECV <- (sqrt(EV) / Mean) * 100 # Burton 1951 1952
+    hBS <- NA
+    hBS_categroy <- NA
+    GA <- NA
+    GAM <- NA
+    GAM_category <- NA
+
+    warning(paste('Negative GV detected.\n',
+                  'GCV, GCV category, hBS, hBS category, GA, GAM and\n',
+                  'GAM category could not be computed'))
+
+  }
 
   out <- list(Mean = Mean, PV = PV, GV = GV, EV = EV,
               GCV = GCV, `GCV category` = GCV_category,
