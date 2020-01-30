@@ -48,15 +48,16 @@ The phenotypic, genotypic and environmental variance
 \ifelse{html}{\out{<i>&sigma;<sup>2</sup><sub>g</sub></i>}}{\eqn{\sigma^{2}_{g}}}
 and
 \ifelse{html}{\out{<i>&sigma;<sup>2</sup><sub>e</sub></i>}}{\eqn{\sigma^{2}_{e}}}
-) are obtained from the ANOVA tables as follows:
+) are obtained from the ANOVA tables according to the expected value of mean
+square described by Federer and Searle (1976) as follows:
 
 \ifelse{html}{\out{<p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Sum of squares of test
-treatments(genotypes)</p>}}{\deqn{\sigma^{2}_{p} = \textrm{Sum of squares of
-test treatments(genotypes)}}} \ifelse{html}{\out{<p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>e</sub></em> = Sum of squares of
-residuals(error)</p>}}{\deqn{\sigma^{2}_{e} = \textrm{Sum of squares of
-residuals(error)}}} \ifelse{html}{\out{<p style="text-align:
+center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Mean sum of squares of test
+treatments</p>}}{\deqn{\sigma^{2}_{p} = \textrm{Mean sum of squares of
+test treatments}}} \ifelse{html}{\out{<p style="text-align:
+center;"><em>&sigma;<sup>2</sup><sub>e</sub></em> = Mean sum of squares of
+residuals</p>}}{\deqn{\sigma^{2}_{e} = \textrm{Mean sum of squares of
+residuals}}} \ifelse{html}{\out{<p style="text-align:
 center;"><em>&sigma;<sup>2</sup><sub>g</sub></em> =
 <em>&sigma;<sup>2</sup><sub>p</sub></em> &minus;
 <em>&sigma;<sup>2</sup><sub>e</sub></em></p>}}{\deqn{\sigma^{2}_{g} =
@@ -176,6 +177,8 @@ gva.augmentedRCBD(out2)
 \insertRef{dudley_interpretation_1969}{augmentedRCBD}
 
 \insertRef{sivasubramaniam_genotypic_1973}{augmentedRCBD}
+
+\insertRef{federerModelConsiderationsVariance1976}{augmentedRCBD}
 
 \insertRef{falconer_introduction_1996}{augmentedRCBD}
 }

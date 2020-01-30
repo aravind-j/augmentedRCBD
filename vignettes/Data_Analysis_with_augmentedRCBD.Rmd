@@ -949,7 +949,7 @@ plot(freq2)
 
 ## 7.5 `gva.augmentedRCBD()`
 
-The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation, phenotypic, genotypic and environmental coefficient of variation (@burton_quantitative_1951, @burton_qualitative_1952), category of phenotypic and genotypic coefficient of variation according to @sivasubramaniam_genotypic_1973, broad-sense heritability (*H^2^*) (@lush_intra-sire_1940), *H^2^* category according to @robinson_quantitative_1966, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to @johnson_estimates_1955 are computed from an object of class `augmentedRCBD`as follows.
+The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (@federerModelConsiderationsVariance1976), phenotypic, genotypic and environmental coefficient of variation (@burton_quantitative_1951, @burton_qualitative_1952), category of phenotypic and genotypic coefficient of variation according to @sivasubramaniam_genotypic_1973, broad-sense heritability (*H^2^*) (@lush_intra-sire_1940), *H^2^* category according to @robinson_quantitative_1966, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to @johnson_estimates_1955 are computed from an object of class `augmentedRCBD` as follows.
 
 ```{r}
 # Genetic variability statistics for variable y1
