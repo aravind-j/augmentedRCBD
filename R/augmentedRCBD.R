@@ -110,7 +110,7 @@
 #'
 #'\insertRef{mathur_data_2008}{augmentedRCBD}
 #'
-#'\insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
+#'\insertRef{de_mendiburu_agricolae_2015}{augmentedRCBD}
 #'
 #' @examples
 #' # Example data

@@ -4,10 +4,18 @@
 \alias{augmentedRCBD}
 \title{Analysis of Augmented Randomised Complete Block Design}
 \usage{
-augmentedRCBD(block, treatment, y, checks = NULL,
-  method.comp = c("lsd", "tukey", "none"), alpha = 0.05,
-  group = TRUE, console = TRUE, simplify = FALSE,
-  truncate.means = TRUE)
+augmentedRCBD(
+  block,
+  treatment,
+  y,
+  checks = NULL,
+  method.comp = c("lsd", "tukey", "none"),
+  alpha = 0.05,
+  group = TRUE,
+  console = TRUE,
+  simplify = FALSE,
+  truncate.means = TRUE
+)
 }
 \arguments{
 \item{block}{Vector of blocks (as a factor).}
@@ -139,7 +147,7 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 
 \insertRef{mathur_data_2008}{augmentedRCBD}
 
-\insertRef{de_mendiburu_agricolae:_2015}{augmentedRCBD}
+\insertRef{de_mendiburu_agricolae_2015}{augmentedRCBD}
 }
 \seealso{
 \code{\link[agricolae]{DAU.test}},
