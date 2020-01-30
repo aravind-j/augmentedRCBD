@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Analysis with <code>augmentedRCBD</code> • augmentedRCBD</title>
+<title>Data Analysis with `augmentedRCBD` • augmentedRCBD</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -13,7 +13,7 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Data Analysis with &lt;code&gt;augmentedRCBD&lt;/code&gt;">
+<meta property="og:title" content="Data Analysis with `augmentedRCBD`">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -107,7 +107,7 @@
                         <h4 class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 class="date">2019-08-31</h4>
+            <h4 class="date">2020-01-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/vignettes/Data_Analysis_with_augmentedRCBD.Rmd"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -144,7 +144,7 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>1 Overview</h1>
-<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956">1956</a>, <a href="#ref-federer_augmented_1961">1961</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
+<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
 <p>This tutorial aims to educate the users in utilising this package for performing such analysis. Utilising <code>augmentedRCBD</code> for data analysis requires a basic knowledge of <code>R</code> programming language. However, as many of the intended end-users may not be familiar with <code>R</code>, <a href="#rsoft">sections 2 to 4</a> give a ‘gentle’ introduction to <code>R</code>, especially those aspects which are necessary to get <code>augmentedRCBD</code> up and running for performing data analysis in a Windows environment. Users already familiar with <code>R</code> can feel free to skip to <a href="#install">section 5</a>.</p>
 
 <p><img src="https://www.r-project.org/logo/Rlogo.png" align="right" alt="logo" width="173" height="134" style="padding: 10px; border: none; float: right;"></p>
@@ -152,7 +152,7 @@
 <div id="rsoft" class="section level1">
 <h1 class="hasAnchor">
 <a href="#rsoft" class="anchor"></a>2 <code>R</code> software</h1>
-<p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(Tippmann, <a href="#ref-tippmann_programming_2015">2015</a>)</span>.</p>
+<p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(Tippmann, <a href="#ref-tippmann_programming_2015" role="doc-biblioref">2015</a>)</span>.</p>
 
 </div>
 <div id="getting-started" class="section level1">
@@ -588,7 +588,7 @@ Levels: a data frame is This</code></pre>
 <div id="pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pack" class="anchor"></a>4.7 Packages</h2>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">14862</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">15329</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="co"># Install the package 'readxl' for importing data from excel</span></a>
 <a class="sourceLine" id="cb164-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(readxl)</a></code></pre></div>
@@ -1379,18 +1379,12 @@ Check treatments           "1, 2, 3, 4"
 
 ANOVA, Treatment Adjusted
 =========================
-                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)
-Block (ignoring Treatments)           2   7019    3510  12.261 0.007597
-Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920
-  Treatment: Check                    3   2150     717   2.504 0.156116
-  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473
-Residuals                             6   1717     286                 
-                                        
-Block (ignoring Treatments)          ** 
-Treatment (eliminating Blocks)       ***
-  Treatment: Check                      
-  Treatment: Test and Test vs. Check ***
-Residuals                               
+                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Block (ignoring Treatments)           2   7019    3510  12.261 0.007597 ** 
+Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
+  Treatment: Check                    3   2150     717   2.504 0.156116    
+  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
+Residuals                             6   1717     286                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1569,18 +1563,12 @@ Check treatments           "1, 2, 3, 4"
 
 ANOVA, Treatment Adjusted
 =========================
-                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)
-Block (ignoring Treatments)           2   7019    3510  12.261 0.007597
-Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920
-  Treatment: Check                    3   2150     717   2.504 0.156116
-  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473
-Residuals                             6   1717     286                 
-                                        
-Block (ignoring Treatments)          ** 
-Treatment (eliminating Blocks)       ***
-  Treatment: Check                      
-  Treatment: Test and Test vs. Check ***
-Residuals                               
+                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Block (ignoring Treatments)           2   7019    3510  12.261 0.007597 ** 
+Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
+  Treatment: Check                    3   2150     717   2.504 0.156116    
+  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
+Residuals                             6   1717     286                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1750,18 +1738,12 @@ Check treatments           "1, 2, 3, 4"
 
 ANOVA, Treatment Adjusted
 =========================
-                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)
-Block (ignoring Treatments)           2   7019    3510  12.261 0.007597
-Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920
-  Treatment: Check                    3   2150     717   2.504 0.156116
-  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473
-Residuals                             6   1717     286                 
-                                        
-Block (ignoring Treatments)          ** 
-Treatment (eliminating Blocks)       ***
-  Treatment: Check                      
-  Treatment: Test and Test vs. Check ***
-Residuals                               
+                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Block (ignoring Treatments)           2   7019    3510  12.261 0.007597 ** 
+Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
+  Treatment: Check                    3   2150     717   2.504 0.156116    
+  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
+Residuals                             6   1717     286                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1931,18 +1913,12 @@ Check treatments           "1, 2, 3, 4"
 
 ANOVA, Treatment Adjusted
 =========================
-                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)
-Block (ignoring Treatments)           2   7019    3510  12.261 0.007597
-Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920
-  Treatment: Check                    3   2150     717   2.504 0.156116
-  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473
-Residuals                             6   1717     286                 
-                                        
-Block (ignoring Treatments)          ** 
-Treatment (eliminating Blocks)       ***
-  Treatment: Check                      
-  Treatment: Test and Test vs. Check ***
-Residuals                               
+                                     Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+Block (ignoring Treatments)           2   7019    3510  12.261 0.007597 ** 
+Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
+  Treatment: Check                    3   2150     717   2.504 0.156116    
+  Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
+Residuals                             6   1717     286                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -2013,7 +1989,7 @@ Method : lsd
 <h2 class="hasAnchor">
 <a href="#describe-augmentedrcbd" class="anchor"></a>7.3 <code>describe.augmentedRCBD()</code>
 </h2>
-<p>The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D’Agostino test of skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970">1970</a>)</span>)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and Glynn (<a href="#ref-anscombe_distribution_1983">1983</a>)</span>)) for the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be computed as follows.</p>
+<p>The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D’Agostino test of skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and Glynn (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be computed as follows.</p>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" title="1"><span class="co"># Descriptive statistics for variable y1</span></a>
 <a class="sourceLine" id="cb205-2" title="2"><span class="kw"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span>(out1)</a></code></pre></div>
 <pre><code>$Count
@@ -2127,7 +2103,7 @@ $`Kurtosis(p.value)`
 <h2 class="hasAnchor">
 <a href="#gva-augmentedrcbd" class="anchor"></a>7.5 <code>gva.augmentedRCBD()</code>
 </h2>
-<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation, phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code>as follows.</p>
+<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation">Federer and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows.</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" title="1"><span class="co"># Genetic variability statistics for variable y1</span></a>
 <a class="sourceLine" id="cb227-2" title="2"><span class="kw"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span>(out1)</a></code></pre></div>
 <pre><code>$Mean
@@ -2332,22 +2308,19 @@ alpha = 0.05                                Comparison    y1    y2
 
 Descriptive Statistics
 ===================
-  Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness
-1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns 
-2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns 
-  Kurtosis
-1 3.52 ns 
-2 2.79 ns 
+  Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness Kurtosis
+1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns  3.52 ns 
+2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns  2.79 ns 
 
 
 Genetic Variability Analysis
 ===================
-  Trait   Mean      PV      GV     EV   GCV GCV.category   PCV
-1    y1  81.06   72.27    45.3  26.97   8.3          Low 10.49
-2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64
-  PCV.category  ECV   hBS hBS.category     GA   GAM GAM.category
-1       Medium 6.41 62.68         High  10.99 13.56       Medium
-2         High 5.67 94.25         High 137.22 45.97         High
+  Trait   Mean      PV      GV     EV   GCV GCV.category   PCV PCV.category
+1    y1  81.06   72.27    45.3  26.97   8.3          Low 10.49       Medium
+2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64         High
+   ECV   hBS hBS.category     GA   GAM GAM.category
+1 6.41 62.68         High  10.99 13.56       Medium
+2 5.67 94.25         High 137.22 45.97         High
 
 
 Warning Messages
@@ -2445,22 +2418,19 @@ alpha = 0.05                                Comparison    y1    y2
 
 Descriptive Statistics
 ===================
-  Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness
-1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns 
-2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns 
-  Kurtosis
-1 3.52 ns 
-2 2.79 ns 
+  Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness Kurtosis
+1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns  3.52 ns 
+2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns  2.79 ns 
 
 
 Genetic Variability Analysis
 ===================
-  Trait   Mean      PV      GV     EV   GCV GCV.category   PCV
-1    y1  81.06   72.27    45.3  26.97   8.3          Low 10.49
-2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64
-  PCV.category  ECV   hBS hBS.category     GA   GAM GAM.category
-1       Medium 6.41 62.68         High  10.99 13.56       Medium
-2         High 5.67 94.25         High 137.22 45.97         High
+  Trait   Mean      PV      GV     EV   GCV GCV.category   PCV PCV.category
+1    y1  81.06   72.27    45.3  26.97   8.3          Low 10.49       Medium
+2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64         High
+   ECV   hBS hBS.category     GA   GAM GAM.category
+1 6.41 62.68         High  10.99 13.56       Medium
+2 5.67 94.25         High 137.22 45.97         High
 
 
 Warning Messages
@@ -2508,9 +2478,9 @@ Treatment Means
 <pre><code>
 To cite the R package 'augmentedRCBD' in publications use:
 
-  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V.
-  (2019).  augmentedRCBD: Analysis of Augmented Randomised
-  Complete Block Designs. R package version 0.1.1.9000,
+  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2020).
+  augmentedRCBD: Analysis of Augmented Randomised Complete Block
+  Designs. R package version 0.1.1.9000,
   https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
 A BibTeX entry for LaTeX users is
@@ -2518,23 +2488,23 @@ A BibTeX entry for LaTeX users is
   @Manual{,
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-    year = {2019},
+    year = {2020},
     note = {R package version 0.1.1.9000},
     note = {https://aravind-j.github.io/augmentedRCBD/},
     note = {https://cran.r-project.org/package=augmentedRCBD},
   }
 
-This free and open-source software implements academic research by
-the authors and co-workers. If you use it, please support the
-project by citing the package.</code></pre>
+This free and open-source software implements academic research by the
+authors and co-workers. If you use it, please support the project by
+citing the package.</code></pre>
 </div>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>10 Session Info</h1>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</a></code></pre></div>
-<pre><code>R Under development (unstable) (2019-07-17 r76847)
+<pre><code>R Under development (unstable) (2019-11-08 r77393)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
-Running under: Windows 10 x64 (build 17763)
+Running under: Windows 10 x64 (build 18362)
 
 Matrix products: default
 
@@ -2547,50 +2517,44 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] diagram_1.6.4            shape_1.4.4             
-[3] augmentedRCBD_0.1.1.9000
+[1] diagram_1.6.4            shape_1.4.4              augmentedRCBD_0.1.1.9000
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.1         mvtnorm_1.0-11     lattice_0.20-38   
- [4] multcompView_0.1-7 zoo_1.8-6          assertthat_0.2.1  
- [7] rprojroot_1.3-2    digest_0.6.20      R6_2.4.0          
-[10] plyr_1.8.4         backports_1.1.4    evaluate_0.14     
-[13] coda_0.19-3        ggplot2_3.2.0      highr_0.8         
-[16] pillar_1.4.2       Rdpack_0.11-0      gdtools_0.1.9     
-[19] rlang_0.4.0        lazyeval_0.2.2     multcomp_1.4-10   
-[22] uuid_0.1-2         rstudioapi_0.10    data.table_1.12.2 
-[25] Matrix_1.2-17      flextable_0.5.5    rmarkdown_1.14    
-[28] pkgdown_1.3.0.9100 labeling_0.3       desc_1.2.0        
-[31] moments_0.14       splines_3.7.0      stringr_1.4.0     
-[34] munsell_0.5.0      compiler_3.7.0     xfun_0.8          
-[37] pkgconfig_2.0.2    base64enc_0.1-3    htmltools_0.3.6   
-[40] tidyselect_0.2.5   tibble_2.1.3       roxygen2_6.1.1    
-[43] codetools_0.2-16   crayon_1.3.4       dplyr_0.8.3       
-[46] MASS_7.3-51.4      commonmark_1.7     grid_3.7.0        
-[49] xtable_1.8-4       gtable_0.3.0       magrittr_1.5      
-[52] scales_1.0.0       bibtex_0.4.2       zip_2.0.3         
-[55] estimability_1.3   stringi_1.4.3      reshape2_1.4.3    
-[58] fs_1.3.1           xml2_1.2.0         sandwich_2.5-1    
-[61] TH.data_1.0-10     tools_3.7.0        glue_1.3.1        
-[64] officer_0.3.5      purrr_0.3.2        emmeans_1.3.5.1   
-[67] survival_2.44-1.1  yaml_2.2.0         colorspace_1.4-1  
-[70] gbRd_0.4-11        memoise_1.1.0      knitr_1.23        </code></pre>
+ [1] Rcpp_1.0.3         mvtnorm_1.0-12     lattice_0.20-38    multcompView_0.1-8
+ [5] zoo_1.8-7          assertthat_0.2.1   rprojroot_1.3-2    digest_0.6.23     
+ [9] R6_2.4.1           plyr_1.8.5         backports_1.1.5    evaluate_0.14     
+[13] coda_0.19-3        ggplot2_3.2.1      highr_0.8          pillar_1.4.3      
+[17] Rdpack_0.11-1      gdtools_0.2.1      rlang_0.4.3        lazyeval_0.2.2    
+[21] multcomp_1.4-12    uuid_0.1-2         rstudioapi_0.10    data.table_1.12.8 
+[25] Matrix_1.2-18      flextable_0.5.6    rmarkdown_2.1      pkgdown_1.4.1     
+[29] labeling_0.3       desc_1.2.0         moments_0.14       splines_4.0.0     
+[33] stringr_1.4.0      munsell_0.5.0      compiler_4.0.0     xfun_0.12         
+[37] pkgconfig_2.0.3    systemfonts_0.1.1  base64enc_0.1-3    htmltools_0.4.0   
+[41] tidyselect_0.2.5   tibble_2.1.3       codetools_0.2-16   crayon_1.3.4      
+[45] dplyr_0.8.3        MASS_7.3-51.5      grid_4.0.0         xtable_1.8-4      
+[49] gtable_0.3.0       lifecycle_0.1.0    magrittr_1.5       scales_1.1.0      
+[53] bibtex_0.4.2.2     zip_2.0.4          estimability_1.3   stringi_1.4.5     
+[57] farver_2.0.3       reshape2_1.4.3     fs_1.3.1           xml2_1.2.2        
+[61] sandwich_2.5-1     TH.data_1.0-10     tools_4.0.0        glue_1.3.1        
+[65] officer_0.3.6      purrr_0.3.3        emmeans_1.4.3.01   survival_3.1-8    
+[69] yaml_2.2.0         colorspace_1.4-1   gbRd_0.4-11        memoise_1.1.0     
+[73] knitr_1.27        </code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
 <div id="ref-anscombe_distribution_1983">
-<p>Anscombe, F. J., and Glynn, W. J. (1983). Distribution of the kurtosis statistic <em>b</em><span class="math inline">\(_{\textrm{2}}\)</span> for normal samples. <em>Biometrika</em> 70, 227–234. doi:<a href="https://doi.org/10.1093/biomet/70.1.227">10.1093/biomet/70.1.227</a>.</p>
+<p>Anscombe, F. J., and Glynn, W. J. (1983). Distribution of the kurtosis statistic for normal samples. <em>Biometrika</em> 70, 227–234. doi:<a href="https://doi.org/10.1093/biomet/70.1.227">10.1093/biomet/70.1.227</a>.</p>
 </div>
 <div id="ref-burton_quantitative_1951">
-<p>Burton, G. W. (1951). Quantitative inheritance in pearl millet (<em>Pennisetum glaucum</em>). <em>Agronomy Journal</em> 43, 409–417.</p>
+<p>Burton, G. W. (1951). Quantitative inheritance in pearl millet (<em>Pennisetum glaucum</em>). <em>Agronomy Journal</em> 43, 409–417. doi:<a href="https://doi.org/10.2134/agronj1951.00021962004300090001x">10.2134/agronj1951.00021962004300090001x</a>.</p>
 </div>
 <div id="ref-burton_qualitative_1952">
 <p>Burton, G. W. (1952). Qualitative inheritance in grasses. Vol. 1. in <em>Proceedings of the 6th International Grassland Congress, Pennsylvania State College</em>, 17–23.</p>
 </div>
 <div id="ref-dagostino_transformation_1970">
-<p>D’Agostino, R. B. (1970). Transformation to normality of the null distribution of <em>g</em><span class="math inline">\(_{\textrm{1}}\)</span>. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679">10.1093/biomet/57.3.679</a>.</p>
+<p>D’Agostino, R. B. (1970). Transformation to normality of the null distribution of. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679">10.1093/biomet/57.3.679</a>.</p>
 </div>
 <div id="ref-federer_augmented_1956">
 <p>Federer, W. T. (1956). Augmented (or hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
@@ -2598,11 +2562,14 @@ loaded via a namespace (and not attached):
 <div id="ref-federer_augmented_1961">
 <p>Federer, W. T. (1961). Augmented designs with one-way elimination of heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837">10.2307/2527837</a>.</p>
 </div>
+<div id="ref-federerModelConsiderationsVariance1976">
+<p>Federer, W. T., and Searle, S. R. (1976). Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version. Cornell University, New York Available at: <a href="https://hdl.handle.net/1813/32691">https://hdl.handle.net/1813/32691</a>.</p>
+</div>
 <div id="ref-johnson_estimates_1955">
-<p>Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates of genetic and environmental variability in soybeans. <em>Agronomy journal</em> 47, 314–318.</p>
+<p>Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates of genetic and environmental variability in soybeans. <em>Agronomy journal</em> 47, 314–318. doi:<a href="https://doi.org/10.2134/agronj1955.00021962004700070009x">10.2134/agronj1955.00021962004700070009x</a>.</p>
 </div>
 <div id="ref-lush_intra-sire_1940">
-<p>Lush, J. L. (1940). Intra-sire correlations or regressions of offspring on dam as a method of estimating heritability of characteristics. <em>Proceedings of the American Society of Animal Nutrition</em> 1940, 293–301.</p>
+<p>Lush, J. L. (1940). Intra-sire correlations or regressions of offspring on dam as a method of estimating heritability of characteristics. <em>Proceedings of the American Society of Animal Nutrition</em> 1940, 293–301. doi:<a href="https://doi.org/10.2527/jas1940.19401293x">10.2527/jas1940.19401293x</a>.</p>
 </div>
 <div id="ref-robinson_quantitative_1966">
 <p>Robinson, H. F. (1966). Quantitative genetics in relation to breeding on centennial of Mendelism. <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
@@ -2618,6 +2585,7 @@ loaded via a namespace (and not attached):
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -2679,7 +2647,7 @@ loaded via a namespace (and not attached):
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

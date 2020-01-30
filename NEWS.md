@@ -6,6 +6,9 @@
 * `augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
 * `report.augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
 
+## OTHER NOTES:
+* Added reference for expected value of mean square being used in `gva.augmentedRCBD`.
+
 # augmentedRCBD  0.1.1
 
 ## UPDATED FUNCTIONS:

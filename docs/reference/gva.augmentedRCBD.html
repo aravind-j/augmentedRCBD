@@ -8,10 +8,12 @@
 
 <title>Perform Genetic Variability Analysis on <code>augmentedRCBD</code> Output — gva.augmentedRCBD • augmentedRCBD</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -40,11 +42,12 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Perform Genetic Variability Analysis on <code>augmentedRCBD</code> Output — gva.augmentedRCBD" />
 
+<meta property="og:title" content="Perform Genetic Variability Analysis on <code>augmentedRCBD</code> Output — gva.augmentedRCBD" />
 <meta property="og:description" content="gva.augmentedRCBD performs genetic variability analysis on an object of
 class augmentedRCBD." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -120,7 +123,6 @@ class augmentedRCBD." />
   </a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/aravind-j/augmentedRCBD">
@@ -154,14 +156,12 @@ class augmentedRCBD." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>gva.augmentedRCBD</code> performs genetic variability analysis on an object of
 class <code>augmentedRCBD</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>gva.augmentedRCBD</span>(<span class='no'>aug</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2.063</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -175,7 +175,7 @@ class <code>augmentedRCBD</code>.</p>
 Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with the following descriptive statistics:</p>
@@ -207,7 +207,6 @@ Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p>
  Johnson et al. (1955)
 .</p></dd>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>gva.augmentedRCBD</code> performs genetic variability analysis from the ANOVA
@@ -218,12 +217,13 @@ variability estimates.</p>
 <i>&sigma;<sup>2</sup><sub>g</sub></i>
 and
 <i>&sigma;<sup>2</sup><sub>e</sub></i>
-) are obtained from the ANOVA tables as follows:</p>
+) are obtained from the ANOVA tables according to the expected value of mean
+square described by Federer and Searle (1976) as follows:</p>
 <p><p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Sum of squares of test
-treatments(genotypes)</p> <p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>e</sub></em> = Sum of squares of
-residuals(error)</p> <p style="text-align:
+center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Mean sum of squares of test
+treatments</p> <p style="text-align:
+center;"><em>&sigma;<sup>2</sup><sub>e</sub></em> = Mean sum of squares of
+residuals</p> <p style="text-align:
 center;"><em>&sigma;<sup>2</sup><sub>g</sub></em> =
 <em>&sigma;<sup>2</sup><sub>p</sub></em> &minus;
 <em>&sigma;<sup>2</sup><sub>e</sub></em></p></p>
@@ -295,45 +295,44 @@ style="text-decoration:overline">x</span></sub> <big>]</big> &times;
 </table>
 
 
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>Genetic variability analysis needs to be performed only if the sum of
  squares of "Treatment: Test" are significant.</p>
 <p>Negative estimates of variance components if computed are not abnormal. For
  information on how to deal with these, refer Dudley and Moll (1969).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>character(0)Lush JL (1940).
+    <p>Lush JL (1940).
 &#8220;Intra-sire correlations or regressions of offspring on dam as a method of estimating heritability of characteristics.&#8221;
 <em>Proceedings of the American Society of Animal Nutrition</em>, <b>1940</b>(1), 293--301.</p>
-<p>character(0)Burton GW (1951).
-&#8220;Quantitative Inheritance in pearl millet (<em>Pennisetum glaucum</em>).&#8221;
+<p>Burton GW (1951).
+&#8220;Quantitative inheritance in pearl millet (<em>Pennisetum glaucum</em>).&#8221;
 <em>Agronomy Journal</em>, <b>43</b>(9), 409--417.</p>
-<p>character(0)Burton GW (1952).
+<p>Burton GW (1952).
 &#8220;Qualitative inheritance in grasses. Vol. 1.&#8221;
 In <em>Proceedings of the 6th International Grassland Congress, Pennsylvania State College</em>, 17--23.</p>
-<p>character(0)Johnson HW, Robinson HF, Comstock RE (1955).
+<p>Johnson HW, Robinson HF, Comstock RE (1955).
 &#8220;Estimates of genetic and environmental variability in soybeans.&#8221;
 <em>Agronomy journal</em>, <b>47</b>(7), 314--318.</p>
-<p>character(0)Robinson HF (1966).
+<p>Robinson HF (1966).
 &#8220;Quantitative genetics in relation to breeding on centennial of Mendelism.&#8221;
 <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
-<p>character(0)Dudley JW, Moll RH (1969).
-&#8220;Interpretation and Use of Estimates of Heritability and Genetic Variances in Plant Breeding.&#8221;
+<p>Dudley JW, Moll RH (1969).
+&#8220;Interpretation and use of estimates of heritability and genetic variances in plant breeding.&#8221;
 <em>Crop Science</em>, <b>9</b>(3), 257--262.</p>
-<p>character(0)Sivasubramaniam S, Madhavamenon P (1973).
+<p>Sivasubramaniam S, Madhavamenon P (1973).
 &#8220;Genotypic and phenotypic variability in rice.&#8221;
 <em>The Madras Agricultural Journal</em>, <b>60</b>(9-13), 1093--1096.</p>
-<p>character(0)Falconer DS, Mackay TFC (1996).
+<p>Federer WT, Searle SR (1976).
+&#8220;Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version.&#8221;
+Technical Report BU-592-M, Cornell University, New York.</p>
+<p>Falconer DS, Mackay TFC (1996).
 <em>Introduction to quantitative genetics</em>.
 Pearson/Prenctice Hall, New York, NY.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='augmentedRCBD.html'>augmentedRCBD</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Example data</span>
@@ -603,17 +602,11 @@ Pearson/Prenctice Hall, New York, NY.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -627,7 +620,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
