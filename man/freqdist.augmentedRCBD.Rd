@@ -4,8 +4,7 @@
 \alias{freqdist.augmentedRCBD}
 \title{Plot Frequency Distribution from \code{augmentedRCBD} Output}
 \usage{
-freqdist.augmentedRCBD(aug, xlab, highlight.check = TRUE,
-  check.col = "red")
+freqdist.augmentedRCBD(aug, xlab, highlight.check = TRUE, check.col = "red")
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}

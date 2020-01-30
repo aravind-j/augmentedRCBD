@@ -5,9 +5,19 @@
 \title{Analysis of Augmented Randomised Complete Block Design for Multiple
 Traits/Characters}
 \usage{
-augmentedRCBD.bulk(data, block, treatment, traits, checks = NULL,
-  alpha = 0.05, describe = TRUE, freqdist = TRUE, gva = TRUE,
-  check.col = "red", console = TRUE)
+augmentedRCBD.bulk(
+  data,
+  block,
+  treatment,
+  traits,
+  checks = NULL,
+  alpha = 0.05,
+  describe = TRUE,
+  freqdist = TRUE,
+  gva = TRUE,
+  check.col = "red",
+  console = TRUE
+)
 }
 \arguments{
 \item{data}{The data as a data frame object. The data frame should possess
