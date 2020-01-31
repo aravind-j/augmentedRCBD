@@ -220,8 +220,8 @@ and
 ) are obtained from the ANOVA tables according to the expected value of mean
 square described by Federer and Searle (1976) as follows:</p>
 <p><p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Mean sum of squares of test
-treatments</p> <p style="text-align:
+center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Mean sum of squares of
+test treatments</p> <p style="text-align:
 center;"><em>&sigma;<sup>2</sup><sub>e</sub></em> = Mean sum of squares of
 residuals</p> <p style="text-align:
 center;"><em>&sigma;<sup>2</sup><sub>g</sub></em> =
@@ -270,8 +270,7 @@ according to Robinson (1966) as follows:</p>
 </table>
 
 
-<p>Genetic advance (<i>GA</i>) and genetic advance
-as per cent of mean (<i>GAM</i>) are estimated
+<p>Genetic advance (<i>GA</i>) is estimated
 and categorised according to Johnson et al., (1955) as follows:</p>
 <p><p style="text-align: center;"><em>GA = k &times;
 &sigma;<sub>g</sub> &times; <big>[</big><sup>H<sup>2</sup></sup> &frasl;
@@ -281,6 +280,146 @@ selection differential or selection intensity. The value of
 <i>k</i> at 5% proportion selected is 2.063.
 Values of <i>k</i> at other selected proportions
 are available in Appendix Table A of Falconer and Mackay (1996).</p>
+<p>Selection intensity (<i>k</i>) can also be
+computed in R as below:</p>
+<p>If <code>p</code> is the proportion of selected individuals, then deviation of
+truncation point from mean (<code>x</code>) and selection intensity (<code>k</code>) are
+as follows:</p>
+<p><code> x = qnorm(1-p) </code></p>
+<p><code> k = dnorm(qnorm(1 - p))/p </code></p>
+<p>Using the same the Appendix Table A of Falconer and Mackay (1996) can be
+recreated as follows.</p>
+<pre>
+TableA &lt;- data.frame(p = c(seq(0.01, 0.10, 0.01), NA,
+                           seq(0.10, 0.50, 0.02), NA,
+                           seq(1, 5, 0.2), NA,
+                           seq(5, 10, 0.5), NA,
+                           seq(10, 50, 1)))
+TableA$x &lt;- qnorm(1-(TableA$p/100))
+TableA$i &lt;- dnorm(qnorm(1 - (TableA$p/100)))/(TableA$p/100)
+</pre>
+
+<p><strong>Appendix Table A</strong> (Falconer and Mackay, 1996)</p>
+<table class='table'>
+<tr><td><strong>p%</strong></td><td><strong>x</strong></td><td><strong>i</strong></td></tr>
+<tr><td>0.01</td><td>3.71901649</td><td>3.9584797</td></tr>
+<tr><td>0.02</td><td>3.54008380</td><td>3.7892117</td></tr>
+<tr><td>0.03</td><td>3.43161440</td><td>3.6869547</td></tr>
+<tr><td>0.04</td><td>3.35279478</td><td>3.6128288</td></tr>
+<tr><td>0.05</td><td>3.29052673</td><td>3.5543807</td></tr>
+<tr><td>0.06</td><td>3.23888012</td><td>3.5059803</td></tr>
+<tr><td>0.07</td><td>3.19465105</td><td>3.4645890</td></tr>
+<tr><td>0.08</td><td>3.15590676</td><td>3.4283756</td></tr>
+<tr><td>0.09</td><td>3.12138915</td><td>3.3961490</td></tr>
+<tr><td>0.10</td><td>3.09023231</td><td>3.3670901</td></tr>
+<tr><td>&lt;&gt;</td><td>&lt;&gt;</td><td>&lt;&gt;</td></tr>
+<tr><td>0.10</td><td>3.09023231</td><td>3.3670901</td></tr>
+<tr><td>0.12</td><td>3.03567237</td><td>3.3162739</td></tr>
+<tr><td>0.14</td><td>2.98888227</td><td>3.2727673</td></tr>
+<tr><td>0.16</td><td>2.94784255</td><td>3.2346647</td></tr>
+<tr><td>0.18</td><td>2.91123773</td><td>3.2007256</td></tr>
+<tr><td>0.20</td><td>2.87816174</td><td>3.1700966</td></tr>
+<tr><td>0.22</td><td>2.84796329</td><td>3.1421647</td></tr>
+<tr><td>0.24</td><td>2.82015806</td><td>3.1164741</td></tr>
+<tr><td>0.26</td><td>2.79437587</td><td>3.0926770</td></tr>
+<tr><td>0.28</td><td>2.77032723</td><td>3.0705013</td></tr>
+<tr><td>0.30</td><td>2.74778139</td><td>3.0497304</td></tr>
+<tr><td>0.32</td><td>2.72655132</td><td>3.0301887</td></tr>
+<tr><td>0.34</td><td>2.70648331</td><td>3.0117321</td></tr>
+<tr><td>0.36</td><td>2.68744945</td><td>2.9942406</td></tr>
+<tr><td>0.38</td><td>2.66934209</td><td>2.9776133</td></tr>
+<tr><td>0.40</td><td>2.65206981</td><td>2.9617646</td></tr>
+<tr><td>0.42</td><td>2.63555424</td><td>2.9466212</td></tr>
+<tr><td>0.44</td><td>2.61972771</td><td>2.9321196</td></tr>
+<tr><td>0.46</td><td>2.60453136</td><td>2.9182048</td></tr>
+<tr><td>0.48</td><td>2.58991368</td><td>2.9048286</td></tr>
+<tr><td>0.50</td><td>2.57582930</td><td>2.8919486</td></tr>
+<tr><td>&lt;&gt;</td><td>&lt;&gt;</td><td>&lt;&gt;</td></tr>
+<tr><td>1.00</td><td>2.32634787</td><td>2.6652142</td></tr>
+<tr><td>1.20</td><td>2.25712924</td><td>2.6028159</td></tr>
+<tr><td>1.40</td><td>2.19728638</td><td>2.5490627</td></tr>
+<tr><td>1.60</td><td>2.14441062</td><td>2.5017227</td></tr>
+<tr><td>1.80</td><td>2.09692743</td><td>2.4593391</td></tr>
+<tr><td>2.00</td><td>2.05374891</td><td>2.4209068</td></tr>
+<tr><td>2.20</td><td>2.01409081</td><td>2.3857019</td></tr>
+<tr><td>2.40</td><td>1.97736843</td><td>2.3531856</td></tr>
+<tr><td>2.60</td><td>1.94313375</td><td>2.3229451</td></tr>
+<tr><td>2.80</td><td>1.91103565</td><td>2.2946575</td></tr>
+<tr><td>3.00</td><td>1.88079361</td><td>2.2680650</td></tr>
+<tr><td>3.20</td><td>1.85217986</td><td>2.2429584</td></tr>
+<tr><td>3.40</td><td>1.82500682</td><td>2.2191656</td></tr>
+<tr><td>3.60</td><td>1.79911811</td><td>2.1965431</td></tr>
+<tr><td>3.80</td><td>1.77438191</td><td>2.1749703</td></tr>
+<tr><td>4.00</td><td>1.75068607</td><td>2.1543444</td></tr>
+<tr><td>4.20</td><td>1.72793432</td><td>2.1345772</td></tr>
+<tr><td>4.40</td><td>1.70604340</td><td>2.1155928</td></tr>
+<tr><td>4.60</td><td>1.68494077</td><td>2.0973249</td></tr>
+<tr><td>4.80</td><td>1.66456286</td><td>2.0797152</td></tr>
+<tr><td>5.00</td><td>1.64485363</td><td>2.0627128</td></tr>
+<tr><td>&lt;&gt;</td><td>&lt;&gt;</td><td>&lt;&gt;</td></tr>
+<tr><td>5.00</td><td>1.64485363</td><td>2.0627128</td></tr>
+<tr><td>5.50</td><td>1.59819314</td><td>2.0225779</td></tr>
+<tr><td>6.00</td><td>1.55477359</td><td>1.9853828</td></tr>
+<tr><td>6.50</td><td>1.51410189</td><td>1.9506784</td></tr>
+<tr><td>7.00</td><td>1.47579103</td><td>1.9181131</td></tr>
+<tr><td>7.50</td><td>1.43953147</td><td>1.8874056</td></tr>
+<tr><td>8.00</td><td>1.40507156</td><td>1.8583278</td></tr>
+<tr><td>8.50</td><td>1.37220381</td><td>1.8306916</td></tr>
+<tr><td>9.00</td><td>1.34075503</td><td>1.8043403</td></tr>
+<tr><td>9.50</td><td>1.31057911</td><td>1.7791417</td></tr>
+<tr><td>10.00</td><td>1.28155157</td><td>1.7549833</td></tr>
+<tr><td>&lt;&gt;</td><td>&lt;&gt;</td><td>&lt;&gt;</td></tr>
+<tr><td>10.00</td><td>1.28155157</td><td>1.7549833</td></tr>
+<tr><td>11.00</td><td>1.22652812</td><td>1.7094142</td></tr>
+<tr><td>12.00</td><td>1.17498679</td><td>1.6670040</td></tr>
+<tr><td>13.00</td><td>1.12639113</td><td>1.6272701</td></tr>
+<tr><td>14.00</td><td>1.08031934</td><td>1.5898336</td></tr>
+<tr><td>15.00</td><td>1.03643339</td><td>1.5543918</td></tr>
+<tr><td>16.00</td><td>0.99445788</td><td>1.5206984</td></tr>
+<tr><td>17.00</td><td>0.95416525</td><td>1.4885502</td></tr>
+<tr><td>18.00</td><td>0.91536509</td><td>1.4577779</td></tr>
+<tr><td>19.00</td><td>0.87789630</td><td>1.4282383</td></tr>
+<tr><td>20.00</td><td>0.84162123</td><td>1.3998096</td></tr>
+<tr><td>21.00</td><td>0.80642125</td><td>1.3723871</td></tr>
+<tr><td>22.00</td><td>0.77219321</td><td>1.3458799</td></tr>
+<tr><td>23.00</td><td>0.73884685</td><td>1.3202091</td></tr>
+<tr><td>24.00</td><td>0.70630256</td><td>1.2953050</td></tr>
+<tr><td>25.00</td><td>0.67448975</td><td>1.2711063</td></tr>
+<tr><td>26.00</td><td>0.64334541</td><td>1.2475585</td></tr>
+<tr><td>27.00</td><td>0.61281299</td><td>1.2246130</td></tr>
+<tr><td>28.00</td><td>0.58284151</td><td>1.2022262</td></tr>
+<tr><td>29.00</td><td>0.55338472</td><td>1.1803588</td></tr>
+<tr><td>30.00</td><td>0.52440051</td><td>1.1589754</td></tr>
+<tr><td>31.00</td><td>0.49585035</td><td>1.1380436</td></tr>
+<tr><td>32.00</td><td>0.46769880</td><td>1.1175342</td></tr>
+<tr><td>33.00</td><td>0.43991317</td><td>1.0974204</td></tr>
+<tr><td>34.00</td><td>0.41246313</td><td>1.0776774</td></tr>
+<tr><td>35.00</td><td>0.38532047</td><td>1.0582829</td></tr>
+<tr><td>36.00</td><td>0.35845879</td><td>1.0392158</td></tr>
+<tr><td>37.00</td><td>0.33185335</td><td>1.0204568</td></tr>
+<tr><td>38.00</td><td>0.30548079</td><td>1.0019882</td></tr>
+<tr><td>39.00</td><td>0.27931903</td><td>0.9837932</td></tr>
+<tr><td>40.00</td><td>0.25334710</td><td>0.9658563</td></tr>
+<tr><td>41.00</td><td>0.22754498</td><td>0.9481631</td></tr>
+<tr><td>42.00</td><td>0.20189348</td><td>0.9306998</td></tr>
+<tr><td>43.00</td><td>0.17637416</td><td>0.9134539</td></tr>
+<tr><td>44.00</td><td>0.15096922</td><td>0.8964132</td></tr>
+<tr><td>45.00</td><td>0.12566135</td><td>0.8795664</td></tr>
+<tr><td>46.00</td><td>0.10043372</td><td>0.8629028</td></tr>
+<tr><td>47.00</td><td>0.07526986</td><td>0.8464123</td></tr>
+<tr><td>48.00</td><td>0.05015358</td><td>0.8300851</td></tr>
+<tr><td>49.00</td><td>0.02506891</td><td>0.8139121</td></tr>
+<tr><td>50.00</td><td>0.00000000</td><td>0.7978846</td></tr>
+</table>
+
+
+<p>Where <strong>p%</strong> is the selected percentage of individuals from a
+population, <strong>x</strong> is the deviation of the point of truncation of
+selected individuals from population mean and <strong>i</strong> is the selection
+intensity.</p>
+<p>Genetic advance as per cent of mean
+(<i>GAM</i>) are estimated and categorised
+according to Johnson et al., (1955) as follows:</p>
 <p><p style="text-align: center;"><em>GAM = <big>[</big>
 <sup>GA</sup> &frasl; <sub><span
 style="text-decoration:overline">x</span></sub> <big>]</big> &times;

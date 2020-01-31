@@ -8,6 +8,7 @@
 
 ## OTHER NOTES:
 * Added reference for expected value of mean square being used in `gva.augmentedRCBD`.
+* Added further details for selection intensity in `gva.augmentedRCBD`.
 
 # augmentedRCBD  0.1.1
 
