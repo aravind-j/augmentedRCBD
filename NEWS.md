@@ -2,6 +2,7 @@
 
 ## UPDATED FUNCTIONS:
 * `augmentedRCBD` - Added features to handle negative adjusted means.
+* `report.augmentedRCBD` - Fixed missing row names in the table of 'Standard Errors and Critical Differences'.
 * `gva.augmentedRCBD` - Added features to handle negative GV and/or hBS.
 * `augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
 * `report.augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.

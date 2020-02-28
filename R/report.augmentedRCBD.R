@@ -128,6 +128,7 @@ report.augmentedRCBD <- function(aug, target){
                             value = "Standard Errors and Critical Differences",
                             style = "heading 1")
   se <- aug$`Std. Errors`
+  se <- cbind(Comparison = row.names(se), se)
   se <- dplyr::mutate_if(se, is.numeric, round.conditional)
   se <- autofit(regulartable(se))
   se <- bold(se, part = "header")
