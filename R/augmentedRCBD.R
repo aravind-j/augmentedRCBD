@@ -106,6 +106,8 @@
 #'
 #'\insertRef{federer_augmented_1956}{augmentedRCBD}
 #'
+#'\insertRef{federer_augmented_1956-1}{augmentedRCBD}
+#'
 #'\insertRef{federer_augmented_1961}{augmentedRCBD}
 #'
 #'\insertRef{mathur_data_2008}{augmentedRCBD}

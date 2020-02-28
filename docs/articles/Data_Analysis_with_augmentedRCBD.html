@@ -107,7 +107,7 @@
                         <h4 class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 class="date">2020-01-31</h4>
+            <h4 class="date">2020-02-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/vignettes/Data_Analysis_with_augmentedRCBD.Rmd"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -144,7 +144,7 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>1 Overview</h1>
-<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
+<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956</a><a href="#ref-federer_augmented_1956" role="doc-biblioref">a</a>, <a href="#ref-federer_augmented_1956-1" role="doc-biblioref">1956</a><a href="#ref-federer_augmented_1956-1" role="doc-biblioref">b</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
 <p>This tutorial aims to educate the users in utilising this package for performing such analysis. Utilising <code>augmentedRCBD</code> for data analysis requires a basic knowledge of <code>R</code> programming language. However, as many of the intended end-users may not be familiar with <code>R</code>, <a href="#rsoft">sections 2 to 4</a> give a ‘gentle’ introduction to <code>R</code>, especially those aspects which are necessary to get <code>augmentedRCBD</code> up and running for performing data analysis in a Windows environment. Users already familiar with <code>R</code> can feel free to skip to <a href="#install">section 5</a>.</p>
 
 <p><img src="https://www.r-project.org/logo/Rlogo.png" align="right" alt="logo" width="173" height="134" style="padding: 10px; border: none; float: right;"></p>
@@ -588,7 +588,7 @@ Levels: a data frame is This</code></pre>
 <div id="pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pack" class="anchor"></a>4.7 Packages</h2>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">15324</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">15327</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="co"># Install the package 'readxl' for importing data from excel</span></a>
 <a class="sourceLine" id="cb164-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(readxl)</a></code></pre></div>
@@ -823,14 +823,27 @@ Welcome to augmentedRCBD version 0.1.1.9000
 # To suppress this message use:
   suppressPackageStartupMessages(library(augmentedRCBD))
 --------------------------------------------------------------------------------</code></pre>
+<p>The current version of the package is 0.1.1. The previous versions are as follows.</p>
+<p><strong>Table 2.</strong> Version history of <code>augmentedRCBD</code> <code>R</code> package.</p>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Version</th>
+<th align="left">Date</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">0.1.0</td>
+<td align="left">2018-07-10</td>
+</tr></tbody>
+</table>
+<p>To know detailed history of changes use <code><a href="https://rdrr.io/r/utils/news.html">news(package='augmentedRCBD')</a></code>.</p>
 </div>
 <div id="data-format" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data-format" class="anchor"></a>6 Data Format</h1>
 <p>Certain details need to be considered for arranging experimental data for analysis using the <code>augmentedRCBD</code> package.</p>
-<p>The data should be in long/vertical form, where each row has the data from one genotype per block. For example, consider the following data (Table 2) recorded for a trait from an experiment laid out in an augmented block design with 3 blocks and 12 genotypes(or treatment) with 6 to 7 genotypes/block. 8 genotypes (Test, G 5 to G 12) are not replicated, while 4 genotypes (Check, G 1 to G 4) are replicated.</p>
+<p>The data should be in long/vertical form, where each row has the data from one genotype per block. For example, consider the following data (Table 3) recorded for a trait from an experiment laid out in an augmented block design with 3 blocks and 12 genotypes(or treatment) with 6 to 7 genotypes/block. 8 genotypes (Test, G 5 to G 12) are not replicated, while 4 genotypes (Check, G 1 to G 4) are replicated.</p>
 <p style="text-align: left;">
-<strong>Table 2</strong>: Data from an experiment in augmented RCBD design.
+<strong>Table 3</strong>: Data from an experiment in augmented RCBD design.
 </p>
 <table class="table"><tbody>
 <tr class="odd">
@@ -894,9 +907,9 @@ Welcome to augmentedRCBD version 0.1.1.9000
 <td align="left">70</td>
 </tr>
 </tbody></table>
-<p>This data needs to be arranged with columns showing block, genotype (or treatment) and the data of the trait for each genotype per block (Table 3).</p>
+<p>This data needs to be arranged with columns showing block, genotype (or treatment) and the data of the trait for each genotype per block (Table 4).</p>
 <p style="text-align: left;">
-<strong>Table 3</strong>: Data from an experiment in augmented RCBD design arranged in long-form.
+<strong>Table 4</strong>: Data from an experiment in augmented RCBD design arranged in long-form.
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -1007,9 +1020,9 @@ Welcome to augmentedRCBD version 0.1.1.9000
 </tr>
 </tbody>
 </table>
-<p>The data for block and genotype (or treatment) can also be depicted as numbers (Table 4).</p>
+<p>The data for block and genotype (or treatment) can also be depicted as numbers (Table 5).</p>
 <p style="text-align: left;">
-<strong>Table 4</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).
+<strong>Table 5</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -1120,9 +1133,9 @@ Welcome to augmentedRCBD version 0.1.1.9000
 </tr>
 </tbody>
 </table>
-<p>Multiple traits can be added as additional columns (Table 5).</p>
+<p>Multiple traits can be added as additional columns (Table 6).</p>
 <p style="text-align: left;">
-<strong>Table 5</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).
+<strong>Table 6</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -1261,7 +1274,7 @@ Welcome to augmentedRCBD version 0.1.1.9000
 <h1 class="hasAnchor">
 <a href="#data-analysis-for-a-single-trait" class="anchor"></a>7 Data Analysis for a Single Trait</h1>
 <p>Analysis of data for a single trait can be performed by using <code>augmentedRCBD</code> function. It generates an object of class <code>augmentedRCBD</code>. Such an object can then be taken as input by the several functions to print the results to console (<code>print.augmentedRCBD</code>), generate descriptive statistics from adjusted means (<code>describe.augmentedRCBD</code>), plot frequency distribution (<code>freqdist.augmentedRCBD</code>) and computed genetic variability statistics (gva.augmentedRCBD). All these outputs can also be exported as a MS Word report using the <code>report.augmentedRCBD</code> function.</p>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-57-1.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-59-1.png" width="700"></p>
 <p><strong>Fig. 4</strong>. Workflow for analysis of single traits with <code>augmentedRCBD</code>.</p>
 <div id="augmentedrcbd" class="section level2">
 <h2 class="hasAnchor">
@@ -1342,7 +1355,7 @@ Standard Errors
 Control Treatment Means                             4.240458 10.37603
 Two Test Treatments (Same Block)                    7.344688 17.97180
 Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.360687 15.56404
+A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Treatment Groups
 ==================
@@ -1430,7 +1443,7 @@ Standard Errors
 Control Treatment Means                             13.81424 33.80224
 Two Test Treatments (Same Block)                    23.92697 58.54719
 Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            20.72137 50.70336
+A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Treatment Groups
 ==================
@@ -1526,7 +1539,7 @@ Standard Errors
 Control Treatment Means                             4.240458 10.37603
 Two Test Treatments (Same Block)                    7.344688 17.97180
 Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.360687 15.56404
+A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Treatment Groups
 ==================
@@ -1614,7 +1627,7 @@ Standard Errors
 Control Treatment Means                             13.81424 33.80224
 Two Test Treatments (Same Block)                    23.92697 58.54719
 Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            20.72137 50.70336
+A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Treatment Groups
 ==================
@@ -1702,7 +1715,7 @@ Standard Errors
 Control Treatment Means                             4.240458 10.37603
 Two Test Treatments (Same Block)                    7.344688 17.97180
 Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.360687 15.56404
+A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Treatment Groups
 ==================
@@ -1789,7 +1802,7 @@ Standard Errors
 Control Treatment Means                             13.81424 33.80224
 Two Test Treatments (Same Block)                    23.92697 58.54719
 Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            20.72137 50.70336
+A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Treatment Groups
 ==================
@@ -1879,7 +1892,7 @@ Standard Errors
 Control Treatment Means                             4.240458 10.37603
 Two Test Treatments (Same Block)                    7.344688 17.97180
 Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.360687 15.56404
+A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Treatment Groups
 ==================
@@ -1964,7 +1977,7 @@ Standard Errors
 Control Treatment Means                             13.81424 33.80224
 Two Test Treatments (Same Block)                    23.92697 58.54719
 Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            20.72137 50.70336
+A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Treatment Groups
 ==================
@@ -2066,12 +2079,12 @@ $`Kurtosis(p.value)`
 <a class="sourceLine" id="cb209-2" title="2">freq1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(out1, <span class="dt">xlab =</span> <span class="st">"Trait 1"</span>)</a></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(freq1)</a></code></pre></div>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-68-1.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png" width="700"></p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" title="1"><span class="co"># Frequency distribution for variable y2</span></a>
 <a class="sourceLine" id="cb212-2" title="2">freq2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(out2, <span class="dt">xlab =</span> <span class="st">"Trait 2"</span>)</a></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(freq2)</a></code></pre></div>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-68-2.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-2.png" width="700"></p>
 <p>The colours for the check values may be specified using the argument <code>check.col</code>.</p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" title="1">colset &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span>)</a>
 <a class="sourceLine" id="cb215-2" title="2"></a>
@@ -2079,25 +2092,25 @@ $`Kurtosis(p.value)`
 <a class="sourceLine" id="cb215-4" title="4">freq1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(out1, <span class="dt">xlab =</span> <span class="st">"Trait 1"</span>, <span class="dt">check.col =</span> colset)</a></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(freq1)</a></code></pre></div>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-69-1.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-1.png" width="700"></p>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" title="1"><span class="co"># Frequency distribution for variable y2</span></a>
 <a class="sourceLine" id="cb218-2" title="2">freq2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(out2, <span class="dt">xlab =</span> <span class="st">"Trait 2"</span>, <span class="dt">check.col =</span> colset)</a></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(freq2)</a></code></pre></div>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-69-2.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-2.png" width="700"></p>
 <p>The default the check highlighting can be avoided using the argument <code>highlight.check = FALSE</code>.</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" title="1"><span class="co"># Frequency distribution for variable y1</span></a>
 <a class="sourceLine" id="cb221-2" title="2">freq1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(out1, <span class="dt">xlab =</span> <span class="st">"Trait 1"</span>,</a>
 <a class="sourceLine" id="cb221-3" title="3">                                <span class="dt">highlight.check =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(freq1)</a></code></pre></div>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-1.png" width="700"></p>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" title="1"><span class="co"># Frequency distribution for variable y2</span></a>
 <a class="sourceLine" id="cb224-2" title="2">freq2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(out2, <span class="dt">xlab =</span> <span class="st">"Trait 2"</span>,</a>
 <a class="sourceLine" id="cb224-3" title="3">                                <span class="dt">highlight.check =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" title="1"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(freq2)</a></code></pre></div>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-2.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-2.png" width="700"></p>
 </div>
 <div id="gva-augmentedrcbd" class="section level2">
 <h2 class="hasAnchor">
@@ -2213,7 +2226,7 @@ $`GAM category`
 <h1 class="hasAnchor">
 <a href="#data-analysis-for-a-multiple-traits" class="anchor"></a>8 Data Analysis for a Multiple Traits</h1>
 <p>Analysis of data for a multiple traits simultaneously can be performed by using <code>augmentedRCBD.bulk</code> function. It generates an object of class <code>augmentedRCBD.bulk</code>. Such an object can then be taken as input by <code>print.augmentedRCBD.bulk</code> to print the results to console. The results can also be exported as a MS Word report using the <code>report.augmentedRCBD.bulk</code> function.</p>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-75-1.png" width="700"></p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-77-1.png" width="700"></p>
 <p><strong>Fig. 7</strong>. Workflow for analysis of multiple traits with <code>augmentedRCBD</code>.</p>
 <div id="augmentedrcbd-bulk" class="section level2">
 <h2 class="hasAnchor">
@@ -2291,7 +2304,7 @@ Overall Adjusted Mean
 Standard Errors
 ===================
                                 Comparison   y1    y2
-1 A Test Treatment and a Control Treatment 6.36 20.72
+1 A Test Treatment and a Control Treatment  6.7 21.84
 2                  Control Treatment Means 4.24 13.81
 3   Two Test Treatments (Different Blocks) 8.21 26.75
 4         Two Test Treatments (Same Block) 7.34 23.93
@@ -2300,7 +2313,7 @@ Standard Errors
 Critical Difference
 ===================
 alpha = 0.05                                Comparison    y1    y2
-1 A Test Treatment and a Control Treatment 15.56  50.7
+1 A Test Treatment and a Control Treatment 16.41 53.45
 2                  Control Treatment Means 10.38  33.8
 3   Two Test Treatments (Different Blocks) 20.09 65.46
 4         Two Test Treatments (Same Block) 17.97 58.55
@@ -2401,7 +2414,7 @@ Overall Adjusted Mean
 Standard Errors
 ===================
                                 Comparison   y1    y2
-1 A Test Treatment and a Control Treatment 6.36 20.72
+1 A Test Treatment and a Control Treatment  6.7 21.84
 2                  Control Treatment Means 4.24 13.81
 3   Two Test Treatments (Different Blocks) 8.21 26.75
 4         Two Test Treatments (Same Block) 7.34 23.93
@@ -2410,7 +2423,7 @@ Standard Errors
 Critical Difference
 ===================
 alpha = 0.05                                Comparison    y1    y2
-1 A Test Treatment and a Control Treatment 15.56  50.7
+1 A Test Treatment and a Control Treatment 16.41 53.45
 2                  Control Treatment Means 10.38  33.8
 3   Two Test Treatments (Different Blocks) 20.09 65.46
 4         Two Test Treatments (Same Block) 17.97 58.55
@@ -2523,22 +2536,23 @@ loaded via a namespace (and not attached):
  [1] Rcpp_1.0.3         mvtnorm_1.0-12     lattice_0.20-38    multcompView_0.1-8
  [5] zoo_1.8-7          assertthat_0.2.1   rprojroot_1.3-2    digest_0.6.23     
  [9] R6_2.4.1           plyr_1.8.5         backports_1.1.5    evaluate_0.14     
-[13] coda_0.19-3        ggplot2_3.2.1      highr_0.8          pillar_1.4.3      
-[17] Rdpack_0.11-1      gdtools_0.2.1      rlang_0.4.3        lazyeval_0.2.2    
-[21] multcomp_1.4-12    uuid_0.1-2         rstudioapi_0.10    data.table_1.12.8 
-[25] Matrix_1.2-18      flextable_0.5.6    rmarkdown_2.1      pkgdown_1.4.1     
-[29] labeling_0.3       desc_1.2.0         moments_0.14       splines_4.0.0     
-[33] stringr_1.4.0      munsell_0.5.0      compiler_4.0.0     xfun_0.12         
-[37] pkgconfig_2.0.3    systemfonts_0.1.1  base64enc_0.1-3    htmltools_0.4.0   
-[41] tidyselect_0.2.5   tibble_2.1.3       codetools_0.2-16   crayon_1.3.4      
-[45] dplyr_0.8.3        MASS_7.3-51.5      grid_4.0.0         xtable_1.8-4      
-[49] gtable_0.3.0       lifecycle_0.1.0    magrittr_1.5       scales_1.1.0      
-[53] bibtex_0.4.2.2     zip_2.0.4          estimability_1.3   stringi_1.4.5     
-[57] farver_2.0.3       reshape2_1.4.3     fs_1.3.1           xml2_1.2.2        
-[61] sandwich_2.5-1     TH.data_1.0-10     tools_4.0.0        glue_1.3.1        
-[65] officer_0.3.6      purrr_0.3.3        emmeans_1.4.3.01   survival_3.1-8    
-[69] yaml_2.2.0         colorspace_1.4-1   gbRd_0.4-11        memoise_1.1.0     
-[73] knitr_1.27        </code></pre>
+[13] coda_0.19-3        httr_1.4.1         ggplot2_3.2.1      highr_0.8         
+[17] pillar_1.4.3       Rdpack_0.11-1      gdtools_0.2.1      rlang_0.4.3       
+[21] curl_4.3           lazyeval_0.2.2     multcomp_1.4-12    uuid_0.1-2        
+[25] rstudioapi_0.10    data.table_1.12.8  Matrix_1.2-18      flextable_0.5.6   
+[29] rmarkdown_2.1      pkgdown_1.4.1      labeling_0.3       desc_1.2.0        
+[33] moments_0.14       splines_4.0.0      stringr_1.4.0      RCurl_1.95-4.12   
+[37] munsell_0.5.0      compiler_4.0.0     xfun_0.12          pkgconfig_2.0.3   
+[41] systemfonts_0.1.1  base64enc_0.1-3    htmltools_0.4.0    tidyselect_0.2.5  
+[45] tibble_2.1.3       codetools_0.2-16   XML_3.99-0.3       crayon_1.3.4      
+[49] dplyr_0.8.3        bitops_1.0-6       MASS_7.3-51.5      grid_4.0.0        
+[53] xtable_1.8-4       gtable_0.3.0       lifecycle_0.1.0    magrittr_1.5      
+[57] scales_1.1.0       bibtex_0.4.2.2     zip_2.0.4          estimability_1.3  
+[61] stringi_1.4.5      farver_2.0.3       reshape2_1.4.3     fs_1.3.1          
+[65] xml2_1.2.2         sandwich_2.5-1     TH.data_1.0-10     tools_4.0.0       
+[69] glue_1.3.1         officer_0.3.6      purrr_0.3.3        emmeans_1.4.3.01  
+[73] survival_3.1-8     yaml_2.2.0         colorspace_1.4-1   gbRd_0.4-11       
+[77] memoise_1.1.0      knitr_1.28        </code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -2557,7 +2571,10 @@ loaded via a namespace (and not attached):
 <p>D’Agostino, R. B. (1970). Transformation to normality of the null distribution of. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679">10.1093/biomet/57.3.679</a>.</p>
 </div>
 <div id="ref-federer_augmented_1956">
-<p>Federer, W. T. (1956). Augmented (or hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
+<p>Federer, W. T. (1956a). Augmented (or hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
+</div>
+<div id="ref-federer_augmented_1956-1">
+<p>Federer, W. T. (1956b). Augmented (or Hoonuiaku) Designs. Cornell University, New York Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841">https://ecommons.cornell.edu/handle/1813/32841</a> [Accessed February 27, 2020].</p>
 </div>
 <div id="ref-federer_augmented_1961">
 <p>Federer, W. T. (1961). Augmented designs with one-way elimination of heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837">10.2307/2527837</a>.</p>

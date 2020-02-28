@@ -1,7 +1,7 @@
 # augmentedRCBD  0.1.2
 
 ## UPDATED FUNCTIONS:
-* `augmentedRCBD` - Added features to handle negative adjusted means.
+* `augmentedRCBD` - Added features to handle negative adjusted means; Fixed bug in computation of Tukey HSD and SE (Thanks to ahmad@cau.edu.cn).
 * `report.augmentedRCBD` - Fixed missing row names in the table of 'Standard Errors and Critical Differences'.
 * `gva.augmentedRCBD` - Added features to handle negative GV and/or hBS.
 * `augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.

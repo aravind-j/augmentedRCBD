@@ -101,7 +101,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 # 1 Overview
 
-The software `augmentedRCBD` is built on the [`R` statistical programming language](https://en.wikipedia.org/wiki/R_(programming_language)) as an add-on (or 'package' in the `R` *lingua franca*).  It performs the  analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. [-@federer_augmented_1956; -@federer_augmented_1961]. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.
+The software `augmentedRCBD` is built on the [`R` statistical programming language](https://en.wikipedia.org/wiki/R_(programming_language)) as an add-on (or 'package' in the `R` *lingua franca*).  It performs the  analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. [-@federer_augmented_1956; -@federer_augmented_1956-1; -@federer_augmented_1961; -@federerModelConsiderationsVariance1976]. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.
 
 This tutorial aims to educate the users in utilising this package for performing such analysis. Utilising `augmentedRCBD` for data analysis requires a basic knowledge of `R` programming language. However, as many of the intended end-users may not be familiar with `R`, [sections 2 to 4](#rsoft) give a 'gentle' introduction to `R`, especially those aspects which are necessary to get `augmentedRCBD` up and running for performing data analysis in a Windows environment. Users already familiar with `R` can feel free to skip to [section 5](#install).
 
@@ -653,18 +653,56 @@ Then the package can be loaded using the function
 library(augmentedRCBD)
 ```
 
+```{r, results='asis', echo=FALSE}
+# Fetch release version
+rver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("augmentedRCBD")) == "",
+               yes = getNamespaceVersion("augmentedRCBD"),
+               no = as.vector(available.packages()["augmentedRCBD",]["Version"]))
+```
+The current version of the package is `r rver`. The previous versions are as follows.
+
+**Table 2.** Version history of `augmentedRCBD` `R` package.
+
+```{r, echo=FALSE, message=FALSE}
+if (requireNamespace("RCurl", quietly = TRUE) & requireNamespace("httr", quietly = TRUE) & requireNamespace("XML", quietly = TRUE)) {
+  pkg <- "augmentedRCBD"
+  link <- paste0("https://cran.r-project.org/src/contrib/Archive/", pkg, "/")
+  cafile <- system.file("CurlSSL", "cacert.pem", package = "RCurl")
+  page <- httr::GET(link, httr::config(cainfo = cafile))
+  page <- httr::content(page, as = 'text')
+  # page <- RCurl::getURL(link)
+  
+  VerHistory <- XML::readHTMLTable(page)[[1]][,2:3]
+  colnames(VerHistory) <- c("Version", "Date")
+  VerHistory <- VerHistory[VerHistory$Version != "Parent Directory",]
+  VerHistory <- VerHistory[!is.na(VerHistory$Version), ]
+  VerHistory$Date <- as.Date(VerHistory$Date)
+  VerHistory$Version <- gsub("augmentedRCBD_", "", VerHistory$Version)
+  VerHistory$Version <- gsub(".tar.gz", "", VerHistory$Version)
+  
+  VerHistory <- VerHistory[order(VerHistory$Date), c("Version", "Date")]
+  rownames(VerHistory) <- NULL
+} else {
+  print("Packages 'RCurl', 'httr' and 'XML' are required to generate this table")
+}
+
+knitr::kable(VerHistory)
+
+```
+
+To know detailed history of changes use `news(package='augmentedRCBD')`.
 
 # 6 Data Format
 
 Certain details need to be considered for arranging experimental data for analysis using the `augmentedRCBD` package.
 
-The data should be in long/vertical form, where each row has the data from one genotype per block. For example, consider the following data (Table 2) recorded for a trait from an experiment laid out in an augmented block design with 3 blocks and 12 genotypes(or treatment) with 6 to 7 genotypes/block. 8 genotypes (Test, G 5 to G 12) are not replicated, while 4 genotypes (Check, G 1 to G 4) are replicated.
+The data should be in long/vertical form, where each row has the data from one genotype per block. For example, consider the following data (Table 3) recorded for a trait from an experiment laid out in an augmented block design with 3 blocks and 12 genotypes(or treatment) with 6 to 7 genotypes/block. 8 genotypes (Test, G 5 to G 12) are not replicated, while 4 genotypes (Check, G 1 to G 4) are replicated.
 
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
-    html = cat('<p style="text-align: left;"><strong>Table 2</strong>: Data from an experiment in augmented RCBD design.</p>'),
+    html = cat('<p style="text-align: left;"><strong>Table 3</strong>: Data from an experiment in augmented RCBD design.</p>'),
     latex = cat('\\begin{center}
-                \\textbf{Table 2}: Data from an experiment in augmented RCBD design.
+                \\textbf{Table 3}: Data from an experiment in augmented RCBD design.
                 \\end{center}'))
 ```
 
@@ -682,13 +720,13 @@ dataeg <- structure(list(X__1 = c("**Block I**", "", "**Block II**",
 knitr::kable(dataeg, col.names = NULL)
 ```
 
-This data needs to be arranged with columns showing block, genotype (or treatment) and the data of the trait for each genotype per block (Table 3).
+This data needs to be arranged with columns showing block, genotype (or treatment) and the data of the trait for each genotype per block (Table 4).
 
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
-    html = cat('<p style="text-align: left;"><strong>Table 3</strong>: Data from an experiment in augmented RCBD design arranged in long-form.</p>'),
+    html = cat('<p style="text-align: left;"><strong>Table 4</strong>: Data from an experiment in augmented RCBD design arranged in long-form.</p>'),
     latex = cat('\\begin{center}
-                \\textbf{Table 3}: Data from an experiment in augmented RCBD design arranged in long-form.
+                \\textbf{Table 4}: Data from an experiment in augmented RCBD design arranged in long-form.
                 \\end{center}'))
 ```
 
@@ -703,14 +741,14 @@ augdata <- data.frame(Block, Treatment, Trait)
 knitr::kable(augdata, row.names = F)
 ```
 
-The data for block and genotype (or treatment) can also be depicted as numbers (Table 4).
+The data for block and genotype (or treatment) can also be depicted as numbers (Table 5).
 
 
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
-    html = cat('<p style="text-align: left;"><strong>Table 4</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).</p>'),
+    html = cat('<p style="text-align: left;"><strong>Table 5</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).</p>'),
     latex = cat('\\begin{center}
-                \\textbf{Table 4}: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).
+                \\textbf{Table 5}: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).
                 \\end{center}'))
 ```
 
@@ -723,13 +761,13 @@ augdata <- data.frame(Block, Treatment, Trait)
 knitr::kable(augdata, row.names = F)
 ```
 
-Multiple traits can be added as additional columns (Table 5).
+Multiple traits can be added as additional columns (Table 6).
 
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
-    html = cat('<p style="text-align: left;"><strong>Table 5</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).</p>'),
+    html = cat('<p style="text-align: left;"><strong>Table 6</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).</p>'),
     latex = cat('\\begin{center}
-                \\textbf{Table 5}: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).
+                \\textbf{Table 6}: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).
                 \\end{center}'))
 ```
 
