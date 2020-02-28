@@ -426,7 +426,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   SE.check <- sqrt(2 * MSE / r) #Two Control Treatments
   SE.test1 <- sqrt(2 * MSE) #Two Augmented Treatments (Same Block)
   SE.test2 <- sqrt(2 * MSE * (1 + (1 / c))) #Two Augmented Treatments(Different Blocks)
-  SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) - (1 / (r * c)))) #A Test Treatment and a Control Treatment
+  SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) + (1 / (r * c)))) #A Test Treatment and a Control Treatment
 
   SECD <- data.frame(`Std. Error of Diff.` =  c(SE.check, SE.test1,
                                                 SE.test2, SE.testcheck),
@@ -436,7 +436,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                       paste("CD (", alpha * 100, "%)", sep = ""))
 
   if (method.comp == "tukey") {
-    q0 <- qtukey(1 - (alpha / 2), nlevels(treatment),
+    q0 <- qtukey(p = 1 - alpha, nmeans = nlevels(treatment),
                  df = augmented3.aov$df.residual)
 
     SECD$THSD <- q0 * SECD$`Std. Error of Diff.`
