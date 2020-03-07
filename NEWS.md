@@ -6,6 +6,7 @@
 * `gva.augmentedRCBD` - Added features to handle negative GV and/or hBS.
 * `augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
 * `report.augmentedRCBD.bulk` - Added features to handle negative adjusted means, GV and/or hBS.
+* `freqdist.augmentedRCBD` - Fixed compatability issues with updated implementation of `unit` function/class in `grid` package.
 
 ## OTHER NOTES:
 * Added reference for expected value of mean square being used in `gva.augmentedRCBD`.
