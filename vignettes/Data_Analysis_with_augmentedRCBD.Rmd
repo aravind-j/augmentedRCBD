@@ -663,7 +663,7 @@ The current version of the package is `r rver`. The previous versions are as fol
 
 **Table 2.** Version history of `augmentedRCBD` `R` package.
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, eval=TRUE}
 if (requireNamespace("RCurl", quietly = TRUE) & requireNamespace("httr", quietly = TRUE) & requireNamespace("XML", quietly = TRUE)) {
   pkg <- "augmentedRCBD"
   link <- paste0("https://cran.r-project.org/src/contrib/Archive/", pkg, "/")
@@ -682,11 +682,12 @@ if (requireNamespace("RCurl", quietly = TRUE) & requireNamespace("httr", quietly
   
   VerHistory <- VerHistory[order(VerHistory$Date), c("Version", "Date")]
   rownames(VerHistory) <- NULL
+  
+  knitr::kable(VerHistory)
+  
 } else {
   print("Packages 'RCurl', 'httr' and 'XML' are required to generate this table")
 }
-
-knitr::kable(VerHistory)
 
 ```
 
