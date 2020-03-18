@@ -441,7 +441,9 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     q0 <- qtukey(p = 1 - alpha, nmeans = nlevels(treatment),
                  df = augmented3.aov$df.residual)
 
-    SECD$THSD <- q0 * SECD$`Std. Error of Diff.`
+    SECD$THSD <- c((q0 * SECD[1:3,]$`Std. Error of Diff.`)/sqrt(2), 0)
+    hm <- 4/(1 + (1 / r) + (1 / c) + (1 / (r * c)))
+    SECD[4,]$THSD <- q0 * sqrt(MSE/hm)
     colnames(SECD) <- c("Std. Error of Diff.",
                         paste("CD (", alpha * 100, "%)", sep = ""),
                         paste("Tukey HSD (", alpha * 100, "%)", sep = ""))
