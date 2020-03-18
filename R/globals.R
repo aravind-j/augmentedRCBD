@@ -1,6 +1,6 @@
 ### This file is part of 'PGRdup' package for R.
 
-### Copyright (C) 2014, ICAR-NBPGR.
+### Copyright (C) 2015-2020, ICAR-NBPGR.
 #
 # PGRdup is free software: you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
