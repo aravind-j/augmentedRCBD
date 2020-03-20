@@ -1,3 +1,15 @@
+# Version 0.1.2 - Second submission
+
+* Fixed compatability issues with updated implementation of `unit` function/class in `grid` package.
+
+### Test environments
+* local Windows 10 Home v1803, R-release (R 3.6.3) & R-devel (R 4.0.0 Pre-release).
+* local Ubuntu 16.04, R-release (R 3.6.3) & R-devel (R 4.0.0 Pre-release).
+* win-builder, R-release (R 3.6.3) & R-devel (R 4.0.0 Pre-release).
+
+### R CMD check results
+* There were no ERRORs, NOTES or WARNINGs.
+
 # Version 0.1.2 - First submission
 
 * Fixed compatability issues with updated implementation of `unit` function/class in `grid` package.
