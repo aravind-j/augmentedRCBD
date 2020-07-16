@@ -28,7 +28,7 @@
 #'@param check.col The colour(s) to be used to highlight check values in the
 #'  plot as a character vector. Must be valid colour values in R (named colours,
 #'  hexadecimal representation, index of colours [\code{1:8}] in default R
-#'  `palette()` etc.).
+#'  \code{palette()} etc.).
 #'
 #'@return The frequency distribution plot as a ggplot2 plot grob.
 #'
@@ -150,7 +150,7 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
             axis.text = element_text(colour = "black"))
 
     #G <- rbind(ggplotGrob(G2)[c(7), ], ggplotGrob(G1), size = "last")
-    G <- rbind(ggplotGrob(G2), ggplotGrob(G1), size = "last")
+    G <- rbind(ggplotGrob(G2), ggplotGrob(G1), size = "max")
     G <- resize_heights(G, c(1, 3))
 
   } else {

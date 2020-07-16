@@ -17,7 +17,7 @@ also plotted. Default is \code{TRUE}.}
 \item{check.col}{The colour(s) to be used to highlight check values in the
 plot as a character vector. Must be valid colour values in R (named colours,
 hexadecimal representation, index of colours [\code{1:8}] in default R
-`palette()` etc.).}
+\code{palette()} etc.).}
 }
 \value{
 The frequency distribution plot as a ggplot2 plot grob.
