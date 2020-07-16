@@ -62,23 +62,25 @@
 #'   adjusted ANOVA.} \item{\code{ANOVA, Block Adjusted}}{A data frame of mean
 #'   sum of squares of the specified traits from block adjusted ANOVA}
 #'   \item{\code{Means}}{A data frame of the adjusted means of the treatments
-#'   for the specified traits.} \item{\code{alpha}}{Type I error probability
-#'   (Significance level) used.} \item{\code{Std. Errors}}{A data frame of
-#'   standard error of difference between various combinations for the specified
-#'   traits.} \item{\code{CD}}{A data frame of critical difference (at the
-#'   specified alpha) between various combinations for the specified traits.}
-#'   \item{\code{Overall adjusted mean}}{A data frame of the overall adjusted
-#'   mean for the specified traits.} \item{\code{CV}}{A data frame of the
-#'   coefficient of variance for the specified traits.} \item{\code{Descriptive
-#'   statistics}}{A data frame of descriptive statistics for the specified
-#'   traits.} \item{\code{Frequency distribution}}{A list of ggplot2 plot grobs
-#'   of the frequency distribution plots.} \item{\code{Genetic variability
-#'   analysis}}{A data frame of genetic variability statistics for the specified
-#'   traits.} \item{\code{GVA plots}}{A list of three ggplot2 objects with the
-#'   plots for (a) Phenotypic and Genotypic CV, (b) Broad sense heritability and
-#'   (c) Genetic advance over mean} \item{\code{warnings}}{A list of warning
-#'   messages (if any) captured during model fitting and frequency distribution
-#'   plotting.}
+#'   for the specified traits.} \item{\code{Check statistics}}{A list of data
+#'   frames with check statistics such as number of replications, standard
+#'   error, minimum and maximum value} \item{\code{alpha}}{Type I error
+#'   probability (Significance level) used.} \item{\code{Std. Errors}}{A data
+#'   frame of standard error of difference between various combinations for the
+#'   specified traits.} \item{\code{CD}}{A data frame of critical difference (at
+#'   the specified alpha) between various combinations for the specified
+#'   traits.} \item{\code{Overall adjusted mean}}{A data frame of the overall
+#'   adjusted mean for the specified traits.} \item{\code{CV}}{A data frame of
+#'   the coefficient of variance for the specified traits.}
+#'   \item{\code{Descriptive statistics}}{A data frame of descriptive statistics
+#'   for the specified traits.} \item{\code{Frequency distribution}}{A list of
+#'   ggplot2 plot grobs of the frequency distribution plots.}
+#'   \item{\code{Genetic variability analysis}}{A data frame of genetic
+#'   variability statistics for the specified traits.} \item{\code{GVA plots}}{A
+#'   list of three ggplot2 objects with the plots for (a) Phenotypic and
+#'   Genotypic CV, (b) Broad sense heritability and (c) Genetic advance over
+#'   mean} \item{\code{warnings}}{A list of warning messages (if any) captured
+#'   during model fitting and frequency distribution plotting.}
 #'
 #' @examples
 #' # Example data
@@ -347,6 +349,11 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                               fun.aggregate = mean)
   adjmeans[, traits] <- lapply(adjmeans[, traits], round.conditional)
 
+  # Check statistics
+  checkstat <- lapply(output,
+                      function(x) x$Means[x$Means$Treatment %in% checks,
+                                          c("Treatment", "r", "Means",
+                                            "SE", "Min", "Max")])
 
   # CV
   cvout <- lapply(output, function(x) x$CV)
@@ -594,6 +601,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
   out <- list(Details = Details, `ANOVA, Treatment Adjusted` = anovataout,
               `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans,
+              `Check statistics` = checkstat,
               alpha = alpha, `Std. Errors` = seout, CD = cdout,
               `Overall adjusted mean` = oadjmean,
               `CV` = cvout, `Descriptive statistics` = descout,

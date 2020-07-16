@@ -160,6 +160,18 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target){
   oadjmean <- bold(oadjmean, part = "header")
   augreport <- body_add_flextable(augreport, oadjmean)
 
+  # Check statistics
+  augreport <- body_add_par(augreport, value = "Check Statistics",
+                            style = "heading 1")
+  for (i in seq_along(aug.bulk$`Check statistics`)) {
+    augreport <- body_add_par(augreport, value = names(aug.bulk$`Check statistics`)[i],
+                              style = "heading 2")
+    chkout <- autofit(flextable(aug.bulk$`Check statistics`[[i]]))
+    chkout <- bold(chkout, part = "header")
+    augreport <- body_add_flextable(augreport, chkout)
+  }
+
+
   # Descriptive statistics
   if (!is.null(aug.bulk$`Descriptive statistics`)){
     augreport <- body_add_par(augreport, value = "Descriptive Statistics",
