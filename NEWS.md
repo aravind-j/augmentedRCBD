@@ -1,5 +1,11 @@
 # augmentedRCBD  0.1.3
 
+## UPDATED FUNCTIONS:
+* `augmentedRCBD.bulk` & `report.augmentedRCBD.bulk` - Added check statistics in output.
+
+## VIGNETTE:
+* Reverted to using system certificates instead of RCurl ones for fetching and displaying version history as suggested by Prof. Brian Ripley (ripley@stats.ox.ac.uk).
+
 # augmentedRCBD  0.1.2
 
 ## UPDATED FUNCTIONS:
