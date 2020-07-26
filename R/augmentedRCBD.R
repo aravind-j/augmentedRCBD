@@ -97,7 +97,8 @@
 #'
 #'@seealso \code{\link[agricolae]{DAU.test}},
 #'  \href{https://www.rdocumentation.org/packages/easyanova/versions/5.0/topics/ea1}{\code{ea1}},
-#'   \code{\link[emmeans]{emmeans}}, \code{\link[emmeans]{cld.emmGrid}},
+#'   \code{\link[emmeans]{emmeans}},
+#'  \code{\link[emmeans:CLD.emmGrid]{cld.emmGrid}},
 #'  \href{https://rdrr.io/rforge/plantbreeding/man/aug.rcb.html}{\code{aug.rcb}}
 #'
 #'@references
