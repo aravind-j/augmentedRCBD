@@ -1,14 +1,50 @@
+# Version 0.1.3 - Second submission
+
+* Reverted to using system certificates instead of RCurl ones for fetching and displaying version history as suggested by Prof. Brian Ripley (ripley@stats.ox.ac.uk).
+
+### Test environments
+* local Windows 10 Home v1803, R-release (R 4.0.2) & R-devel (R 4.1.0 Pre-release).
+* local Ubuntu 16.04, R-release (R 4.0.2) & R-devel (R 4.1.0 Pre-release).
+* win-builder, R-release (R 4.0.2) & R-devel (R 4.1.0 Pre-release).
+
+### R CMD check results 
+* There were no ERRORs or WARNINGs.
+* Regarding (possibly) invalid URLs/ DOIs found:
+      URL: https://doi.org/10.2307/2527837
+      From: README.md
+      Status: 403
+      Message: Forbidden
+
+      DOI: 10.2307/2527837
+      From: DESCRIPTION
+      Status: Forbidden
+      Message: 403
+	  
+  + These seem to be false positives due to some sort of redirection as they are opening in browser. Kindly advise.
+
 # Version 0.1.3 - First submission
 
 * Reverted to using system certificates instead of RCurl ones for fetching and displaying version history as suggested by Prof. Brian Ripley (ripley@stats.ox.ac.uk).
 
 ### Test environments
-* local Windows 10 Home v1803, R-release (R 4.0.1) & R-devel (R 4.1.0 Pre-release).
-* local Ubuntu 16.04, R-release (R 4.0.1) & R-devel (R 4.1.0 Pre-release).
-* win-builder, R-release (R 4.0.0) & R-devel (R 4.1.0 Pre-release).
+* local Windows 10 Home v1803, R-release (R 4.0.2) & R-devel (R 4.1.0 Pre-release).
+* local Ubuntu 16.04, R-release (R 4.0.2) & R-devel (R 4.1.0 Pre-release).
+* win-builder, R-release (R 4.0.2) & R-devel (R 4.1.0 Pre-release).
 
-### R CMD check results
-* There were no ERRORs, NOTES or WARNINGs.
+### R CMD check results 
+* There were no ERRORs or WARNINGs.
+* Regarding (possibly) invalid URLs/ DOIs found:
+      URL: https://doi.org/10.2307/2527837
+      From: README.md
+      Status: 403
+      Message: Forbidden
+
+      DOI: 10.2307/2527837
+      From: DESCRIPTION
+      Status: Forbidden
+      Message: 403
+	  
+  + These seem to be false positives due to some sort of redirection as they are opening in browser. Kindly advise.
 
 # Version 0.1.2 - Second submission
 

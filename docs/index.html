@@ -6,11 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Analysis of Augmented Randomised Complete Block Designs • augmentedRCBD</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Analysis of Augmented Randomised Complete Block Designs">
@@ -19,7 +20,6 @@
     &lt;doi:10.2307/2527837&gt;. Computes analysis of variance, adjusted means,
     descriptive statistics, genetic variability statistics etc. Further includes
     data visualization and report generation functions.">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -31,7 +31,7 @@
   gtag('config', 'UA-116716530-2');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.3</span>
       </span>
     </div>
 
@@ -110,8 +110,8 @@
 <h2 class="hasAnchor">
 <a href="#augmentedrcbd-analysis-of-augmented-randomised-complete-block-designs-" class="anchor"></a><code>augmentedRCBD</code>: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height="200" style="border: none; float: right;">
 </h2>
-<div id="version--0129000-copyright-c-2015-2018-icar-nbpgr-license-gpl-2gpl-3" class="section level6">
-<h6>Version : <a href="https://aravind-j.github.io/augmentedRCBD/">0.1.2.9000</a>; Copyright (C) 2015-2018: <a href="http://www.nbpgr.ernet.in/">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/">GPL-2|GPL-3</a>
+<div id="version--013-copyright-c-2015-2018-icar-nbpgr-license-gpl-2gpl-3" class="section level6">
+<h6>Version : <a href="https://aravind-j.github.io/augmentedRCBD/">0.1.3</a>; Copyright (C) 2015-2018: <a href="http://www.nbpgr.ernet.in/">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/">GPL-2|GPL-3</a>
 </h6>
 </div>
 <div id="aravind-j1-mukesh-sankar-s2-wankhede-d-p3-and-kaur-v4" class="section level5">
@@ -137,25 +137,25 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The package can be installed from CRAN as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># Install from CRAN</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'augmentedRCBD'</span>, <span class="dt">dependencies=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># Install from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'augmentedRCBD'</span>, <span class="kw">dependencies</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></div>
 <p>The development version can be installed from github as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Install development version from Github</span></a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'devtools'</span>)) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>)</a>
-<a class="sourceLine" id="cb2-3" title="3">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"aravind-j/augmentedRCBD"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># Install development version from Github</span>
+<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'devtools'</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>)
+<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"aravind-j/augmentedRCBD"</span>)</pre></div>
 </div>
 <div id="detailed-tutorial" class="section level2">
 <h2 class="hasAnchor">
 <a href="#detailed-tutorial" class="anchor"></a>Detailed tutorial</h2>
 <p>For a detailed tutorial (vignette) on how to used this package type:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="dt">package =</span> <span class="st">'augmentedRCBD'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">'augmentedRCBD'</span>)</pre></div>
 <p>The vignette for the latest version is also available <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html">online</a>.</p>
 </div>
 <div id="whats-new" class="section level2">
 <h2 class="hasAnchor">
 <a href="#whats-new" class="anchor"></a>What’s new</h2>
 <p>To know whats new in this version type:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/news.html">news</a></span>(<span class="dt">package=</span><span class="st">'augmentedRCBD'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/news.html">news</a></span>(<span class="kw">package</span><span class="kw">=</span><span class="st">'augmentedRCBD'</span>)</pre></div>
 </div>
 <div id="links" class="section level2">
 <h2 class="hasAnchor">
@@ -170,13 +170,13 @@
 <a href="#citing-augmentedrcbd" class="anchor"></a>Citing <code>augmentedRCBD</code>
 </h2>
 <p>To cite the methods in the package use:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"augmentedRCBD"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"augmentedRCBD"</span>)</pre></div>
 <pre><code>
 To cite the R package 'augmentedRCBD' in publications use:
 
   Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2020).
   augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. R package
-  version 0.1.2.9000,
+  version 0.1.3,
   https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
 A BibTeX entry for LaTeX users is
@@ -185,7 +185,7 @@ A BibTeX entry for LaTeX users is
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
     year = {2020},
-    note = {R package version 0.1.2.9000},
+    note = {R package version 0.1.3},
     note = {https://aravind-j.github.io/augmentedRCBD/},
     note = {https://cran.r-project.org/package=augmentedRCBD},
   }
@@ -196,13 +196,13 @@ co-workers. If you use it, please support the project by citing the package.</co
 
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=augmentedRCBD">https://​cloud.r-project.org/​package=augmentedRCBD</a>
 </li>
-<li>Browse source code at <br><a href="https://github.com/aravind-j/augmentedRCBD">https://​github.com/​aravind-j/​augmentedRCBD</a>
+<li>Browse source code at <br><a href="https://github.com/aravind-j/augmentedRCBD/">https://​github.com/​aravind-j/​augmentedRCBD/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/aravind-j/augmentedRCBD/issues">https://​github.com/​aravind-j/​augmentedRCBD/​issues</a>
 </li>
@@ -225,9 +225,9 @@ co-workers. If you use it, please support the project by citing the package.</co
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>J. Aravind <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4791-442X" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
+<li>J. Aravind <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4791-442X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>S. Mukesh Sankar <br><small class="roles"> Author </small>  </li>
-<li>Dhammaprakash Pandhari Wankhede <br><small class="roles"> Author </small>  </li>
+<li>Dhammaprakash Pandhari Wankhede <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6384-8664" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Vikender Kaur <br><small class="roles"> Author </small>  </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
@@ -240,10 +240,10 @@ co-workers. If you use it, please support the project by citing the package.</co
 <li><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></li>
 <li><a href="https://cran.r-project.org/package=augmentedRCBD"><img src="https://www.r-pkg.org/badges/version-last-release/augmentedRCBD" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://CRAN.R-project.org/package=augmentedRCBD"><img src="https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green" alt="rstudio mirror downloads"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/devel%20version-0.1.2.9000-orange.svg" alt="develVersion"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/devel%20version-0.1.3-orange.svg" alt="develVersion"></a></li>
 <li><a href="http://www.repostatus.org/#inactive"><img src="http://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: WIP"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/last%20change-2020--03--20-yellowgreen.svg" alt="Last-changedate"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/last%20change-2020--07--26-yellowgreen.svg" alt="Last-changedate"></a></li>
 <li><a href="http://www.rdocumentation.org/packages/augmentedRCBD"><img src="http://www.rdocumentation.org/badges/version/augmentedRCBD" alt="Rdoc"></a></li>
 <li><a href="https://doi.org/10.5281/zenodo.1310011"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg" alt="Zenodo DOI"></a></li>
 <li><a href="https://github.com/aravind-j/google-analytics-beacon"><img src="https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page" alt="Analytics"></a></li>
@@ -258,7 +258,7 @@ co-workers. If you use it, please support the project by citing the package.</co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
