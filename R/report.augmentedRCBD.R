@@ -253,5 +253,6 @@ report.augmentedRCBD <- function(aug, target){
                             style = "Center text")
 
   print(augreport, target = target)
+  message(paste("File created at", target))
 
 }
