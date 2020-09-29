@@ -1,3 +1,5 @@
+# augmentedRCBD  0.1.4
+
 # augmentedRCBD  0.1.3
 
 ## UPDATED FUNCTIONS:
