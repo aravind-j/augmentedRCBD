@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.4</span>
       </span>
     </div>
 
@@ -52,28 +52,28 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="reference/index.html">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="articles/Data_Analysis_with_augmentedRCBD.html">
-    <span class="fa fa-file-o"></span>
+    <span class="far fa-file"></span>
      
     Tutorial
   </a>
 </li>
 <li>
   <a href="news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+    <span class="far fa-newspaper"></span>
      
     News
   </a>
@@ -82,7 +82,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/aravind-j/augmentedRCBD">
-    <span class="fa fa-github-alt"></span>
+    <span class="fab fa-github-alt"></span>
      
     Github
   </a>
@@ -110,8 +110,8 @@
 <h2 class="hasAnchor">
 <a href="#augmentedrcbd-analysis-of-augmented-randomised-complete-block-designs-" class="anchor"></a><code>augmentedRCBD</code>: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height="200" style="border: none; float: right;">
 </h2>
-<div id="version--0139000-copyright-c-2015-2018-icar-nbpgr-license-gpl-2gpl-3" class="section level6">
-<h6>Version : <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install">0.1.3.9000</a>; Copyright (C) 2015-2018: <a href="http://www.nbpgr.ernet.in/">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/">GPL-2|GPL-3</a>
+<div id="version--014-copyright-c-2015-2018-icar-nbpgr-license-gpl-2gpl-3" class="section level6">
+<h6>Version : <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install">0.1.4</a>; Copyright (C) 2015-2018: <a href="http://www.nbpgr.ernet.in/">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/">GPL-2|GPL-3</a>
 </h6>
 </div>
 <div id="aravind-j1-mukesh-sankar-s2-wankhede-d-p3-and-kaur-v4" class="section level5">
@@ -137,25 +137,29 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>The package can be installed from CRAN as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># Install from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'augmentedRCBD'</span>, <span class="kw">dependencies</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'augmentedRCBD'</span>, dependencies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>The development version can be installed from github as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># Install development version from Github</span>
-<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'devtools'</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>)
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"aravind-j/augmentedRCBD"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install development version from Github</span>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">'devtools'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"aravind-j/augmentedRCBD"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="detailed-tutorial" class="section level2">
 <h2 class="hasAnchor">
 <a href="#detailed-tutorial" class="anchor"></a>Detailed tutorial</h2>
 <p>For a detailed tutorial (vignette) on how to used this package type:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">'augmentedRCBD'</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'augmentedRCBD'</span><span class="op">)</span></code></pre></div>
 <p>The vignette for the latest version is also available <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html">online</a>.</p>
 </div>
 <div id="whats-new" class="section level2">
 <h2 class="hasAnchor">
 <a href="#whats-new" class="anchor"></a>What’s new</h2>
 <p>To know whats new in this version type:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/news.html">news</a></span>(<span class="kw">package</span><span class="kw">=</span><span class="st">'augmentedRCBD'</span>)</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/news.html">news</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">'augmentedRCBD'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="links" class="section level2">
 <h2 class="hasAnchor">
@@ -170,28 +174,29 @@
 <a href="#citing-augmentedrcbd" class="anchor"></a>Citing <code>augmentedRCBD</code>
 </h2>
 <p>To cite the methods in the package use:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"augmentedRCBD"</span>)</pre></div>
-<pre><code>
-To cite the R package 'augmentedRCBD' in publications use:
-
-  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2020).
-  augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. R package
-  version 0.1.3.9000,
-  https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
-
-A BibTeX entry for LaTeX users is
-
-  @Manual{,
-    title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
-    author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-    year = {2020},
-    note = {R package version 0.1.3.9000},
-    note = {https://aravind-j.github.io/augmentedRCBD/},
-    note = {https://cran.r-project.org/package=augmentedRCBD},
-  }
-
-This free and open-source software implements academic research by the authors and
-co-workers. If you use it, please support the project by citing the package.</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"augmentedRCBD"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>To cite the R package <span class="st">'augmentedRCBD'</span> <span class="cf">in</span> publications use<span class="sc">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, <span class="fu">V.</span> (<span class="dv">2021</span>).</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  augmentedRCBD<span class="sc">:</span> Analysis of Augmented Randomised Complete Block Designs.</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  R package version <span class="dv">0</span>.<span class="fl">1.4</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  https<span class="sc">:</span><span class="er">//</span>aravind<span class="sc">-</span>j.github.io<span class="sc">/</span>augmentedRCBD<span class="sc">/</span>https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>augmentedRCBD.</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {augmentedRCBD<span class="sc">:</span> Analysis of Augmented Randomised Complete Block Designs},</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2021</span>},</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">1.4</span>},</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>aravind<span class="sc">-</span>j.github.io<span class="sc">/</span>augmentedRCBD<span class="sc">/</span>},</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>augmentedRCBD},</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>This free and open<span class="sc">-</span>source software implements academic research by the</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>authors and co<span class="sc">-</span>workers. If you use it, please support the project by</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>citing the package.</span></code></pre></div>
 </div>
 
   </div>
@@ -241,12 +246,12 @@ co-workers. If you use it, please support the project by citing the package.</co
 <li><a href="https://cran.r-project.org/package=augmentedRCBD"><img src="https://www.r-pkg.org/badges/version-last-release/augmentedRCBD" alt="CRAN_Status_Badge"></a></li>
 <li><a href="https://CRAN.R-project.org/package=augmentedRCBD"><img src="https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green" alt="rstudio mirror downloads"></a></li>
 <li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/devel%20version-0.1.3.9000-orange.svg" alt="develVersion"></a></li>
-<li><a href="http://www.repostatus.org/#inactive"><img src="http://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: WIP"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/last%20change-2020--09--29-yellowgreen.svg" alt="Last-changedate"></a></li>
-<li><a href="http://www.rdocumentation.org/packages/augmentedRCBD"><img src="http://www.rdocumentation.org/badges/version/augmentedRCBD" alt="Rdoc"></a></li>
+<li><a href="https://www.repostatus.org/#inactive"><img src="https://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: WIP"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/last%20change-2021--02--15-yellowgreen.svg" alt="Last-changedate"></a></li>
+<li><a href="https://www.rdocumentation.org/packages/augmentedRCBD"><img src="https://www.rdocumentation.org/badges/version/augmentedRCBD" alt="Rdoc"></a></li>
 <li><a href="https://doi.org/10.5281/zenodo.1310011"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg" alt="Zenodo DOI"></a></li>
-<li><a href="https://github.com/aravind-j/google-analytics-beacon"><img src="https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page" alt="Analytics"></a></li>
+<li><a href="https://github.com/aravind-j/google-analytics-beacon"><img src="https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page" alt="."></a></li>
 </ul>
 </div>
 </div>
@@ -258,7 +263,7 @@ co-workers. If you use it, please support the project by citing the package.</co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

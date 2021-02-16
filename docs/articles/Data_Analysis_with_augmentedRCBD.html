@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.4</span>
       </span>
     </div>
 
@@ -48,28 +48,28 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="../articles/Data_Analysis_with_augmentedRCBD.html">
-    <span class="fa fa-file-o"></span>
+    <span class="far fa-file"></span>
      
     Tutorial
   </a>
 </li>
 <li>
   <a href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+    <span class="far fa-newspaper"></span>
      
     News
   </a>
@@ -78,7 +78,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/aravind-j/augmentedRCBD">
-    <span class="fa fa-github-alt"></span>
+    <span class="fab fa-github-alt"></span>
      
     Github
   </a>
@@ -99,7 +99,7 @@
 
       
 
-      </header><script src="Data_Analysis_with_augmentedRCBD_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Data_Analysis_with_augmentedRCBD_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Data Analysis with <code>augmentedRCBD</code>
@@ -107,7 +107,7 @@
                         <h4 class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 class="date">2020-09-29</h4>
+            <h4 class="date">2021-02-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/vignettes/Data_Analysis_with_augmentedRCBD.Rmd"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -144,16 +144,14 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>1 Overview</h1>
-<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956</a><a href="#ref-federer_augmented_1956" role="doc-biblioref">a</a>, <a href="#ref-federer_augmented_1956-1" role="doc-biblioref">1956</a><a href="#ref-federer_augmented_1956-1" role="doc-biblioref">b</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
+<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956b</a>, <a href="#ref-federer_augmented_1956-1" role="doc-biblioref">1956a</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
 <p>This tutorial aims to educate the users in utilising this package for performing such analysis. Utilising <code>augmentedRCBD</code> for data analysis requires a basic knowledge of <code>R</code> programming language. However, as many of the intended end-users may not be familiar with <code>R</code>, <a href="#rsoft">sections 2 to 4</a> give a ‘gentle’ introduction to <code>R</code>, especially those aspects which are necessary to get <code>augmentedRCBD</code> up and running for performing data analysis in a Windows environment. Users already familiar with <code>R</code> can feel free to skip to <a href="#install">section 5</a>.</p>
-
 <p><img src="https://www.r-project.org/logo/Rlogo.png" align="right" alt="logo" width="173" height="134" style="padding: 10px; border: none; float: right;"></p>
 </div>
 <div id="rsoft" class="section level1">
 <h1 class="hasAnchor">
 <a href="#rsoft" class="anchor"></a>2 <code>R</code> software</h1>
-<p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(Tippmann, <a href="#ref-tippmann_programming_2015" role="doc-biblioref">2015</a>)</span>.</p>
-
+<p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(<a href="#ref-tippmann_programming_2015" role="doc-biblioref">Tippmann, 2015</a>)</span>.</p>
 </div>
 <div id="getting-started" class="section level1">
 <h1 class="hasAnchor">
@@ -192,14 +190,15 @@
 <h3 class="hasAnchor">
 <a href="#console" class="anchor"></a>3.3.1 Console</h3>
 <p>This is where the action happens. Here any authentic <code>R</code> code typed after the ‘<code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code>’ prompt will be executed after pressing ‘Enter’ to generate the output.</p>
-<p>For example, type <code>1+1</code> in the console and press ‘Enter’.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fl">1</span>+<span class="fl">1</span></pre></body></html></div>
+<p>For example, type <code>1+1</code> in the console and press ‘Enter.’</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></code></pre></div>
 <pre><code>[1] 2</code></pre>
 </div>
 <div id="source" class="section level3">
 <h3 class="hasAnchor">
 <a href="#source" class="anchor"></a>3.3.2 Source</h3>
-<p>This is where <code>R</code> Scripts (collection of code) can be created and edited. <code>R</code> scripts are text files with a <code>.R</code> extension. <code>R</code> Code for analysis can be typed and saved in such <code>R</code> scripts. New scripts can be opened by clicking ‘File|New File’ and selecting ‘R Script’. Code can be selected from <code>R</code> Scripts and sent to console for evaluation by clicking ‘Run’ on the ‘Source’ pane or by pressing ‘Ctrl + Enter’.</p>
+<p>This is where <code>R</code> Scripts (collection of code) can be created and edited. <code>R</code> scripts are text files with a <code>.R</code> extension. <code>R</code> Code for analysis can be typed and saved in such <code>R</code> scripts. New scripts can be opened by clicking ‘File|New File’ and selecting ‘R Script.’ Code can be selected from <code>R</code> Scripts and sent to console for evaluation by clicking ‘Run’ on the ‘Source’ pane or by pressing ‘Ctrl + Enter.’</p>
 </div>
 <div id="environmenthistoryconnections" class="section level3">
 <h3 class="hasAnchor">
@@ -226,12 +225,14 @@
 <h2 class="hasAnchor">
 <a href="#wdir" class="anchor"></a>4.1 Working Directory</h2>
 <p>It is a file path to a folder on the computer which is recognised by <code>R</code> as the default location to read files from or write files to. The code <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> shows the current working directory, while <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> can be used to change the existing working directory.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Print current working directory</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Print current working directory</span>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "C:/Users/Computer/Documents"</code></pre>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Set new working directory</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span>(<span class="st">"C:/Data Analysis/"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Set new working directory</span>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"C:/Data Analysis/"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "C:/Data Analysis/"</code></pre>
 <p>One key detail is that file paths in <code>R</code> uses forward slashes (<code><a href="https://rdrr.io/r/base/Arithmetic.html">/</a></code>) as in MacOS or Linux, unlike backward slashes (<code>\</code>) in Windows. This needs to be considered while copying paths from default Windows file explorer.</p>
 </div>
@@ -239,156 +240,198 @@
 <h2 class="hasAnchor">
 <a href="#expression-and-assignment" class="anchor"></a>4.2 Expression and Assignment</h2>
 <p>Expressions are instructions in the form of code to be entered after the <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code> prompt in the console. Expressions can be a constant, an arithmetic or a condition. A more advanced and most useful expression is a function call (see <a href="#ObjFun">section 4.3</a>).</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co"># Constant</span>
-<span class="fl">123</span></pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Constant</span>
+<span class="fl">123</span></code></pre></div>
 <pre><code>[1] 123</code></pre>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Arithmetic (add two numbers)</span>
-<span class="fl">1</span> + <span class="fl">2</span></pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Arithmetic (add two numbers)</span>
+<span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># Condition</span>
-<span class="fl">34</span> <span class="kw">&gt;</span> <span class="fl">25</span></pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Condition</span>
+<span class="fl">34</span> <span class="op">&gt;</span> <span class="fl">25</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fl">1</span> <span class="kw">==</span> <span class="fl">2</span></pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">==</span> <span class="fl">2</span></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># Function call (mean of a series of numbers)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">25</span>,<span class="fl">56</span>,<span class="fl">89</span>,<span class="fl">35</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Function call (mean of a series of numbers)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25</span>,<span class="fl">56</span>,<span class="fl">89</span>,<span class="fl">35</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 51.25</code></pre>
-<p>Information from an expression can be stored as an ‘object’ (see <a href="#ObjFun">section 4.3</a>) by assigning a name using the operator ‘<code>&lt;-</code>’.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># Assign the result of the expression 1 + 2 to an object 'a'</span>
-<span class="no">a</span> <span class="kw">&lt;-</span> <span class="fl">1</span> + <span class="fl">2</span>
-<span class="no">a</span></pre></body></html></div>
+<p>Information from an expression can be stored as an ‘object’ (see <a href="#ObjFun">section 4.3</a>) by assigning a name using the operator ‘<code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>.’</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Assign the result of the expression 1 + 2 to an object 'a'</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
+<span class="va">a</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <p>It is recommended to add comments to explain the code by using the ‘<code>#</code>’ sign. Any code after the ‘<code>#</code>’ sign will be ignored by <code>R</code>.</p>
 </div>
 <div id="ObjFun" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ObjFun" class="anchor"></a>4.3 Objects and Functions</h2>
-<p><code>R</code> is an object-oriented programming language (OOP). Any kind or construct created in <code>R</code> is an ‘object’. Each object has a ‘class’ (shown using the <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function) and different ‘attributes’ which defines what operations can be done on that object. There are different types of data structure objects in <code>R</code> such as vectors, matrices, factors, data frames, and lists. A ‘function’ is also an object, which defines a procedure or a sequence of expressions.</p>
+<p><code>R</code> is an object-oriented programming language (OOP). Any kind or construct created in <code>R</code> is an ‘object.’ Each object has a ‘class’ (shown using the <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function) and different ‘attributes’ which defines what operations can be done on that object. There are different types of data structure objects in <code>R</code> such as vectors, matrices, factors, data frames, and lists. A ‘function’ is also an object, which defines a procedure or a sequence of expressions.</p>
 <div id="vector" class="section level3">
 <h3 class="hasAnchor">
 <a href="#vector" class="anchor"></a>4.3.1 Vector</h3>
-<p>A vector is a collection of elements of a single type (or ‘mode’). The common vector modes are ‘numeric’, ‘integer’, ‘character’ and ‘logical’. The <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function is used to create vectors. The functions <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> and <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> show the attributes of vectors.</p>
-<p>Vector modes ‘numeric’ stores real numbers, while ‘integer’ stores integers, which can be enforced by suffixing elements with ‘<code>L</code>’.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="co"># A numeric vector</span>
-<span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<p>A vector is a collection of elements of a single type (or ‘mode’). The common vector modes are ‘numeric,’ ‘integer,’ ‘character’ and ‘logical.’ The <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function is used to create vectors. The functions <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>, <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> and <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> show the attributes of vectors.</p>
+<p>Vector modes ‘numeric’ stores real numbers, while ‘integer’ stores integers, which can be enforced by suffixing elements with ‘<code>L</code>.’</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># A numeric vector</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "numeric"</code></pre>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code> num [1:3] 1 2 3.3</code></pre>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="co"># An integer vector</span>
-<span class="no">b</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># An integer vector</span>
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "integer"</code></pre>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
 <pre><code> int [1:3] 1 2 3</code></pre>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <p>The vector mode ‘character’ store text.</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="co"># A character vector</span>
-<span class="no">c</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"one"</span>,<span class="st">"two"</span>,<span class="st">"three"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># A character vector</span>
+<span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>,<span class="st">"two"</span>,<span class="st">"three"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "character"</code></pre>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></code></pre></div>
 <pre><code> chr [1:3] "one" "two" "three"</code></pre>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <p>The vector mode ‘logical’ stores ‘<code>TRUE</code>’ OR ‘<code>FALSE</code>’ logical data.</p>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="co">#logical vector</span>
-<span class="no">d</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">TRUE</span>,<span class="fl">TRUE</span>,<span class="fl">TRUE</span>,<span class="fl">FALSE</span>,<span class="fl">TRUE</span>,<span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">d</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#logical vector</span>
+<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "logical"</code></pre>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">d</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
 <pre><code> logi [1:6] TRUE TRUE TRUE FALSE TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">d</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 6</code></pre>
 </div>
 <div id="factor" class="section level3">
 <h3 class="hasAnchor">
 <a href="#factor" class="anchor"></a>4.3.2 Factor</h3>
 <p>A ‘factor’ in <code>R</code> stores data from categorical data in variables as different levels.</p>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="no">catg</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"male"</span>,<span class="st">"female"</span>,<span class="st">"female"</span>,<span class="st">"male"</span>,<span class="st">"male"</span>)
-<span class="no">catg</span></pre></body></html></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">catg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"male"</span>,<span class="st">"female"</span>,<span class="st">"female"</span>,<span class="st">"male"</span>,<span class="st">"male"</span><span class="op">)</span>
+<span class="va">catg</span></code></pre></div>
 <pre><code>[1] "male"   "female" "female" "male"   "male"  </code></pre>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span>(<span class="no">catg</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">catg</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] FALSE</code></pre>
-<div class="sourceCode" id="cb47"><html><body><pre class="r"><span class="co"># Apply the factor function</span>
-<span class="no">factor_catg</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">catg</span>)
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Apply the factor function</span>
+<span class="va">factor_catg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">catg</span><span class="op">)</span>
 
-<span class="no">factor_catg</span></pre></body></html></div>
+<span class="va">factor_catg</span></code></pre></div>
 <pre><code>[1] male   female female male   male  
 Levels: female male</code></pre>
-<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span>(<span class="no">factor_catg</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">factor_catg</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb51"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">factor_catg</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">factor_catg</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "factor"</code></pre>
-<div class="sourceCode" id="cb53"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">factor_catg</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">factor_catg</span><span class="op">)</span></code></pre></div>
 <pre><code> Factor w/ 2 levels "female","male": 2 1 1 2 2</code></pre>
 <p>A character, numeric or integer vector can be transformed to a factor by using the <code><a href="https://rdrr.io/r/base/factor.html">as.factor()</a></code> function.</p>
-<div class="sourceCode" id="cb55"><html><body><pre class="r"><span class="co"># Conversion of numeric to factor</span>
-<span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Conversion of numeric to factor</span>
+<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "numeric"</code></pre>
-<div class="sourceCode" id="cb57"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code> num [1:3] 1 2 3.3</code></pre>
-<div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="no">fac_a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">a</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">fac_a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fac_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">fac_a</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "factor"</code></pre>
-<div class="sourceCode" id="cb61"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">fac_a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">fac_a</span><span class="op">)</span></code></pre></div>
 <pre><code> Factor w/ 3 levels "1","2","3.3": 1 2 3</code></pre>
-<div class="sourceCode" id="cb63"><html><body><pre class="r"><span class="co"># Conversion of integer to factor</span>
-<span class="no">b</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Conversion of integer to factor</span>
+<span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span>, <span class="fl">3L</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "integer"</code></pre>
-<div class="sourceCode" id="cb65"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></code></pre></div>
 <pre><code> int [1:3] 1 2 3</code></pre>
-<div class="sourceCode" id="cb67"><html><body><pre class="r"><span class="no">fac_b</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">b</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">fac_b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fac_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">fac_b</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "factor"</code></pre>
-<div class="sourceCode" id="cb69"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">fac_b</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">fac_b</span><span class="op">)</span></code></pre></div>
 <pre><code> Factor w/ 3 levels "1","2","3": 1 2 3</code></pre>
-<div class="sourceCode" id="cb71"><html><body><pre class="r"><span class="co"># Conversion of character to factor</span>
-<span class="no">c</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"one"</span>,<span class="st">"two"</span>,<span class="st">"three"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Conversion of character to factor</span>
+<span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>,<span class="st">"two"</span>,<span class="st">"three"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "character"</code></pre>
-<div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></code></pre></div>
 <pre><code> chr [1:3] "one" "two" "three"</code></pre>
-<div class="sourceCode" id="cb75"><html><body><pre class="r"><span class="no">fac_c</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">c</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">fac_c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fac_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">fac_c</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "factor"</code></pre>
-<div class="sourceCode" id="cb77"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">fac_c</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">fac_c</span><span class="op">)</span></code></pre></div>
 <pre><code> Factor w/ 3 levels "one","three",..: 1 3 2</code></pre>
 </div>
 <div id="matrix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#matrix" class="anchor"></a>4.3.3 Matrix</h3>
-<p>A ‘matrix’ in <code>R</code> is a vector with the attributes ‘<code>nrow</code>’ and ‘<code>ncol</code>’.</p>
-<div class="sourceCode" id="cb79"><html><body><pre class="r"><span class="co"># Generate 5 * 4 numeric matrix</span>
-<span class="no">m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">1</span>:<span class="fl">20</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">4</span>)
-<span class="no">m</span></pre></body></html></div>
+<p>A ‘matrix’ in <code>R</code> is a vector with the attributes ‘<code>nrow</code>’ and ‘<code>ncol</code>.’</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Generate 5 * 4 numeric matrix</span>
+<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
+<span class="va">m</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]    1    6   11   16
 [2,]    2    7   12   17
 [3,]    3    8   13   18
 [4,]    4    9   14   19
 [5,]    5   10   15   20</code></pre>
-<div class="sourceCode" id="cb81"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">m</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "matrix" "array" </code></pre>
-<div class="sourceCode" id="cb83"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span>(<span class="no">m</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/typeof.html">typeof</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "integer"</code></pre>
-<div class="sourceCode" id="cb85"><html><body><pre class="r"><span class="co"># Dimensions of m</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">m</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Dimensions of m</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> </code></pre></div>
 <pre><code>[1] 5 4</code></pre>
 </div>
 <div id="list" class="section level3">
 <h3 class="hasAnchor">
 <a href="#list" class="anchor"></a>4.3.4 List</h3>
 <p>A ‘list’ is a container containing different objects. The contents of list need not be of the same type or mode. A list can encompass a mixture of data types such as vectors, matrices, data frames, other lists or any other data structure.</p>
-<div class="sourceCode" id="cb87"><html><body><pre class="r"><span class="no">w</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">a</span>, <span class="no">m</span>, <span class="no">d</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">b</span>, <span class="no">c</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">w</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">m</span>, <span class="va">d</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "list"</code></pre>
-<div class="sourceCode" id="cb89"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">w</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span></code></pre></div>
 <pre><code>List of 4
  $ : num [1:3] 1 2 3.3
  $ : int [1:5, 1:4] 1 2 3 4 5 6 7 8 9 10 ...
@@ -401,23 +444,26 @@ Levels: female male</code></pre>
 <h3 class="hasAnchor">
 <a href="#dataframe" class="anchor"></a>4.3.5 Data Frame</h3>
 <p>A ‘data frame’ in <code>R</code> is a special kind of list with every element having equal length. It is very important for handling tabular data in <code>R</code>. It is a array like structure with rows and columns. Each column needs to be of a single data type, however data type can vary between columns.</p>
-<div class="sourceCode" id="cb91"><html><body><pre class="r"><span class="no">L</span> <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">4</span>]
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">4</span>
-<span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"This"</span>, <span class="st">"is"</span>, <span class="st">"a"</span>, <span class="st">"data frame"</span>)
-<span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">L</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="no">y</span>, <span class="no">z</span>)
-<span class="no">df</span></pre></body></html></div>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"is"</span>, <span class="st">"a"</span>, <span class="st">"data frame"</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">L</span>, x <span class="op">=</span> <span class="fl">1</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>
+<span class="va">df</span></code></pre></div>
 <pre><code>  L x y          z
 1 A 1 1       This
 2 B 1 2         is
 3 C 1 3          a
 4 D 1 4 data frame</code></pre>
-<div class="sourceCode" id="cb93"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">df</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   4 obs. of  4 variables:
  $ L: chr  "A" "B" "C" "D"
  $ x: num  1 1 1 1
  $ y: int  1 2 3 4
  $ z: chr  "This" "is" "a" "data frame"</code></pre>
-<div class="sourceCode" id="cb95"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span>(<span class="no">df</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>$names
 [1] "L" "x" "y" "z"
 
@@ -426,9 +472,11 @@ $class
 
 $row.names
 [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb97"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">df</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "1" "2" "3" "4"</code></pre>
-<div class="sourceCode" id="cb99"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">df</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "L" "x" "y" "z"</code></pre>
 </div>
 <div id="functions" class="section level3">
@@ -436,15 +484,17 @@ $row.names
 <a href="#functions" class="anchor"></a>4.3.6 Functions</h3>
 <p>All of the work in <code>R</code> is done by functions. It is an object defining a procedure which takes one or more objects as input (or ‘arguments’), performs some action on them and finally gives a new object as output (or ‘return’). <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code>, <code><a href="https://rdrr.io/r/base/Arithmetic.html">+</a></code>, etc. are all functions.</p>
 <p>For example the function <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> takes a numeric vector as argument and returns the mean as a numeric vector.</p>
-<div class="sourceCode" id="cb101"><html><body><pre class="r"><span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 2.1</code></pre>
 <p>The user can also create custom functions. For example the function <code>foo</code> adds two numbers and gives the result.</p>
-<div class="sourceCode" id="cb103"><html><body><pre class="r"><span class="no">foo</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">n1</span>, <span class="no">n2</span>) {
-  <span class="no">out</span> <span class="kw">&lt;-</span> <span class="no">n1</span> + <span class="no">n2</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">out</span>)
-}
-<span class="fu">foo</span>(<span class="fl">2</span>,<span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">out</span> <span class="op">&lt;-</span> <span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">foo</span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 5</code></pre>
 </div>
 </div>
@@ -453,24 +503,31 @@ $row.names
 <a href="#special-elements" class="anchor"></a>4.4 Special Elements</h2>
 <p>In addition to numbers and text, there are some special elements which can be included in different data objects.</p>
 <p><code>NA</code> (not available) indicates missing data.</p>
-<div class="sourceCode" id="cb105"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2.5</span>, <span class="fl">NA</span>, <span class="fl">8.6</span>)
-<span class="no">y</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">TRUE</span>, <span class="fl">FALSE</span>, <span class="fl">NA</span>)
-<span class="no">z</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"k"</span>, <span class="fl">NA</span>, <span class="st">"m"</span>, <span class="st">"n"</span>, <span class="st">"o"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">x</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="cn">NA</span>, <span class="fl">8.6</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span><span class="op">)</span>
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"k"</span>, <span class="cn">NA</span>, <span class="st">"m"</span>, <span class="st">"n"</span>, <span class="st">"o"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] FALSE  TRUE FALSE</code></pre>
-<div class="sourceCode" id="cb107"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">z</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] FALSE  TRUE FALSE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb109"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/NA.html">anyNA</a></span>(<span class="no">x</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/NA.html">anyNA</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<div class="sourceCode" id="cb111"><html><body><pre class="r"><span class="no">a</span></pre></body></html></div>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span></code></pre></div>
 <pre><code>[1] 1.0 2.0 3.3</code></pre>
-<div class="sourceCode" id="cb113"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">a</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] FALSE FALSE FALSE</code></pre>
 <p><code>Inf</code> indicates infinity.</p>
-<div class="sourceCode" id="cb115"><html><body><pre class="r"><span class="fl">1</span>/<span class="fl">0</span></pre></body></html></div>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span><span class="op">/</span><span class="fl">0</span></code></pre></div>
 <pre><code>[1] Inf</code></pre>
 <p><code>NaN</code> (Not a Number) indicates any undefined value.</p>
-<div class="sourceCode" id="cb117"><html><body><pre class="r"><span class="fl">0</span>/<span class="fl">0</span></pre></body></html></div>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">0</span><span class="op">/</span><span class="fl">0</span></code></pre></div>
 <pre><code>[1] NaN</code></pre>
 </div>
 <div id="indexing" class="section level2">
@@ -478,121 +535,146 @@ $row.names
 <a href="#indexing" class="anchor"></a>4.5 Indexing</h2>
 <p>The <code><a href="https://rdrr.io/r/base/Extract.html">[</a></code> function is used to extract elements of an object by indexing (numeric or logical). Named elements in lists and data frames can be extracted by using the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator.</p>
 <p>Consider a vector <code>a</code>.</p>
-<div class="sourceCode" id="cb119"><html><body><pre class="r"><span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span>, <span class="fl">2.8</span>, <span class="fl">6.7</span>)
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span>, <span class="fl">2.8</span>, <span class="fl">6.7</span><span class="op">)</span>
 <span class="co"># Numeric indexing</span>
 <span class="co"># Extract first element</span>
-<span class="no">a</span>[<span class="fl">1</span>]</pre></body></html></div>
+<span class="va">a</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb121"><html><body><pre class="r"><span class="co"># Extract elements 2:3</span>
-<span class="no">a</span>[<span class="fl">2</span>:<span class="fl">3</span>]</pre></body></html></div>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Extract elements 2:3</span>
+<span class="va">a</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>[1] 2.0 3.3</code></pre>
-<div class="sourceCode" id="cb123"><html><body><pre class="r"><span class="co"># Logical indexing</span>
-<span class="no">a</span>[<span class="no">a</span> <span class="kw">&gt;</span> <span class="fl">3</span>]</pre></body></html></div>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Logical indexing</span>
+<span class="va">a</span><span class="op">[</span><span class="va">a</span> <span class="op">&gt;</span> <span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>[1] 3.3 6.7</code></pre>
 <p>Consider a matrix <code>m</code>.</p>
-<div class="sourceCode" id="cb125"><html><body><pre class="r"><span class="no">m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">1</span>:<span class="fl">9</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">byrow</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">m</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>)
-<span class="no">m</span></pre></body></html></div>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span><span class="op">)</span>
+<span class="va">m</span></code></pre></div>
 <pre><code>     a b c
 [1,] 1 2 3
 [2,] 4 5 6
 [3,] 7 8 9</code></pre>
-<div class="sourceCode" id="cb127"><html><body><pre class="r"><span class="co"># Extract elements</span>
-<span class="no">m</span>[,<span class="fl">2</span>] <span class="co"># 2nd column of matrix</span></pre></body></html></div>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Extract elements</span>
+<span class="va">m</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="co"># 2nd column of matrix</span></code></pre></div>
 <pre><code>[1] 2 5 8</code></pre>
-<div class="sourceCode" id="cb129"><html><body><pre class="r"><span class="no">m</span>[<span class="fl">3</span>,] <span class="co"># 3rd row of matrix</span></pre></body></html></div>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span> <span class="co"># 3rd row of matrix</span></code></pre></div>
 <pre><code>a b c 
 7 8 9 </code></pre>
-<div class="sourceCode" id="cb131"><html><body><pre class="r"><span class="no">m</span>[<span class="fl">2</span>:<span class="fl">3</span>, <span class="fl">1</span>:<span class="fl">3</span>] <span class="co"># rows 2,3 of columns 1,2,3 </span></pre></body></html></div>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co"># rows 2,3 of columns 1,2,3 </span></code></pre></div>
 <pre><code>     a b c
 [1,] 4 5 6
 [2,] 7 8 9</code></pre>
-<div class="sourceCode" id="cb133"><html><body><pre class="r"><span class="no">m</span>[<span class="fl">2</span>,<span class="fl">2</span>] <span class="co"># Element in 2nd column of 2nd row</span></pre></body></html></div>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span> <span class="co"># Element in 2nd column of 2nd row</span></code></pre></div>
 <pre><code>b 
 5 </code></pre>
-<div class="sourceCode" id="cb135"><html><body><pre class="r"><span class="no">m</span>[, <span class="st">'b'</span>] <span class="co"># Column 'b'</span></pre></body></html></div>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span>, <span class="st">'b'</span><span class="op">]</span> <span class="co"># Column 'b'</span></code></pre></div>
 <pre><code>[1] 2 5 8</code></pre>
-<div class="sourceCode" id="cb137"><html><body><pre class="r"><span class="no">m</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'a'</span>, <span class="st">'c'</span>)] <span class="co"># Column 'a' and 'c'</span></pre></body></html></div>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'c'</span><span class="op">)</span><span class="op">]</span> <span class="co"># Column 'a' and 'c'</span></code></pre></div>
 <pre><code>     a c
 [1,] 1 3
 [2,] 4 6
 [3,] 7 9</code></pre>
 <p>Consider a list <code>w</code>.</p>
-<div class="sourceCode" id="cb139"><html><body><pre class="r"><span class="no">w</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">vec</span> <span class="kw">=</span> <span class="no">a</span>, <span class="kw">mat</span> <span class="kw">=</span> <span class="no">m</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">df</span>, <span class="kw">alist</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="no">b</span>, <span class="no">c</span>))
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>vec <span class="op">=</span> <span class="va">a</span>, mat <span class="op">=</span> <span class="va">m</span>, data <span class="op">=</span> <span class="va">df</span>, alist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Indexing by number</span>
-<span class="no">w</span>[<span class="fl">2</span>] <span class="co"># As list structure</span></pre></body></html></div>
+<span class="va">w</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="co"># As list structure</span></code></pre></div>
 <pre><code>$mat
      a b c
 [1,] 1 2 3
 [2,] 4 5 6
 [3,] 7 8 9</code></pre>
-<div class="sourceCode" id="cb141"><html><body><pre class="r"><span class="no">w</span><span class="kw">[[</span><span class="fl">2</span>]] <span class="co"># Without list structure</span></pre></body></html></div>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">w</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># Without list structure</span></code></pre></div>
 <pre><code>     a b c
 [1,] 1 2 3
 [2,] 4 5 6
 [3,] 7 8 9</code></pre>
-<div class="sourceCode" id="cb143"><html><body><pre class="r"><span class="co"># Indexing by name</span>
-<span class="no">w</span>$<span class="no">vec</span></pre></body></html></div>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Indexing by name</span>
+<span class="va">w</span><span class="op">$</span><span class="va">vec</span></code></pre></div>
 <pre><code>[1] 1.0 2.0 3.3 2.8 6.7</code></pre>
-<div class="sourceCode" id="cb145"><html><body><pre class="r"><span class="no">w</span>$<span class="no">data</span></pre></body></html></div>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">w</span><span class="op">$</span><span class="va">data</span></code></pre></div>
 <pre><code>  L x y          z
 1 A 1 1       This
 2 B 1 2         is
 3 C 1 3          a
 4 D 1 4 data frame</code></pre>
 <p>Consider a data frame <code>df</code>.</p>
-<div class="sourceCode" id="cb147"><html><body><pre class="r"><span class="no">df</span></pre></body></html></div>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span></code></pre></div>
 <pre><code>  L x y          z
 1 A 1 1       This
 2 B 1 2         is
 3 C 1 3          a
 4 D 1 4 data frame</code></pre>
-<div class="sourceCode" id="cb149"><html><body><pre class="r"><span class="co"># Indexing by number</span>
-<span class="no">df</span>[,<span class="fl">2</span>] <span class="co"># 2nd column of data frame</span></pre></body></html></div>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Indexing by number</span>
+<span class="va">df</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="co"># 2nd column of data frame</span></code></pre></div>
 <pre><code>[1] 1 1 1 1</code></pre>
-<div class="sourceCode" id="cb151"><html><body><pre class="r"><span class="no">df</span>[<span class="fl">2</span>] <span class="co"># 2nd column of data frame</span></pre></body></html></div>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="co"># 2nd column of data frame</span></code></pre></div>
 <pre><code>  x
 1 1
 2 1
 3 1
 4 1</code></pre>
-<div class="sourceCode" id="cb153"><html><body><pre class="r"><span class="no">df</span>[<span class="fl">3</span>,] <span class="co"># 3rd row of data frame</span></pre></body></html></div>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span> <span class="co"># 3rd row of data frame</span></code></pre></div>
 <pre><code>  L x y z
 3 C 1 3 a</code></pre>
-<div class="sourceCode" id="cb155"><html><body><pre class="r"><span class="no">df</span>[<span class="fl">2</span>:<span class="fl">3</span>, <span class="fl">1</span>:<span class="fl">3</span>] <span class="co"># rows 2,3 of columns 1,2,3 </span></pre></body></html></div>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co"># rows 2,3 of columns 1,2,3 </span></code></pre></div>
 <pre><code>  L x y
 2 B 1 2
 3 C 1 3</code></pre>
-<div class="sourceCode" id="cb157"><html><body><pre class="r"><span class="no">df</span>[<span class="fl">2</span>,<span class="fl">2</span>] <span class="co"># Element in 2nd column of 2nd row</span></pre></body></html></div>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span> <span class="co"># Element in 2nd column of 2nd row</span></code></pre></div>
 <pre><code>[1] 1</code></pre>
-<div class="sourceCode" id="cb159"><html><body><pre class="r"><span class="co"># Indexing by name</span>
-<span class="no">df</span>$<span class="no">L</span></pre></body></html></div>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Indexing by name</span>
+<span class="va">df</span><span class="op">$</span><span class="va">L</span></code></pre></div>
 <pre><code>[1] "A" "B" "C" "D"</code></pre>
-<div class="sourceCode" id="cb161"><html><body><pre class="r"><span class="no">df</span>$<span class="no">z</span></pre></body></html></div>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">z</span></code></pre></div>
 <pre><code>[1] "This"       "is"         "a"          "data frame"</code></pre>
 </div>
 <div id="help-documentation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#help-documentation" class="anchor"></a>4.6 Help Documentation</h2>
-<p>The help documentation regarding any function can be viewed using the <code>?</code> or <code>help()</code> function. The help documentation shows the default usage of the function including, the arguments that are taken by the function and the type of output object returned (‘Value’).</p>
-<div class="sourceCode" id="cb163"><html><body><pre class="r">?<span class="no">ls</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span>(<span class="no">ls</span>)
+<p>The help documentation regarding any function can be viewed using the <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> or <code>help()</code> function. The help documentation shows the default usage of the function including, the arguments that are taken by the function and the type of output object returned (‘Value’).</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">?</span><span class="va">ls</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/help.html">help</a></span><span class="op">(</span><span class="va">ls</span><span class="op">)</span>
 
-?<span class="no">mean</span>
+<span class="op">?</span><span class="va">mean</span>
 
-?<span class="no">setwd</span></pre></body></html></div>
+<span class="op">?</span><span class="va">setwd</span></code></pre></div>
 </div>
 <div id="pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pack" class="anchor"></a>4.7 Packages</h2>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">16376</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">17064</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> command.</p>
-<div class="sourceCode" id="cb164"><html><body><pre class="r"><span class="co"># Install the package 'readxl' for importing data from excel</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="no">readxl</span>)</pre></body></html></div>
-<p>Installed packages can be loaded using the function <code>library()</code>.</p>
-<div class="sourceCode" id="cb165"><html><body><pre class="r"><span class="co"># Install the package 'readxl' for importing data from excel</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">readxl</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install the package 'readxl' for importing data from excel</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">readxl</span><span class="op">)</span></code></pre></div>
+<p>Installed packages can be loaded using the function <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>.</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install the package 'readxl' for importing data from excel</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="impexp" class="section level2">
 <h2 class="hasAnchor">
@@ -732,31 +814,35 @@ $row.names
 </tbody>
 </table>
 <p>The <code>augdata.csv</code> file can be imported into <code>R</code> using the <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function or the <a href="https://readr.tidyverse.org/reference/read_delim.html"><code>read_csv()</code></a> function in the <code>readr</code> package.</p>
-<div class="sourceCode" id="cb166"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="st">"augdata.csv"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"augdata.csv"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "I","II","III": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: num  1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
 <p>The argument <code>stringsAsFactors = FALSE</code> reads the text columns as of type <code>character</code> instead of the default <code>factor</code>.</p>
-<div class="sourceCode" id="cb168"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw">file</span> <span class="kw">=</span> <span class="st">"augdata.csv"</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"augdata.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: chr  "I" "I" "I" "I" ...
  $ trt: num  1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<p>The <code>augdata.xlsx</code> file can be imported into <code>R</code> using the <a href="https://readxl.tidyverse.org/reference/read_excel.html"><code><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel()</a></code></a> function in the <code>readxl</code> package.</p>
-<div class="sourceCode" id="cb170"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">readxl</span>)
-<span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span>(<span class="kw">path</span> <span class="kw">=</span> <span class="st">"augdata.xlsx"</span>)</pre></body></html></div>
+<p>The <code>augdata.xlsx</code> file can be imported into <code>R</code> using the <a href="https://readxl.tidyverse.org/reference/read_excel.html"><code>read_excel()</code></a> function in the <code>readxl</code> package.</p>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"augdata.xlsx"</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: chr  "I" "I" "I" "I" ...
  $ trt: num  1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<p>The tabular data can be exported from <code>R</code> to a <code>.csv</code> (comma-separated-value) file by the <a href="https://www.rdocumentation.org/packages/utils/versions/3.5.1/topics/write.table"><code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code></a> function.</p>
-<div class="sourceCode" id="cb172"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">file</span> <span class="kw">=</span> <span class="st">"augdata.csv"</span>)</pre></body></html></div>
+<p>The tabular data can be exported from <code>R</code> to a <code>.csv</code> (comma-separated-value) file by the <a href="https://www.rdocumentation.org/packages/utils/versions/3.5.1/topics/write.table"><code>write.csv()</code></a> function.</p>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span>, file <span class="op">=</span> <span class="st">"augdata.csv"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="additional-resources" class="section level2">
 <h2 class="hasAnchor">
@@ -792,19 +878,21 @@ $row.names
 <a href="#install" class="anchor"></a>5 Installation of <code>augmentedRCBD</code>
 </h1>
 <p>The package <code>augmentedRCBD</code> can be installed using the following functions.</p>
-<div class="sourceCode" id="cb173"><html><body><pre class="r"><span class="co"># Install from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'augmentedRCBD'</span>, <span class="kw">dependencies</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'augmentedRCBD'</span>, dependencies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Install development version from Github</span>
-<span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'devtools'</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
-<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"aravind-j/augmentedRCBD"</span>)</pre></body></html></div>
-<p>The stable release is hosted in <a href="https://CRAN.R-project.org/package=augmentedRCBD">CRAN</a> <a href="#pack">(see section 4.7)</a>, while the under-development version is hosted as a <a href="https://github.com/aravind-j/augmentedRCBD">Github</a> repository. To install from github, you need to use the <a href="https://devtools.r-lib.org/reference/reexports.html"><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github()</a></code></a> function from <a href="https://devtools.r-lib.org/">`devtools</a> package.</p>
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">'devtools'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"aravind-j/augmentedRCBD"</span><span class="op">)</span></code></pre></div>
+<p>The stable release is hosted in <a href="https://CRAN.R-project.org/package=augmentedRCBD">CRAN</a> <a href="#pack">(see section 4.7)</a>, while the under-development version is hosted as a <a href="https://github.com/aravind-j/augmentedRCBD">Github</a> repository. To install from github, you need to use the <a href="https://devtools.r-lib.org/reference/reexports.html"><code>install_github()</code></a> function from <a href="https://devtools.r-lib.org/">`devtools</a> package.</p>
 <p>Then the package can be loaded using the function</p>
-<div class="sourceCode" id="cb174"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">augmentedRCBD</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/augmentedRCBD">augmentedRCBD</a></span><span class="op">)</span></code></pre></div>
 <pre><code>
 --------------------------------------------------------------------------------
-Welcome to augmentedRCBD version 0.1.3.9000
+Welcome to augmentedRCBD version 0.1.4
 
 
 # To know how to use this package type:
@@ -821,7 +909,7 @@ Welcome to augmentedRCBD version 0.1.3.9000
 # To suppress this message use:
   suppressPackageStartupMessages(library(augmentedRCBD))
 --------------------------------------------------------------------------------</code></pre>
-<p>The current version of the package is 0.1.3. The previous versions are as follows.</p>
+<p>The current version of the package is 0.1.4. The previous versions are as follows.</p>
 <p><strong>Table 2.</strong> Version history of <code>augmentedRCBD</code> <code>R</code> package.</p>
 <table class="table">
 <thead><tr class="header">
@@ -840,6 +928,10 @@ Welcome to augmentedRCBD version 0.1.3.9000
 <tr class="odd">
 <td align="left">0.1.2</td>
 <td align="left">2020-03-19</td>
+</tr>
+<tr class="even">
+<td align="left">0.1.3</td>
+<td align="left">2020-07-27</td>
 </tr>
 </tbody>
 </table>
@@ -1291,19 +1383,22 @@ table should have a header (column names)</code></pre>
 <a href="#augmentedrcbd" class="anchor"></a>7.1 <code>augmentedRCBD()</code>
 </h2>
 <p>Consider the data in <a href="#impexp">Table 1</a>. The data can be imported into <code>R</code> as <a href="#vector">vectors</a> as follows.</p>
-<div class="sourceCode" id="cb177"><html><body><pre class="r"><span class="no">blk</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>)
-<span class="no">trt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span>)
-<span class="no">y1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">92</span>, <span class="fl">79</span>, <span class="fl">87</span>, <span class="fl">81</span>, <span class="fl">96</span>, <span class="fl">89</span>, <span class="fl">82</span>, <span class="fl">79</span>, <span class="fl">81</span>, <span class="fl">81</span>, <span class="fl">91</span>, <span class="fl">79</span>, <span class="fl">78</span>, <span class="fl">83</span>, <span class="fl">77</span>, <span class="fl">78</span>, <span class="fl">78</span>,
-        <span class="fl">70</span>, <span class="fl">75</span>, <span class="fl">74</span>)
-<span class="no">y2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>, <span class="fl">250</span>,
-        <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">92</span>, <span class="fl">79</span>, <span class="fl">87</span>, <span class="fl">81</span>, <span class="fl">96</span>, <span class="fl">89</span>, <span class="fl">82</span>, <span class="fl">79</span>, <span class="fl">81</span>, <span class="fl">81</span>, <span class="fl">91</span>, <span class="fl">79</span>, <span class="fl">78</span>, <span class="fl">83</span>, <span class="fl">77</span>, <span class="fl">78</span>, <span class="fl">78</span>,
+        <span class="fl">70</span>, <span class="fl">75</span>, <span class="fl">74</span><span class="op">)</span>
+<span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>, <span class="fl">250</span>,
+        <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span><span class="op">)</span></code></pre></div>
 <p>The <code>blk</code> and <code>trt</code> vectors with the block and treatment data need to be converted into factors as follows before analysis.</p>
-<div class="sourceCode" id="cb178"><html><body><pre class="r"><span class="co"># Convert block and treatment to factors</span>
-<span class="no">blk</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">blk</span>)
-<span class="no">trt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">trt</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Convert block and treatment to factors</span>
+<span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">blk</span><span class="op">)</span>
+<span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></code></pre></div>
 <p>With the data in appropriate format, the analysis can be performed as follows for the trait <code>y1</code> as follows.</p>
-<div class="sourceCode" id="cb179"><html><body><pre class="r"><span class="no">out1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span>(<span class="no">blk</span>, <span class="no">trt</span>, <span class="no">y1</span>, <span class="kw">method.comp</span> <span class="kw">=</span> <span class="st">"lsd"</span>,
-                      <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,
+                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1385,11 +1480,13 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb181"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">out1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
 <p>Similarly the analysis for the trait <code>y2</code> can be computed as follows.</p>
-<div class="sourceCode" id="cb183"><html><body><pre class="r"><span class="no">out2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span>(<span class="no">blk</span>, <span class="no">trt</span>, <span class="no">y2</span>, <span class="kw">method.comp</span> <span class="kw">=</span> <span class="st">"lsd"</span>,
-                      <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,
+                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1473,21 +1570,25 @@ Method : lsd
 7          7       346.4167 18.274527  6 301.7005 391.1328      56 
 6          6       382.6667 18.274527  6 337.9505 427.3828       67
 10        10       437.6667 18.274527  6 392.9505 482.3828        7</code></pre>
-<div class="sourceCode" id="cb185"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">out2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
 <p>The data can also be imported as a <a href="#dataframe">data frame</a> and then used for analysis. Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb187"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb189"><html><body><pre class="r"><span class="co"># Convert block and treatment to factors</span>
-<span class="no">data</span>$<span class="no">blk</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">data</span>$<span class="no">blk</span>)
-<span class="no">data</span>$<span class="no">trt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">data</span>$<span class="no">trt</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb190"><html><body><pre class="r"><span class="co"># Results for variable y1</span>
-<span class="no">out1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span>(<span class="no">data</span>$<span class="no">blk</span>, <span class="no">data</span>$<span class="no">trt</span>, <span class="no">data</span>$<span class="no">y1</span>, <span class="kw">method.comp</span> <span class="kw">=</span> <span class="st">"lsd"</span>,
-                      <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Convert block and treatment to factors</span>
+<span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span>
+<span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Results for variable y1</span>
+<span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,
+                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1569,11 +1670,13 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb192"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">out1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
-<div class="sourceCode" id="cb194"><html><body><pre class="r"><span class="co"># Results for variable y2</span>
-<span class="no">out2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span>(<span class="no">data</span>$<span class="no">blk</span>, <span class="no">data</span>$<span class="no">trt</span>, <span class="no">data</span>$<span class="no">y2</span>, <span class="kw">method.comp</span> <span class="kw">=</span> <span class="st">"lsd"</span>,
-                     <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Results for variable y2</span>
+<span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,
+                     alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1657,13 +1760,15 @@ Method : lsd
 7          7       346.4167 18.274527  6 301.7005 391.1328      56 
 6          6       382.6667 18.274527  6 337.9505 427.3828       67
 10        10       437.6667 18.274527  6 392.9505 482.3828        7</code></pre>
-<div class="sourceCode" id="cb196"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">out2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
 <p>Check genotypes are inferred by default on the basis of number of replications. However, if some test genotypes are also replicated, they may also be falsely detected as checks. To avoid this, the checks can be specified by the <code>checks</code> argument.</p>
-<div class="sourceCode" id="cb198"><html><body><pre class="r"><span class="co"># Results for variable y1 (checks specified)</span>
-<span class="no">out1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span>(<span class="no">data</span>$<span class="no">blk</span>, <span class="no">data</span>$<span class="no">trt</span>, <span class="no">data</span>$<span class="no">y1</span>, <span class="kw">method.comp</span> <span class="kw">=</span> <span class="st">"lsd"</span>,
-                      <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                      <span class="kw">checks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Results for variable y1 (checks specified)</span>
+<span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,
+                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span>,
+                      checks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1745,10 +1850,11 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb200"><html><body><pre class="r"><span class="co"># Results for variable y2 (checks specified)</span>
-<span class="no">out2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span>(<span class="no">data</span>$<span class="no">blk</span>, <span class="no">data</span>$<span class="no">trt</span>, <span class="no">data</span>$<span class="no">y2</span>, <span class="kw">method.comp</span> <span class="kw">=</span> <span class="st">"lsd"</span>,
-                      <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                      <span class="kw">checks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Results for variable y2 (checks specified)</span>
+<span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,
+                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span>,
+                      checks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1839,8 +1945,9 @@ Method : lsd
 <a href="#print-augmentedrcbd" class="anchor"></a>7.2 <code>print.augmentedRCBD()</code>
 </h2>
 <p>The results of analysis in an object of class <code>augmentedRCBD</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb202"><html><body><pre class="r"><span class="co"># Print results for variable y1</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">out1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Print results for variable y1</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -1922,8 +2029,9 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb204"><html><body><pre class="r"><span class="co"># Print results for variable y2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">out2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Print results for variable y2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -2012,9 +2120,10 @@ Method : lsd
 <h2 class="hasAnchor">
 <a href="#describe-augmentedrcbd" class="anchor"></a>7.3 <code>describe.augmentedRCBD()</code>
 </h2>
-<p>The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D’Agostino test of skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and Glynn (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be computed as follows.</p>
-<div class="sourceCode" id="cb206"><html><body><pre class="r"><span class="co"># Descriptive statistics for variable y1</span>
-<span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span>(<span class="no">out1</span>)</pre></body></html></div>
+<p>The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D’Agostino test of skewness (<span class="citation"><a href="#ref-dagostino_transformation_1970" role="doc-biblioref">D’Agostino</a> (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation"><a href="#ref-anscombe_distribution_1983" role="doc-biblioref">Anscombe and Glynn</a> (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be computed as follows.</p>
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Descriptive statistics for variable y1</span>
+<span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
 <pre><code>$Count
 [1] 12
 
@@ -2046,8 +2155,9 @@ $`Kurtosis(statistic)`
 
 $`Kurtosis(p.value)`
 [1] 0.1997357</code></pre>
-<div class="sourceCode" id="cb208"><html><body><pre class="r"><span class="co"># Descriptive statistics for variable y2</span>
-<span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span>(<span class="no">out2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Descriptive statistics for variable y2</span>
+<span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
 <pre><code>$Count
 [1] 12
 
@@ -2085,50 +2195,63 @@ $`Kurtosis(p.value)`
 <a href="#freqdist-augmentedrcbd" class="anchor"></a>7.4 <code>freqdist.augmentedRCBD()</code>
 </h2>
 <p>The frequency distribution of the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be plotted as follows.</p>
-<div class="sourceCode" id="cb210"><html><body><pre class="r"><span class="co"># Frequency distribution for variable y1</span>
-<span class="no">freq1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(<span class="no">out1</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Trait 1"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Frequency distribution for variable y1</span>
+<span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb212"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">freq1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png" width="700"></p>
-<div class="sourceCode" id="cb213"><html><body><pre class="r"><span class="co"># Frequency distribution for variable y2</span>
-<span class="no">freq2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(<span class="no">out2</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Trait 2"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Frequency distribution for variable y2</span>
+<span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb215"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">freq2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-2.png" width="700"></p>
 <p>The colours for the check values may be specified using the argument <code>check.col</code>.</p>
-<div class="sourceCode" id="cb216"><html><body><pre class="r"><span class="no">colset</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span>)
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">colset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span><span class="op">)</span>
 
 <span class="co"># Frequency distribution for variable y1</span>
-<span class="no">freq1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(<span class="no">out1</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Trait 1"</span>, <span class="kw">check.col</span> <span class="kw">=</span> <span class="no">colset</span>)</pre></body></html></div>
+<span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb218"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">freq1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-1.png" width="700"></p>
-<div class="sourceCode" id="cb219"><html><body><pre class="r"><span class="co"># Frequency distribution for variable y2</span>
-<span class="no">freq2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(<span class="no">out2</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Trait 2"</span>, <span class="kw">check.col</span> <span class="kw">=</span> <span class="no">colset</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Frequency distribution for variable y2</span>
+<span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb221"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">freq2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-2.png" width="700"></p>
 <p>The default the check highlighting can be avoided using the argument <code>highlight.check = FALSE</code>.</p>
-<div class="sourceCode" id="cb222"><html><body><pre class="r"><span class="co"># Frequency distribution for variable y1</span>
-<span class="no">freq1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(<span class="no">out1</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Trait 1"</span>,
-                                <span class="kw">highlight.check</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Frequency distribution for variable y1</span>
+<span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,
+                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb224"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">freq1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-1.png" width="700"></p>
-<div class="sourceCode" id="cb225"><html><body><pre class="r"><span class="co"># Frequency distribution for variable y2</span>
-<span class="no">freq2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span>(<span class="no">out2</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Trait 2"</span>,
-                                <span class="kw">highlight.check</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Frequency distribution for variable y2</span>
+<span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,
+                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb227"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">freq2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-2.png" width="700"></p>
 </div>
 <div id="gva-augmentedrcbd" class="section level2">
 <h2 class="hasAnchor">
 <a href="#gva-augmentedrcbd" class="anchor"></a>7.5 <code>gva.augmentedRCBD()</code>
 </h2>
-<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation">Federer and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows.</p>
-<div class="sourceCode" id="cb228"><html><body><pre class="r"><span class="co"># Genetic variability statistics for variable y1</span>
-<span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span>(<span class="no">out1</span>)</pre></body></html></div>
+<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation"><a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">Federer and Searle</a> (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation"><a href="#ref-burton_quantitative_1951" role="doc-biblioref">Burton</a> (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation"><a href="#ref-burton_qualitative_1952" role="doc-biblioref">Burton</a> (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation"><a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">Sivasubramaniam and Madhavamenon</a> (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation"><a href="#ref-lush_intra-sire_1940" role="doc-biblioref">Lush</a> (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation"><a href="#ref-robinson_quantitative_1966" role="doc-biblioref">Robinson</a> (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation"><a href="#ref-johnson_estimates_1955" role="doc-biblioref">Johnson et al.</a> (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows.</p>
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Genetic variability statistics for variable y1</span>
+<span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
 <pre><code>$Mean
 [1] 81.0625
 
@@ -2170,8 +2293,9 @@ $GAM
 
 $`GAM category`
 [1] "Medium"</code></pre>
-<div class="sourceCode" id="cb230"><html><body><pre class="r"><span class="co"># Genetic variability statistics for variable y2</span>
-<span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span>(<span class="no">out2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Genetic variability statistics for variable y2</span>
+<span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
 <pre><code>$Mean
 [1] 298.4792
 
@@ -2219,13 +2343,14 @@ $`GAM category`
 <a href="#report-augmentedrcbd" class="anchor"></a>7.5 <code>report.augmentedRCBD()</code>
 </h2>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb232"><html><body><pre class="r"><span class="co"># MS word report for variable y1</span>
-<span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span>(<span class="kw">aug</span> <span class="kw">=</span> <span class="no">out1</span>,
-                     <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"augmentedRCBD output - y1.docx"</span>))
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># MS word report for variable y1</span>
+<span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,
+                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"augmentedRCBD output - y1.docx"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># MS word report for variable y2</span>
-<span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span>(<span class="kw">aug</span> <span class="kw">=</span> <span class="no">out1</span>,
-                     <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(), <span class="st">"augmentedRCBD output - y2.docx"</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,
+                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"augmentedRCBD output - y2.docx"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
 <strong>Fig. 6</strong>: MS Word report generated with <code>report.agumentedRCBD</code> function.
@@ -2243,25 +2368,28 @@ $`GAM category`
 <a href="#augmentedrcbd-bulk" class="anchor"></a>8.1 <code>augmentedRCBD.bulk()</code>
 </h2>
 <p>Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb233"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb235"><html><body><pre class="r"><span class="co"># Convert block and treatment to factors</span>
-<span class="no">data</span>$<span class="no">blk</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">data</span>$<span class="no">blk</span>)
-<span class="no">data</span>$<span class="no">trt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="no">data</span>$<span class="no">trt</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Convert block and treatment to factors</span>
+<span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span>
+<span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></code></pre></div>
 <p>Rather than performing the analysis individually for each variable/trait separately using <code>augmentedRCBD</code>, the analysis can be performed simultaneously for for both the traits using <code>augmentedRCBD.bulk</code> function. It is a wrapper around the <code>augmentedRCBD</code> core function and its associated helper functions.</p>
 <p>However in this case treatment comparisons/grouping by least significant difference or Tukey’s honest significant difference method is not computed. Also the output object size is reduced using the <code>simplify = TRUE</code> argument in the <code>augmentedRCBD</code> function.</p>
 <p>The logical arguments <code>describe</code>, <code>freqdist</code> and <code>gva</code> can be used to specify whether to generate the descriptive statistics, frequency distribution plots and genetic variability statistics respectively. If <code>gva = TRUE</code>, then plots to compare phenotypic and genotypic coefficient of variation, broad sense heritability and genetic advance over mean between traits are also generated.</p>
-<div class="sourceCode" id="cb236"><html><body><pre class="r"><span class="no">bout</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">block</span> <span class="kw">=</span> <span class="st">"blk"</span>,
-                           <span class="kw">treatment</span> <span class="kw">=</span> <span class="st">"trt"</span>, <span class="kw">traits</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>),
-                           <span class="kw">checks</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.05</span>, <span class="kw">describe</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                           <span class="kw">freqdist</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">gva</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                           <span class="kw">check.col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"brown"</span>, <span class="st">"darkcyan"</span>,
-                                         <span class="st">"forestgreen"</span>, <span class="st">"purple"</span>),
-                           <span class="kw">console</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, block <span class="op">=</span> <span class="st">"blk"</span>,
+                           treatment <span class="op">=</span> <span class="st">"trt"</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,
+                           checks <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, describe <span class="op">=</span> <span class="cn">TRUE</span>,
+                           freqdist <span class="op">=</span> <span class="cn">TRUE</span>, gva <span class="op">=</span> <span class="cn">TRUE</span>,
+                           check.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"darkcyan"</span>,
+                                         <span class="st">"forestgreen"</span>, <span class="st">"purple"</span><span class="op">)</span>,
+                           console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>
 ANOVA for y1 computed (1/2)
 
@@ -2331,9 +2459,12 @@ alpha = 0.05                                Comparison    y1    y2
 
 Descriptive Statistics
 ===================
-  Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness Kurtosis
-1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns  3.52 ns 
-2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns  2.79 ns 
+         Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness
+skew...1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns 
+skew...2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns 
+         Kurtosis
+skew...1 3.52 ns 
+skew...2 2.79 ns 
 
 
 Genetic Variability Analysis
@@ -2374,8 +2505,9 @@ Treatment Means
 <a href="#print-augmentedrcbd-bulk" class="anchor"></a>8.2 <code>print.augmentedRCBD.bulk()</code>
 </h2>
 <p>The results of analysis in an object of class <code>augmentedRCBD.bulk</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb238"><html><body><pre class="r"><span class="co"># Print results</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">bout</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Print results</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></code></pre></div>
 <pre><code>
 Augmented Design Details
 ========================
@@ -2441,9 +2573,12 @@ alpha = 0.05                                Comparison    y1    y2
 
 Descriptive Statistics
 ===================
-  Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness Kurtosis
-1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns  3.52 ns 
-2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns  2.79 ns 
+         Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness
+skew...1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns 
+skew...2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns 
+         Kurtosis
+skew...1 3.52 ns 
+skew...2 2.79 ns 
 
 
 Genetic Variability Analysis
@@ -2484,10 +2619,11 @@ Treatment Means
 <a href="#report-augmentedrcbd-bulk" class="anchor"></a>8.3 <code>report.augmentedRCBD.bulk()</code>
 </h2>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb240"><html><body><pre class="r"><span class="co"># MS word report</span>
-<span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span>(<span class="kw">aug.bulk</span> <span class="kw">=</span> <span class="no">bout</span>,
-                          <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span>(),
-                          <span class="st">"augmentedRCBD bulk output.docx"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># MS word report</span>
+<span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,
+                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
+                          <span class="st">"augmentedRCBD bulk output.docx"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
 <strong>Fig. 8</strong>: MS Word report generated with <code>report.agumentedRCBD.bulk</code> function.
@@ -2501,9 +2637,9 @@ Treatment Means
 <pre><code>
 To cite the R package 'augmentedRCBD' in publications use:
 
-  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2020).
+  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2021).
   augmentedRCBD: Analysis of Augmented Randomised Complete Block
-  Designs. R package version 0.1.3.9000,
+  Designs. R package version 0.1.4,
   https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
 A BibTeX entry for LaTeX users is
@@ -2511,8 +2647,8 @@ A BibTeX entry for LaTeX users is
   @Manual{,
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-    year = {2020},
-    note = {R package version 0.1.3.9000},
+    year = {2021},
+    note = {R package version 0.1.4},
     note = {https://aravind-j.github.io/augmentedRCBD/},
     note = {https://cran.r-project.org/package=augmentedRCBD},
   }
@@ -2524,8 +2660,9 @@ citing the package.</code></pre>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>10 Session Info</h1>
-<div class="sourceCode" id="cb242"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span>()</pre></body></html></div>
-<pre><code>R Under development (unstable) (2020-07-22 r78897)
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>R version 4.0.4 (2021-02-15)
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 Running under: Windows 10 x64 (build 19041)
 
@@ -2540,72 +2677,73 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] diagram_1.6.4            shape_1.4.4              augmentedRCBD_0.1.3.9000
+[1] diagram_1.6.5       shape_1.4.5         augmentedRCBD_0.1.4
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.5         mvtnorm_1.1-1      lattice_0.20-41    multcompView_0.1-8
- [5] zoo_1.8-8          assertthat_0.2.1   rprojroot_1.3-2    digest_0.6.25     
- [9] R6_2.4.1           plyr_1.8.6         backports_1.1.8    evaluate_0.14     
-[13] coda_0.19-3        httr_1.4.2         ggplot2_3.3.2      highr_0.8         
-[17] pillar_1.4.6       Rdpack_1.0.0       gdtools_0.2.2      rlang_0.4.7       
-[21] curl_4.3           multcomp_1.4-13    uuid_0.1-4         rstudioapi_0.11   
-[25] data.table_1.13.0  Matrix_1.2-18      flextable_0.5.10   rmarkdown_2.3     
-[29] pkgdown_1.5.1      labeling_0.3       desc_1.2.0         moments_0.14      
-[33] splines_4.1.0      stringr_1.4.0      RCurl_1.98-1.2     munsell_0.5.0     
-[37] compiler_4.1.0     xfun_0.16          pkgconfig_2.0.3    systemfonts_0.2.3 
-[41] base64enc_0.1-3    htmltools_0.5.0    tidyselect_1.1.0   tibble_3.0.3      
-[45] codetools_0.2-16   XML_3.99-0.5       crayon_1.3.4       dplyr_1.0.0       
-[49] bitops_1.0-6       MASS_7.3-51.6      grid_4.1.0         xtable_1.8-4      
-[53] gtable_0.3.0       lifecycle_0.2.0    magrittr_1.5       scales_1.1.1      
-[57] bibtex_0.4.2.2     zip_2.0.4          estimability_1.3   stringi_1.4.6     
-[61] farver_2.0.3       reshape2_1.4.4     fs_1.4.2           xml2_1.3.2        
-[65] ellipsis_0.3.1     generics_0.0.2     vctrs_0.3.2        sandwich_2.5-1    
-[69] TH.data_1.0-10     tools_4.1.0        glue_1.4.1         officer_0.3.12    
-[73] purrr_0.3.4        emmeans_1.4.8      survival_3.2-3     yaml_2.2.1        
-[77] colorspace_1.4-1   gbRd_0.4-11        memoise_1.1.0      knitr_1.29        </code></pre>
+ [1] httr_1.4.2         splines_4.0.4      moments_0.14       Rdpack_2.1        
+ [5] assertthat_0.2.1   highr_0.8          yaml_2.2.1         gdtools_0.2.3     
+ [9] pillar_1.4.7       lattice_0.20-41    glue_1.4.2         uuid_0.1-4        
+[13] digest_0.6.27      rbibutils_2.0      colorspace_2.0-0   sandwich_3.0-0    
+[17] htmltools_0.5.1.1  Matrix_1.3-2       plyr_1.8.6         XML_3.99-0.5      
+[21] pkgconfig_2.0.3    purrr_0.3.4        xtable_1.8-4       mvtnorm_1.1-1     
+[25] scales_1.1.1       officer_0.3.16     emmeans_1.5.4      tibble_3.0.6      
+[29] farver_2.0.3       generics_0.1.0     ggplot2_3.3.3      ellipsis_0.3.1    
+[33] TH.data_1.0-10     cachem_1.0.4       survival_3.2-7     magrittr_2.0.1    
+[37] crayon_1.4.1       memoise_2.0.0      estimability_1.3   evaluate_0.14     
+[41] fs_1.5.0           MASS_7.3-53.1      xml2_1.3.2         textshaping_0.3.0 
+[45] tools_4.0.4        data.table_1.13.6  gbRd_0.4-11        lifecycle_1.0.0   
+[49] multcomp_1.4-16    stringr_1.4.0      flextable_0.6.3    munsell_0.5.0     
+[53] zip_2.1.1          compiler_4.0.4     pkgdown_1.6.1      multcompView_0.1-8
+[57] systemfonts_1.0.1  rlang_0.4.10       grid_4.0.4         RCurl_1.98-1.2    
+[61] labeling_0.4.2     bitops_1.0-6       base64enc_0.1-3    rmarkdown_2.6     
+[65] gtable_0.3.0       codetools_0.2-18   DBI_1.1.1          curl_4.3          
+[69] reshape2_1.4.4     R6_2.5.0           zoo_1.8-8          knitr_1.31        
+[73] dplyr_1.0.4        fastmap_1.1.0      rprojroot_2.0.2    ragg_1.1.0        
+[77] desc_1.2.0         stringi_1.5.3      Rcpp_1.0.6         vctrs_0.3.6       
+[81] tidyselect_1.1.0   xfun_0.21          coda_0.19-4       </code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references">
-<div id="ref-anscombe_distribution_1983">
-<p>Anscombe, F. J., and Glynn, W. J. (1983). Distribution of the kurtosis statistic for normal samples. <em>Biometrika</em> 70, 227–234. doi:<a href="https://doi.org/10.1093/biomet/70.1.227">10.1093/biomet/70.1.227</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-anscombe_distribution_1983" class="csl-entry">
+Anscombe, F. J., and Glynn, W. J. (1983). Distribution of the kurtosis statistic <em>b</em><span class="math inline">\(_{{2}}\)</span> for normal samples. <em>Biometrika</em> 70, 227–234. doi:<a href="https://doi.org/10.1093/biomet/70.1.227">10.1093/biomet/70.1.227</a>.
 </div>
-<div id="ref-burton_quantitative_1951">
-<p>Burton, G. W. (1951). Quantitative inheritance in pearl millet (<em>Pennisetum glaucum</em>). <em>Agronomy Journal</em> 43, 409–417. doi:<a href="https://doi.org/10.2134/agronj1951.00021962004300090001x">10.2134/agronj1951.00021962004300090001x</a>.</p>
+<div id="ref-burton_quantitative_1951" class="csl-entry">
+Burton, G. W. (1951). Quantitative inheritance in pearl millet (<em><span>Pennisetum</span> glaucum</em>). <em>Agronomy Journal</em> 43, 409–417. doi:<a href="https://doi.org/10.2134/agronj1951.00021962004300090001x">10.2134/agronj1951.00021962004300090001x</a>.
 </div>
-<div id="ref-burton_qualitative_1952">
-<p>Burton, G. W. (1952). Qualitative inheritance in grasses. Vol. 1. in <em>Proceedings of the 6th International Grassland Congress, Pennsylvania State College</em>, 17–23.</p>
+<div id="ref-burton_qualitative_1952" class="csl-entry">
+Burton, G. W. (1952). Qualitative inheritance in grasses. <span>Vol</span>. 1. in <em>Proceedings of the 6th <span>International</span> <span>Grassland</span> <span>Congress</span>, <span>Pennsylvania</span> <span>State</span> <span>College</span></em>, 17–23.
 </div>
-<div id="ref-dagostino_transformation_1970">
-<p>D’Agostino, R. B. (1970). Transformation to normality of the null distribution of. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679">10.1093/biomet/57.3.679</a>.</p>
+<div id="ref-dagostino_transformation_1970" class="csl-entry">
+D’Agostino, R. B. (1970). Transformation to normality of the null distribution of <em>g</em><span class="math inline">\(_{{1}}\)</span>. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679">10.1093/biomet/57.3.679</a>.
 </div>
-<div id="ref-federer_augmented_1956">
-<p>Federer, W. T. (1956a). Augmented (or Hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
+<div id="ref-federer_augmented_1956" class="csl-entry">
+Federer, W. T. (1956b). Augmented (or <span>Hoonuiaku</span>) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.
 </div>
-<div id="ref-federer_augmented_1956-1">
-<p>Federer, W. T. (1956b). Augmented (or Hoonuiaku) Designs. Cornell University, New York Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841">https://ecommons.cornell.edu/handle/1813/32841</a>.</p>
+<div id="ref-federer_augmented_1956-1" class="csl-entry">
+Federer, W. T. (1956a). Augmented (or <span>Hoonuiaku</span>) <span>Designs</span>. Cornell University, New York Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841">https://ecommons.cornell.edu/handle/1813/32841</a>.
 </div>
-<div id="ref-federer_augmented_1961">
-<p>Federer, W. T. (1961). Augmented designs with one-way elimination of heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837">10.2307/2527837</a>.</p>
+<div id="ref-federer_augmented_1961" class="csl-entry">
+Federer, W. T. (1961). Augmented designs with one-way elimination of heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837">10.2307/2527837</a>.
 </div>
-<div id="ref-federerModelConsiderationsVariance1976">
-<p>Federer, W. T., and Searle, S. R. (1976). Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version. Cornell University, New York Available at: <a href="https://hdl.handle.net/1813/32691">https://hdl.handle.net/1813/32691</a>.</p>
+<div id="ref-federerModelConsiderationsVariance1976" class="csl-entry">
+Federer, W. T., and Searle, S. R. (1976). Model <span>Considerations</span> and <span>Variance</span> <span>Component</span> <span>Estimation</span> in <span>Augmented</span> <span>Completely</span> <span>Randomized</span> and <span>Randomized</span> <span>Complete</span> <span>Blocks</span> <span>Designs</span>-<span>Preliminary</span> <span>Version</span>. Cornell University, New York Available at: <a href="https://hdl.handle.net/1813/32691">https://hdl.handle.net/1813/32691</a>.
 </div>
-<div id="ref-johnson_estimates_1955">
-<p>Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates of genetic and environmental variability in soybeans. <em>Agronomy journal</em> 47, 314–318. doi:<a href="https://doi.org/10.2134/agronj1955.00021962004700070009x">10.2134/agronj1955.00021962004700070009x</a>.</p>
+<div id="ref-johnson_estimates_1955" class="csl-entry">
+Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates of genetic and environmental variability in soybeans. <em>Agronomy journal</em> 47, 314–318. doi:<a href="https://doi.org/10.2134/agronj1955.00021962004700070009x">10.2134/agronj1955.00021962004700070009x</a>.
 </div>
-<div id="ref-lush_intra-sire_1940">
-<p>Lush, J. L. (1940). Intra-sire correlations or regressions of offspring on dam as a method of estimating heritability of characteristics. <em>Proceedings of the American Society of Animal Nutrition</em> 1940, 293–301. doi:<a href="https://doi.org/10.2527/jas1940.19401293x">10.2527/jas1940.19401293x</a>.</p>
+<div id="ref-lush_intra-sire_1940" class="csl-entry">
+Lush, J. L. (1940). Intra-sire correlations or regressions of offspring on dam as a method of estimating heritability of characteristics. <em>Proceedings of the American Society of Animal Nutrition</em> 1940, 293–301. doi:<a href="https://doi.org/10.2527/jas1940.19401293x">10.2527/jas1940.19401293x</a>.
 </div>
-<div id="ref-robinson_quantitative_1966">
-<p>Robinson, H. F. (1966). Quantitative genetics in relation to breeding on centennial of Mendelism. <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
+<div id="ref-robinson_quantitative_1966" class="csl-entry">
+Robinson, H. F. (1966). Quantitative genetics in relation to breeding on centennial of <span>Mendelism</span>. <em>Indian Journal of Genetics and Plant Breeding</em>, 171.
 </div>
-<div id="ref-sivasubramaniam_genotypic_1973">
-<p>Sivasubramaniam, S., and Madhavamenon, P. (1973). Genotypic and phenotypic variability in rice. <em>The Madras Agricultural Journal</em> 60, 1093–1096.</p>
+<div id="ref-sivasubramaniam_genotypic_1973" class="csl-entry">
+Sivasubramaniam, S., and Madhavamenon, P. (1973). Genotypic and phenotypic variability in rice. <em>The Madras Agricultural Journal</em> 60, 1093–1096.
 </div>
-<div id="ref-tippmann_programming_2015">
-<p>Tippmann, S. (2015). Programming tools: Adventures with R. <em>Nature News</em> 517, 109. doi:<a href="https://doi.org/10.1038/517109a">10.1038/517109a</a>.</p>
+<div id="ref-tippmann_programming_2015" class="csl-entry">
+Tippmann, S. (2015). Programming tools: <span>Adventures</span> with <span>R</span>. <em>Nature News</em> 517, 109. doi:<a href="https://doi.org/10.1038/517109a">10.1038/517109a</a>.
 </div>
 </div>
 </div>
@@ -2626,7 +2764,7 @@ loaded via a namespace (and not attached):
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

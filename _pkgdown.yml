@@ -21,14 +21,14 @@ navbar:
     - icon: fa-code
       text: Reference
       href: reference/index.html
-    - icon: fa-file-o
+    - icon: far fa-file
       text: Tutorial
       href: articles/Data_Analysis_with_augmentedRCBD.html
-    - icon: fa-newspaper-o
+    - icon: far fa-newspaper
       text: News
       href: news/index.html
   right:
-    - icon: fa-github-alt
+    - icon: fab fa-github-alt
       text: Github
       href: https://github.com/aravind-j/augmentedRCBD
 

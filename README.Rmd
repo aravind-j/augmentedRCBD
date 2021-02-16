@@ -52,7 +52,7 @@ cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Rdoc](https://www.rdocumentation.org/badges/version/augmentedRCBD)](https://www.rdocumentation.org/packages/augmentedRCBD)
 [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
-[![Analytics](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
+[![.](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
 
 ***
 

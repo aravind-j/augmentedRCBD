@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot Frequency Distribution from <code>augmentedRCBD</code> Output — freqdist.augmentedRCBD • augmentedRCBD</title>
+<title>Plot Frequency Distribution from augmentedRCBD Output — freqdist.augmentedRCBD • augmentedRCBD</title>
 
 
 <!-- jquery -->
@@ -47,7 +47,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Plot Frequency Distribution from <code>augmentedRCBD</code> Output — freqdist.augmentedRCBD" />
+<meta property="og:title" content="Plot Frequency Distribution from augmentedRCBD Output — freqdist.augmentedRCBD" />
 <meta property="og:description" content="freqdist.augmentedRCBD plots frequency distribution from an object of
 class augmentedRCBD along with the corresponding normal curve and check
 means with standard errors (if specified by argument highlight.check)." />
@@ -92,7 +92,7 @@ means with standard errors (if specified by argument highlight.check)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.3.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.4</span>
       </span>
     </div>
 
@@ -100,28 +100,28 @@ means with standard errors (if specified by argument highlight.check)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     Reference
   </a>
 </li>
 <li>
   <a href="../articles/Data_Analysis_with_augmentedRCBD.html">
-    <span class="fa fa-file-o"></span>
+    <span class="far fa-file"></span>
      
     Tutorial
   </a>
 </li>
 <li>
   <a href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
+    <span class="far fa-newspaper"></span>
      
     News
   </a>
@@ -130,7 +130,7 @@ means with standard errors (if specified by argument highlight.check)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/aravind-j/augmentedRCBD">
-    <span class="fa fa-github-alt"></span>
+    <span class="fab fa-github-alt"></span>
      
     Github
   </a>
@@ -165,7 +165,7 @@ class <code>augmentedRCBD</code> along with the corresponding normal curve and c
 means with standard errors (if specified by argument <code>highlight.check</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>aug</span>, <span class='no'>xlab</span>, <span class='kw'>highlight.check</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>check.col</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</pre>
+    <pre class="usage"><span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>aug</span>, <span class='va'>xlab</span>, highlight.check <span class='op'>=</span> <span class='cn'>TRUE</span>, check.col <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,19 +201,20 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Example data</span>
-<span class='no'>blk</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>),<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>,<span class='fl'>6</span>),<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>3</span>,<span class='fl'>7</span>))
-<span class='no'>trt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>11</span>, <span class='fl'>12</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>9</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>8</span>, <span class='fl'>6</span>, <span class='fl'>10</span>)
-<span class='no'>y1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>92</span>, <span class='fl'>79</span>, <span class='fl'>87</span>, <span class='fl'>81</span>, <span class='fl'>96</span>, <span class='fl'>89</span>, <span class='fl'>82</span>, <span class='fl'>79</span>, <span class='fl'>81</span>, <span class='fl'>81</span>, <span class='fl'>91</span>, <span class='fl'>79</span>, <span class='fl'>78</span>, <span class='fl'>83</span>, <span class='fl'>77</span>, <span class='fl'>78</span>, <span class='fl'>78</span>,
-        <span class='fl'>70</span>, <span class='fl'>75</span>, <span class='fl'>74</span>)
-<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>258</span>, <span class='fl'>224</span>, <span class='fl'>238</span>, <span class='fl'>278</span>, <span class='fl'>347</span>, <span class='fl'>300</span>, <span class='fl'>289</span>, <span class='fl'>260</span>, <span class='fl'>220</span>, <span class='fl'>237</span>, <span class='fl'>227</span>, <span class='fl'>281</span>, <span class='fl'>311</span>, <span class='fl'>250</span>,
-        <span class='fl'>240</span>, <span class='fl'>268</span>, <span class='fl'>287</span>, <span class='fl'>226</span>, <span class='fl'>395</span>, <span class='fl'>450</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>blk</span>, <span class='no'>trt</span>, <span class='no'>y1</span>, <span class='no'>y2</span>)
+<span class='va'>blk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>7</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>6</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>trt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>11</span>, <span class='fl'>12</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>9</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>8</span>, <span class='fl'>6</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>y1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>92</span>, <span class='fl'>79</span>, <span class='fl'>87</span>, <span class='fl'>81</span>, <span class='fl'>96</span>, <span class='fl'>89</span>, <span class='fl'>82</span>, <span class='fl'>79</span>, <span class='fl'>81</span>, <span class='fl'>81</span>, <span class='fl'>91</span>, <span class='fl'>79</span>, <span class='fl'>78</span>, <span class='fl'>83</span>, <span class='fl'>77</span>, <span class='fl'>78</span>, <span class='fl'>78</span>,
+        <span class='fl'>70</span>, <span class='fl'>75</span>, <span class='fl'>74</span><span class='op'>)</span>
+<span class='va'>y2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>258</span>, <span class='fl'>224</span>, <span class='fl'>238</span>, <span class='fl'>278</span>, <span class='fl'>347</span>, <span class='fl'>300</span>, <span class='fl'>289</span>, <span class='fl'>260</span>, <span class='fl'>220</span>, <span class='fl'>237</span>, <span class='fl'>227</span>, <span class='fl'>281</span>, <span class='fl'>311</span>, <span class='fl'>250</span>,
+        <span class='fl'>240</span>, <span class='fl'>268</span>, <span class='fl'>287</span>, <span class='fl'>226</span>, <span class='fl'>395</span>, <span class='fl'>450</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>blk</span>, <span class='va'>trt</span>, <span class='va'>y1</span>, <span class='va'>y2</span><span class='op'>)</span>
 <span class='co'># Convert block and treatment to factors</span>
-<span class='no'>data</span>$<span class='no'>blk</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>data</span>$<span class='no'>blk</span>)
-<span class='no'>data</span>$<span class='no'>trt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>data</span>$<span class='no'>trt</span>)
+<span class='va'>data</span><span class='op'>$</span><span class='va'>blk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>blk</span><span class='op'>)</span>
+<span class='va'>data</span><span class='op'>$</span><span class='va'>trt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>trt</span><span class='op'>)</span>
 <span class='co'># Results for variable y1</span>
-<span class='no'>out1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='augmentedRCBD.html'>augmentedRCBD</a></span>(<span class='no'>data</span>$<span class='no'>blk</span>, <span class='no'>data</span>$<span class='no'>trt</span>, <span class='no'>data</span>$<span class='no'>y1</span>, <span class='kw'>method.comp</span> <span class='kw'>=</span> <span class='st'>"lsd"</span>,
-                      <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>console</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+<span class='va'>out1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='augmentedRCBD.html'>augmentedRCBD</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>blk</span>, <span class='va'>data</span><span class='op'>$</span><span class='va'>trt</span>, <span class='va'>data</span><span class='op'>$</span><span class='va'>y1</span>, method.comp <span class='op'>=</span> <span class='st'>"lsd"</span>,
+                      alpha <span class='op'>=</span> <span class='fl'>0.05</span>, group <span class='op'>=</span> <span class='cn'>TRUE</span>, console <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Augmented Design Details
 #&gt; ========================
 #&gt;                                        
@@ -294,8 +295,9 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 #&gt; 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 #&gt; 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 #&gt; 7          7       93.50000 5.609598  6 79.77381 107.22619     2</div><div class='input'><span class='co'># Results for variable y2</span>
-<span class='no'>out2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='augmentedRCBD.html'>augmentedRCBD</a></span>(<span class='no'>data</span>$<span class='no'>blk</span>, <span class='no'>data</span>$<span class='no'>trt</span>, <span class='no'>data</span>$<span class='no'>y2</span>, <span class='kw'>method.comp</span> <span class='kw'>=</span> <span class='st'>"lsd"</span>,
-                     <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>console</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
+<span class='va'>out2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='augmentedRCBD.html'>augmentedRCBD</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>blk</span>, <span class='va'>data</span><span class='op'>$</span><span class='va'>trt</span>, <span class='va'>data</span><span class='op'>$</span><span class='va'>y2</span>, method.comp <span class='op'>=</span> <span class='st'>"lsd"</span>,
+                     alpha <span class='op'>=</span> <span class='fl'>0.05</span>, group <span class='op'>=</span> <span class='cn'>TRUE</span>, console <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt; Augmented Design Details
 #&gt; ========================
 #&gt;                                        
@@ -379,14 +381,27 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 #&gt; 6          6       382.6667 18.274527  6 337.9505 427.3828       67
 #&gt; 10        10       437.6667 18.274527  6 392.9505 482.3828        7</div><div class='input'>
 <span class='co'># Frequency distribution plots</span>
-<span class='no'>freq1</span> <span class='kw'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>out1</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trait 1"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>freq1</span>)</div><div class='output co'>#&gt; [1] "gtable" "gTree"  "grob"   "gDesc" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>freq1</span>)</div><div class='img'><img src='freqdist.augmentedRCBD-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>freq2</span> <span class='kw'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>out2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trait 2"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>freq2</span>)</div><div class='img'><img src='freqdist.augmentedRCBD-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>freq1</span> <span class='op'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>out1</span>, xlab <span class='op'>=</span> <span class='st'>"Trait 1"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>freq1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "gtable" "gTree"  "grob"   "gDesc" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>freq1</span><span class='op'>)</span>
+</div><div class='img'><img src='freqdist.augmentedRCBD-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>freq2</span> <span class='op'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>out2</span>, xlab <span class='op'>=</span> <span class='st'>"Trait 2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>freq2</span><span class='op'>)</span>
+</div><div class='img'><img src='freqdist.augmentedRCBD-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change check colours</span>
-<span class='no'>colset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red3"</span>, <span class='st'>"green4"</span>, <span class='st'>"purple3"</span>, <span class='st'>"darkorange3"</span>)
-<span class='no'>freq1</span> <span class='kw'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>out1</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trait 1"</span>, <span class='kw'>check.col</span> <span class='kw'>=</span> <span class='no'>colset</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>freq1</span>)</div><div class='img'><img src='freqdist.augmentedRCBD-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>freq2</span> <span class='kw'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>out2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trait 2"</span>, <span class='kw'>check.col</span> <span class='kw'>=</span> <span class='no'>colset</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>freq2</span>)</div><div class='img'><img src='freqdist.augmentedRCBD-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>colset</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red3"</span>, <span class='st'>"green4"</span>, <span class='st'>"purple3"</span>, <span class='st'>"darkorange3"</span><span class='op'>)</span>
+<span class='va'>freq1</span> <span class='op'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>out1</span>, xlab <span class='op'>=</span> <span class='st'>"Trait 1"</span>, check.col <span class='op'>=</span> <span class='va'>colset</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>freq1</span><span class='op'>)</span>
+</div><div class='img'><img src='freqdist.augmentedRCBD-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>freq2</span> <span class='op'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>out2</span>, xlab <span class='op'>=</span> <span class='st'>"Trait 2"</span>, check.col <span class='op'>=</span> <span class='va'>colset</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>freq2</span><span class='op'>)</span>
+</div><div class='img'><img src='freqdist.augmentedRCBD-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Without checks highlighted</span>
-<span class='no'>freq1</span> <span class='kw'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>out1</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trait 1"</span>,
-                                <span class='kw'>highlight.check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>freq1</span>)</div><div class='img'><img src='freqdist.augmentedRCBD-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>freq2</span> <span class='kw'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span>(<span class='no'>out2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Trait 2"</span>,
-                                <span class='kw'>highlight.check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>freq2</span>)</div><div class='img'><img src='freqdist.augmentedRCBD-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='va'>freq1</span> <span class='op'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>out1</span>, xlab <span class='op'>=</span> <span class='st'>"Trait 1"</span>,
+                                highlight.check <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>freq1</span><span class='op'>)</span>
+</div><div class='img'><img src='freqdist.augmentedRCBD-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='va'>freq2</span> <span class='op'>&lt;-</span> <span class='fu'>freqdist.augmentedRCBD</span><span class='op'>(</span><span class='va'>out2</span>, xlab <span class='op'>=</span> <span class='st'>"Trait 2"</span>,
+                                highlight.check <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 2 rows containing missing values (geom_bar).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>freq2</span><span class='op'>)</span>
+</div><div class='img'><img src='freqdist.augmentedRCBD-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -402,7 +417,7 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

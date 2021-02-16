@@ -1,6 +1,6 @@
 Package: augmentedRCBD
 Title: Analysis of Augmented Randomised Complete Block Designs
-Version: 0.1.3.9000
+Version: 0.1.4
 Authors@R: c(
     person(given = "J.", family = "Aravind",
            email = "j.aravind@icar.gov.in",
@@ -33,7 +33,7 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 URL: https://github.com/aravind-j/augmentedRCBD
     https://CRAN.R-project.org/package=augmentedRCBD
-    https://aravind-j.github.io/augmentedRCBD
+    https://aravind-j.github.io/augmentedRCBD/
     https://doi.org/10.5281/zenodo.1310011
 BugReports: https://github.com/aravind-j/augmentedRCBD/issues
 Imports:
@@ -56,5 +56,6 @@ Suggests:
     knitr,
     rmarkdown,
     pander,
-    testthat
+    testthat,
+    agricolae
 RdMacros: Rdpack

@@ -5,7 +5,7 @@
 
 ## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
-###### Version : [0.1.3.9000](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.1.4](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-2018: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### *Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>*
 
@@ -18,7 +18,7 @@
 4.  Division of Germplasm Evaluation, ICAR-National Bureau of Plant
     Genetic Resources, New Delhi.
 
------
+------------------------------------------------------------------------
 
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.0.2-6666ff.svg)](https://cran.r-project.org/)
@@ -31,15 +31,15 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=gre
 [![develVersion](https://img.shields.io/badge/devel%20version-0.1.3.9000-orange.svg)](https://github.com/aravind-j/augmentedRCBD)
 <!-- [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/aravind-j/augmentedRCBD/total.svg)] -->
 [![Project Status:
-WIP](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2020--09--29-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
-[![Rdoc](http://www.rdocumentation.org/badges/version/augmentedRCBD)](http://www.rdocumentation.org/packages/augmentedRCBD)
+WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2021--02--15-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Rdoc](https://www.rdocumentation.org/badges/version/augmentedRCBD)](https://www.rdocumentation.org/packages/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
-[![Analytics](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
+[![.](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
 
------
+------------------------------------------------------------------------
 
 ## Description
 
@@ -104,26 +104,25 @@ To cite the methods in the package use:
 citation("augmentedRCBD")
 ```
 
-``` 
 
-To cite the R package 'augmentedRCBD' in publications use:
+    To cite the R package 'augmentedRCBD' in publications use:
 
-  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2020).
-  augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. R package
-  version 0.1.3.9000,
-  https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2021).
+      augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs.
+      R package version 0.1.4,
+      https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
-A BibTeX entry for LaTeX users is
+    A BibTeX entry for LaTeX users is
 
-  @Manual{,
-    title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
-    author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-    year = {2020},
-    note = {R package version 0.1.3.9000},
-    note = {https://aravind-j.github.io/augmentedRCBD/},
-    note = {https://cran.r-project.org/package=augmentedRCBD},
-  }
+      @Manual{,
+        title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
+        author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
+        year = {2021},
+        note = {R package version 0.1.4},
+        note = {https://aravind-j.github.io/augmentedRCBD/},
+        note = {https://cran.r-project.org/package=augmentedRCBD},
+      }
 
-This free and open-source software implements academic research by the authors and
-co-workers. If you use it, please support the project by citing the package.
-```
+    This free and open-source software implements academic research by the
+    authors and co-workers. If you use it, please support the project by
+    citing the package.

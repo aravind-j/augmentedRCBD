@@ -1,3 +1,28 @@
+# Version 0.1.4 - First submission
+
+* Fixed `cairo_pdf` unconditional use.
+* Fixed issue with vignette in Solaris build.
+* Tests show the following invalid doi/url which is for an article hosted in JSTOR. The doi is working on multiple browsers and networks on my end. Kindly advise.
+>   Found the following (possibly) invalid URLs:
+>     URL: https://doi.org/10.2307/2527837
+>       From: README.md
+>       Status: 403
+>       Message: Forbidden
+>   
+>   Found the following (possibly) invalid DOIs:
+>     DOI: 10.2307/2527837
+>       From: DESCRIPTION
+>       Status: Forbidden
+>       Message: 403
+
+### Test environments
+* local Windows 10 Home v1803, R-release (R 4.0.4) & R-devel (R 4.1.0 Pre-release).
+* local Ubuntu 16.04, R-release (R 4.0.4) & R-devel (R 4.1.0 Pre-release).
+* win-builder, R-release (R 4.0.4) & R-devel (R 4.1.0 Pre-release).
+* rhub:solaris-x86-patched - i386-pc-solaris2.10 (32-bit), R-release (R 4.0.3).
+* rhub:solaris-x86-patched-ods - i386-pc-solaris2.10 (32-bit), R-release (R 4.0.3).
+* rhub:macos-highsierra-release-cran - x86_64-apple-darwin17.0 (64-bit), R-release (R 4.0.3).
+
 # Version 0.1.3 - Second submission
 
 * Reverted to using system certificates instead of RCurl ones for fetching and displaying version history as suggested by Prof. Brian Ripley (ripley@stats.ox.ac.uk).

@@ -3,6 +3,9 @@
 ## UPDATED FUNCTIONS:
 * `report.augmentedRCBD.bulk` - Fixed same value being shown for SE and CD (Thanks to muralib5002@gmail.com).
 
+## VIGNETTE:
+* Removed cairo dependency.
+
 # augmentedRCBD  0.1.3
 
 ## UPDATED FUNCTIONS:
