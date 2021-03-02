@@ -1,0 +1,69 @@
+/* EXTRA 'COOL' CSS STYLESHEET BY AURORA-MAREVIV. MAR 2017 - GPL-v3*/
+
+
+/*link formatting*/
+:root {
+    --lightBlue: #478ca7;
+    --lightBlue-hover: #82b5c9;
+    --lightBlue-alpha: rgba(71, 140, 167, 0.3);
+
+    --lightGreen: #4ea500;
+    --lightGreen-hover: #73c46c;
+    --lightGreen-alpha03: rgba(78, 165, 0, 0.3);
+
+    --darkRed: #951d2d;
+    --darkRed-alpha: rgba(149, 29, 45, 0.3);
+    --lightRed: #c13c40;  /*#c13c40*/
+    --lightRed-hover: #cf8383;
+    --lightRed-alpha: rgba(193, 60, 64, 0.3);
+
+    --lightOrange: #984807;
+    --lightOrange-hover: #c47535;
+    --lightOrange-alpha03: rgba(152, 72, 7, 0.3);
+
+    --lightGrey: #ebebeb;  /*default sidebar link color #ebebeb, rgba(235, 235, 235)*/
+    --lightGrey-alpha03: rgba(235, 235, 235, 0.3);
+    --lightGrey-alpha06: rgba(235, 235, 235, 0.6);
+    --lightGrey-alpha08: rgba(235, 235, 235, 0.8);
+    --darkGrey-code: #8b9fa7; /*#657b83*/
+    --lightGrey-background: #f7f8f8;
+    --lightGrey-code: #d6dbdb; /*#bbc4c4*/
+    --darkGrey-background: #3b4444;
+    --darkGrey-background-alpha08: rgba(59, 68, 68, 0.8);
+    --darkGrey-background-alpha06: rgba(59, 68, 68, 0.6);
+    --darkGrey-background-alpha03: rgba(59, 68, 68, 0.3);
+    --white: #ffffff;
+    --white-alpha: rgba(255, 255, 255, 0.95);
+    --transparent: rgba(255, 255, 255, 0);
+}
+
+/*general link formating*/
+a:link, a:visited  {
+	color: var(--lightOrange);
+	text-decoration: none;
+}
+a:hover{
+	color: var(--lightOrange-hover);
+	text-decoration: none;
+}
+
+/*navbar default link formatting*/
+.navbar, .navbar-nav, .navbar-default {
+  background-color: var(--lightOrange) !important;
+  border-color: var(--lightOrange) !important;
+}
+/*navbar active link formatting*/
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus,
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus,
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  background-color: var(--lightOrange-hover) !important;
+  border-color: var(--lightOrange-hover) !important;
+}
+
+/*button formatting*/
+.btn, .btn-primary, .btn-copy-ex {
+  background-color: var(--lightOrange) !important;
+  border-color: var(--lightOrange) !important;
+}
