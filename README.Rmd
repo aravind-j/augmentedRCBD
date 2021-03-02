@@ -48,6 +48,7 @@ dver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("augmen
 cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver, "-orange.svg)](https://github.com/aravind-j/augmentedRCBD)", sep = ""))
 ```
 [![Github Code Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![R-CMD-check](https://github.com/aravind-j/augmentedRCBD/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/augmentedRCBD/actions)
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)

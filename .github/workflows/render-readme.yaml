@@ -1,0 +1,39 @@
+# Modified from
+# - https://github.com/r-lib/actions/tree/master/examples#render-rmarkdown
+# - https://github.com/gavinsimpson/gratia/blob/master/.github/workflows/readme-renderer.yaml
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+name: Render Readme
+
+jobs:
+  render:
+    name: Render Readme
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v1
+      - name: Install rmarkdown, remotes, and the local package
+        run: |
+          install.packages("remotes")
+          remotes::install_local(".")
+          remotes::install_cran("rmarkdown")
+          remotes::install_cran("devtools")
+          remotes::install_cran("kableExtra")
+        shell: Rscript {0}
+      - name: Render README.md using rmarkdown
+        run: Rscript -e 'rmarkdown::render("README.Rmd", output_format = "github_document")'
+      - name: Commit rendered README
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add README.md README.html
+          git commit -m "Re-build README.md" || echo "No changes to commit"
+          git push origin master || echo "No changes to commit"

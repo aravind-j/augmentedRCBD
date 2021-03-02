@@ -28,3 +28,4 @@
 ^vignettes/rstudio panes\.png$
 ^vignettes/rstudio\.png$
 ^CRAN-RELEASE$
+^\.github$
