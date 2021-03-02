@@ -16,10 +16,25 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
+
+      - name: Query dependencies
+      run: |
+        install.packages('remotes')
+        saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+      shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
       - name: Install rmarkdown, remotes, and the local package
         run: |
           install.packages("remotes")
@@ -28,8 +43,10 @@ jobs:
           remotes::install_cran("devtools")
           remotes::install_cran("kableExtra")
         shell: Rscript {0}
+
       - name: Render README.md using rmarkdown
         run: Rscript -e 'rmarkdown::render("README.Rmd", output_format = "github_document")'
+
       - name: Commit rendered README
         run: |
           git config --local user.email "actions@github.com"
