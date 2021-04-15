@@ -35,7 +35,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2021--03--06-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2021--04--15-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website -
@@ -258,8 +258,8 @@ citation("augmentedRCBD")
 
     To cite the R package 'augmentedRCBD' in publications use:
 
-      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2021).  augmentedRCBD:
-      Analysis of Augmented Randomised Complete Block Designs. R package version 0.1.4,
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2021).  augmentedRCBD: Analysis of Augmented Randomised
+      Complete Block Designs. R package version 0.1.4.9000,
       https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
     A BibTeX entry for LaTeX users is
@@ -268,10 +268,10 @@ citation("augmentedRCBD")
         title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
         author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
         year = {2021},
-        note = {R package version 0.1.4},
+        note = {R package version 0.1.4.9000},
         note = {https://aravind-j.github.io/augmentedRCBD/},
         note = {https://cran.r-project.org/package=augmentedRCBD},
       }
 
-    This free and open-source software implements academic research by the authors and
-    co-workers. If you use it, please support the project by citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If you use it, please
+    support the project by citing the package.

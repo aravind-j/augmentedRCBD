@@ -27,7 +27,6 @@ Description: Functions for analysis of data generated from experiments in
 Copyright: 2015-2021, ICAR-NBPGR
 License: GPL-2 | GPL-3
 Encoding: UTF-8
-LazyData: true
 Depends: R (>= 3.0.1)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
