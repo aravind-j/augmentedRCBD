@@ -41,6 +41,7 @@ Imports:
     flextable,
     ggplot2,
     grDevices,
+    mathjaxr,
     methods,
     moments,
     multcomp,
@@ -57,4 +58,6 @@ Suggests:
     pander,
     testthat,
     agricolae
-RdMacros: Rdpack
+RdMacros: 
+    Rdpack,
+    mathjaxr

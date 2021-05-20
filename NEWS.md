@@ -1,6 +1,7 @@
 # augmentedRCBD  0.1.5
 
 ## OTHER NOTES:
+* Converted all equations in Rd files to `MathJax`using `mathjaxr`.
 * Fixed 'LazyData' is specified without a 'data' directory (as there is no `/data` folder).
 
 # augmentedRCBD  0.1.4
