@@ -49,7 +49,7 @@
 
 <meta property="og:title" content="Perform Genetic Variability Analysis on augmentedRCBD Output — gva.augmentedRCBD" />
 <meta property="og:description" content="gva.augmentedRCBD performs genetic variability analysis on an object of
-class augmentedRCBD." />
+class augmentedRCBD. " />
 
 
 
@@ -160,7 +160,7 @@ class augmentedRCBD." />
 
     <div class="ref-description">
     <p><code>gva.augmentedRCBD</code> performs genetic variability analysis on an object of
-class <code>augmentedRCBD</code>.</p>
+class <code>augmentedRCBD</code>. <script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script></p>
     </div>
 
     <pre class="usage"><span class='fu'>gva.augmentedRCBD</span><span class='op'>(</span><span class='va'>aug</span>, k <span class='op'>=</span> <span class='fl'>2.063</span><span class='op'>)</span></pre>
@@ -185,19 +185,18 @@ Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p>
 <dt>Mean</dt><dd><p>The
  mean value.</p></dd> <dt>PV</dt><dd><p>Phenotyic variance.</p></dd> <dt>GV</dt><dd><p>Genotyipc variance.</p></dd>
  <dt>EV</dt><dd><p>Environmental variance.</p></dd> <dt>GCV</dt><dd><p>Genotypic coefficient of
- variation</p></dd> <dt>GCV category</dt><dd><p>The GCV category according to
+ variation</p></dd> <dt>GCV category</dt><dd><p>The \(GCV\) category according to
  Sivasubramaniam and Madhavamenon (1973)
 .</p></dd>
- <dt>PCV</dt><dd><p>Phenotypic coefficient of variation</p></dd> <dt>PCV category</dt><dd><p>The PCV
- category according to
+ <dt>PCV</dt><dd><p>Phenotypic coefficient of variation</p></dd> <dt>PCV category</dt><dd><p>The
+ \(PCV\) category according to
  Sivasubramaniam and Madhavamenon (1973)
 .</p></dd>
  <dt>ECV</dt><dd><p>Environmental coefficient of variation</p></dd> <dt>hBS</dt><dd><p>The
- broad-sense heritability
- (<i>H<sup>2</sup></i>)
+ broad-sense heritability (\(H^{2}\))
  (Lush 1940)
 .</p></dd> <dt>hBS category</dt><dd><p>The
- <i>H<sup>2</sup></i> category according to
+ \(H^{2}\) category according to
  Robinson (1966)
 .</p></dd>
  <dt>GA</dt><dd><p>Genetic advance
@@ -206,7 +205,7 @@ Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p>
  advance as per cent of mean
  (Johnson et al. 1955)
 .</p></dd> <dt>GAM category</dt><dd><p>The
- GAM category according to
+ \(GAM\) category according to
  Johnson et al. (1955)
 .</p></dd>
 
@@ -215,76 +214,48 @@ Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p>
     <p><code>gva.augmentedRCBD</code> performs genetic variability analysis from the ANOVA
 results in an object of class <code>augmentedRCBD</code> and computes several
 variability estimates.</p>
-<p>The phenotypic, genotypic and environmental variance
-(<i>&sigma;<sup>2</sup><sub>p</sub></i>,
-<i>&sigma;<sup>2</sup><sub>g</sub></i>
-and
-<i>&sigma;<sup>2</sup><sub>e</sub></i>
-) are obtained from the ANOVA tables according to the expected value of mean
-square described by Federer and Searle (1976) as follows:</p>
-<p><p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>p</sub></em> = Mean sum of squares of
-test treatments</p> <p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>e</sub></em> = Mean sum of squares of
-residuals</p> <p style="text-align:
-center;"><em>&sigma;<sup>2</sup><sub>g</sub></em> =
-<em>&sigma;<sup>2</sup><sub>p</sub></em> &minus;
-<em>&sigma;<sup>2</sup><sub>e</sub></em></p></p>
-<p>Phenotypic and genotypic coefficients of variation
-(<i>PCV</i> and
-<i>GCV</i>) are estimated according to Burton
-(1951, 1952) as follows:</p>
-<p><p style="text-align: center;"><em>PCV =
-<big>[</big><sup>&sigma;<sup>2</sup><sub>p</sub></sup> &frasl; <sub>&radic;
-(<span style="text-decoration:overline">x</span>)</sub><big>]</big></em>
-&times; 100</p> <p style="text-align: center;"><em>GCV =
-<big>[</big><sup>&sigma;<sup>2</sup><sub>g</sub></sup> &frasl; <sub>&radic;
-(<span style="text-decoration:overline">x</span>)</sub><big>]</big></em>
-&times; 100</p></p>
-<p>Where <i><span style="text-decoration:
-overline;">x</span></i> is the mean.</p>
-<p>The estimates of <i>PCV</i> and
-<i>GCV</i> are categorised according to
+<p>The phenotypic, genotypic and environmental variance (\(\sigma^{2}_{p}\),
+\(\sigma^{2}_{g}\) and \(\sigma^{2}_{e}\) ) are obtained from the
+ANOVA tables according to the expected value of mean square described by
+Federer and Searle (1976) as follows:</p>
+<p>\[\sigma^{2}_{g} = \sigma^{2}_{p} - \sigma^{2}_{e}\]</p>
+<p>Phenotypic and genotypic coefficients of variation (\(PCV\) and
+\(GCV\)) are estimated according to Burton (1951, 1952) as follows:</p>
+<p>\[GCV = \frac{\sigma^{2}_{g}}{\sqrt{\overline{x}}} \times 100\]</p>
+<p>Where \(\overline{x}\) is the mean.</p>
+<p>The estimates of \(PCV\) and \(GCV\) are categorised according to
 Sivasubramanian and Madhavamenon (1978) as follows:</p>
 <table class='table'>
 <tr><td><strong><em>CV</em> (%)</strong></td><td><strong>Category</strong></td></tr>
-<tr><td>x
-< 10</td><td>Low</td></tr>
-<tr><td>10
-&le; x < 20</td><td>Medium</td></tr>
-<tr><td>&ge; 20</td><td>High</td></tr>
+<tr><td>x \( <
+\) 10</td><td>Low</td></tr>
+<tr><td>10 \(\le\) x \( < \) 20</td><td>Medium</td></tr>
+<tr><td>\(\ge\) 20</td><td>High</td></tr>
 </table>
 
 
-<p>The broad-sense heritability
-(<i>H<sup>2</sup></i>) is calculated
-according to method of Lush (1940) as follows:</p>
-<p><p style="text-align: center;"><em>H<sup>2</sup> =
-<sup>&sigma;<sup>2</sup><sub>g</sub></sup> &frasl;
-<sub>&sigma;<sup>2</sup><sub>p</sub></sub></em></p></p>
-<p>The estimates of broad-sense heritability
-(<i>H<sup>2</sup></i>) are categorised
+<p>The broad-sense heritability (\(H^{2}\)) is calculated according to
+method of Lush (1940) as follows:</p>
+<p>\[H^{2} = \frac{\sigma^{2}_{g}}{\sigma^{2}_{p}}\]</p>
+<p>The estimates of broad-sense heritability (\(H^{2}\)) are categorised
 according to Robinson (1966) as follows:</p>
 <table class='table'>
-<tr><td><strong><i>H<sup>2</sup></i></strong></td><td><strong>Category</strong></td></tr>
-<tr><td>x < 30</td><td>Low</td></tr>
-<tr><td>30 &le; x < 60</td><td>Medium</td></tr>
-<tr><td>&ge; 60</td><td>High</td></tr>
+<tr><td><strong>\(H^{2}\)</strong></td><td><strong>Category</strong></td></tr>
+<tr><td>x \( <
+\) 30</td><td>Low</td></tr>
+<tr><td>30 \(\le\) x \( < \) 60</td><td>Medium</td></tr>
+<tr><td>\(\ge\) 60</td><td>High</td></tr>
 </table>
 
 
-<p>Genetic advance (<i>GA</i>) is estimated
-and categorised according to Johnson et al., (1955) as follows:</p>
-<p><p style="text-align: center;"><em>GA = k &times;
-&sigma;<sub>g</sub> &times; <big>[</big><sup>H<sup>2</sup></sup> &frasl;
-</sub>100</sub><big>]</big></em></p></p>
-<p>Where the constant <i>k</i> is the standardized
-selection differential or selection intensity. The value of
-<i>k</i> at 5% proportion selected is 2.063.
-Values of <i>k</i> at other selected proportions
-are available in Appendix Table A of Falconer and Mackay (1996).</p>
-<p>Selection intensity (<i>k</i>) can also be
-computed in R as below:</p>
+<p>Genetic advance (\(GA\)) is estimated and categorised according to
+Johnson et al., (1955) as follows:</p>
+<p>\[GA = k \times \sigma_{g} \times \frac{H^{2}}{100}\]</p>
+<p>Where the constant \(k\) is the standardized selection differential or
+selection intensity. The value of \(k\) at 5% proportion selected is
+2.063. Values of \(k\) at other selected proportions are available in
+Appendix Table A of Falconer and Mackay (1996).</p>
+<p>Selection intensity (\(k\)) can also be computed in R as below:</p>
 <p>If <code>p</code> is the proportion of selected individuals, then deviation of
 truncation point from mean (<code>x</code>) and selection intensity (<code>k</code>) are
 as follows:</p>
@@ -417,23 +388,16 @@ recreated as follows.</p>
 
 
 <p>Where <strong>p%</strong> is the selected percentage of individuals from a
-population, <strong>x</strong> is the deviation of the point of truncation of
-selected individuals from population mean and <strong>i</strong> is the selection
-intensity.</p>
-<p>Genetic advance as per cent of mean
-(<i>GAM</i>) are estimated and categorised
-according to Johnson et al., (1955) as follows:</p>
-<p><p style="text-align: center;"><em>GAM = <big>[</big>
-<sup>GA</sup> &frasl; <sub><span
-style="text-decoration:overline">x</span></sub> <big>]</big> &times;
-100</em></p></p>
+population, <strong>x</strong> is the deviation of the point of truncation of selected
+individuals from population mean and <strong>i</strong> is the selection intensity.</p>
+<p>Genetic advance as per cent of mean (\(GAM\)) are estimated and
+categorised according to Johnson et al., (1955) as follows:</p>
+<p>\[GAM = \frac{GA}{\overline{x}} \times 100\]</p>
 <table class='table'>
 <tr><td><em><strong>GAM</strong></em></td><td><strong>Category</strong></td></tr>
-<tr><td>x
-< 10</td><td>Low</td></tr>
-<tr><td>10
-&le; x < 20</td><td>Medium</td></tr>
-<tr><td>&ge; 20</td><td>High</td></tr>
+<tr><td>x \( < \) 10</td><td>Low</td></tr>
+<tr><td>10 \(\le\) x \( < \) 20</td><td>Medium</td></tr>
+<tr><td>\(\ge\) 20</td><td>High</td></tr>
 </table>
 
 
