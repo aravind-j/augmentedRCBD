@@ -252,6 +252,8 @@
 #'
 #'\insertRef{johnson_estimates_1955}{augmentedRCBD}
 #'
+#'\insertRef{robinson_genetic_1955}{augmentedRCBD}
+#'
 #'\insertRef{robinson_quantitative_1966}{augmentedRCBD}
 #'
 #'\insertRef{dudley_interpretation_1969}{augmentedRCBD}
@@ -266,7 +268,8 @@
 #'  squares of "Treatment: Test" are significant.
 #'
 #'  Negative estimates of variance components if computed are not abnormal. For
-#'  information on how to deal with these, refer Dudley and Moll (1969).
+#'  information on how to deal with these, refer Robinson (1955) and Dudley and
+#'  Moll (1969).
 #'
 #'@import mathjaxr
 #'@importFrom methods is
@@ -300,6 +303,16 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class "augmentedRCBD"')
+  }
+
+  if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
+    pval <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Treatment: Test", 6]
+  } else {
+    pval <- aug$`ANOVA, Block Adjusted`[[1]]$`Pr(>F)`["Test"]
+  }
+
+  if (pval < 0.05) {
+    warning('P-value for "Treatment: Test" is < 0.05.')
   }
 
   if (is.data.frame(aug$`ANOVA, Block Adjusted`)){

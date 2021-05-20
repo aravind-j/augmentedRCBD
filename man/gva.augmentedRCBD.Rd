@@ -240,7 +240,8 @@ Genetic variability analysis needs to be performed only if the sum of
  squares of "Treatment: Test" are significant.
 
  Negative estimates of variance components if computed are not abnormal. For
- information on how to deal with these, refer Dudley and Moll (1969).
+ information on how to deal with these, refer Robinson (1955) and Dudley and
+ Moll (1969).
 }
 \examples{
 # Example data
@@ -273,6 +274,8 @@ gva.augmentedRCBD(out2)
 \insertRef{burton_qualitative_1952}{augmentedRCBD}
 
 \insertRef{johnson_estimates_1955}{augmentedRCBD}
+
+\insertRef{robinson_genetic_1955}{augmentedRCBD}
 
 \insertRef{robinson_quantitative_1966}{augmentedRCBD}
 

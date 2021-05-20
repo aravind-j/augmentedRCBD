@@ -927,6 +927,8 @@ out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
 
 In case the large number of treatments or genotypes, it is advisable to avoid treatment comparisons with the `group = FALSE` argument as it will be memory and processor intensive. Further it is advised to simplify output with `simplify = TRUE` in order to reduce output object size.
 
+If `truncate.means = TRUE`, then any negative adjusted means will be truncated to zero with a warning.
+
 ## 7.2 `print.augmentedRCBD()`
 
 The results of analysis in an object of class `augmentedRCBD` can be printed to the console as follows.
@@ -995,7 +997,7 @@ plot(freq2)
 
 ## 7.5 `gva.augmentedRCBD()`
 
-The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (@federerModelConsiderationsVariance1976), phenotypic, genotypic and environmental coefficient of variation (@burton_quantitative_1951, @burton_qualitative_1952), category of phenotypic and genotypic coefficient of variation according to @sivasubramaniam_genotypic_1973, broad-sense heritability (*H^2^*) (@lush_intra-sire_1940), *H^2^* category according to @robinson_quantitative_1966, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to @johnson_estimates_1955 are computed from an object of class `augmentedRCBD` as follows.
+The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (@federerModelConsiderationsVariance1976), phenotypic, genotypic and environmental coefficient of variation (@burton_quantitative_1951, @burton_qualitative_1952), category of phenotypic and genotypic coefficient of variation according to @sivasubramaniam_genotypic_1973, broad-sense heritability (*H^2^*) (@lush_intra-sire_1940), *H^2^* category according to @robinson_quantitative_1966, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to @johnson_estimates_1955 are computed from an object of class `augmentedRCBD` as follows. Genetic variability analysis needs to be performed only if the sum of squares of "Treatment: Test" are significant. 
 
 ```{r}
 # Genetic variability statistics for variable y1
@@ -1004,6 +1006,8 @@ gva.augmentedRCBD(out1)
 # Genetic variability statistics for variable y2
 gva.augmentedRCBD(out2)
 ```
+
+Negative estimates of variance components if computed are not abnormal. For information on how to deal with these, refer @robinson_genetic_1955 and @dudley_interpretation_1969. 
 
 ## 7.5 `report.augmentedRCBD()`
 
