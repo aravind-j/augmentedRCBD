@@ -12,3 +12,5 @@ vignettes/Data_Analysis_with_augmentedRCBD.html
 vignettes/Data_Analysis_with_augmentedRCBD.knit.md
 vignettes/Data_Analysis_with_augmentedRCBD.utf8.md
 vignettes/rlogo.png
+.DS_Store
+.httr-oauth
