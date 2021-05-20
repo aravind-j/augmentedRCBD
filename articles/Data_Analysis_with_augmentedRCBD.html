@@ -668,7 +668,7 @@ $row.names
 <div id="pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pack" class="anchor"></a>4.7 Packages</h2>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">17633</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">17632</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install the package 'readxl' for importing data from excel</span>
@@ -1916,6 +1916,7 @@ Method : lsd
 6          6       382.6667 18.274527  6 337.9505 427.3828       67
 10        10       437.6667 18.274527  6 392.9505 482.3828        7</code></pre>
 <p>In case the large number of treatments or genotypes, it is advisable to avoid treatment comparisons with the <code>group = FALSE</code> argument as it will be memory and processor intensive. Further it is advised to simplify output with <code>simplify = TRUE</code> in order to reduce output object size.</p>
+<p>If <code>truncate.means = TRUE</code>, then any negative adjusted means will be truncated to zero with a warning.</p>
 </div>
 <div id="print-augmentedrcbd" class="section level2">
 <h2 class="hasAnchor">
@@ -2225,7 +2226,7 @@ $`Kurtosis(p.value)`
 <h2 class="hasAnchor">
 <a href="#gva-augmentedrcbd" class="anchor"></a>7.5 <code>gva.augmentedRCBD()</code>
 </h2>
-<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation">Federer and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows.</p>
+<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation">Federer and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows. Genetic variability analysis needs to be performed only if the sum of squares of “Treatment: Test” are significant.</p>
 <div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Genetic variability statistics for variable y1</span>
 <span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
@@ -2273,6 +2274,7 @@ $`GAM category`
 <div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Genetic variability statistics for variable y2</span>
 <span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
+<pre><code>Warning in gva.augmentedRCBD(out2): P-value for "Treatment: Test" is &lt; 0.05.</code></pre>
 <pre><code>$Mean
 [1] 298.4792
 
@@ -2314,13 +2316,14 @@ $GAM
 
 $`GAM category`
 [1] "High"</code></pre>
+<p>Negative estimates of variance components if computed are not abnormal. For information on how to deal with these, refer <span class="citation">Robinson et al. (<a href="#ref-robinson_genetic_1955" role="doc-biblioref">1955</a>)</span> and <span class="citation">Dudley and Moll (<a href="#ref-dudley_interpretation_1969" role="doc-biblioref">1969</a>)</span>.</p>
 </div>
 <div id="report-augmentedrcbd" class="section level2">
 <h2 class="hasAnchor">
 <a href="#report-augmentedrcbd" class="anchor"></a>7.5 <code>report.augmentedRCBD()</code>
 </h2>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># MS word report for variable y1</span>
 <span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,
                      target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"augmentedRCBD output - y1.docx"</span><span class="op">)</span><span class="op">)</span>
@@ -2345,21 +2348,21 @@ $`GAM category`
 <a href="#augmentedrcbd-bulk" class="anchor"></a>8.1 <code>augmentedRCBD.bulk()</code>
 </h2>
 <p>Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Convert block and treatment to factors</span>
 <span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span>
 <span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></code></pre></div>
 <p>Rather than performing the analysis individually for each variable/trait separately using <code>augmentedRCBD</code>, the analysis can be performed simultaneously for for both the traits using <code>augmentedRCBD.bulk</code> function. It is a wrapper around the <code>augmentedRCBD</code> core function and its associated helper functions.</p>
 <p>However in this case treatment comparisons/grouping by least significant difference or Tukey’s honest significant difference method is not computed. Also the output object size is reduced using the <code>simplify = TRUE</code> argument in the <code>augmentedRCBD</code> function.</p>
 <p>The logical arguments <code>describe</code>, <code>freqdist</code> and <code>gva</code> can be used to specify whether to generate the descriptive statistics, frequency distribution plots and genetic variability statistics respectively. If <code>gva = TRUE</code>, then plots to compare phenotypic and genotypic coefficient of variation, broad sense heritability and genetic advance over mean between traits are also generated.</p>
-<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, block <span class="op">=</span> <span class="st">"blk"</span>,
                            treatment <span class="op">=</span> <span class="st">"trt"</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,
                            checks <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, describe <span class="op">=</span> <span class="cn">TRUE</span>,
@@ -2482,7 +2485,7 @@ Treatment Means
 <a href="#print-augmentedrcbd-bulk" class="anchor"></a>8.2 <code>print.augmentedRCBD.bulk()</code>
 </h2>
 <p>The results of analysis in an object of class <code>augmentedRCBD.bulk</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Print results</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></code></pre></div>
 <pre><code>
@@ -2596,7 +2599,7 @@ Treatment Means
 <a href="#report-augmentedrcbd-bulk" class="anchor"></a>8.3 <code>report.augmentedRCBD.bulk()</code>
 </h2>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># MS word report</span>
 <span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,
                           target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,
@@ -2637,7 +2640,7 @@ citing the package.</code></pre>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>10 Session Info</h1>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>R version 4.0.5 (2021-03-31)
 Platform: x86_64-apple-darwin17.0 (64-bit)
@@ -2695,6 +2698,9 @@ loaded via a namespace (and not attached):
 <div id="ref-dagostino_transformation_1970">
 <p>D’Agostino, R. B. (1970). Transformation to normality of the null distribution of <em>g</em><span class="math inline">\(_{{1}}\)</span>. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679">10.1093/biomet/57.3.679</a>.</p>
 </div>
+<div id="ref-dudley_interpretation_1969">
+<p>Dudley, J. W., and Moll, R. H. (1969). Interpretation and use of estimates of heritability and genetic variances in plant breeding. <em>Crop Science</em> 9, 257–262. doi:<a href="https://doi.org/10.2135/cropsci1969.0011183X000900030001x">10.2135/cropsci1969.0011183X000900030001x</a>.</p>
+</div>
 <div id="ref-federer_augmented_1956">
 <p>Federer, W. T. (1956a). Augmented (or Hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
 </div>
@@ -2715,6 +2721,9 @@ loaded via a namespace (and not attached):
 </div>
 <div id="ref-robinson_quantitative_1966">
 <p>Robinson, H. F. (1966). Quantitative genetics in relation to breeding on centennial of Mendelism. <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
+</div>
+<div id="ref-robinson_genetic_1955">
+<p>Robinson, H. F., Comstock, R. E., and Harvey, P. H. (1955). Genetic variances in open pollinated varieties of corn. <em>Genetics</em> 40, 45–60.</p>
 </div>
 <div id="ref-sivasubramaniam_genotypic_1973">
 <p>Sivasubramaniam, S., and Madhavamenon, P. (1973). Genotypic and phenotypic variability in rice. <em>The Madras Agricultural Journal</em> 60, 1093–1096.</p>
