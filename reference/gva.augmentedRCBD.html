@@ -91,7 +91,7 @@ class augmentedRCBD. " />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.5</span>
       </span>
     </div>
 
@@ -438,7 +438,7 @@ In <em>Proceedings of the 6th International Grassland Congress, Pennsylvania Sta
 &#8220;Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version.&#8221;
 Technical Report BU-592-M, Cornell University, New York.</p>
 <p>Falconer DS, Mackay TFC (1996).
-<em>Introduction to quantitative genetics</em>.
+<em>Introduction to Quantitative Genetics</em>.
 Pearson/Prenctice Hall, New York, NY.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -627,7 +627,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 #&gt; 10        10       437.6667 18.274527  6 392.9505 482.3828        7</div><div class='input'>
 <span class='co'># Genetic variability analysis</span>
 <span class='fu'>gva.augmentedRCBD</span><span class='op'>(</span><span class='va'>out1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $Mean
+</div><div class='output co'>#&gt; <span class='warning'>Warning: P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span></div><div class='output co'>#&gt; $Mean
 #&gt; [1] 81.0625
 #&gt; 
 #&gt; $PV
@@ -669,7 +669,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 #&gt; $`GAM category`
 #&gt; [1] "Medium"
 #&gt; </div><div class='input'><span class='fu'>gva.augmentedRCBD</span><span class='op'>(</span><span class='va'>out2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: P-value for "Treatment: Test" is &lt; 0.05.</span></div><div class='output co'>#&gt; $Mean
+</div><div class='output co'>#&gt; $Mean
 #&gt; [1] 298.4792
 #&gt; 
 #&gt; $PV

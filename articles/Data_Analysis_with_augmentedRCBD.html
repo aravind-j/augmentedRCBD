@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.5</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
                         <h4 class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 class="date">2021-05-20</h4>
+            <h4 class="date">2021-06-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/vignettes/Data_Analysis_with_augmentedRCBD.Rmd"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -668,7 +668,7 @@ $row.names
 <div id="pack" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pack" class="anchor"></a>4.7 Packages</h2>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">17632</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">17685</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install the package 'readxl' for importing data from excel</span>
@@ -894,7 +894,7 @@ $row.names
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/augmentedRCBD">augmentedRCBD</a></span><span class="op">)</span></code></pre></div>
 <pre><code>
 --------------------------------------------------------------------------------
-Welcome to augmentedRCBD version 0.1.4.9000
+Welcome to augmentedRCBD version 0.1.5
 
 
 # To know how to use this package type:
@@ -911,7 +911,7 @@ Welcome to augmentedRCBD version 0.1.4.9000
 # To suppress this message use:
   suppressPackageStartupMessages(library(augmentedRCBD))
 --------------------------------------------------------------------------------</code></pre>
-<p>The current version of the package is 0.1.4. The previous versions are as follows.</p>
+<p>The current version of the package is 0.1.5. The previous versions are as follows.</p>
 <p><strong>Table 2.</strong> Version history of <code>augmentedRCBD</code> <code>R</code> package.</p>
 <pre><code>[1] "Packages 'RCurl', 'httr' and 'XML' are required to generate this table"</code></pre>
 <p>To know detailed history of changes use <code><a href="https://rdrr.io/r/utils/news.html">news(package='augmentedRCBD')</a></code>.</p>
@@ -2230,6 +2230,8 @@ $`Kurtosis(p.value)`
 <div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Genetic variability statistics for variable y1</span>
 <span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></code></pre></div>
+<pre><code>Warning in gva.augmentedRCBD(out1): P-value for "Treatment: Test" is &gt; 0.05.
+Genetic variability analysis may not be appropriate for this trait.</code></pre>
 <pre><code>$Mean
 [1] 81.0625
 
@@ -2271,10 +2273,9 @@ $GAM
 
 $`GAM category`
 [1] "Medium"</code></pre>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Genetic variability statistics for variable y2</span>
 <span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></code></pre></div>
-<pre><code>Warning in gva.augmentedRCBD(out2): P-value for "Treatment: Test" is &lt; 0.05.</code></pre>
 <pre><code>$Mean
 [1] 298.4792
 
@@ -2619,7 +2620,7 @@ To cite the R package 'augmentedRCBD' in publications use:
 
   Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2021).
   augmentedRCBD: Analysis of Augmented Randomised Complete Block
-  Designs. R package version 0.1.4.9000,
+  Designs. R package version 0.1.5,
   https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
 A BibTeX entry for LaTeX users is
@@ -2628,7 +2629,7 @@ A BibTeX entry for LaTeX users is
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
     year = {2021},
-    note = {R package version 0.1.4.9000},
+    note = {R package version 0.1.5},
     note = {https://aravind-j.github.io/augmentedRCBD/},
     note = {https://cran.r-project.org/package=augmentedRCBD},
   }
@@ -2642,13 +2643,13 @@ citing the package.</code></pre>
 <a href="#session-info" class="anchor"></a>10 Session Info</h1>
 <div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>R version 4.0.5 (2021-03-31)
+<pre><code>R version 4.1.0 (2021-05-18)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Catalina 10.15.7
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -2657,29 +2658,29 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] augmentedRCBD_0.1.4.9000
+[1] augmentedRCBD_0.1.5
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.6         mvtnorm_1.1-1      lattice_0.20-41    multcompView_0.1-8
+ [1] Rcpp_1.0.6         mvtnorm_1.1-2      lattice_0.20-44    multcompView_0.1-8
  [5] zoo_1.8-9          rprojroot_2.0.2    digest_0.6.27      utf8_1.2.1        
  [9] plyr_1.8.6         R6_2.5.0           evaluate_0.14      httr_1.4.2        
-[13] ggplot2_3.3.3      highr_0.9          pillar_1.6.1       Rdpack_2.1.1      
+[13] ggplot2_3.3.3      highr_0.9          pillar_1.6.1       Rdpack_2.1.2      
 [17] gdtools_0.2.3      rlang_0.4.11       multcomp_1.4-17    uuid_0.1-4        
-[21] data.table_1.14.0  jquerylib_0.1.4    Matrix_1.3-2       flextable_0.6.6   
+[21] data.table_1.14.0  jquerylib_0.1.4    Matrix_1.3-3       flextable_0.6.6   
 [25] rmarkdown_2.8      mathjaxr_1.4-0     pkgdown_1.6.1      labeling_0.4.2    
-[29] moments_0.14       splines_4.0.5      textshaping_0.3.1  desc_1.3.0        
-[33] stringr_1.4.0      munsell_0.5.0      compiler_4.0.5     xfun_0.23         
+[29] moments_0.14       splines_4.1.0      textshaping_0.3.5  desc_1.3.0        
+[33] stringr_1.4.0      munsell_0.5.0      compiler_4.1.0     xfun_0.23         
 [37] pkgconfig_2.0.3    systemfonts_1.0.2  base64enc_0.1-3    htmltools_0.5.1.1 
-[41] tidyselect_1.1.1   tibble_3.1.2       codetools_0.2-18   fansi_0.4.2       
-[45] crayon_1.4.1       dplyr_1.0.6        MASS_7.3-53.1      rbibutils_2.1.1   
-[49] grid_4.0.5         jsonlite_1.7.2     xtable_1.8-4       gtable_0.3.0      
-[53] lifecycle_1.0.0    magrittr_2.0.1     scales_1.1.1       zip_2.1.1         
+[41] tidyselect_1.1.1   tibble_3.1.2       codetools_0.2-18   fansi_0.5.0       
+[45] crayon_1.4.1       dplyr_1.0.6        MASS_7.3-54        rbibutils_2.2     
+[49] grid_4.1.0         jsonlite_1.7.2     xtable_1.8-4       gtable_0.3.0      
+[53] lifecycle_1.0.0    magrittr_2.0.1     scales_1.1.1       zip_2.2.0         
 [57] estimability_1.3   stringi_1.6.2      cachem_1.0.5       farver_2.1.0      
 [61] reshape2_1.4.4     fs_1.5.0           xml2_1.3.2         bslib_0.2.5.1     
-[65] ellipsis_0.3.2     ragg_1.1.1         generics_0.1.0     vctrs_0.3.8       
-[69] sandwich_3.0-1     TH.data_1.0-10     tools_4.0.5        glue_1.4.2        
-[73] officer_0.3.18     purrr_0.3.4        emmeans_1.6.0      fastmap_1.1.0     
-[77] survival_3.2-10    yaml_2.2.1         colorspace_2.0-1   memoise_2.0.0     
+[65] ellipsis_0.3.2     ragg_1.1.3         generics_0.1.0     vctrs_0.3.8       
+[69] sandwich_3.0-1     TH.data_1.0-10     tools_4.1.0        glue_1.4.2        
+[73] officer_0.3.18     purrr_0.3.4        emmeans_1.6.1      fastmap_1.1.0     
+[77] survival_3.2-11    yaml_2.2.1         colorspace_2.0-1   memoise_2.0.0     
 [81] knitr_1.33         sass_0.4.0        </code></pre>
 </div>
 <div id="references" class="section level1 unnumbered">
@@ -2705,13 +2706,13 @@ loaded via a namespace (and not attached):
 <p>Federer, W. T. (1956a). Augmented (or Hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
 </div>
 <div id="ref-federer_augmented_1956-1">
-<p>Federer, W. T. (1956b). Augmented (or Hoonuiaku) Designs. Cornell University, New York Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841">https://ecommons.cornell.edu/handle/1813/32841</a>.</p>
+<p>Federer, W. T. (1956b). Augmented (or Hoonuiaku) Designs. New York: Cornell University Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841">https://ecommons.cornell.edu/handle/1813/32841</a>.</p>
 </div>
 <div id="ref-federer_augmented_1961">
 <p>Federer, W. T. (1961). Augmented designs with one-way elimination of heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837">10.2307/2527837</a>.</p>
 </div>
 <div id="ref-federerModelConsiderationsVariance1976">
-<p>Federer, W. T., and Searle, S. R. (1976). Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version. Cornell University, New York Available at: <a href="https://hdl.handle.net/1813/32691">https://hdl.handle.net/1813/32691</a>.</p>
+<p>Federer, W. T., and Searle, S. R. (1976). Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version. New York: Cornell University Available at: <a href="https://hdl.handle.net/1813/32691">https://hdl.handle.net/1813/32691</a>.</p>
 </div>
 <div id="ref-johnson_estimates_1955">
 <p>Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates of genetic and environmental variability in soybeans. <em>Agronomy journal</em> 47, 314–318. doi:<a href="https://doi.org/10.2134/agronj1955.00021962004700070009x">10.2134/agronj1955.00021962004700070009x</a>.</p>
@@ -2723,7 +2724,7 @@ loaded via a namespace (and not attached):
 <p>Robinson, H. F. (1966). Quantitative genetics in relation to breeding on centennial of Mendelism. <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
 </div>
 <div id="ref-robinson_genetic_1955">
-<p>Robinson, H. F., Comstock, R. E., and Harvey, P. H. (1955). Genetic variances in open pollinated varieties of corn. <em>Genetics</em> 40, 45–60.</p>
+<p>Robinson, H. F., Comstock, R. E., and Harvey, P. H. (1955). Genetic variances in open pollinated varieties of corn. <em>Genetics</em> 40, 45–60. doi:<a href="https://doi.org/10.1093/genetics/40.1.45">10.1093/genetics/40.1.45</a>.</p>
 </div>
 <div id="ref-sivasubramaniam_genotypic_1973">
 <p>Sivasubramaniam, S., and Madhavamenon, P. (1973). Genotypic and phenotypic variability in rice. <em>The Madras Agricultural Journal</em> 60, 1093–1096.</p>
