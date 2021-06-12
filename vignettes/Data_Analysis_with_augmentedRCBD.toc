@@ -37,6 +37,6 @@
 \contentsline {subsection}{8.1 \texttt {augmentedRCBD.bulk()}}{54}{section*.38}%
 \contentsline {subsection}{8.2 \texttt {print.augmentedRCBD.bulk()}}{57}{section*.39}%
 \contentsline {subsection}{8.3 \texttt {report.augmentedRCBD.bulk()}}{59}{section*.40}%
-\contentsline {section}{9 Citing \texttt {augmentedRCBD}}{59}{section*.41}%
+\contentsline {section}{9 Citing \texttt {augmentedRCBD}}{60}{section*.41}%
 \contentsline {section}{10 Session Info}{60}{section*.42}%
 \contentsline {section}{References}{61}{section*.43}%
