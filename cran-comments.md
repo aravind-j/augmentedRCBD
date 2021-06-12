@@ -1,3 +1,27 @@
+# Version 0.1.5 - First submission
+
+* Fixed `'LazyData' is specified without a 'data' directory` NOTE (as there is no `/data` folder).
+* Tests show the following invalid doi/url which is for an article hosted in JSTOR. The doi is working on multiple browsers and networks on my end. Kindly advise.
+>   Found the following (possibly) invalid URLs:
+  >     URL: https://doi.org/10.2307/2527837
+>       From: README.md
+>       Status: 403
+>       Message: Forbidden
+>   
+  >   Found the following (possibly) invalid DOIs:
+  >     DOI: 10.2307/2527837
+>       From: DESCRIPTION
+>       Status: Forbidden
+>       Message: 403
+
+### Test environments
+* local Windows 10 Pro v19042.1052, R-release (R 4.1.0) & R-devel (R 4.2.0 Pre-release).
+* local Ubuntu 16.04, R-release (R 4.1.0) & R-devel (R 4.2.0 Pre-release).
+* win-builder, R-release (R 4.1.0) & R-devel (R 4.2.0 Pre-release).
+* rhub:solaris-x86-patched - i386-pc-solaris2.10 (32-bit), R-release (R 4.1.0).
+* rhub:solaris-x86-patched-ods - i386-pc-solaris2.10 (32-bit), R-release (R 4.1.0).
+* rhub:macos-highsierra-release-cran - x86_64-apple-darwin17.0 (64-bit), R-release (R 4.1.0).
+
 # Version 0.1.4 - First submission
 
 * Fixed `cairo_pdf` unconditional use.

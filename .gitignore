@@ -14,3 +14,5 @@ vignettes/Data_Analysis_with_augmentedRCBD.utf8.md
 vignettes/rlogo.png
 .DS_Store
 .httr-oauth
+tmp-pdfcrop-*
+docs

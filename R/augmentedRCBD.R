@@ -18,8 +18,9 @@
 #'Analysis of Augmented Randomised Complete Block Design
 #'
 #'\code{augmentedRCBD} is a function for analysis of variance of an augmented
-#'randomised block design (Federer, 1956; Federer, 1961) and the generation as
-#'well as comparison of the adjusted means of the treatments/genotypes.
+#'randomised block design (Federer, 1956; Federer, 1961; Searle, 1965) and the
+#'generation as well as comparison of the adjusted means of the
+#'treatments/genotypes.
 #'
 #'This function borrows code from \code{DAU.test} function of \code{agricolae}
 #'package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur et
@@ -110,6 +111,8 @@
 #'\insertRef{federer_augmented_1956-1}{augmentedRCBD}
 #'
 #'\insertRef{federer_augmented_1961}{augmentedRCBD}
+#'
+#'\insertRef{searle_computing_1965}{augmentedRCBD}
 #'
 #'\insertRef{mathur_data_2008}{augmentedRCBD}
 #'

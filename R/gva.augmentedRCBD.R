@@ -311,8 +311,8 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
     pval <- aug$`ANOVA, Block Adjusted`[[1]]$`Pr(>F)`["Test"]
   }
 
-  if (pval < 0.05) {
-    warning('P-value for "Treatment: Test" is < 0.05.')
+  if (pval > 0.05) {
+    warning('P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.')
   }
 
   if (is.data.frame(aug$`ANOVA, Block Adjusted`)){

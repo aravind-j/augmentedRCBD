@@ -1,12 +1,12 @@
 Package: augmentedRCBD
 Title: Analysis of Augmented Randomised Complete Block Designs
-Version: 0.1.4.9000
+Version: 0.1.5
 Authors@R: c(
     person(given = "J.", family = "Aravind",
            email = "j.aravind@icar.gov.in",
            role = c("aut", "cre"),
 		       comment = c(ORCID = "0000-0002-4791-442X")),
-	  person(given = "S.", family = "Mukesh Sankar", 
+	person(given = "S.", family = "Mukesh Sankar", 
            email = "mukeshsankar@gmail.com",
 		       role = "aut"),
     person(given = c("Dhammaprakash", "Pandhari"), family = "Wankhede", 

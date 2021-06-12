@@ -29,3 +29,4 @@
 ^vignettes/rstudio\.png$
 ^CRAN-RELEASE$
 ^\.github$
+^tmp-pdfcrop-*$

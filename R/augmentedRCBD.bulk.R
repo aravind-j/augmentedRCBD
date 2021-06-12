@@ -153,7 +153,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   }
   # check if trait columns present in data
   if (FALSE %in% (traits %in% colnames(data))) {
-    stop(paste('The following column(s) specified as trait columns not present in "data":\n',
+    stop(paste('The following column(s) specified as trait columns are not present in "data":\n',
                paste(traits[!(traits %in% colnames(data))], collapse = ", "),
                sep = ""))
   }
