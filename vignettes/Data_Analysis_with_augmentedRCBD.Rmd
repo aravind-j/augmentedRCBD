@@ -673,27 +673,33 @@ The current version of the package is `r rver`. The previous versions are as fol
 if (requireNamespace("RCurl", quietly = TRUE) & requireNamespace("httr", quietly = TRUE) & requireNamespace("XML", quietly = TRUE)) {
   pkg <- "augmentedRCBD"
   link <- paste0("https://cran.r-project.org/src/contrib/Archive/", pkg, "/")
-  # cafile <- system.file("CurlSSL", "cacert.pem", package = "RCurl")
-  # page <- httr::GET(link, httr::config(cainfo = cafile))
-  page <- httr::GET(link)
-  page <- httr::content(page, as = 'text')
-  # page <- RCurl::getURL(link)
   
-  VerHistory <- XML::readHTMLTable(page)[[1]][,2:3]
-  colnames(VerHistory) <- c("Version", "Date")
-  VerHistory <- VerHistory[VerHistory$Version != "Parent Directory",]
-  VerHistory <- VerHistory[!is.na(VerHistory$Version), ]
-  VerHistory$Date <- as.Date(VerHistory$Date)
-  VerHistory$Version <- gsub("augmentedRCBD_", "", VerHistory$Version)
-  VerHistory$Version <- gsub(".tar.gz", "", VerHistory$Version)
-  
-  VerHistory <- VerHistory[order(VerHistory$Date), c("Version", "Date")]
-  rownames(VerHistory) <- NULL
-  
-  knitr::kable(VerHistory)
+  if (RCurl::url.exists(link)) {
+    # cafile <- system.file("CurlSSL", "cacert.pem", package = "RCurl")
+    # page <- httr::GET(link, httr::config(cainfo = cafile))
+    page <- httr::GET(link)
+    page <- httr::content(page, as = 'text')
+    # page <- RCurl::getURL(link)
+    
+    VerHistory <- XML::readHTMLTable(page)[[1]][,2:3]
+    colnames(VerHistory) <- c("Version", "Date")
+    VerHistory <- VerHistory[VerHistory$Version != "Parent Directory",]
+    VerHistory <- VerHistory[!is.na(VerHistory$Version), ]
+    VerHistory$Date <- as.Date(VerHistory$Date)
+    VerHistory$Version <- gsub("augmentedRCBD_", "", VerHistory$Version)
+    VerHistory$Version <- gsub(".tar.gz", "", VerHistory$Version)
+    
+    VerHistory <- VerHistory[order(VerHistory$Date), c("Version", "Date")]
+    rownames(VerHistory) <- NULL
+    
+    knitr::kable(VerHistory)
+    
+  } else {
+    print("Access to CRAN page for 'augmentedRCBD' is required to generate this table.'")
+  }
   
 } else {
-  print("Packages 'RCurl', 'httr' and 'XML' are required to generate this table")
+  print("Packages 'RCurl', 'httr' and 'XML' are required to generate this table.")
 }
 
 ```

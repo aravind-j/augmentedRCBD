@@ -1,3 +1,8 @@
+# augmentedRCBD  0.1.6
+
+## VIGNETTE:
+* Fixed fetching CRAN page for version history to fail gracefully when access is down.
+
 # augmentedRCBD  0.1.5
 
 ## OTHER NOTES:
