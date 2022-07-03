@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Analysis of Augmented Randomised Complete Block Designs • augmentedRCBD</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -32,6 +38,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">augmentedRCBD</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.5.9000</span>
       </span>
     </div>
 
@@ -52,14 +60,14 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
     Home
   </a>
 </li>
 <li>
   <a href="reference/index.html">
-    <span class="fas fa-code"></span>
+    <span class="fa fa-code"></span>
      
     Reference
   </a>
@@ -81,7 +89,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/aravind-j/augmentedRCBD">
+  <a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">
     <span class="fab fa-github-alt"></span>
      
     Github
@@ -106,19 +114,20 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="augmentedrcbd-analysis-of-augmented-randomised-complete-block-designs-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#augmentedrcbd-analysis-of-augmented-randomised-complete-block-designs-" class="anchor"></a><code>augmentedRCBD</code>: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height="200" style="border: none; float: right;">
+<div class="section level2">
+<h2 id="augmentedrcbd-analysis-of-augmented-randomised-complete-block-designs-">
+<code>augmentedRCBD</code>: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height="200" style="border: none; float: right;"><a class="anchor" aria-label="anchor" href="#augmentedrcbd-analysis-of-augmented-randomised-complete-block-designs-"></a>
 </h2>
-<div id="version--0149000-copyright-c-2015-2021-icar-nbpgr-license-gpl-2gpl-3" class="section level6">
-<h6>Version : <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install">0.1.4.9000</a>; Copyright (C) 2015-2021: <a href="http://www.nbpgr.ernet.in/">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/">GPL-2|GPL-3</a>
+<div class="section level6">
+<h6 id="version--0159000-copyright-c-2015-2022-icar-nbpgr-license-gpl-2gpl-3">Version : <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install">0.1.5.9000</a>; Copyright (C) 2015-2022: <a href="http://www.nbpgr.ernet.in/" class="external-link">ICAR-NBPGR</a>; License: <a href="https://www.r-project.org/Licenses/" class="external-link">GPL-2|GPL-3</a>
+<a class="anchor" aria-label="anchor" href="#version--0159000-copyright-c-2015-2022-icar-nbpgr-license-gpl-2gpl-3"></a>
 </h6>
 </div>
-<div id="aravind-j1-mukesh-sankar-s2-wankhede-d-p3-and-kaur-v4" class="section level5">
-<h5 class="hasAnchor">
-<a href="#aravind-j1-mukesh-sankar-s2-wankhede-d-p3-and-kaur-v4" class="anchor"></a><em>Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup></em>
+<div class="section level5">
+<h5 id="aravind-j1-mukesh-sankar-s2-wankhede-d-p3-and-kaur-v4">
+<em>Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup></em><a class="anchor" aria-label="anchor" href="#aravind-j1-mukesh-sankar-s2-wankhede-d-p3-and-kaur-v4"></a>
 </h5>
-<ol>
+<ol style="list-style-type: decimal">
 <li>Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.</li>
 <li>Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi.</li>
 <li>Division of Genomic Resources, ICAR-National Bureau of Plant Genetic Resources, New Delhi.</li>
@@ -128,51 +137,51 @@
 <hr>
 </div>
 </div>
-<div id="description" class="section level2">
-<h2 class="hasAnchor">
-<a href="#description" class="anchor"></a>Description</h2>
-<p>Functions for analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. (1961) <a href="https://doi.org/10.2307/2527837">doi:10.2307/2527837</a>. Computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. Further includes data visualization and report generation functions.</p>
+<div class="section level2">
+<h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
+</h2>
+<p>Functions for analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. (1961) <a href="https://doi.org/10.2307/2527837" class="external-link">doi:10.2307/2527837</a>. Computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. Further includes data visualization and report generation functions.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>The package can be installed from CRAN as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Install from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'augmentedRCBD'</span>, dependencies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Install from CRAN</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'augmentedRCBD'</span>, dependencies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>The development version can be installed from github as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Install development version from Github</span>
-<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/">'devtools'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"aravind-j/augmentedRCBD"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Install development version from Github</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">'devtools'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aravind-j/augmentedRCBD"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="detailed-tutorial" class="section level2">
-<h2 class="hasAnchor">
-<a href="#detailed-tutorial" class="anchor"></a>Detailed tutorial</h2>
+<div class="section level2">
+<h2 id="detailed-tutorial">Detailed tutorial<a class="anchor" aria-label="anchor" href="#detailed-tutorial"></a>
+</h2>
 <p>For a detailed tutorial (vignette) on how to used this package type:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'augmentedRCBD'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">'augmentedRCBD'</span><span class="op">)</span></span></code></pre></div>
 <p>The vignette for the latest version is also available <a href="https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html">online</a>.</p>
 </div>
-<div id="whats-new" class="section level2">
-<h2 class="hasAnchor">
-<a href="#whats-new" class="anchor"></a>What’s new</h2>
+<div class="section level2">
+<h2 id="whats-new">What’s new<a class="anchor" aria-label="anchor" href="#whats-new"></a>
+</h2>
 <p>To know whats new in this version type:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/news.html">news</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">'augmentedRCBD'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/news.html" class="external-link">news</a></span><span class="op">(</span>package<span class="op">=</span><span class="st">'augmentedRCBD'</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="links" class="section level2">
-<h2 class="hasAnchor">
-<a href="#links" class="anchor"></a>Links</h2>
-<p><a href="https://cran.r-project.org/package=augmentedRCBD">CRAN page</a></p>
-<p><a href="https://github.com/aravind-j/augmentedRCBD">Github page</a></p>
+<div class="section level2">
+<h2 id="links">Links<a class="anchor" aria-label="anchor" href="#links"></a>
+</h2>
+<p><a href="https://cran.r-project.org/package=augmentedRCBD" class="external-link">CRAN page</a></p>
+<p><a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">Github page</a></p>
 <p><a href="https://aravind-j.github.io/augmentedRCBD/">Documentation website</a></p>
-<p><a href="https://doi.org/10.5281/zenodo.1310011">Zenodo DOI</a></p>
+<p><a href="https://doi.org/10.5281/zenodo.1310011" class="external-link">Zenodo DOI</a></p>
 </div>
-<div id="cran-checks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cran-checks" class="anchor"></a>CRAN checks</h2>
-<table class="table table table-striped table-hover">
+<div class="section level2">
+<h2 id="cran-checks">CRAN checks<a class="anchor" aria-label="anchor" href="#cran-checks"></a>
+</h2>
+<table class="table table table-striped table-hover" style="width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 Flavour
@@ -184,7 +193,7 @@ CRAN check
 <tbody>
 <tr grouplength="6">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong><a href="https://cran.r-project.org/web/checks/check_results_ammistability.html"><img src="https://shields.io/badge/Linux--9cf?logo=Linux&amp;style=social" alt="Linux"></a></strong>
+<strong><a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://shields.io/badge/Linux--9cf?logo=Linux&amp;style=social" alt="Linux"></a></strong>
 </td>
 </tr>
 <tr>
@@ -192,7 +201,7 @@ CRAN check
 r-devel-linux-x86_64-debian-clang
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-debian-clang/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-debian-clang"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-debian-clang/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-debian-clang"></a>
 </td>
 </tr>
 <tr>
@@ -200,7 +209,7 @@ r-devel-linux-x86_64-debian-clang
 r-devel-linux-x86_64-debian-gcc
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-debian-gcc/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-debian-gcc"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-debian-gcc/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-debian-gcc"></a>
 </td>
 </tr>
 <tr>
@@ -208,7 +217,7 @@ r-devel-linux-x86_64-debian-gcc
 r-devel-linux-x86_64-fedora-clang
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-fedora-clang/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-fedora-clang"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-fedora-clang/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-fedora-clang"></a>
 </td>
 </tr>
 <tr>
@@ -216,7 +225,7 @@ r-devel-linux-x86_64-fedora-clang
 r-devel-linux-x86_64-fedora-gcc
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-fedora-gcc/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-fedora-gcc"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-devel-linux-x86_64-fedora-gcc/augmentedRCBD" alt="CRAN check - r-devel-linux-x86_64-fedora-gcc"></a>
 </td>
 </tr>
 <tr>
@@ -224,7 +233,7 @@ r-devel-linux-x86_64-fedora-gcc
 r-patched-linux-x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-patched-linux-x86_64/augmentedRCBD" alt="CRAN check - r-patched-linux-x86_64"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-patched-linux-x86_64/augmentedRCBD" alt="CRAN check - r-patched-linux-x86_64"></a>
 </td>
 </tr>
 <tr>
@@ -232,41 +241,28 @@ r-patched-linux-x86_64
 r-release-linux-x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-release-linux-x86_64/augmentedRCBD" alt="CRAN check - r-release-linux-x86_64"></a>
-</td>
-</tr>
-<tr grouplength="1">
-<td colspan="2" style="border-bottom: 1px solid;">
-<strong><a href="https://cran.r-project.org/web/checks/check_results_ammistability.html"><img src="https://shields.io/badge/Solaris--9cf?logo=Oracle&amp;style=social" alt="Solaris"></a></strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-patched-solaris-x86
-</td>
-<td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-patched-solaris-x86/augmentedRCBD" alt="CRAN check - r-patched-solaris-x86"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-release-linux-x86_64/augmentedRCBD" alt="CRAN check - r-release-linux-x86_64"></a>
 </td>
 </tr>
 <tr grouplength="3">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong><a href="https://cran.r-project.org/web/checks/check_results_ammistability.html"><img src="https://shields.io/badge/Windows--9cf?logo=Windows&amp;style=social" alt="Windows"></a></strong>
+<strong><a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://shields.io/badge/Windows--9cf?logo=Windows&amp;style=social" alt="Windows"></a></strong>
 </td>
 </tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-windows-ix86+x86_64
+r-devel-windows-x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-devel-windows-ix86+x86_64/augmentedRCBD" alt="CRAN check - r-devel-windows-ix86+x86_64"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-devel-windows-x86_64/augmentedRCBD" alt="CRAN check - r-devel-windows-x86_64"></a>
 </td>
 </tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-release-windows-ix86+x86_64
+r-release-windows-x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-release-windows-ix86+x86_64/augmentedRCBD" alt="CRAN check - r-release-windows-ix86+x86_64"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-release-windows-x86_64/augmentedRCBD" alt="CRAN check - r-release-windows-x86_64"></a>
 </td>
 </tr>
 <tr>
@@ -274,12 +270,12 @@ r-release-windows-ix86+x86_64
 r-oldrel-windows-ix86+x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD" alt="CRAN check - r-oldrel-windows-ix86+x86_64"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD" alt="CRAN check - r-oldrel-windows-ix86+x86_64"></a>
 </td>
 </tr>
-<tr grouplength="2">
+<tr grouplength="4">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong><a href="https://cran.r-project.org/web/checks/check_results_ammistability.html"><img src="https://shields.io/badge/MacOS--9cf?logo=Apple&amp;style=social" alt="MacOS"></a></strong>
+<strong><a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://shields.io/badge/MacOS--9cf?logo=Apple&amp;style=social" alt="MacOS"></a></strong>
 </td>
 </tr>
 <tr>
@@ -287,7 +283,7 @@ r-oldrel-windows-ix86+x86_64
 r-release-macos-x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-release-macos-x86_64/augmentedRCBD" alt="CRAN check - r-release-macos-x86_64"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-release-macos-x86_64/augmentedRCBD" alt="CRAN check - r-release-macos-x86_64"></a>
 </td>
 </tr>
 <tr>
@@ -295,109 +291,128 @@ r-release-macos-x86_64
 r-oldrel-macos-x86_64
 </td>
 <td style="text-align:left;">
-<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html"><img src="https://cranchecks.info/badges/flavor/r-oldrel-macos-x86_64/augmentedRCBD" alt="CRAN check - r-oldrel-macos-x86_64"></a>
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-oldrel-macos-x86_64/augmentedRCBD" alt="CRAN check - r-oldrel-macos-x86_64"></a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+r-release-macos-arm64
+</td>
+<td style="text-align:left;">
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-release-macos-arm64/augmentedRCBD" alt="CRAN check - r-release-macos-arm64"></a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+r-oldrel-macos-arm64
+</td>
+<td style="text-align:left;">
+<a href="https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html" class="external-link"><img src="https://cranchecks.info/badges/flavor/r-oldrel-macos-arm64/augmentedRCBD" alt="CRAN check - r-oldrel-macos-arm64"></a>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="citing-augmentedrcbd" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citing-augmentedrcbd" class="anchor"></a>Citing <code>augmentedRCBD</code>
+<div class="section level2">
+<h2 id="citing-augmentedrcbd">Citing <code>augmentedRCBD</code>
+<a class="anchor" aria-label="anchor" href="#citing-augmentedrcbd"></a>
 </h2>
 <p>To cite the methods in the package use:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"augmentedRCBD"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"augmentedRCBD"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>To cite the R package <span class="st">'augmentedRCBD'</span> <span class="cf">in</span> publications use<span class="sc">:</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, <span class="fu">V.</span> (<span class="dv">2021</span>).</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  augmentedRCBD<span class="sc">:</span> Analysis of Augmented Randomised Complete Block Designs. R</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  package version <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">4.9000</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  https<span class="sc">:</span><span class="er">//</span>aravind<span class="sc">-</span>j.github.io<span class="sc">/</span>augmentedRCBD<span class="sc">/</span>https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>augmentedRCBD.</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {augmentedRCBD<span class="sc">:</span> Analysis of Augmented Randomised Complete Block Designs},</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2021</span>},</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">4.9000</span>},</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>aravind<span class="sc">-</span>j.github.io<span class="sc">/</span>augmentedRCBD<span class="sc">/</span>},</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>augmentedRCBD},</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>This free and open<span class="sc">-</span>source software implements academic research by the authors</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>and co<span class="sc">-</span>workers. If you use it, please support the project by citing the package.</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, <span class="fu">V.</span> (<span class="dv">2022</span>).  augmentedRCBD<span class="sc">:</span> Analysis of Augmented Randomised</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  Complete Block Designs. R package version <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">5.9000</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  https<span class="sc">:</span><span class="er">//</span>aravind<span class="sc">-</span>j.github.io<span class="sc">/</span>augmentedRCBD<span class="sc">/</span>https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>augmentedRCBD.</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>A BibTeX entry <span class="cf">for</span> LaTeX users is</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="sc">@</span>Manual{,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {augmentedRCBD<span class="sc">:</span> Analysis of Augmented Randomised Complete Block Designs},</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    year <span class="ot">=</span> {<span class="dv">2022</span>},</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">5.9000</span>},</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>aravind<span class="sc">-</span>j.github.io<span class="sc">/</span>augmentedRCBD<span class="sc">/</span>},</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>package<span class="ot">=</span>augmentedRCBD},</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>This free and open<span class="sc">-</span>source software implements academic research by the authors and co<span class="sc">-</span>workers. If you use it, please support</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>the project by citing the package.</span></code></pre></div>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=augmentedRCBD">https://​cloud.r-project.org/​package=augmentedRCBD</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/aravind-j/augmentedRCBD/">https://​github.com/​aravind-j/​augmentedRCBD/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/aravind-j/augmentedRCBD/issues">https://​github.com/​aravind-j/​augmentedRCBD/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a> | <a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a>
-</li>
-</ul>
-</div>
-<div class="citation">
-<h2>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html">Citing augmentedRCBD</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>J. Aravind <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4791-442X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>S. Mukesh Sankar <br><small class="roles"> Author </small>  </li>
-<li>Dhammaprakash Pandhari Wankhede <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6384-8664" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Vikender Kaur <br><small class="roles"> Author </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://cloud.r-project.org/package=augmentedRCBD" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.0.2-6666ff.svg?logo=R" alt="minimal R version"></a></li>
-<li><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></li>
-<li><a href="https://cran.r-project.org/package=augmentedRCBD"><img src="https://www.r-pkg.org/badges/version-last-release/augmentedRCBD" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://cran.r-project.org/package=augmentedRCBD"><img src="https://tinyverse.netlify.com/badge/augmentedRCBD" alt="Dependencies"></a></li>
-<li><a href="https://CRAN.R-project.org/package=augmentedRCBD"><img src="https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green" alt="rstudio mirror downloads"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/devel%20version-0.1.4.9000-orange.svg" alt="develVersion"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.svg" alt="Github Code Size"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD/actions"><img src="https://github.com/aravind-j/augmentedRCBD/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://www.repostatus.org/#inactive"><img src="https://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: WIP"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
-<li><a href="https://github.com/aravind-j/augmentedRCBD"><img src="https://img.shields.io/badge/last%20change-2021--05--20-yellowgreen.svg" alt="Last-changedate"></a></li>
-<li><a href="https://doi.org/10.5281/zenodo.1310011"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg" alt="Zenodo DOI"></a></li>
-<li><a href="https://aravind-j.github.io/augmentedRCBD/"><img src="https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/augmentedRCBD.svg" alt="Website - pkgdown"></a></li>
-<li><a href="https://github.com/aravind-j/google-analytics-beacon"><img src="https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page" alt="."></a></li>
+<li>
+<a href="https://www.r-project.org/Licenses/GPL-2" class="external-link">GPL-2</a> | <a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a>
+</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing augmentedRCBD</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>J. Aravind <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4791-442X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>S. Mukesh Sankar <br><small class="roles"> Author </small>  </li>
+<li>Dhammaprakash Pandhari Wankhede <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-6384-8664" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Vikender Kaur <br><small class="roles"> Author </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/" class="external-link"><img src="https://img.shields.io/badge/R%3E%3D-3.0.2-6666ff.svg?logo=R" alt="minimal R version"></a></li>
+<li><a href="https://www.gnu.org/licenses/gpl-3.0" class="external-link"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></li>
+<li><a href="https://cran.r-project.org/package=augmentedRCBD" class="external-link"><img src="https://www.r-pkg.org/badges/version-last-release/augmentedRCBD" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://cran.r-project.org/package=augmentedRCBD" class="external-link"><img src="https://tinyverse.netlify.com/badge/augmentedRCBD" alt="Dependencies"></a></li>
+<li><a href="https://CRAN.R-project.org/package=augmentedRCBD" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green" alt="rstudio mirror downloads"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.1.5.9000-orange.svg" alt="develVersion"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD" class="external-link"><img src="https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.svg" alt="Github Code Size"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD/actions" class="external-link"><img src="https://github.com/aravind-j/augmentedRCBD/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://www.repostatus.org/#inactive" class="external-link"><img src="https://www.repostatus.org/badges/latest/inactive.svg" alt="Project Status: WIP"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="lifecycle"></a></li>
+<li><a href="https://github.com/aravind-j/augmentedRCBD" class="external-link"><img src="https://img.shields.io/badge/last%20change-2022--07--03-yellowgreen.svg" alt="Last-changedate"></a></li>
+<li><a href="https://doi.org/10.5281/zenodo.1310011" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg" alt="Zenodo DOI"></a></li>
+<li><a href="https://aravind-j.github.io/augmentedRCBD/"><img src="https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/augmentedRCBD.svg" alt="Website - pkgdown"></a></li>
+<li><a href="https://github.com/aravind-j/google-analytics-beacon" class="external-link"><img src="https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page" alt="."></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by J. Aravind, S. Mukesh Sankar, Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
+  <p></p>
+<p>Developed by J. Aravind, S. Mukesh Sankar, Dhammaprakash Pandhari Wankhede, Vikender Kaur.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

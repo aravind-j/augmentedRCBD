@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//index.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/404.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/augmentedRCBD.bulk.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/describe.augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/authors.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/freqdist.augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/index.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/gva.augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/news/index.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/print.augmentedRCBD.bulk.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.bulk.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/print.augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/report.augmentedRCBD.bulk.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//reference/report.augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/freqdist.augmentedRCBD.html</loc>
   </url>
   <url>
-    <loc>https://aravind-j.github.io/augmentedRCBD//articles/Data_Analysis_with_augmentedRCBD.html</loc>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/gva.augmentedRCBD.html</loc>
+  </url>
+  <url>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/print.augmentedRCBD.bulk.html</loc>
+  </url>
+  <url>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/print.augmentedRCBD.html</loc>
+  </url>
+  <url>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.bulk.html</loc>
+  </url>
+  <url>
+    <loc>https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.html</loc>
   </url>
 </urlset>
