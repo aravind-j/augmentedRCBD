@@ -112,21 +112,23 @@ pkgname <- "augmentedRCBD"
 
 osdf <-
   rbind(data.frame(OS = "Linux", 
-           Flavour = c("r-devel-linux-x86_64-debian-clang",
-                       "r-devel-linux-x86_64-debian-gcc", 
-                       "r-devel-linux-x86_64-fedora-clang",
-                       "r-devel-linux-x86_64-fedora-gcc", 
-                       "r-patched-linux-x86_64",
-                       "r-release-linux-x86_64")),
-data.frame(OS = "Solaris", 
-           Flavour = c("r-patched-solaris-x86")),
-data.frame(OS = "Windows", 
-           Flavour = c("r-devel-windows-ix86+x86_64", 
-                       "r-release-windows-ix86+x86_64",
-                       "r-oldrel-windows-ix86+x86_64")),
-data.frame(OS = "macOS", 
-           Flavour = c("r-release-macos-x86_64", 
-                       "r-oldrel-macos-x86_64")))
+                   Flavour = c("r-devel-linux-x86_64-debian-clang",
+                               "r-devel-linux-x86_64-debian-gcc", 
+                               "r-devel-linux-x86_64-fedora-clang",
+                               "r-devel-linux-x86_64-fedora-gcc", 
+                               "r-patched-linux-x86_64",
+                               "r-release-linux-x86_64")),
+        # data.frame(OS = "Solaris", 
+        #            Flavour = c("r-patched-solaris-x86")),
+        data.frame(OS = "Windows", 
+                   Flavour = c("r-devel-windows-x86_64", 
+                               "r-release-windows-x86_64",
+                               "r-oldrel-windows-ix86+x86_64")),
+        data.frame(OS = "macOS", 
+                   Flavour = c("r-release-macos-x86_64", 
+                               "r-oldrel-macos-x86_64",
+                               "r-release-macos-arm64",
+                               "r-oldrel-macos-arm64")))
 
 chkurl <- paste("https://cran.r-project.org/web/checks/check_results_",
                 pkgname, ".html", sep = "")
@@ -153,12 +155,13 @@ kosdf <- kbl(osdf[, c("Flavour", "CRAN check")], row.names = FALSE)
 kosdf2 <- kable_styling(kosdf, bootstrap_options = c("striped", "hover"),
               full_width = F, position = "left")
 
-os_index <- c(6, 1, 3, 2)
+# os_index <- c(6, 1, 3, 2)
+os_index <- c(6, 3, 4)
 
 names(os_index) <- c(paste("[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)]",
                            chklink, sep = ""),
-                     paste("[![Solaris](https://shields.io/badge/Solaris--9cf?logo=Oracle&style=social)]",
-                           chklink, sep = ""),
+                     # paste("[![Solaris](https://shields.io/badge/Solaris--9cf?logo=Oracle&style=social)]",
+                     #       chklink, sep = ""),
                      paste("[![Windows](https://shields.io/badge/Windows--9cf?logo=Windows&style=social)]",
                            chklink, sep = ""),
                      paste("[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)]",
