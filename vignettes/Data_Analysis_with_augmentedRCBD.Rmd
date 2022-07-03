@@ -2,6 +2,7 @@
 title: "Data Analysis with `augmentedRCBD`"
 author: "Aravind, J.^1^, Mukesh Sankar, S.^2^, Wankhede, D. P.^3^, and Kaur, V.^4^"
 date: "`r Sys.Date()`"
+classoption: table, twoside
 geometry: margin=3cm
 output:
   pdf_document:
