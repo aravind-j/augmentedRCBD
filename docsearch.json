@@ -2,21 +2,21 @@
   "index_name": "augmentedrcbd",
   "start_urls": [
     {
-      "url": "https://aravind-j.github.io/augmentedRCBD//index.html",
+      "url": "https://aravind-j.github.io/augmentedRCBD/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://aravind-j.github.io/augmentedRCBD//reference",
+      "url": "https://aravind-j.github.io/augmentedRCBD/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://aravind-j.github.io/augmentedRCBD//articles",
+      "url": "https://aravind-j.github.io/augmentedRCBD/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://aravind-j.github.io/augmentedRCBD//sitemap.xml"
+    "https://aravind-j.github.io/augmentedRCBD/sitemap.xml"
   ],
   "selectors": {
     "homepage": {
