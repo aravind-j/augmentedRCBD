@@ -118,7 +118,7 @@ CRAN check
 <tbody>
 <tr grouplength="6">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)](https://cran.r-project.org/web/checks/check_results_ammistability.html)</strong>
+<strong>[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
 </td>
 </tr>
 <tr>
@@ -177,7 +177,7 @@ r-release-linux-x86_64](https://cranchecks.info/badges/flavor/r-release-linux-x8
 </tr>
 <tr grouplength="1">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![Solaris](https://shields.io/badge/Solaris--9cf?logo=Oracle&style=social)](https://cran.r-project.org/web/checks/check_results_ammistability.html)</strong>
+<strong>[![Solaris](https://shields.io/badge/Solaris--9cf?logo=Oracle&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
 </td>
 </tr>
 <tr>
@@ -191,7 +191,7 @@ r-patched-solaris-x86](https://cranchecks.info/badges/flavor/r-patched-solaris-x
 </tr>
 <tr grouplength="3">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![Windows](https://shields.io/badge/Windows--9cf?logo=Windows&style=social)](https://cran.r-project.org/web/checks/check_results_ammistability.html)</strong>
+<strong>[![Windows](https://shields.io/badge/Windows--9cf?logo=Windows&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
 </td>
 </tr>
 <tr>
@@ -223,7 +223,7 @@ r-oldrel-windows-ix86+x86_64](https://cranchecks.info/badges/flavor/r-oldrel-win
 </tr>
 <tr grouplength="2">
 <td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)](https://cran.r-project.org/web/checks/check_results_ammistability.html)</strong>
+<strong>[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
 </td>
 </tr>
 <tr>
