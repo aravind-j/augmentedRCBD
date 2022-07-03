@@ -918,7 +918,34 @@ Welcome to augmentedRCBD version 0.1.5.9000
 --------------------------------------------------------------------------------</code></pre>
 <p>The current version of the package is 0.1.5. The previous versions are as follows.</p>
 <p><strong>Table 2.</strong> Version history of <code>augmentedRCBD</code> <code>R</code> package.</p>
-<pre><code>[1] "Packages 'RCurl', 'httr' and 'XML' are required to generate this table."</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="left">Version</th>
+<th align="left">Date</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">0.1.0</td>
+<td align="left">2018-07-10</td>
+</tr>
+<tr class="even">
+<td align="left">0.1.1</td>
+<td align="left">2019-07-21</td>
+</tr>
+<tr class="odd">
+<td align="left">0.1.2</td>
+<td align="left">2020-03-19</td>
+</tr>
+<tr class="even">
+<td align="left">0.1.3</td>
+<td align="left">2020-07-27</td>
+</tr>
+<tr class="odd">
+<td align="left">0.1.4</td>
+<td align="left">2021-02-17</td>
+</tr>
+</tbody>
+</table>
 <p>To know detailed history of changes use <code>news(package='augmentedRCBD')</code>.</p>
 </div>
 <div class="section level2">
@@ -1364,7 +1391,7 @@ Welcome to augmentedRCBD version 0.1.5.9000
 <h3 id="augmentedrcbd">7.1 <code>augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#augmentedrcbd"></a>
 </h3>
 <p>Consider the data in <a href="#impexp">Table 1</a>. The data can be imported into <code>R</code> as <a href="#vector">vectors</a> as follows.</p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">92</span>, <span class="fl">79</span>, <span class="fl">87</span>, <span class="fl">81</span>, <span class="fl">96</span>, <span class="fl">89</span>, <span class="fl">82</span>, <span class="fl">79</span>, <span class="fl">81</span>, <span class="fl">81</span>, <span class="fl">91</span>, <span class="fl">79</span>, <span class="fl">78</span>, <span class="fl">83</span>, <span class="fl">77</span>, <span class="fl">78</span>, <span class="fl">78</span>,</span>
@@ -1372,12 +1399,12 @@ Welcome to augmentedRCBD version 0.1.5.9000
 <span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>, <span class="fl">250</span>,</span>
 <span>        <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>blk</code> and <code>trt</code> vectors with the block and treatment data need to be converted into factors as follows before analysis.</p>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
 <p>With the data in appropriate format, the analysis can be performed as follows for the trait <code>y1</code> as follows.</p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -1461,11 +1488,11 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
 <p>Similarly the analysis for the trait <code>y2</code> can be computed as follows.</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -1551,22 +1578,22 @@ Method : lsd
 7          7       346.4167 18.274527  6 301.7005 391.1328      56 
 6          6       382.6667 18.274527  6 337.9505 427.3828       67
 10        10       437.6667 18.274527  6 392.9505 482.3828        7</code></pre>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
 <p>The data can also be imported as a <a href="#dataframe">data frame</a> and then used for analysis. Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Results for variable y1</span></span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -1651,10 +1678,10 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Results for variable y2</span></span>
 <span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                     alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -1741,11 +1768,11 @@ Method : lsd
 7          7       346.4167 18.274527  6 301.7005 391.1328      56 
 6          6       382.6667 18.274527  6 337.9505 427.3828       67
 10        10       437.6667 18.274527  6 392.9505 482.3828        7</code></pre>
-<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
 <p>Check genotypes are inferred by default on the basis of number of replications. However, if some test genotypes are also replicated, they may also be falsely detected as checks. To avoid this, the checks can be specified by the <code>checks</code> argument.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Results for variable y1 (checks specified)</span></span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -1831,7 +1858,7 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Results for variable y2 (checks specified)</span></span>
 <span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -1926,7 +1953,7 @@ Method : lsd
 <h3 id="print-augmentedrcbd">7.2 <code>print.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd"></a>
 </h3>
 <p>The results of analysis in an object of class <code>augmentedRCBD</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results for variable y1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -2010,7 +2037,7 @@ Method : lsd
 1          1       84.66667 2.998456  6 77.32971  92.00363    12
 11        11       86.50000 5.609598  6 72.77381 100.22619    12
 7          7       93.50000 5.609598  6 79.77381 107.22619     2</code></pre>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results for variable y2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -2101,7 +2128,7 @@ Method : lsd
 <h3 id="describe-augmentedrcbd">7.3 <code>describe.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#describe-augmentedrcbd"></a>
 </h3>
 <p>The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D’Agostino test of skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and Glynn (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be computed as follows.</p>
-<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Descriptive statistics for variable y1</span></span>
 <span><span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$Count
@@ -2135,7 +2162,7 @@ $`Kurtosis(statistic)`
 
 $`Kurtosis(p.value)`
 [1] 0.1997357</code></pre>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Descriptive statistics for variable y2</span></span>
 <span><span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$Count
@@ -2174,52 +2201,52 @@ $`Kurtosis(p.value)`
 <h3 id="freqdist-augmentedrcbd">7.4 <code>freqdist.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#freqdist-augmentedrcbd"></a>
 </h3>
 <p>The frequency distribution of the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be plotted as follows.</p>
-<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png" width="700"></p>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
 <span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-2.png" width="700"></p>
 <p>The colours for the check values may be specified using the argument <code>check.col</code>.</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-1.png" width="700"></p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
 <span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-2.png" width="700"></p>
 <p>The default the check highlighting can be avoided using the argument <code>highlight.check = FALSE</code>.</p>
-<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span>
 <span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-1.png" width="700"></p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
 <span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,</span>
 <span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_bar).</code></pre>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-2.png" width="700"></p>
 </div>
@@ -2227,7 +2254,7 @@ $`Kurtosis(p.value)`
 <h3 id="gva-augmentedrcbd">7.5 <code>gva.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#gva-augmentedrcbd"></a>
 </h3>
 <p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation">Federer and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows. Genetic variability analysis needs to be performed only if the sum of squares of “Treatment: Test” are significant.</p>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Genetic variability statistics for variable y1</span></span>
 <span><span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning in gva.augmentedRCBD(out1): P-value for "Treatment: Test" is &gt; 0.05.
@@ -2273,7 +2300,7 @@ $GAM
 
 $`GAM category`
 [1] "Medium"</code></pre>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Genetic variability statistics for variable y2</span></span>
 <span><span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$Mean
@@ -2323,7 +2350,7 @@ $`GAM category`
 <h3 id="report-augmentedrcbd">7.5 <code>report.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd"></a>
 </h3>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report for variable y1</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
 <span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"augmentedRCBD output - y1.docx"</span><span class="op">)</span><span class="op">)</span></span>
@@ -2347,21 +2374,21 @@ $`GAM category`
 <h3 id="augmentedrcbd-bulk">8.1 <code>augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#augmentedrcbd-bulk"></a>
 </h3>
 <p>Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
 <p>Rather than performing the analysis individually for each variable/trait separately using <code>augmentedRCBD</code>, the analysis can be performed simultaneously for for both the traits using <code>augmentedRCBD.bulk</code> function. It is a wrapper around the <code>augmentedRCBD</code> core function and its associated helper functions.</p>
 <p>However in this case treatment comparisons/grouping by least significant difference or Tukey’s honest significant difference method is not computed. Also the output object size is reduced using the <code>simplify = TRUE</code> argument in the <code>augmentedRCBD</code> function.</p>
 <p>The logical arguments <code>describe</code>, <code>freqdist</code> and <code>gva</code> can be used to specify whether to generate the descriptive statistics, frequency distribution plots and genetic variability statistics respectively. If <code>gva = TRUE</code>, then plots to compare phenotypic and genotypic coefficient of variation, broad sense heritability and genetic advance over mean between traits are also generated.</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, block <span class="op">=</span> <span class="st">"blk"</span>,</span>
 <span>                           treatment <span class="op">=</span> <span class="st">"trt"</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
 <span>                           checks <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, describe <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -2483,7 +2510,7 @@ Treatment Means
 <h3 id="print-augmentedrcbd-bulk">8.2 <code>print.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd-bulk"></a>
 </h3>
 <p>The results of analysis in an object of class <code>augmentedRCBD.bulk</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -2596,7 +2623,7 @@ Treatment Means
 <h3 id="report-augmentedrcbd-bulk">8.3 <code>report.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd-bulk"></a>
 </h3>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
 <span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -2636,7 +2663,7 @@ citing the package.</code></pre>
 <div class="section level2">
 <h2 id="session-info">10 Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.2.1 (2022-06-23)
 Platform: x86_64-apple-darwin17.0 (64-bit)
@@ -2661,22 +2688,23 @@ loaded via a namespace (and not attached):
  [9] yaml_2.3.5         gdtools_0.2.4      pillar_1.7.0       lattice_0.20-45   
 [13] glue_1.6.2         uuid_1.1-0         digest_0.6.29      rbibutils_2.2.8   
 [17] colorspace_2.0-3   sandwich_3.0-2     htmltools_0.5.2    Matrix_1.4-1      
-[21] plyr_1.8.7         pkgconfig_2.0.3    purrr_0.3.4        xtable_1.8-4      
-[25] mvtnorm_1.1-3      scales_1.2.0       officer_0.4.3      emmeans_1.7.5     
-[29] tibble_3.1.7       farver_2.1.0       generics_0.1.2     ggplot2_3.3.6     
-[33] ellipsis_0.3.2     TH.data_1.1-1      cachem_1.0.6       cli_3.3.0         
-[37] survival_3.3-1     magrittr_2.0.3     crayon_1.5.1       memoise_2.0.1     
-[41] estimability_1.3   evaluate_0.15      fs_1.5.2           fansi_1.0.3       
-[45] MASS_7.3-57        xml2_1.3.3         textshaping_0.3.6  tools_4.2.1       
-[49] data.table_1.14.2  lifecycle_1.0.1    multcomp_1.4-19    stringr_1.4.0     
-[53] flextable_0.7.2    munsell_0.5.0      zip_2.2.0          compiler_4.2.1    
-[57] pkgdown_2.0.5      jquerylib_0.1.4    multcompView_0.1-8 systemfonts_1.0.4 
-[61] rlang_1.0.3        grid_4.2.1         labeling_0.4.2     base64enc_0.1-3   
-[65] rmarkdown_2.14     gtable_0.3.0       codetools_0.2-18   reshape2_1.4.4    
-[69] R6_2.5.1           zoo_1.8-10         knitr_1.39         dplyr_1.0.9       
-[73] fastmap_1.1.0      utf8_1.2.2         mathjaxr_1.6-0     rprojroot_2.0.3   
-[77] ragg_1.2.2         desc_1.4.1         stringi_1.7.6      Rcpp_1.0.8.3      
-[81] vctrs_0.4.1        tidyselect_1.1.2   xfun_0.31         </code></pre>
+[21] plyr_1.8.7         XML_3.99-0.10      pkgconfig_2.0.3    purrr_0.3.4       
+[25] xtable_1.8-4       mvtnorm_1.1-3      scales_1.2.0       officer_0.4.3     
+[29] emmeans_1.7.5      tibble_3.1.7       farver_2.1.0       generics_0.1.2    
+[33] ggplot2_3.3.6      ellipsis_0.3.2     TH.data_1.1-1      cachem_1.0.6      
+[37] cli_3.3.0          survival_3.3-1     magrittr_2.0.3     crayon_1.5.1      
+[41] memoise_2.0.1      estimability_1.3   evaluate_0.15      fs_1.5.2          
+[45] fansi_1.0.3        MASS_7.3-57        xml2_1.3.3         textshaping_0.3.6 
+[49] tools_4.2.1        data.table_1.14.2  lifecycle_1.0.1    multcomp_1.4-19   
+[53] stringr_1.4.0      flextable_0.7.2    munsell_0.5.0      zip_2.2.0         
+[57] compiler_4.2.1     pkgdown_2.0.5      jquerylib_0.1.4    multcompView_0.1-8
+[61] systemfonts_1.0.4  rlang_1.0.3        grid_4.2.1         RCurl_1.98-1.7    
+[65] labeling_0.4.2     bitops_1.0-7       base64enc_0.1-3    rmarkdown_2.14    
+[69] gtable_0.3.0       codetools_0.2-18   curl_4.3.2         reshape2_1.4.4    
+[73] R6_2.5.1           zoo_1.8-10         knitr_1.39         dplyr_1.0.9       
+[77] fastmap_1.1.0      utf8_1.2.2         mathjaxr_1.6-0     rprojroot_2.0.3   
+[81] ragg_1.2.2         desc_1.4.1         stringi_1.7.6      Rcpp_1.0.8.3      
+[85] vctrs_0.4.1        tidyselect_1.1.2   xfun_0.31         </code></pre>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
