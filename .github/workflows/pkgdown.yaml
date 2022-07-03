@@ -37,7 +37,6 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("devtools")
           remotes::install_cran("readxl")
-          remotes::install_cran("diagram")
           install.packages("pkgdown", type = "binary")
         shell: Rscript {0}
 

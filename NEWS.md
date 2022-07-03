@@ -3,6 +3,9 @@
 ## VIGNETTE:
 * Fixed fetching CRAN page for version history to fail gracefully when access is down.
 
+## OTHER NOTES:
+* Updated suggests with packages required for vignette.
+
 # augmentedRCBD  0.1.5
 
 ## OTHER NOTES:

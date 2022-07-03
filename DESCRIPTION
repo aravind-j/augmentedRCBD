@@ -53,9 +53,13 @@ Imports:
     reshape2,
     utils
 Suggests:
+    diagram,
     knitr,
     rmarkdown,
     pander,
+	  XML,
+    httr,
+    RCurl,
     testthat,
     agricolae
 RdMacros: 
