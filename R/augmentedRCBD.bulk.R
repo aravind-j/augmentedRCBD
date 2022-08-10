@@ -347,7 +347,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   adjmeans <- reshape2::dcast(adjmeans, Treatment ~ Trait,
                               value.var = "Adjusted Means",
                               fun.aggregate = mean)
-  adjmeans[, traits] <- lapply(adjmeans[, traits], round.conditional)
+  adjmeans[, traits] <- lapply(adjmeans[, traits, drop=FALSE],
+                               round.conditional)
 
   # Check statistics
   checkstat <- lapply(output,

@@ -467,7 +467,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
   if (truncate.means == TRUE) {
     Means$`Adjusted Means`[Means$`Adjusted Means` < 0] <- 0
-    Groups$`Adjusted Means`[Groups$`Adjusted Means` < 0] <- 0
+
+    if (group == TRUE) {
+      Groups$`Adjusted Means`[Groups$`Adjusted Means` < 0] <- 0
+    }
 
     warning(paste(negmsg, '\n',
                   'They were truncated to zero'))

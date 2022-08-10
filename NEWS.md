@@ -1,5 +1,9 @@
 # augmentedRCBD  0.1.6
 
+## UPDATED FUNCTIONS:
+* `augmentedRCBD` - Fixed ignoring of `group = TRUE` when `truncate.means` is `TRUE`.
+* `augmentedRCBD.bulk` - Fixed issue with using only a single trait.
+
 ## VIGNETTE:
 * Fixed fetching CRAN page for version history to fail gracefully when access is down.
 
