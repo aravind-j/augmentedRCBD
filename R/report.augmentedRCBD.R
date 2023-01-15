@@ -182,6 +182,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     rm(src)
 
     # Desc stat
+    augreport <- body_add_par(augreport, value = "Descriptive Statistics",
+                              style = "heading 1")
     descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
     descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
                                         ifelse(descout$Skewness.p.value. <= 0.05,
@@ -218,6 +220,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                               style = "Normal")
 
     # GVA
+    augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
+                              style = "heading 1")
     gvaout <- data.frame(gva.augmentedRCBD(aug))
     gvaout <- dplyr::mutate_if(gvaout, is.numeric, round.conditional)
     gvaout <- data.frame(t(gvaout))
@@ -281,13 +285,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   # Create workbook
   wb <- createWorkbook()
   options(openxlsx.borders = "#TopBottomLeftRight")
-  # options(openxlsx.borderColour = "#984806")
   options(openxlsx.borderStyle = "thin")
   modifyBaseFont(wb, fontSize = 10, fontName = "Arial")
 
-  # hs <- createStyle(fontColour = "#984806", fgFill = "#FDE9D9",
-  #                   halign = "left", valign = "center", textDecoration = "Bold",
-  #                   border = "TopBottomLeftRight")
   hs <- createStyle(halign = "left", valign = "bottom")
 
   num.base <- "0.00"
