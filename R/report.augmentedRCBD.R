@@ -336,8 +336,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   colnames(Details) <- c("Item", "Details")
 
   addWorksheet(wb, sheetName = "Details", gridLines = FALSE)
-  writeDataTable(wb, sheet = "Details",
-            x = Details,
+  writeDataTable(wb, sheet = "Details", x = Details,
             colNames = TRUE, rowNames = FALSE, headerStyle = hs,
             tableStyle = "TableStyleLight1", withFilter = FALSE,
             bandedRows = FALSE)
@@ -354,8 +353,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                          "F value", "Pr(>F)")
 
   addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
-  writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted",
-                 x = anovata,
+  writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted", x = anovata,
                  colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
@@ -378,8 +376,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                          "F value", "Pr(>F)")
 
   addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
-  writeDataTable(wb, sheet = "ANOVA, Block Adjusted",
-                 x = anovaba,
+  writeDataTable(wb, sheet = "ANOVA, Block Adjusted", x = anovaba,
                  colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
@@ -391,14 +388,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   setColWidths(wb, sheet = "ANOVA, Block Adjusted",
                cols = 1:ncol(anovaba), widths = "auto")
 
-
   # Std. Errors
   se <- aug$`Std. Errors`
   se <- cbind(Comparison = row.names(se), se)
 
   addWorksheet(wb, sheetName = "SEs and CDs", gridLines = FALSE)
-  writeDataTable(wb, sheet = "SEs and CDs",
-                 x = se,
+  writeDataTable(wb, sheet = "SEs and CDs", x = se,
                  colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
@@ -419,8 +414,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
 
   # Coefficient of variation
   addWorksheet(wb, sheetName = "Coefficient of Variation", gridLines = FALSE)
-  writeData(wb, sheet = "Coefficient of Variation",
-            x = aug$CV,
+  writeData(wb, sheet = "Coefficient of Variation", x = aug$CV,
             startCol = "A", startRow = 1, borders = "none")
   addStyle(wb,  sheet = "Coefficient of Variation", style = numstyle,
            rows = 1, cols = 1, stack = FALSE)
@@ -429,8 +423,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   Means <- aug$Means
 
   addWorksheet(wb, sheetName = "Means", gridLines = FALSE)
-  writeDataTable(wb, sheet = "Means",
-                 x = Means,
+  writeDataTable(wb, sheet = "Means", x = Means,
                  colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
@@ -463,8 +456,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   colnames(descout) <- c("Statistic", "Value")
 
   addWorksheet(wb, sheetName = "Descriptive Statistics", gridLines = FALSE)
-  writeDataTable(wb, sheet = "Descriptive Statistics",
-                 x = descout,
+  writeDataTable(wb, sheet = "Descriptive Statistics", x = descout,
                  colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
@@ -513,8 +505,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
 
   addWorksheet(wb, sheetName = "Genetic Variability Analysis",
                gridLines = FALSE)
-  writeDataTable(wb, sheet = "Genetic Variability Analysis",
-                 x = gvaout,
+  writeDataTable(wb, sheet = "Genetic Variability Analysis", x = gvaout,
                  colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
@@ -571,8 +562,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                         aug$`Comparison method`), borders = "none")
     gps <- aug$Groups
 
-    writeDataTable(wb, sheet = "Groups",
-                   x = gps, xy = c("A", 2),
+    writeDataTable(wb, sheet = "Groups", x = gps, xy = c("A", 2),
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                    tableStyle = "TableStyleLight1", bandedRows = FALSE)
     addStyle(wb,  sheet = "Groups", style = numstyle,
@@ -582,8 +572,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
              rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
   }
 
-  saveWorkbook(wb = wb, file = target,
-               overwrite = TRUE)
+  saveWorkbook(wb = wb, file = target, overwrite = TRUE)
   }
 
   message(paste("File created at", target))
