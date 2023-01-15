@@ -2,19 +2,23 @@
 % Please edit documentation in R/report.augmentedRCBD.R
 \name{report.augmentedRCBD}
 \alias{report.augmentedRCBD}
-\title{Generate MS Word Report from \code{augmentedRCBD} Output}
+\title{Generate MS Word or Excel Report from \code{augmentedRCBD} Output}
 \usage{
-report.augmentedRCBD(aug, target)
+report.augmentedRCBD(aug, target, file.type = c("word", "excel"))
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
 
-\item{target}{The path to the docx file to be created.}
+\item{target}{The path to the report file to be created.}
+
+\item{file.type}{The file type of the report. Either \code{"word"} for MS
+Word report file or \code{"excel"} for MS Excel report file.}
 }
 \description{
-\code{report.augmentedRCBD} generates a tidy report from an object of
-class \code{augmentedRCBD} as docx MS word file using the
-\code{\link[officer]{officer}} package.
+\code{report.augmentedRCBD} generates a tidy report from an object of class
+\code{augmentedRCBD} as docx MS word file using the
+\code{\link[officer]{officer}} package or xlsx MS excel file using the
+\code{\link[openxlsx]{openxlsx}} package.
 }
 \examples{
 # Example data
@@ -33,7 +37,12 @@ out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = FALSE)
 
 \donttest{
-report.augmentedRCBD(out, file.path(tempdir(), "augmentedRCBD output.docx"))
+report.augmentedRCBD(aug = out,
+                     target = file.path(tempdir(), "augmentedRCBD output.docx",
+                     file.type = "word"))
+report.augmentedRCBD(aug = out,
+                     target = file.path(tempdir(), "augmentedRCBD output.xlsx",
+                     file.type = "excel"))
 }
 
 }
