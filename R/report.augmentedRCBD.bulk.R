@@ -63,250 +63,412 @@
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
 #'
 #'
-report.augmentedRCBD.bulk <- function(aug.bulk, target){
+report.augmentedRCBD.bulk <- function(aug.bulk, target,
+                                      file.type = c("word", "excel")){
 
   if (!is(aug.bulk, "augmentedRCBD.bulk")) {
     stop('"aug.bulk" is not of class "augmentedRCBD.bulk"')
   }
 
-  if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
-    stop(target, " should have '.docx' extension.")
-  }
+  file.type <- match.arg(file.type)
 
-  augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
-                                   "template.docx"))
+  if (file.type == "word") {
+    if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
+      stop(target, " should have '.docx' extension.")
+    }
 
-  augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
-  augreport <- body_add_toc(augreport, level = 2)
+    augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
+                                     "template.docx"))
 
-  # Details
-  augreport <- body_add_par(augreport, value = "Details", style = "heading 1")
+    augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
+    augreport <- body_add_toc(augreport, level = 2)
 
-  Details <- t(data.frame(`Number of blocks` = aug.bulk$Details$`Number of blocks`,
-                          `Number of treatments` = aug.bulk$Details$`Number of treatments`,
-                          `Number of check treatments` = aug.bulk$Details$`Number of check treatments`,
-                          `Number of test treatments` = aug.bulk$Details$`Number of test treatments`,
-                          `Check treatments` =  paste(aug.bulk$Details$`Check treatments`, collapse = ", "),
-                          `Number of Traits` = aug.bulk$Details$`Number of Traits`,
-                          `Traits` = paste(aug.bulk$Details$Traits, collapse = ", ")))
-  Details <- data.frame(Details)
-  Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
-  colnames(Details) <- c("Item", "Details")
+    # Details
+    augreport <- body_add_par(augreport, value = "Details", style = "heading 1")
 
-  Details <- regulartable(data = data.frame(Details))
-  Details <- autofit(Details)
-  augreport <- body_add_flextable(augreport, Details)
+    Details <- t(data.frame(`Number of blocks` = aug.bulk$Details$`Number of blocks`,
+                            `Number of treatments` = aug.bulk$Details$`Number of treatments`,
+                            `Number of check treatments` = aug.bulk$Details$`Number of check treatments`,
+                            `Number of test treatments` = aug.bulk$Details$`Number of test treatments`,
+                            `Check treatments` =  paste(aug.bulk$Details$`Check treatments`, collapse = ", "),
+                            `Number of Traits` = aug.bulk$Details$`Number of Traits`,
+                            `Traits` = paste(aug.bulk$Details$Traits, collapse = ", ")))
+    Details <- data.frame(Details)
+    Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
+    colnames(Details) <- c("Item", "Details")
 
-  # ANOVA, TA
-  augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
-                            style = "heading 1")
-  anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
-  anovata$Df <- as.character(anovata$Df)
-  colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
-  anovata <- autofit(flextable(anovata))
-  anovata <- bold(anovata, part = "header")
-  augreport <- body_add_flextable(augreport, anovata)
+    Details <- regulartable(data = data.frame(Details))
+    Details <- autofit(Details)
+    augreport <- body_add_flextable(augreport, Details)
 
-  augreport <- body_add_par(augreport,
-                            value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
-                            style = "Normal")
-  # ANOVA, BA
-  augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
-                            style = "heading 1")
-  anovaba <- aug.bulk$`ANOVA, Block Adjusted`
-  anovaba$Df <- as.character(anovaba$Df)
-  colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
-  anovaba <- autofit(flextable(anovaba))
-  anovaba <- bold(anovaba, part = "header")
-  augreport <- body_add_flextable(augreport, anovaba)
-
-  augreport <- body_add_par(augreport,
-                            value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
-                            style = "Normal")
-
-  # Std. error
-  augreport <- body_add_par(augreport, value = "Standard Errors",
-                            style = "heading 1")
-  SE <- aug.bulk$`Std. Errors`
-  colnames(SE) <- make.names(colnames(SE), unique = TRUE)
-  SE <- autofit(flextable(SE))
-  SE <- bold(SE, part = "header")
-  augreport <- body_add_flextable(augreport, SE)
-
-  # CD
-  augreport <- body_add_par(augreport,
-                            value = paste("Critical Difference (",
-                                          aug.bulk$alpha * 100, "%)", sep = ""),
-                            style = "heading 1")
-  CD <- aug.bulk$CD
-  colnames(CD) <- make.names(colnames(CD), unique = TRUE)
-  CD <- autofit(flextable(CD))
-  CD <- bold(CD, part = "header")
-  augreport <- body_add_flextable(augreport, CD)
-
-  # CV
-  augreport <- body_add_par(augreport, value = "Coefficient of Variance",
-                            style = "heading 1")
-  CV <- aug.bulk$CV
-  CV <- autofit(flextable(CV))
-  CV <- bold(CV, part = "header")
-  augreport <- body_add_flextable(augreport, CV)
-
-  # Overall adj. mean
-  augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
-                            style = "heading 1")
-  oadjmean <- aug.bulk$`Overall adjusted mean`
-  oadjmean <- autofit(flextable(oadjmean))
-  oadjmean <- bold(oadjmean, part = "header")
-  augreport <- body_add_flextable(augreport, oadjmean)
-
-  # Check statistics
-  augreport <- body_add_par(augreport, value = "Check Statistics",
-                            style = "heading 1")
-  for (i in seq_along(aug.bulk$`Check statistics`)) {
-    augreport <- body_add_par(augreport, value = names(aug.bulk$`Check statistics`)[i],
-                              style = "heading 2")
-    chkout <- autofit(flextable(aug.bulk$`Check statistics`[[i]]))
-    chkout <- bold(chkout, part = "header")
-    augreport <- body_add_flextable(augreport, chkout)
-  }
-
-
-  # Descriptive statistics
-  if (!is.null(aug.bulk$`Descriptive statistics`)){
-    augreport <- body_add_par(augreport, value = "Descriptive Statistics",
+    # ANOVA, TA
+    augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                               style = "heading 1")
-    descout <- aug.bulk$`Descriptive statistics`
-    descout <- autofit(flextable(descout))
-    descout <- bold(descout, part = "header")
-    augreport <- body_add_flextable(augreport, descout)
+    anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
+    anovata$Df <- as.character(anovata$Df)
+    colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
+    anovata <- autofit(flextable(anovata))
+    anovata <- bold(anovata, part = "header")
+    augreport <- body_add_flextable(augreport, anovata)
 
     augreport <- body_add_par(augreport,
                               value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
                               style = "Normal")
-  }
-
-  # Frequency distribution
-  if (!is.null(aug.bulk$`Frequency distribution`)) {
-    augreport <- body_add_par(augreport, value = "Frequency Distribution",
+    # ANOVA, BA
+    augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                               style = "heading 1")
+    anovaba <- aug.bulk$`ANOVA, Block Adjusted`
+    anovaba$Df <- as.character(anovaba$Df)
+    colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
+    anovaba <- autofit(flextable(anovaba))
+    anovaba <- bold(anovaba, part = "header")
+    augreport <- body_add_flextable(augreport, anovaba)
 
-    for (i in 1:aug.bulk$Details$`Number of Traits`) {
-      augreport <- body_add_par(augreport, value = aug.bulk$Details$Traits[i],
-                                style = "heading 2")
-      src <- tempfile(fileext = ".png")
-      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-      plot(aug.bulk$`Frequency distribution`[[aug.bulk$Details$Traits[i]]])
-      dev.off()
-      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-      rm(src)
-    }
-  }
+    augreport <- body_add_par(augreport,
+                              value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+                              style = "Normal")
 
-  # GVA
-  if (!is.null(aug.bulk$`Genetic variability analysis`)) {
-    augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
+    # Std. error
+    augreport <- body_add_par(augreport, value = "Standard Errors",
                               style = "heading 1")
-    GVA <- aug.bulk$`Genetic variability analysis`
-    GVA <- autofit(flextable(GVA))
-    GVA <- bold(GVA, part = "header")
-    augreport <- body_add_flextable(augreport, GVA)
-  }
+    SE <- aug.bulk$`Std. Errors`
+    colnames(SE) <- make.names(colnames(SE), unique = TRUE)
+    SE <- autofit(flextable(SE))
+    SE <- bold(SE, part = "header")
+    augreport <- body_add_flextable(augreport, SE)
 
-  # GVA plots
-  if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
-
-    augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis Plots",
+    # CD
+    augreport <- body_add_par(augreport,
+                              value = paste("Critical Difference (",
+                                            aug.bulk$alpha * 100, "%)", sep = ""),
                               style = "heading 1")
+    CD <- aug.bulk$CD
+    colnames(CD) <- make.names(colnames(CD), unique = TRUE)
+    CD <- autofit(flextable(CD))
+    CD <- bold(CD, part = "header")
+    augreport <- body_add_flextable(augreport, CD)
 
-    if (!is.null(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)) {
-      augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
-                                style = "heading 2")
-
-      src <- tempfile(fileext = ".png")
-      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-      plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
-      dev.off()
-      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-      rm(src)
-    }
-
-    if (!is.null(aug.bulk$`GVA plots`$`Broad sense heritability`)) {
-      augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
-                                style = "heading 2")
-
-      src <- tempfile(fileext = ".png")
-      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-      plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
-      dev.off()
-      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-      rm(src)
-    }
-
-    if (!is.null(aug.bulk$`GVA plots`$`Genetic advance over mean`)) {
-      augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
-                                style = "heading 2")
-
-      src <- tempfile(fileext = ".png")
-      png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-      plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
-      dev.off()
-      augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-      rm(src)
-    }
-  }
-
-  # Adjusted Means
-  augreport <- body_add_par(augreport, value = "Adjusted Means",
-                            style = "heading 1")
-  adj.means <- aug.bulk$Means
-  colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
-  adj.means <- autofit(flextable(adj.means))
-  adj.means <- bold(adj.means, part = "header")
-  augreport <- body_add_flextable(augreport, adj.means)
-
-  # Warnings
-  if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
-    augreport <- body_add_par(augreport, value = "Warnings",
+    # CV
+    augreport <- body_add_par(augreport, value = "Coefficient of Variance",
                               style = "heading 1")
+    CV <- aug.bulk$CV
+    CV <- autofit(flextable(CV))
+    CV <- bold(CV, part = "header")
+    augreport <- body_add_flextable(augreport, CV)
 
-    if (!is.null(aug.bulk$warnings$Model)) {
-      augreport <- body_add_par(augreport, value = "Model",
+    # Overall adj. mean
+    augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
+                              style = "heading 1")
+    oadjmean <- aug.bulk$`Overall adjusted mean`
+    oadjmean <- autofit(flextable(oadjmean))
+    oadjmean <- bold(oadjmean, part = "header")
+    augreport <- body_add_flextable(augreport, oadjmean)
+
+    # Check statistics
+    augreport <- body_add_par(augreport, value = "Check Statistics",
+                              style = "heading 1")
+    for (i in seq_along(aug.bulk$`Check statistics`)) {
+      augreport <- body_add_par(augreport, value = names(aug.bulk$`Check statistics`)[i],
                                 style = "heading 2")
-      for (i in seq_along(aug.bulk$warnings$Model)) {
-        augreport <- body_add_par(augreport,
-                                  value = aug.bulk$warnings$Model[i],
-                                  style = "Code")
-      }
+      chkout <- autofit(flextable(aug.bulk$`Check statistics`[[i]]))
+      chkout <- bold(chkout, part = "header")
+      augreport <- body_add_flextable(augreport, chkout)
     }
 
-    if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
+
+    # Descriptive statistics
+    if (!is.null(aug.bulk$`Descriptive statistics`)){
+      augreport <- body_add_par(augreport, value = "Descriptive Statistics",
+                                style = "heading 1")
+      descout <- aug.bulk$`Descriptive statistics`
+      descout <- autofit(flextable(descout))
+      descout <- bold(descout, part = "header")
+      augreport <- body_add_flextable(augreport, descout)
+
+      augreport <- body_add_par(augreport,
+                                value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+                                style = "Normal")
+    }
+
+    # Frequency distribution
+    if (!is.null(aug.bulk$`Frequency distribution`)) {
       augreport <- body_add_par(augreport, value = "Frequency Distribution",
-                                style = "heading 2")
-      for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
-        augreport <- body_add_par(augreport,
-                                   value = aug.bulk$warnings$`Freq. dist`[i],
-                                   style = "Code")
+                                style = "heading 1")
+
+      for (i in 1:aug.bulk$Details$`Number of Traits`) {
+        augreport <- body_add_par(augreport, value = aug.bulk$Details$Traits[i],
+                                  style = "heading 2")
+        src <- tempfile(fileext = ".png")
+        png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+        plot(aug.bulk$`Frequency distribution`[[aug.bulk$Details$Traits[i]]])
+        dev.off()
+        augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+        rm(src)
       }
     }
 
-    if (!is.null(aug.bulk$warnings$GVA)) {
-      augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis",
-                                style = "heading 2")
-      for (i in seq_along(aug.bulk$warnings$GVA)) {
-        augreport <- body_add_par(augreport,
-                                  value = aug.bulk$warnings$GVA[i],
-                                  style = "Code")
+    # GVA
+    if (!is.null(aug.bulk$`Genetic variability analysis`)) {
+      augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
+                                style = "heading 1")
+      GVA <- aug.bulk$`Genetic variability analysis`
+      GVA <- autofit(flextable(GVA))
+      GVA <- bold(GVA, part = "header")
+      augreport <- body_add_flextable(augreport, GVA)
+    }
+
+    # GVA plots
+    if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
+
+      augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis Plots",
+                                style = "heading 1")
+
+      if (!is.null(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)) {
+        augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
+                                  style = "heading 2")
+
+        src <- tempfile(fileext = ".png")
+        png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+        plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
+        dev.off()
+        augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+        rm(src)
+      }
+
+      if (!is.null(aug.bulk$`GVA plots`$`Broad sense heritability`)) {
+        augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
+                                  style = "heading 2")
+
+        src <- tempfile(fileext = ".png")
+        png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+        plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
+        dev.off()
+        augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+        rm(src)
+      }
+
+      if (!is.null(aug.bulk$`GVA plots`$`Genetic advance over mean`)) {
+        augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
+                                  style = "heading 2")
+
+        src <- tempfile(fileext = ".png")
+        png(filename = src, width = 6, height = 4, units = 'in', res = 300)
+        plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
+        dev.off()
+        augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
+        rm(src)
       }
     }
+
+    # Adjusted Means
+    augreport <- body_add_par(augreport, value = "Adjusted Means",
+                              style = "heading 1")
+    adj.means <- aug.bulk$Means
+    colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
+    adj.means <- autofit(flextable(adj.means))
+    adj.means <- bold(adj.means, part = "header")
+    augreport <- body_add_flextable(augreport, adj.means)
+
+    # Warnings
+    if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
+      augreport <- body_add_par(augreport, value = "Warnings",
+                                style = "heading 1")
+
+      if (!is.null(aug.bulk$warnings$Model)) {
+        augreport <- body_add_par(augreport, value = "Model",
+                                  style = "heading 2")
+        for (i in seq_along(aug.bulk$warnings$Model)) {
+          augreport <- body_add_par(augreport,
+                                    value = aug.bulk$warnings$Model[i],
+                                    style = "Code")
+        }
+      }
+
+      if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
+        augreport <- body_add_par(augreport, value = "Frequency Distribution",
+                                  style = "heading 2")
+        for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
+          augreport <- body_add_par(augreport,
+                                    value = aug.bulk$warnings$`Freq. dist`[i],
+                                    style = "Code")
+        }
+      }
+
+      if (!is.null(aug.bulk$warnings$GVA)) {
+        augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis",
+                                  style = "heading 2")
+        for (i in seq_along(aug.bulk$warnings$GVA)) {
+          augreport <- body_add_par(augreport,
+                                    value = aug.bulk$warnings$GVA[i],
+                                    style = "Code")
+        }
+      }
+    }
+
+
+    augreport <- body_add_par(augreport,
+                              value = "################## The End ##################",
+                              style = "Center text")
+
+    print(augreport, target = target)
+
   }
 
+  if (file.type == "excel") {
+    if (!grepl(x = target, pattern = "\\.(xlsx)$", ignore.case = TRUE)) {
+      stop(target, " should have '.xlsx' extension.")
+    }
 
-  augreport <- body_add_par(augreport,
-                            value = "################## The End ##################",
-                            style = "Center text")
+    # Create workbook
+    wb <- createWorkbook()
+    options(openxlsx.borders = "#TopBottomLeftRight")
+    options(openxlsx.borderStyle = "thin")
+    modifyBaseFont(wb, fontSize = 10, fontName = "Arial")
 
-print(augreport, target = target)
-message(paste("File created at", target))
+    hs <- createStyle(halign = "left", valign = "bottom")
+
+    num.base <- "0.00"
+    numstyle <- createStyle(numFmt = num.base)
+    ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
+    dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
+    nsstyle <- createStyle(numFmt = paste(num.base, '"ⁿˢ"'))
+
+    ntraits <- aug.bulk$Details$`Number of Traits`
+    traits <- aug.bulk$Details$Traits
+
+    # Index
+    index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
+               "Standard Errors", "Critical Difference", "Coefficient of Variation",
+               "Overall Adjusted Mean", "Check Statistics",
+               "Descriptive Statistics", "Frequency Distribution",
+               "Genetic Variability Analysis", "GVA Plots", "Adjusted Means",
+               "Warnings")
+    index <- data.frame(`Sl.No` = seq_along(index),
+                        Sheets = index)
+
+    addWorksheet(wb, sheetName = "Index", gridLines = FALSE)
+    insertImage(wb, sheet = "Index",
+                file = system.file("extdata", "augmentedRCBD.png",
+                                   package = "augmentedRCBD"),
+                startCol = "A", startRow = 2,
+                width = 1, height = 1.1)
+    writeData(wb, sheet = "Index", x = "https://aravind-j.github.io/augmentedRCBD",
+              startCol = "C", startRow = 4, borders = "none")
+    writeData(wb, sheet = "Index", x = "https://github.com/aravind-j/augmentedRCBD",
+              startCol = "C", startRow = 5, borders = "none")
+    writeData(wb, sheet = "Index", x = "https://CRAN.R-project.org/package=augmentedRCBD",
+              startCol = "C", startRow = 6, borders = "none")
+    writeDataTable(wb, sheet = "Index", x = index,
+                   startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
+                   headerStyle = hs, tableStyle = "TableStyleLight1",
+                   withFilter = FALSE, bandedRows = FALSE)
+    addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
+             rows = 9, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Index", cols = 1:3, widths = "auto")
+
+    # Details
+    Details <- t(data.frame(`Number of blocks` = aug.bulk$Details$`Number of blocks`,
+                            `Number of treatments` = aug.bulk$Details$`Number of treatments`,
+                            `Number of check treatments` = aug.bulk$Details$`Number of check treatments`,
+                            `Number of test treatments` = aug.bulk$Details$`Number of test treatments`,
+                            `Check treatments` =  paste(aug.bulk$Details$`Check treatments`, collapse = ", "),
+                            `Number of Traits` = aug.bulk$Details$`Number of Traits`,
+                            `Traits` = paste(aug.bulk$Details$Traits, collapse = ", ")))
+    Details <- data.frame(Details)
+    Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
+    colnames(Details) <- c("Item", "Details")
+
+    addWorksheet(wb, sheetName = "Details", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Details", x = Details,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
+
+    # ANOVA, TA
+    anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
+    colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
+    writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted", x = anovata,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+             style = createStyle(numFmt = "0"),
+             rows = 2:6, cols = 2, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
+                 cols = 1:ncol(anovata), widths = "auto")
+    writeData(wb, sheet = "ANOVA, Treatment Adjusted", xy = c("A", 7),
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              borders = "none")
+
+    # ANOVA, BA
+    anovaba <- aug.bulk$`ANOVA, Block Adjusted`
+    colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
+    writeDataTable(wb, sheet = "ANOVA, Block Adjusted", x = anovaba,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "ANOVA, Block Adjusted",
+             style = createStyle(numFmt = "0"),
+             rows = 2:7, cols = 2, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "ANOVA, Block Adjusted",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "ANOVA, Block Adjusted",
+                 cols = 1:ncol(anovaba), widths = "auto")
+    writeData(wb, sheet = "ANOVA, Block Adjusted", xy = c("A", 8),
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              borders = "none")
+
+    # Std. Error
+    SE <- aug.bulk$`Std. Errors`
+    SE[, traits] <- lapply(SE[, traits], as.numeric)
+    colnames(SE) <- make.names(colnames(SE), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "Standard Errors", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Standard Errors", x = SE,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Standard Errors", style = numstyle,
+             rows = 2:5, cols = 2:(ntraits + 1), stack = FALSE,
+             gridExpand = TRUE)
+    addStyle(wb,  sheet = "Standard Errors",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2:(ntraits + 1), stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Standard Errors",
+                 cols = 1:ncol(SE), widths = "auto")
+
+    # CD
+    CD <- aug.bulk$CD
+    CD[, traits] <- lapply(CD[, traits], as.numeric)
+    colnames(CD) <- make.names(colnames(CD), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "Critical Difference", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Critical Difference", x = CD,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Critical Difference", style = numstyle,
+             rows = 2:5, cols = 2:(ntraits + 1), stack = FALSE,
+             gridExpand = TRUE)
+    addStyle(wb,  sheet = "Critical Difference",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2:(ntraits + 1), stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Critical Difference",
+                 cols = 1:ncol(CD), widths = "auto")
+
+    saveWorkbook(wb = wb, file = target, overwrite = TRUE)
+
+  }
+
+  message(paste("File created at", target))
 
 }
