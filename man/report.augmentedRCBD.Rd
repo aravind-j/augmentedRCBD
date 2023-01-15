@@ -38,11 +38,13 @@ out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 
 \donttest{
 report.augmentedRCBD(aug = out,
-                     target = file.path(tempdir(), "augmentedRCBD output.docx",
-                     file.type = "word"))
+                     target = file.path(tempdir(),
+                                        "augmentedRCBD output.docx"),
+                     file.type = "word")
 report.augmentedRCBD(aug = out,
-                     target = file.path(tempdir(), "augmentedRCBD output.xlsx",
-                     file.type = "excel"))
+                     target = file.path(tempdir(),
+                                        "augmentedRCBD output.xlsx"),
+                     file.type = "excel")
 }
 
 }

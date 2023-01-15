@@ -58,11 +58,13 @@
 #'
 #' \donttest{
 #' report.augmentedRCBD(aug = out,
-#'                      target = file.path(tempdir(), "augmentedRCBD output.docx",
-#'                      file.type = "word"))
+#'                      target = file.path(tempdir(),
+#'                                         "augmentedRCBD output.docx"),
+#'                      file.type = "word")
 #' report.augmentedRCBD(aug = out,
-#'                      target = file.path(tempdir(), "augmentedRCBD output.xlsx",
-#'                      file.type = "excel"))
+#'                      target = file.path(tempdir(),
+#'                                         "augmentedRCBD output.xlsx"),
+#'                      file.type = "excel")
 #' }
 #'
 report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
@@ -286,7 +288,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   # hs <- createStyle(fontColour = "#984806", fgFill = "#FDE9D9",
   #                   halign = "left", valign = "center", textDecoration = "Bold",
   #                   border = "TopBottomLeftRight")
-  hs <- createStyle(halign = "left", valign = "center")
+  hs <- createStyle(halign = "left", valign = "bottom")
 
   num.base <- "0.00"
   numstyle <- createStyle(numFmt = num.base)
@@ -318,6 +320,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
             startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
             headerStyle = hs, tableStyle = "TableStyleLight1",
             withFilter = FALSE, bandedRows = FALSE)
+  addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
+           rows = 9, cols = 2, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "Index", cols = 1:3, widths = "auto")
 
   # Details
@@ -357,6 +361,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                  bandedRows = FALSE)
   addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle,
            rows = 2:6, cols = 3:6, stack = FALSE, gridExpand = TRUE)
+  addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+           style = createStyle(halign = "right"),
+           rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
                cols = 1:ncol(anovata), widths = "auto")
 
@@ -378,6 +385,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                  bandedRows = FALSE)
   addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
            rows = 2:7, cols = 3:6, stack = FALSE, gridExpand = TRUE)
+  addStyle(wb,  sheet = "ANOVA, Block Adjusted",
+           style = createStyle(halign = "right"),
+           rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "ANOVA, Block Adjusted",
                cols = 1:ncol(anovaba), widths = "auto")
 
@@ -394,6 +404,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                  bandedRows = FALSE)
   addStyle(wb,  sheet = "SEs and CDs", style = numstyle,
            rows = 2:5, cols = 2:3, stack = FALSE, gridExpand = TRUE)
+  addStyle(wb,  sheet = "SEs and CDs", style = createStyle(halign = "right"),
+           rows = 1, cols = 2:3, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "SEs and CDs",
                cols = 1:ncol(se), widths = "auto")
 
@@ -425,6 +437,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   addStyle(wb,  sheet = "Means", style = numstyle,
            rows = 2:(nrow(Means) + 1), cols = c(3:4, 6:8),
            stack = FALSE, gridExpand = TRUE)
+  addStyle(wb,  sheet = "Means", style = createStyle(halign = "right"),
+           rows = 1, cols = 3:8, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "Means",
                cols = 1:ncol(Means), widths = "auto")
 
@@ -476,6 +490,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                }
              },
            rows = 9, cols = 2, stack = FALSE)
+  addStyle(wb,  sheet = "Descriptive Statistics",
+           style = createStyle(halign = "right"),
+           rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "Descriptive Statistics",
                cols = 1:ncol(descout), widths = "auto")
   writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
@@ -516,6 +533,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   writeData(wb, sheet = "Genetic Variability Analysis",
             x = gvaout_sub[gvaout_sub == "GAM.category", ]$Value,
             xy = c("B", 15), borders = "none")
+  addStyle(wb,  sheet = "Genetic Variability Analysis",
+           style = createStyle(halign = "right"),
+           rows = 1:15, cols = 2, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "Genetic Variability Analysis",
                cols = 1:ncol(gvaout), widths = "auto")
 
@@ -532,11 +552,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     writeDataTable(wb, sheet = "Comparisons",
                    x = cmp, xy = c("A", 2),
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                   tableStyle = "TableStyleLight1", withFilter = TRUE,
-                   bandedRows = FALSE)
+                   tableStyle = "TableStyleLight1", bandedRows = FALSE)
     addStyle(wb,  sheet = "Comparisons", style = numstyle,
              rows = 3:(nrow(cmp) + 2), cols = c(2:3, 5:6),
              stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "Comparisons", style = createStyle(halign = "right"),
+             rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
     writeData(wb, sheet = "Comparisons", xy = c("A", nrow(cmp) + 3),
               x = "* P \u2264 0.05; ** P \u2264 0.01", borders = "none")
   }
@@ -553,11 +574,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     writeDataTable(wb, sheet = "Groups",
                    x = gps, xy = c("A", 2),
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                   tableStyle = "TableStyleLight1", withFilter = TRUE,
-                   bandedRows = FALSE)
+                   tableStyle = "TableStyleLight1", bandedRows = FALSE)
     addStyle(wb,  sheet = "Groups", style = numstyle,
              rows = 3:(nrow(gps) + 2), cols = c(2:3, 5:6),
              stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "Groups", style = createStyle(halign = "right"),
+             rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
   }
 
   saveWorkbook(wb = wb, file = target,
