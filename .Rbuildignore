@@ -30,3 +30,5 @@
 ^CRAN-RELEASE$
 ^\.github$
 ^tmp-pdfcrop-*$
+^\.xlsx$
+^\.docx$

@@ -16,3 +16,5 @@ vignettes/rlogo.png
 .httr-oauth
 tmp-pdfcrop-*
 docs
+.docx
+.xlsx
