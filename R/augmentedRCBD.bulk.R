@@ -123,6 +123,7 @@
 #' @importFrom grDevices nclass.scott
 #' @importFrom grDevices nclass.Sturges
 #' @importFrom stats na.omit
+#' @importFrom cli ansi_strip
 #' @export
 augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                alpha = 0.05, describe = TRUE,
@@ -593,7 +594,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                              check.col = check.col)
       }, warning = function(w) {
         fqwarn <<- append(fqwarn, traits[i])
-        fqwarn <<- append(fqwarn, conditionMessage(w))
+        fqwarn <<- append(fqwarn, cli::ansi_strip(w$message))
         invokeRestart("muffleWarning")
       })
     }

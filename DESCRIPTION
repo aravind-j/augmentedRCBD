@@ -36,6 +36,7 @@ URL: https://github.com/aravind-j/augmentedRCBD
     https://doi.org/10.5281/zenodo.1310011
 BugReports: https://github.com/aravind-j/augmentedRCBD/issues
 Imports:
+    cli,
     emmeans,
     dplyr,
     flextable,
