@@ -72,6 +72,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
   file.type <- match.arg(file.type)
 
+  round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
+
   if (file.type == "word") {
     if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
       stop(target, " should have '.docx' extension.")
@@ -82,6 +84,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
     augreport <- body_add_toc(augreport, level = 2)
+
+    traits <- aug.bulk$Details$Traits
+    ntraits <- aug.bulk$Details$`Number of Traits`
 
     # Details
     augreport <- body_add_par(augreport, value = "Details", style = "heading 1")
@@ -101,14 +106,31 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     Details <- autofit(Details)
     augreport <- body_add_flextable(augreport, Details)
 
+    merge_mss_sig <- function(i) {
+      paste(round.conditional(anovatable[, paste(traits[i], "_Mean.Sq",
+                                              sep = "")],
+                              digits = round.digits),
+            stringi::stri_pad_right(anovatable[, paste(traits[i], "_sig",
+                                                    sep = "")], 3))
+    }
+
     # ANOVA, TA
     augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                               style = "heading 1")
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
-    anovata$Df <- as.character(anovata$Df)
+    # anovata$Df <- as.character(anovata$Df)
     colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
+    anovatable <- anovata
+    anovata[, traits] <- lapply(1:length(traits),
+                                merge_mss_sig)
+    anovata[, c(paste(traits, "_Mean.Sq", sep = ""),
+                paste(traits, "_sig", sep = ""))] <- NULL
+    anovatable <- NULL
     anovata <- autofit(flextable(anovata))
     anovata <- bold(anovata, part = "header")
+    anovata <- add_header_row(anovata,
+                   colwidths = c(1, 1, ntraits),
+                   values = c("", "", "Mean.Sq"))
     augreport <- body_add_flextable(augreport, anovata)
 
     augreport <- body_add_par(augreport,
@@ -118,10 +140,18 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                               style = "heading 1")
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
-    anovaba$Df <- as.character(anovaba$Df)
     colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
+    anovatable <- anovaba
+    anovaba[, traits] <- lapply(1:length(traits),
+                                merge_mss_sig)
+    anovaba[, c(paste(traits, "_Mean.Sq", sep = ""),
+                paste(traits, "_sig", sep = ""))] <- NULL
+    anovatable <- NULL
     anovaba <- autofit(flextable(anovaba))
     anovaba <- bold(anovaba, part = "header")
+    anovaba <- add_header_row(anovaba,
+                              colwidths = c(1, 1, ntraits),
+                              values = c("", "", "Mean.Sq"))
     augreport <- body_add_flextable(augreport, anovaba)
 
     augreport <- body_add_par(augreport,
@@ -335,6 +365,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     ntraits <- aug.bulk$Details$`Number of Traits`
     traits <- aug.bulk$Details$Traits
+    nchecks <- aug.bulk$Details$`Number of check treatments`
+    ntreats <- aug.bulk$Details$`Number of treatments`
 
     # Index
     index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
@@ -464,6 +496,228 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
              rows = 1, cols = 2:(ntraits + 1), stack = TRUE, gridExpand = TRUE)
     setColWidths(wb, sheet = "Critical Difference",
                  cols = 1:ncol(CD), widths = "auto")
+
+    # CV
+    CV <- aug.bulk$CV
+    CV$CV <- as.numeric(CV$CV)
+    colnames(CV) <- make.names(colnames(CV), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "Coefficient of Variance", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Coefficient of Variance", x = CV,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Coefficient of Variance", style = numstyle,
+             rows = 2:(ntraits + 1), cols = 2, stack = FALSE,
+             gridExpand = TRUE)
+    addStyle(wb,  sheet = "Coefficient of Variance",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Coefficient of Variance",
+                 cols = 1:ncol(CV), widths = "auto")
+
+    # Overall adj. mean
+    oadjmean <- aug.bulk$`Overall adjusted mean`
+    oadjmean$Overall.adjusted.mean <- as.numeric(oadjmean$Overall.adjusted.mean)
+    colnames(oadjmean) <- make.names(colnames(oadjmean), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "Overall Adjusted Mean", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Overall Adjusted Mean", x = oadjmean,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Overall Adjusted Mean", style = numstyle,
+             rows = 2:(ntraits + 1), cols = 2, stack = FALSE,
+             gridExpand = TRUE)
+    addStyle(wb,  sheet = "Overall Adjusted Mean",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Overall Adjusted Mean",
+                 cols = 1:ncol(oadjmean), widths = "auto")
+
+
+    # Check statistics
+    addWorksheet(wb, sheetName = "Check Statistics", gridLines = FALSE)
+    indexdf <- data.frame(i = sort(rep(1:ntraits, nchecks+3)),
+                          rows  = rep(1:(nchecks+3), ntraits))
+    indexdf$index <- seq_along(indexdf$i)
+
+    for (i in seq_along(aug.bulk$`Check statistics`)) {
+      row1 <- indexdf[indexdf$i == i & indexdf$rows == 1, ]$index
+      writeData(wb, sheet = "Check Statistics",
+                x = names(aug.bulk$`Check statistics`)[i],
+                startCol = "A", startRow = row1, borders = "none")
+      writeDataTable(wb, sheet = "Check Statistics",
+                     x = aug.bulk$`Check statistics`[[i]],
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE, startCol = "A",
+                     startRow = row1 + 1)
+      addStyle(wb,  sheet = "Check Statistics", style = numstyle,
+               rows = (row1 + 1):(row1 + nchecks + 1), cols = 3:4,
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "Check Statistics",
+               style = createStyle(halign = "right"),
+               rows = row1 + 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+      rm(row1)
+    }
+    setColWidths(wb, sheet = "Check Statistics",
+                 cols = 1:ncol(aug.bulk$`Check statistics`[[1]]),
+                 widths = "auto")
+    rm(indexdf)
+
+    # Descriptive statistics
+    if (!is.null(aug.bulk$`Descriptive statistics`)){
+      descout <- aug.bulk$`Descriptive statistics`
+
+      addWorksheet(wb, sheetName = "Descriptive Statistics", gridLines = FALSE)
+      writeDataTable(wb, sheet = "Descriptive Statistics", x = descout,
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+      addStyle(wb,  sheet = "Descriptive Statistics", style = numstyle,
+               rows = 2:(ntraits + 1), cols = 2, stack = FALSE,
+               gridExpand = TRUE)
+      addStyle(wb,  sheet = "Descriptive Statistics",
+               style = createStyle(halign = "right"),
+               rows = 1, cols = 3:7, stack = TRUE, gridExpand = TRUE)
+      setColWidths(wb, sheet = "Descriptive Statistics",
+                   cols = 1:ncol(descout), widths = "auto")
+      writeData(wb, sheet = "Descriptive Statistics", xy = c("A", ntraits + 2),
+                x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+                borders = "none")
+    }
+
+    # Frequency distribution
+    if (!is.null(aug.bulk$`Frequency distribution`)) {
+      addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
+      indexdf <- data.frame(i = sort(rep(1:ntraits, 25)),
+                            rows  = rep(1:(25), ntraits))
+      indexdf$index <- seq_along(indexdf$i)
+
+      for (i in seq_along(aug.bulk$`Frequency distribution`)) {
+        row1 <- indexdf[indexdf$i == i & indexdf$rows == 1, ]$index
+        writeData(wb, sheet = "Frequency Distribution",
+                  x = names(aug.bulk$`Frequency distribution`)[i],
+                  startCol = "A", startRow = row1, borders = "none")
+        plot(aug.bulk$`Frequency distribution`[[i]])
+        insertPlot(wb, sheet = "Frequency Distribution",
+                   xy = c("B", row1))
+        dev.off()
+        rm(row1)
+      }
+      setColWidths(wb, sheet = "Frequency Distribution",
+                   cols = 1, widths = "auto")
+      rm(indexdf)
+    }
+
+    # GVA
+    if (!is.null(aug.bulk$`Genetic variability analysis`)) {
+      GVA <- aug.bulk$`Genetic variability analysis`
+
+      addWorksheet(wb, sheetName = "Genetic Variability Analysis",
+                   gridLines = FALSE)
+      writeDataTable(wb, sheet = "Genetic Variability Analysis", x = GVA,
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+      addStyle(wb,  sheet = "Genetic Variability Analysis", style = numstyle,
+               rows = 2:(ntraits + 1), cols = c(2:6, 8, 10:11, 13:14),
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "Genetic Variability Analysis",
+               style = createStyle(halign = "right"),
+               rows = 1, cols = c(2:6, 8, 10:11, 13:14), stack = TRUE,
+               gridExpand = TRUE)
+      setColWidths(wb, sheet = "Genetic Variability Analysis",
+                   cols = 1:ncol(GVA), widths = "auto")
+    }
+
+    # GVA plots
+    if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
+
+      addWorksheet(wb, sheetName = "GVA Plots", gridLines = FALSE)
+
+      if (!is.null(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)) {
+        writeData(wb, sheet = "GVA Plots",
+                  x = "Phenotypic and Genotypic Coefficient of Variability",
+                  startCol = "A", startRow = 1, borders = "none")
+        plot(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)
+        insertPlot(wb, sheet = "GVA Plots",
+                   xy = c("A", 2))
+        dev.off()
+      }
+
+      if (!is.null(aug.bulk$`GVA plots`$`Broad sense heritability`)) {
+        writeData(wb, sheet = "GVA Plots",
+                  x = "Broad Sense Heritability",
+                  startCol = "A", startRow = 26, borders = "none")
+        plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
+        insertPlot(wb, sheet = "GVA Plots",
+                   xy = c("A", 27))
+        dev.off()
+      }
+
+      if (!is.null(aug.bulk$`GVA plots`$`Genetic advance over mean`)) {
+        writeData(wb, sheet = "GVA Plots",
+                  x = "Genetic Advance Over Mean",
+                  startCol = "A", startRow = 51, borders = "none")
+        plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
+        insertPlot(wb, sheet = "GVA Plots",
+                   xy = c("A", 52))
+        dev.off()
+      }
+    }
+
+    # Adjusted Means
+    adj.means <- aug.bulk$Means
+    colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
+
+    addWorksheet(wb, sheetName = "Adjusted Means", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Adjusted Means", x = adj.means,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Adjusted Means", style = numstyle,
+             rows = 2:(ntreats + 1), cols = 2:(ntraits + 1), stack = FALSE,
+             gridExpand = TRUE)
+    addStyle(wb,  sheet = "Adjusted Means",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2:(ntraits + 1), stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Adjusted Means",
+                 cols = 1:ncol(adj.means), widths = "auto")
+
+    # Warnings
+    if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
+      addWorksheet(wb, sheetName = "Warnings", gridLines = FALSE)
+
+      row1 <- 1
+
+      if (!is.null(aug.bulk$warnings$Model)) {
+        writeData(wb, sheet = "Warnings", x = "Model",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = aug.bulk$warnings$Model,
+                  startCol = "A", row1 + 1, borders = "none")
+        row1 <- row1 + 2 + length(aug.bulk$warnings$Model)
+      }
+
+      if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
+        writeData(wb, sheet = "Warnings", x = "Frequency Distribution",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = aug.bulk$warnings$`Freq. dist`,
+                  startCol = "A", row1 + 1, borders = "none")
+        row1 <- row1 + 2 + length(aug.bulk$warnings$`Freq. dist`)
+      }
+
+      if (!is.null(aug.bulk$warnings$GVA)) {
+        writeData(wb, sheet = "Warnings", x = "Genetic Variablity Analysis",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = aug.bulk$warnings$GVA,
+                  startCol = "A", row1 + 1, borders = "none")
+      }
+    }
 
     saveWorkbook(wb = wb, file = target, overwrite = TRUE)
 
