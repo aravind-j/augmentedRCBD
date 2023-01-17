@@ -75,6 +75,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
 
   file.type <- match.arg(file.type)
 
+  round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
+
   if (file.type == "word") {
     if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
       stop(target, " should have '.docx' extension.")
@@ -84,11 +86,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
                                      "template.docx"))
 
-    augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
+    augreport <- body_add_par(augreport, value = "augmentedRCBD",
+                              style = "Title")
     augreport <- body_add_toc(augreport, level = 2)
 
     # Details
-    augreport <- body_add_par(augreport, value = "Details", style = "heading 1")
+    augreport <- body_add_par(augreport, value = "Details",
+                              style = "heading 1")
 
     Details <- t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
                             `Number of treatments` = aug$Details$`Number of treatments`,
@@ -116,8 +120,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)")
     anovata$Df <- as.character(anovata$Df)
-    anovata <- dplyr::mutate_if(anovata, is.numeric, round.conditional)
+    anovata <- dplyr::mutate_if(anovata, is.numeric, round.conditional,
+                                digits = round.digits)
     anovata <- autofit(regulartable(anovata))
+    anovata <- align(anovata, j = 2:6, align = "right", part = "all")
     anovata <- bold(anovata, part = "header")
     augreport <- body_add_flextable(augreport, anovata)
 
@@ -133,8 +139,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)")
     anovaba$Df <- as.character(anovaba$Df)
-    anovaba <- dplyr::mutate_if(anovaba, is.numeric, round.conditional)
+    anovaba <- dplyr::mutate_if(anovaba, is.numeric, round.conditional,
+                                digits = round.digits)
     anovaba <- autofit(regulartable(anovaba))
+    anovaba <- align(anovaba, j = 2:6, align = "right", part = "all")
     anovaba <- bold(anovaba, part = "header")
     augreport <- body_add_flextable(augreport, anovaba)
 
@@ -144,8 +152,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                               style = "heading 1")
     se <- aug$`Std. Errors`
     se <- cbind(Comparison = row.names(se), se)
-    se <- dplyr::mutate_if(se, is.numeric, round.conditional)
+    se <- dplyr::mutate_if(se, is.numeric, round.conditional,
+                           digits = round.digits)
     se <- autofit(regulartable(se))
+    se <- align(se, j = 2:3, align = "right", part = "all")
     se <- bold(se, part = "header")
     augreport <- body_add_flextable(augreport, se)
 
@@ -153,21 +163,25 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
                               style = "heading 1")
     augreport <- body_add_par(augreport,
-                              value = as.character(round.conditional(aug$`Overall adjusted mean`)),
+                              value = as.character(round.conditional(aug$`Overall adjusted mean`,
+                                                                     digits = round.digits)),
                               style = "Normal")
 
     # Coefficient of variation
     augreport <- body_add_par(augreport, value = "Coefficient of Variation",
                               style = "heading 1")
     augreport <- body_add_par(augreport,
-                              value = as.character(round.conditional(aug$CV)),
+                              value = as.character(round.conditional(aug$CV,
+                                                                     digits = round.digits)),
                               style = "Normal")
 
     # Means
     augreport <- body_add_par(augreport, value = "Means", style = "heading 1")
     Means <- aug$Means
-    Means <- dplyr::mutate_if(Means, is.numeric, round.conditional)
+    Means <- dplyr::mutate_if(Means, is.numeric, round.conditional,
+                              digits = round.digits)
     Means <- autofit(regulartable(Means))
+    Means <- align(Means, j = 2:8, align = "right", part = "all")
     Means <- bold(Means, part = "header")
     augreport <- body_add_flextable(augreport, Means)
 
@@ -187,14 +201,14 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
     descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
                                         ifelse(descout$Skewness.p.value. <= 0.05,
-                                               "*", "ns"))
+                                               "*", "ⁿˢ"))
     descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
                                         ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                               "*", "ns"))
-
+                                               "*", "ⁿˢ"))
     desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
               "Max", "Skewness.statistic.", "Kurtosis.statistic.")
-    descout[, desc] <- apply(descout[, desc], MARGIN = 2, FUN = round.conditional)
+    descout[, desc] <- apply(descout[, desc], MARGIN = 2,
+                             FUN = round.conditional, digits = round.digits)
     colnames(descout) <- c("Count", "Mean", "Std.Error", "Std.Deviation",
                            "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
                            "Kurtosis_sig")
@@ -212,24 +226,27 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     colnames(descout) <- c("Statistic", "Value")
 
     descout <- autofit(regulartable(descout))
+    descout <- align(descout, j = 2, align = "right", part = "all")
     descout <- bold(descout, part = "header")
     augreport <- body_add_flextable(augreport, descout)
 
     augreport <- body_add_par(augreport,
-                              value = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
                               style = "Normal")
 
     # GVA
     augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
                               style = "heading 1")
     gvaout <- data.frame(gva.augmentedRCBD(aug))
-    gvaout <- dplyr::mutate_if(gvaout, is.numeric, round.conditional)
+    gvaout <- dplyr::mutate_if(gvaout, is.numeric, round.conditional,
+                               digits = round.digits)
     gvaout <- data.frame(t(gvaout))
     gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
     rownames(gvaout) <- NULL
     colnames(gvaout) <- c("Statistic", "Value")
 
     gvaout <- autofit(regulartable(gvaout))
+    gvaout <- align(gvaout, j = 2, align = "right", part = "all")
     gvaout <- bold(gvaout, part = "header")
     augreport <- body_add_flextable(augreport, gvaout)
 
@@ -242,8 +259,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                                               aug$`Comparison method`),
                                 style = "Normal")
       cmp <- aug$Comparisons
-      cmp <- dplyr::mutate_if(cmp, is.numeric, round.conditional)
+      cmp <- dplyr::mutate_if(cmp, is.numeric, round.conditional,
+                              digits = round.digits)
       cmp <- autofit(regulartable(cmp))
+      cmp <- align(cmp, j = 2:6, align = "right", part = "all")
       cmp <- bold(cmp, part = "header")
       augreport <- body_add_flextable(augreport, cmp)
 
@@ -261,8 +280,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                                               aug$`Comparison method`),
                                 style = "Normal")
       gps <- aug$Groups
-      gps <- dplyr::mutate_if(gps, is.numeric, round.conditional)
+      gps <- dplyr::mutate_if(gps, is.numeric, round.conditional,
+                              digits = round.digits)
       gps <- autofit(regulartable(gps))
+      gps <- align(gps, j = 2:5, align = "right", part = "all")
       gps <- bold(gps, part = "header")
       augreport <- body_add_flextable(augreport, gps)
     }
@@ -280,8 +301,6 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       stop(target, " should have '.xlsx' extension.")
     }
 
-
-
   # Create workbook
   wb <- createWorkbook()
   options(openxlsx.borders = "#TopBottomLeftRight")
@@ -290,7 +309,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
 
   hs <- createStyle(halign = "left", valign = "bottom")
 
-  num.base <- "0.00"
+  num.base <- paste("0.", paste(rep(0, round.digits), collapse = ""), sep = "")
   numstyle <- createStyle(numFmt = num.base)
   ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
   dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
@@ -488,7 +507,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   setColWidths(wb, sheet = "Descriptive Statistics",
                cols = 1:ncol(descout), widths = "auto")
   writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
-            x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+            x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
             borders = "none")
 
   # GVA
@@ -543,7 +562,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     writeDataTable(wb, sheet = "Comparisons",
                    x = cmp, xy = c("A", 2),
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                   tableStyle = "TableStyleLight1", bandedRows = FALSE)
+                   tableStyle = "TableStyleLight1", bandedRows = FALSE,
+                   withFilter = FALSE)
     addStyle(wb,  sheet = "Comparisons", style = numstyle,
              rows = 3:(nrow(cmp) + 2), cols = c(2:3, 5:6),
              stack = FALSE, gridExpand = TRUE)
@@ -564,7 +584,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
 
     writeDataTable(wb, sheet = "Groups", x = gps, xy = c("A", 2),
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                   tableStyle = "TableStyleLight1", bandedRows = FALSE)
+                   tableStyle = "TableStyleLight1", bandedRows = FALSE,
+                   withFilter = FALSE)
     addStyle(wb,  sheet = "Groups", style = numstyle,
              rows = 3:(nrow(gps) + 2), cols = c(2:3, 5:6),
              stack = FALSE, gridExpand = TRUE)
