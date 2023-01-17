@@ -315,20 +315,28 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovata$sig[is.na(anovata$sig)] <- ""
   anovaba$sig[is.na(anovaba$sig)] <- ""
 
-  # Round off the MSS values according to value
-  anovata$MSS <- round.conditional(anovata$Mean.Sq)
-  anovaba$MSS <- round.conditional(anovaba$Mean.Sq)
-
-  anovata$MSS <- paste(anovata$MSS, stringi::stri_pad_right(anovata$sig, 3),
-                       sep = " ")
-  anovaba$MSS <- paste(anovaba$MSS, stringi::stri_pad_right(anovaba$sig, 3),
-                       sep = " ")
-
-  anovataout <- dcast(anovata, Source + Df ~ Trait, value.var = "MSS")
+  anovataout <- merge.data.frame(dcast(anovata, Source + Df ~ Trait,
+                                       value.var = "Mean.Sq"),
+                                 dcast(anovata, Source + Df ~ Trait,
+                                       value.var = "sig"),
+                                 by = c("Source", "Df"),
+                                 suffixes = c("_Mean.Sq", "_sig"))
   rm(anovata)
 
-  anovabaout <- dcast(anovaba, Source + Df ~ Trait, value.var = "MSS")
+  anovabaout <- merge.data.frame(dcast(anovaba, Source + Df ~ Trait,
+                                       value.var = "Mean.Sq"),
+                                 dcast(anovaba, Source + Df ~ Trait,
+                                       value.var = "sig"),
+                                 by = c("Source", "Df"),
+                                 suffixes = c("_Mean.Sq", "_sig"))
   rm(anovaba)
+
+  trtcols <- paste(rep(Details$Traits, each = 2),
+                   rep(c("_Mean.Sq", "_sig"), Details$`Number of Traits`),
+                   sep = "")
+
+  anovataout <- anovataout[, c("Source", "Df", trtcols)]
+  anovabaout <- anovabaout[, c("Source", "Df", trtcols)]
 
   anovataout$sl <- c(1, 5, 2, 3, 4)
   anovataout <- dplyr::arrange(anovataout, sl)
@@ -628,8 +636,12 @@ round.conditional <- function(x, digits = 2){
   x <- ifelse(round(x, digits) != 0,
          as.character(round(x, digits)),
          as.character(signif(x, digits)))
-  return(x)
 
+  x <- numform::f_num(x, pad.char = "",
+                      digits = digits,
+                      retain.leading.zero = TRUE)
+
+  return(x)
 }
 
 iscolour <- function(x) {
