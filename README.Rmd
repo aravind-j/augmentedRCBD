@@ -141,8 +141,8 @@ if (url.exists(chkurl)) {
 }
 
 osdf$`CRAN check` <- paste("[![CRAN check - ", osdf$Flavour, "]",
-                           "(https://cranchecks.info/badges/flavor/",
-                           osdf$Flavour, "/", pkgname, ")]",
+                           "(https://badges.cranchecks.info/flavor/",
+                           osdf$Flavour, "/", pkgname, ".svg)]",
                            chklink,
                            sep = "")
 ```
