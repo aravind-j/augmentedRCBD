@@ -113,6 +113,7 @@
 #'   \code{\link[augmentedRCBD]{gva.augmentedRCBD}}
 #'
 #' @import ggplot2
+#' @import numform f_num
 #' @importFrom reshape2 dcast
 #' @importFrom reshape2 melt
 #' @importFrom dplyr arrange
@@ -305,9 +306,9 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovaba <- dplyr::bind_rows(anovaba)
 
   anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                        ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
+                        ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
   anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
+                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
 
   anovata$Source <- trimws(anovata$Source)
   anovaba$Source <- trimws(anovaba$Source)
@@ -321,7 +322,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                        value.var = "sig"),
                                  by = c("Source", "Df"),
                                  suffixes = c("_Mean.Sq", "_sig"))
-  rm(anovata)
+  anovata_p <- dcast(anovata, Source + Df ~ Trait,
+                     value.var = "Pr..F.")
+  colnames(anovata_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
+  anovataout <- merge.data.frame(anovataout, anovata_p,
+                                 by = c("Source", "Df"))
+  rm(anovata, anovata_p)
 
   anovabaout <- merge.data.frame(dcast(anovaba, Source + Df ~ Trait,
                                        value.var = "Mean.Sq"),
@@ -329,11 +335,17 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                        value.var = "sig"),
                                  by = c("Source", "Df"),
                                  suffixes = c("_Mean.Sq", "_sig"))
-  rm(anovaba)
 
-  trtcols <- paste(rep(Details$Traits, each = 2),
-                   rep(c("_Mean.Sq", "_sig"), Details$`Number of Traits`),
-                   sep = "")
+  anovaba_p <- dcast(anovaba, Source + Df ~ Trait,
+                     value.var = "Pr..F.")
+  colnames(anovaba_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
+  anovabaout <- merge.data.frame(anovabaout, anovaba_p,
+                                 by = c("Source", "Df"))
+  rm(anovaba, anovaba_p)
+
+  trtcols <- paste(rep(Details$Traits, each = 3),
+                   rep(c("_Mean.Sq", "_Pr(>F)", "_sig"),
+                       Details$`Number of Traits`), sep = "")
 
   anovataout <- anovataout[, c("Source", "Df", trtcols)]
   anovabaout <- anovabaout[, c("Source", "Df", trtcols)]
@@ -356,9 +368,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   adjmeans <- reshape2::dcast(adjmeans, Treatment ~ Trait,
                               value.var = "Adjusted Means",
                               fun.aggregate = mean)
-  adjmeans[, traits] <- lapply(adjmeans[, traits, drop=FALSE],
-                               round.conditional)
-
   # Check statistics
   checkstat <- lapply(output,
                       function(x) x$Means[x$Means$Treatment %in% checks,
@@ -372,7 +381,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   cvout <- lapply(cvout, function(x) dplyr::mutate_if(x, is.factor,
                                                       as.character))
   cvout <- dplyr::bind_rows(cvout)
-  cvout$CV <- round.conditional(cvout$CV)
 
   # overall adj mean
   oadjmean <- lapply(output, function(x) x$`Overall adjusted mean`)
@@ -382,7 +390,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   oadjmean <- lapply(oadjmean, function(x) dplyr::mutate_if(x, is.factor,
                                                             as.character))
   oadjmean <- dplyr::bind_rows(oadjmean)
-  oadjmean$Overall.adjusted.mean <- round.conditional(oadjmean$Overall.adjusted.mean)
 
   # SE and CD
   secd <- lapply(output, function(x) x$`Std. Errors`)
@@ -390,13 +397,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   secd <- lapply(secd, function(x) cbind(Comparison = rownames(x), x))
   secd <- lapply(secd, function(x) dplyr::mutate_if(x, is.factor, as.character))
   secd <- dplyr::bind_rows(secd)
-  secd$`Std. Error of Diff.` <- round.conditional(secd$`Std. Error of Diff.`)
-  secd[, grepl("CD \\(", colnames(secd))] <- round.conditional(secd[, grepl("CD \\(", colnames(secd))])
 
   seout <- reshape2::dcast(secd, Comparison ~ Trait,
                            value.var = "Std. Error of Diff.")
   cdout <- reshape2::dcast(secd, Comparison ~ Trait,
-                           value.var = colnames(secd)[grepl("CD \\(", colnames(secd))])
+                           value.var = colnames(secd)[grepl("CD \\(",
+                                                            colnames(secd))])
 
   # Descriptive statistics
   descout <- NULL
@@ -415,30 +421,24 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                                             as.character))
     descout <- dplyr::bind_rows(descout)
 
-    descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
+    descout$Skewness_sig <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
                                         ifelse(descout$Skewness.p.value. <= 0.05,
-                                               "*", "ns"))
-    descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
+                                               "*", "ⁿˢ"))
+    descout$Kurtosis_sig <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
                                         ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                               "*", "ns"))
-    desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
-              "Max", "Skewness.statistic.", "Kurtosis.statistic.")
-    descout[, desc] <- apply(descout[, desc], MARGIN = 2,
-                             FUN = round.conditional)
+                                               "*", "ⁿˢ"))
 
     colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error",
                            "Std.Deviation", "Min", "Max", "Skewness",
-                           "Skewness_sig", "Kurtosis", "Kurtosis_sig")
-    descout$Skewness <- paste(descout$Skewness,
-                              stringi::stri_pad_right(descout$Skewness_sig, 3),
-                              sep = " ")
-    descout$Kurtosis <- paste(descout$Kurtosis,
-                              stringi::stri_pad_right(descout$Kurtosis_sig, 3),
-                              sep = " ")
+                           "Skewness_Pr(>F)", "Kurtosis", "Kurtosis_Pr(>F)",
+                           "Skewness_sig", "Kurtosis_sig")
     descout <- descout[, c("Trait", "Count", "Mean", "Std.Error",
                            "Std.Deviation", "Min", "Max", "Skewness",
-                           "Kurtosis")]
+                           "Skewness_Pr(>F)", "Skewness_sig", "Kurtosis",
+                           "Kurtosis_Pr(>F)", "Kurtosis_sig")]
   }
+
+  rownames(descout) <- NULL
 
   # GVA
   gvaout <- NULL
@@ -475,9 +475,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     gvaout <- dplyr::bind_rows(gvaout)
 
     gvaplot <- gvaout
-
-    gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
-    gvaout[, gvap] <- apply(gvaout[, gvap], MARGIN = 2, FUN = round.conditional)
 
     # GVA plot
     themecustom <- theme(axis.text.x = element_text(color = "black", angle = 45,
