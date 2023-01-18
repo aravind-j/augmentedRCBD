@@ -117,8 +117,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       anovata <- data.frame(aug$`ANOVA, Treatment Adjusted`[[1]])
       anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
     }
+    anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
+                          ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
     colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                           "F value", "Pr(>F)")
+                           "F value", "Pr(>F)", " ")
     anovata$Df <- as.character(anovata$Df)
     anovata <- dplyr::mutate_if(anovata, is.numeric, round.conditional,
                                 digits = round.digits)
@@ -126,6 +128,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     anovata <- align(anovata, j = 2:6, align = "right", part = "all")
     anovata <- bold(anovata, part = "header")
     augreport <- body_add_flextable(augreport, anovata)
+    augreport <- body_add_par(augreport,
+                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+                              style = "Normal")
 
     # ANOVA, BA
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
@@ -136,8 +141,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       anovaba <- data.frame(aug$`ANOVA, Block Adjusted`[[1]])
       anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
     }
+    anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
+                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
     colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                           "F value", "Pr(>F)")
+                           "F value", "Pr(>F)", " ")
     anovaba$Df <- as.character(anovaba$Df)
     anovaba <- dplyr::mutate_if(anovaba, is.numeric, round.conditional,
                                 digits = round.digits)
@@ -145,6 +152,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     anovaba <- align(anovaba, j = 2:6, align = "right", part = "all")
     anovaba <- bold(anovaba, part = "header")
     augreport <- body_add_flextable(augreport, anovaba)
+    augreport <- body_add_par(augreport,
+                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+                              style = "Normal")
 
     # Std. Errors
     augreport <- body_add_par(augreport,
@@ -178,8 +188,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     # Means
     augreport <- body_add_par(augreport, value = "Means", style = "heading 1")
     Means <- aug$Means
-    Means <- dplyr::mutate_if(Means, is.numeric, round.conditional,
-                              digits = round.digits)
+    Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
+      lapply(Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
+             round.conditional, digits = round.digits)
     Means <- autofit(regulartable(Means))
     Means <- align(Means, j = 2:8, align = "right", part = "all")
     Means <- bold(Means, part = "header")
@@ -259,8 +270,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                                               aug$`Comparison method`),
                                 style = "Normal")
       cmp <- aug$Comparisons
-      cmp <- dplyr::mutate_if(cmp, is.numeric, round.conditional,
-                              digits = round.digits)
+      cmp[, c("estimate", "SE")] <-
+        lapply(cmp[, c("estimate", "SE")],
+               round.conditional, digits = round.digits)
+      cmp[, c("t.ratio", "p.value")] <-
+        lapply(cmp[, c("t.ratio", "p.value")],
+               round.conditional, digits = max(round.digits, 3))
       cmp <- autofit(regulartable(cmp))
       cmp <- align(cmp, j = 2:6, align = "right", part = "all")
       cmp <- bold(cmp, part = "header")
@@ -280,8 +295,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                                               aug$`Comparison method`),
                                 style = "Normal")
       gps <- aug$Groups
-      gps <- dplyr::mutate_if(gps, is.numeric, round.conditional,
-                              digits = round.digits)
+      gps[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
+        lapply(gps[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],
+               round.conditional, digits = round.digits)
       gps <- autofit(regulartable(gps))
       gps <- align(gps, j = 2:5, align = "right", part = "all")
       gps <- bold(gps, part = "header")
@@ -303,14 +319,15 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
 
   # Create workbook
   wb <- createWorkbook()
-  options(openxlsx.borders = "#TopBottomLeftRight")
-  options(openxlsx.borderStyle = "thin")
   modifyBaseFont(wb, fontSize = 10, fontName = "Arial")
 
   hs <- createStyle(halign = "left", valign = "bottom")
 
   num.base <- paste("0.", paste(rep(0, round.digits), collapse = ""), sep = "")
   numstyle <- createStyle(numFmt = num.base)
+  num.base.p <- paste("0.", paste(rep(0, max(round.digits, 3)),
+                                  collapse = ""), sep = "")
+  numstyle.p <- createStyle(numFmt = num.base.p)
   ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
   dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
   nsstyle <- createStyle(numFmt = paste(num.base, '"ⁿˢ"'))
@@ -319,9 +336,16 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
   index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
              "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
              "Means", "Frequency Distribution", "Descriptive Statistics",
-             "Genetic Variability Analysis", "Comparisons", "Groups")
-  index <- data.frame(`Sl.No` = seq_along(index),
-                      Sheets = index)
+             "Genetic Variability Analysis")
+
+  if (!is.null(aug$Comparisons)) {
+    index <- c(index,"Comparisons")
+  }
+  if (!is.null(aug$Groups)) {
+    index <- c(index,"Groups")
+  }
+
+  index <- data.frame(`Sl.No` = seq_along(index), Sheets = index)
 
   addWorksheet(wb, sheetName = "Index", gridLines = FALSE)
   insertImage(wb, sheet = "Index",
@@ -329,11 +353,14 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                                  package = "augmentedRCBD"),
               startCol = "A", startRow = 2,
               width = 1, height = 1.1)
-  writeData(wb, sheet = "Index", x = "https://aravind-j.github.io/augmentedRCBD",
+  writeData(wb, sheet = "Index",
+            x = "https://aravind-j.github.io/augmentedRCBD",
             startCol = "C", startRow = 4, borders = "none")
-  writeData(wb, sheet = "Index", x = "https://github.com/aravind-j/augmentedRCBD",
+  writeData(wb, sheet = "Index",
+            x = "https://github.com/aravind-j/augmentedRCBD",
             startCol = "C", startRow = 5, borders = "none")
-  writeData(wb, sheet = "Index", x = "https://CRAN.R-project.org/package=augmentedRCBD",
+  writeData(wb, sheet = "Index",
+            x = "https://CRAN.R-project.org/package=augmentedRCBD",
             startCol = "C", startRow = 6, borders = "none")
   writeDataTable(wb, sheet = "Index", x = index,
             startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
@@ -368,8 +395,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     anovata <- data.frame(aug$`ANOVA, Treatment Adjusted`[[1]])
     anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
   }
+  anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
+                        ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
   colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                         "F value", "Pr(>F)")
+                         "F value", "Pr(>F)", " ")
 
   addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
   writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted", x = anovata,
@@ -383,6 +412,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
            rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
                cols = 1:ncol(anovata), widths = "auto")
+  writeData(wb, sheet = "ANOVA, Treatment Adjusted",
+            xy = c("A", 7),
+            x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+            borders = "none")
 
   # ANOVA, BA
   if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
@@ -391,8 +424,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     anovaba <- data.frame(aug$`ANOVA, Block Adjusted`[[1]])
     anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
   }
+  anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
+                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
   colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                         "F value", "Pr(>F)")
+                         "F value", "Pr(>F)", " ")
 
   addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
   writeDataTable(wb, sheet = "ANOVA, Block Adjusted", x = anovaba,
@@ -406,6 +441,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
            rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
   setColWidths(wb, sheet = "ANOVA, Block Adjusted",
                cols = 1:ncol(anovaba), widths = "auto")
+  writeData(wb, sheet = "ANOVA, Block Adjusted",
+            xy = c("A", 8),
+            x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+            borders = "none")
 
   # Std. Errors
   se <- aug$`Std. Errors`
@@ -480,7 +519,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
   addStyle(wb,  sheet = "Descriptive Statistics", style = numstyle,
-           rows = 2:7, cols = 2, stack = FALSE, gridExpand = TRUE)
+           rows = 3:7, cols = 2, stack = FALSE, gridExpand = TRUE)
   addStyle(wb,  sheet = "Descriptive Statistics",
            style = if(descout_sub$Skewness.p.value. <= 0.01) {
              dsstyle } else {
@@ -566,6 +605,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                    withFilter = FALSE)
     addStyle(wb,  sheet = "Comparisons", style = numstyle,
              rows = 3:(nrow(cmp) + 2), cols = c(2:3, 5:6),
+             stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "Comparisons", style = numstyle.p,
+             rows = 3:(nrow(cmp) + 2), cols = c(5:6),
              stack = FALSE, gridExpand = TRUE)
     addStyle(wb,  sheet = "Comparisons", style = createStyle(halign = "right"),
              rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
