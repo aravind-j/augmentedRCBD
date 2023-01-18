@@ -47,6 +47,8 @@ Imports:
     moments,
     multcomp,
     multcompView,
+    numform,
+    openxlsx,
     Rdpack,
     stats,
     stringi,
