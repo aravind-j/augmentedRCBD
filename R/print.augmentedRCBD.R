@@ -30,6 +30,8 @@
 #' @export
 print.augmentedRCBD <- function(x, ...){
 
+  round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
+
   cat("\nAugmented Design Details\n")
   cat("========================\n")
   Details <- x$Details
@@ -53,6 +55,9 @@ print.augmentedRCBD <- function(x, ...){
   print(x$`ANOVA, Block Adjusted`)
   cat("\nTreatment Means\n")
   cat("===============\n")
+  x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
+    lapply(x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
+           round.conditional, digits = round.digits)
   print(x$Means)
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
@@ -63,10 +68,25 @@ print.augmentedRCBD <- function(x, ...){
   cat("\n\nStandard Errors\n")
   cat("===================\n")
   print(x$`Std. Errors`)
+  if (!is.null(x$Comparisons)) {
+    cat("\nComparisons\n")
+    cat("==================\n")
+    cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
+    x$Comparisons[, c("estimate", "SE")] <-
+      lapply(x$Comparisons[, c("estimate", "SE")],
+             round.conditional, digits = round.digits)
+    x$Comparisons[, c("t.ratio", "p.value")] <-
+      lapply(x$Comparisons[, c("t.ratio", "p.value")],
+             round.conditional, digits = max(round.digits, 3))
+    print(x$Comparisons)
+  }
   if (!is.null(x$Groups)) {
     cat("\nTreatment Groups\n")
     cat("==================\n")
     cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
+    x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
+      lapply(x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],
+             round.conditional, digits = round.digits)
     print(x$Groups)
   }
 }
