@@ -121,14 +121,14 @@ osdf <-
         # data.frame(OS = "Solaris", 
         #            Flavour = c("r-patched-solaris-x86")),
         data.frame(OS = "Windows", 
-                   Flavour = c("r-devel-windows-x86_64", 
-                               "r-release-windows-x86_64",
+                   Flavour = c("r-devel-windows-ix86+x86_64", 
+                               "r-release-windows-ix86+x86_64",
                                "r-oldrel-windows-ix86+x86_64")),
         data.frame(OS = "macOS", 
                    Flavour = c("r-release-macos-x86_64", 
-                               "r-oldrel-macos-x86_64",
-                               "r-release-macos-arm64",
-                               "r-oldrel-macos-arm64")))
+                               # "r-release-macos-arm64",
+                               # "r-oldrel-macos-arm64",
+                               "r-oldrel-macos-x86_64")))
 
 chkurl <- paste("https://cran.r-project.org/web/checks/check_results_",
                 pkgname, ".html", sep = "")
