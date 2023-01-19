@@ -32,3 +32,4 @@
 ^tmp-pdfcrop-*$
 ^\.xlsx$
 ^\.docx$
+^RoughWork$
