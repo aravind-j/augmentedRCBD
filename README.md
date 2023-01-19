@@ -35,7 +35,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--01--17-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--01--19-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website -
@@ -182,20 +182,20 @@ r-release-linux-x86_64](https://badges.cranchecks.info/flavor/r-release-linux-x8
 </tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-windows-x86_64
+r-devel-windows-ix86+x86_64
 </td>
 <td style="text-align:left;">
 [![CRAN check -
-r-devel-windows-x86_64](https://badges.cranchecks.info/flavor/r-devel-windows-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
+r-devel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-devel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-release-windows-x86_64
+r-release-windows-ix86+x86_64
 </td>
 <td style="text-align:left;">
 [![CRAN check -
-r-release-windows-x86_64](https://badges.cranchecks.info/flavor/r-release-windows-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
+r-release-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-release-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
 </tr>
 <tr>
@@ -207,7 +207,7 @@ r-oldrel-windows-ix86+x86_64
 r-oldrel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
 </tr>
-<tr grouplength="4">
+<tr grouplength="2">
 <td colspan="2" style="border-bottom: 1px solid;">
 <strong>[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
 </td>
@@ -230,24 +230,6 @@ r-oldrel-macos-x86_64
 r-oldrel-macos-x86_64](https://badges.cranchecks.info/flavor/r-oldrel-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
 </tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-release-macos-arm64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-release-macos-arm64](https://badges.cranchecks.info/flavor/r-release-macos-arm64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-oldrel-macos-arm64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-oldrel-macos-arm64](https://badges.cranchecks.info/flavor/r-oldrel-macos-arm64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
 </tbody>
 </table>
 
@@ -262,9 +244,8 @@ citation("augmentedRCBD")
 
     To cite the R package 'augmentedRCBD' in publications use:
 
-      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2021).
-      augmentedRCBD: Analysis of Augmented Randomised Complete Block
-      Designs. R package version 0.1.5,
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2023).  augmentedRCBD: Analysis of
+      Augmented Randomised Complete Block Designs. R package version 0.1.5.9000,
       https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
     A BibTeX entry for LaTeX users is
@@ -272,12 +253,11 @@ citation("augmentedRCBD")
       @Manual{,
         title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
         author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-        year = {2021},
-        note = {R package version 0.1.5},
+        year = {2023},
+        note = {R package version 0.1.5.9000},
         note = {https://aravind-j.github.io/augmentedRCBD/},
         note = {https://cran.r-project.org/package=augmentedRCBD},
       }
 
-    This free and open-source software implements academic research by the
-    authors and co-workers. If you use it, please support the project by
-    citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If you
+    use it, please support the project by citing the package.
