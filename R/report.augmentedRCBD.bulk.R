@@ -15,11 +15,12 @@
 #  A copy of the GNU General Public License is available at
 #  https://www.r-project.org/Licenses/
 
-#' Generate MS Word Report from \code{augmentedRCBD.bulk} Output
+#' Generate MS Word or Excel Report from \code{augmentedRCBD.bulk} Output
 #'
 #' \code{report.augmentedRCBD.bulk} generates a tidy report from an object of
 #' class \code{augmentedRCBD.bulk} as docx MS word file using the
-#' \code{\link[officer]{officer}} package.
+#' \code{\link[officer]{officer}} package or xlsx MS excel file using the
+#' \code{\link[openxlsx]{openxlsx}} package.
 #'
 #' @param aug.bulk An object of class \code{augmentedRCBD.bulk}.
 #' @param target The path to the docx file to be created.
@@ -33,6 +34,22 @@
 #' @importFrom methods is
 #' @importFrom stats qnorm
 #' @importFrom graphics plot
+#'
+#' @note The raw values in the \code{augmentedRCBD} object are rounded off to 2
+#'   digits in the word and excel reports. However, in case of excel report, the
+#'   raw values are present in the cell and are formatted to display only 2
+#'   digits.
+#'
+#'   So, iff values such as adjusted means are being used of downsteram
+#'   analysis, export the raw values from within R or use the excel report.
+#'
+#'   This default rounding can be changed by setting the global options
+#'   \code{augmentedRCBD.round.digits}. For example
+#'   \code{setOption(augmentedRCBD.round.digits = 3)} sets the number of decimal
+#'   places for rounding to 3.
+#'
+#'   Values will not be rounded to zero, instead will be rounded to the nearest
+#'   decimal place.
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
 #'
@@ -56,8 +73,14 @@
 #'                            console = FALSE)
 #'
 #' \donttest{
-#' report.augmentedRCBD.bulk(bout, file.path(tempdir(),
-#'                           "augmentedRCBD bulk output.docx"))
+#' report.augmentedRCBD.bulk(aug.bulk = bout,
+#'                           target = file.path(tempdir(),
+#'                                              "augmentedRCBD bulk output.docx"),
+#'                           file.type = "word")
+#' report.augmentedRCBD.bulk(aug.bulk = bout,
+#'                           target = file.path(tempdir(),
+#'                                              "augmentedRCBD bulk output.xlsx"),
+#'                           file.type = "excel")
 #' }
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
@@ -118,6 +141,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                               style = "heading 1")
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
+    anovata <- anovata[, setdiff(colnames(anovata),
+                                 paste(traits, "Pr(>F)", sep = "_"))]
     colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
     anovata[, paste(traits, "_Mean.Sq", sep = "")] <-
       lapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
@@ -154,6 +179,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                               style = "heading 1")
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
+    anovaba <- anovaba[, setdiff(colnames(anovaba),
+                                 paste(traits, "Pr(>F)", sep = "_"))]
     colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
     anovaba[, paste(traits, "_Mean.Sq", sep = "")] <-
       lapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
@@ -202,7 +229,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # CD
     augreport <- body_add_par(augreport,
                               value = paste("Critical Difference (",
-                                            aug.bulk$alpha * 100, "%)", sep = ""),
+                                            aug.bulk$alpha * 100, "%)",
+                                            sep = ""),
                               style = "heading 1")
     CD <- aug.bulk$CD
     colnames(CD) <- make.names(colnames(CD), unique = TRUE)
@@ -239,7 +267,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "Check Statistics",
                               style = "heading 1")
     for (i in seq_along(aug.bulk$`Check statistics`)) {
-      augreport <- body_add_par(augreport, value = names(aug.bulk$`Check statistics`)[i],
+      augreport <- body_add_par(augreport,
+                                value = names(aug.bulk$`Check statistics`)[i],
                                 style = "heading 2")
       chkout <- aug.bulk$`Check statistics`[[i]]
       chkout[, c("Means", "SE", "Min", "Max")] <-
@@ -256,6 +285,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       augreport <- body_add_par(augreport, value = "Descriptive Statistics",
                                 style = "heading 1")
       descout <- aug.bulk$`Descriptive statistics`
+      descout <- descout[, setdiff(colnames(descout),
+                                   c("Skewness_Pr(>F)", "Kurtosis_Pr(>F)"))]
       descols <- c("Mean", "Std.Error", "Std.Deviation", "Min",
                    "Max", "Skewness", "Kurtosis")
       descout[, descols] <- lapply(descout[, descols], round.conditional,
@@ -294,7 +325,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # GVA
     if (!is.null(aug.bulk$`Genetic variability analysis`)) {
-      augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
+      augreport <- body_add_par(augreport,
+                                value = "Genetic Variability Analysis",
                                 style = "heading 1")
       GVA <- aug.bulk$`Genetic variability analysis`
       gvacols <- c("Mean", "PV", "GV", "EV", "GCV","PCV","ECV",
@@ -312,11 +344,13 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # GVA plots
     if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
 
-      augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis Plots",
+      augreport <- body_add_par(augreport,
+                                value = "Genetic Variablity Analysis Plots",
                                 style = "heading 1")
 
       if (!is.null(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)) {
-        augreport <- body_add_par(augreport, value = "Phenotypic and Genotypic Coefficient of Variability",
+        augreport <- body_add_par(augreport,
+                                  value = "Phenotypic and Genotypic Coefficient of Variability",
                                   style = "heading 2")
 
         src <- tempfile(fileext = ".png")
@@ -340,7 +374,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
 
       if (!is.null(aug.bulk$`GVA plots`$`Genetic advance over mean`)) {
-        augreport <- body_add_par(augreport, value = "Genetic Advance Over Mean",
+        augreport <- body_add_par(augreport,
+                                  value = "Genetic Advance Over Mean",
                                   style = "heading 2")
 
         src <- tempfile(fileext = ".png")
@@ -382,7 +417,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
 
       if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
-        augreport <- body_add_par(augreport, value = "Frequency Distribution",
+        augreport <- body_add_par(augreport,
+                                  value = "Frequency Distribution",
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
           augreport <- body_add_par(augreport,
@@ -392,7 +428,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
 
       if (!is.null(aug.bulk$warnings$GVA)) {
-        augreport <- body_add_par(augreport, value = "Genetic Variablity Analysis",
+        augreport <- body_add_par(augreport,
+                                  value = "Genetic Variablity Analysis",
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$GVA)) {
           augreport <- body_add_par(augreport,
@@ -435,11 +472,19 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # Index
     index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
-               "Standard Errors", "Critical Difference", "Coefficient of Variation",
-               "Overall Adjusted Mean", "Check Statistics",
-               "Descriptive Statistics", "Frequency Distribution",
-               "Genetic Variability Analysis", "GVA Plots", "Adjusted Means",
-               "Warnings")
+               "Standard Errors", "Critical Difference",
+               "Coefficient of Variation", "Overall Adjusted Mean",
+               "Check Statistics")
+    if (!is.null(aug.bulk$`Descriptive statistics`)) {
+      index <- c(index,"Descriptive Statistics")
+    }
+    if (!is.null(aug.bulk$`Frequency distribution`)) {
+      index <- c(index,"Frequency Distribution")
+    }
+    if (!is.null(aug.bulk$`Genetic variability analysis`)) {
+      index <- c(index,"Genetic Variability Analysis", "GVA Plots")
+    }
+    index <- c(index, "Adjusted Means", "Warnings")
     index <- data.frame(`Sl.No` = seq_along(index),
                         Sheets = index)
 
@@ -449,14 +494,18 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                    package = "augmentedRCBD"),
                 startCol = "A", startRow = 2,
                 width = 1, height = 1.1)
-    writeData(wb, sheet = "Index", x = "https://aravind-j.github.io/augmentedRCBD",
+    writeData(wb, sheet = "Index",
+              x = "https://aravind-j.github.io/augmentedRCBD",
               startCol = "C", startRow = 4, borders = "none")
-    writeData(wb, sheet = "Index", x = "https://github.com/aravind-j/augmentedRCBD",
+    writeData(wb, sheet = "Index",
+              x = "https://github.com/aravind-j/augmentedRCBD",
               startCol = "C", startRow = 5, borders = "none")
-    writeData(wb, sheet = "Index", x = "https://CRAN.R-project.org/package=augmentedRCBD",
+    writeData(wb, sheet = "Index",
+              x = "https://CRAN.R-project.org/package=augmentedRCBD",
               startCol = "C", startRow = 6, borders = "none")
     writeDataTable(wb, sheet = "Index", x = index,
-                   startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
+                   startCol = "B", startRow = 9, colNames = TRUE,
+                   rowNames = FALSE,
                    headerStyle = hs, tableStyle = "TableStyleLight1",
                    withFilter = FALSE, bandedRows = FALSE)
     addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
@@ -484,6 +533,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # ANOVA, TA
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
+    anovata <- anovata[, setdiff(colnames(anovata),
+                                 paste(traits, "Pr(>F)", sep = "_"))]
     colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
     anovata_sig <- anovata[, c("Source", "Df",
                                paste(traits, "_sig", sep = ""))]
@@ -538,6 +589,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # ANOVA, BA
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
+    anovaba <- anovaba[, setdiff(colnames(anovaba),
+                                 paste(traits, "Pr(>F)", sep = "_"))]
     colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
     anovaba_sig <- anovaba[, c("Source", "Df",
                                paste(traits, "_sig", sep = ""))]
@@ -702,6 +755,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # Descriptive statistics
     if (!is.null(aug.bulk$`Descriptive statistics`)){
       descout <- aug.bulk$`Descriptive statistics`
+      descout <- descout[, setdiff(colnames(descout),
+                                   c("Skewness_Pr(>F)", "Kurtosis_Pr(>F)"))]
       descout_org <- descout
       descout <- descout[, setdiff(colnames(descout),
                                    c("Skewness_sig", "Kurtosis_sig"))]

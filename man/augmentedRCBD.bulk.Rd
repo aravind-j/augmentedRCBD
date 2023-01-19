@@ -60,9 +60,10 @@ default R `palette()` etc.).}
 A list of class \code{augmentedRCBD.bulk} containing the following
   components:  \item{\code{Details}}{Details of the augmented design used and
   the traits/characters.} \item{\code{ANOVA, Treatment Adjusted}}{A data
-  frame of mean sum of squares of the specified traits from treatment
-  adjusted ANOVA.} \item{\code{ANOVA, Block Adjusted}}{A data frame of mean
-  sum of squares of the specified traits from block adjusted ANOVA}
+  frame of mean sum of squares, p value and stastical significance of the
+  specified traits from treatment adjusted ANOVA.} \item{\code{ANOVA, Block
+  Adjusted}}{A data frame of mean sum of squares, p value and stastical
+  significance of the specified traits from block adjusted ANOVA}
   \item{\code{Means}}{A data frame of the adjusted means of the treatments
   for the specified traits.} \item{\code{Check statistics}}{A list of data
   frames with check statistics such as number of replications, standard

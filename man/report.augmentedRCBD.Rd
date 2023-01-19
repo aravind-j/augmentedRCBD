@@ -20,6 +20,24 @@ Word report file or \code{"excel"} for MS Excel report file.}
 \code{\link[officer]{officer}} package or xlsx MS excel file using the
 \code{\link[openxlsx]{openxlsx}} package.
 }
+\note{
+The raw values in the \code{augmentedRCBD} object are rounded off to 2
+  digits in the word and excel reports. However, in case of excel report, the
+  raw values are present in the cell and are formatted to display only 2
+  digits.
+
+  So, iff values such as adjusted means are being used of downsteram
+  analysis, export the raw values from within R or use the excel report.
+
+  This default rounding can be changed by setting the global options
+  \code{augmentedRCBD.round.digits}. For example
+  \code{setOption(augmentedRCBD.round.digits = 3)} sets the number of decimal
+  places for rounding to 3.
+
+  Values will not be rounded to zero, instead will be rounded to the nearest
+  decimal place. F value, t ratio and p values are not rounded to less than 3
+  decimal places.
+}
 \examples{
 # Example data
 blk <- c(rep(1,7),rep(2,6),rep(3,7))

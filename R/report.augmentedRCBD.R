@@ -27,6 +27,23 @@
 #' @param file.type The file type of the report. Either \code{"word"} for MS
 #'   Word report file or \code{"excel"} for MS Excel report file.
 #'
+#' @note The raw values in the \code{augmentedRCBD} object are rounded off to 2
+#'   digits in the word and excel reports. However, in case of excel report, the
+#'   raw values are present in the cell and are formatted to display only 2
+#'   digits.
+#'
+#'   So, iff values such as adjusted means are being used of downsteram
+#'   analysis, export the raw values from within R or use the excel report.
+#'
+#'   This default rounding can be changed by setting the global options
+#'   \code{augmentedRCBD.round.digits}. For example
+#'   \code{setOption(augmentedRCBD.round.digits = 3)} sets the number of decimal
+#'   places for rounding to 3.
+#'
+#'   Values will not be rounded to zero, instead will be rounded to the nearest
+#'   decimal place. F value, t ratio and p values are not rounded to less than 3
+#'   decimal places.
+#'
 #' @export
 #' @import officer
 #' @import flextable
@@ -122,8 +139,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
     anovata$Df <- as.character(anovata$Df)
-    anovata <- dplyr::mutate_if(anovata, is.numeric, round.conditional,
-                                digits = round.digits)
+    anovata[, c("Sum Sq", "Mean Sq")] <-
+      lapply(anovata[, c("Sum Sq", "Mean Sq")], round.conditional,
+             digits = round.digits)
+    anovata[, c("F value", "Pr(>F)")] <-
+      lapply(anovata[, c("F value", "Pr(>F)")], round.conditional,
+             digits = max(round.digits, 3))
     anovata <- autofit(regulartable(anovata))
     anovata <- align(anovata, j = 2:6, align = "right", part = "all")
     anovata <- bold(anovata, part = "header")
@@ -146,8 +167,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
     anovaba$Df <- as.character(anovaba$Df)
-    anovaba <- dplyr::mutate_if(anovaba, is.numeric, round.conditional,
-                                digits = round.digits)
+    anovaba[, c("Sum Sq", "Mean Sq")] <-
+      lapply(anovaba[, c("Sum Sq", "Mean Sq")], round.conditional,
+             digits = round.digits)
+    anovaba[, c("F value", "Pr(>F)")] <-
+      lapply(anovaba[, c("F value", "Pr(>F)")], round.conditional,
+             digits = max(round.digits, 3))
     anovaba <- autofit(regulartable(anovaba))
     anovaba <- align(anovaba, j = 2:6, align = "right", part = "all")
     anovaba <- bold(anovaba, part = "header")
@@ -406,7 +431,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
   addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle,
-           rows = 2:6, cols = 3:6, stack = FALSE, gridExpand = TRUE)
+           rows = 2:6, cols = 3:4, stack = FALSE, gridExpand = TRUE)
+  addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle.p,
+           rows = 2:6, cols = 5:6, stack = FALSE, gridExpand = TRUE)
   addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
            style = createStyle(halign = "right"),
            rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
@@ -435,7 +462,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                  tableStyle = "TableStyleLight1", withFilter = FALSE,
                  bandedRows = FALSE)
   addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
-           rows = 2:7, cols = 3:6, stack = FALSE, gridExpand = TRUE)
+           rows = 2:7, cols = 3:4, stack = FALSE, gridExpand = TRUE)
+  addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
+           rows = 2:7, cols = 5:6, stack = FALSE, gridExpand = TRUE)
   addStyle(wb,  sheet = "ANOVA, Block Adjusted",
            style = createStyle(halign = "right"),
            rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)

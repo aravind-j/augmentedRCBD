@@ -2,7 +2,7 @@
 % Please edit documentation in R/report.augmentedRCBD.bulk.R
 \name{report.augmentedRCBD.bulk}
 \alias{report.augmentedRCBD.bulk}
-\title{Generate MS Word Report from \code{augmentedRCBD.bulk} Output}
+\title{Generate MS Word or Excel Report from \code{augmentedRCBD.bulk} Output}
 \usage{
 report.augmentedRCBD.bulk(aug.bulk, target, file.type = c("word", "excel"))
 }
@@ -14,7 +14,25 @@ report.augmentedRCBD.bulk(aug.bulk, target, file.type = c("word", "excel"))
 \description{
 \code{report.augmentedRCBD.bulk} generates a tidy report from an object of
 class \code{augmentedRCBD.bulk} as docx MS word file using the
-\code{\link[officer]{officer}} package.
+\code{\link[officer]{officer}} package or xlsx MS excel file using the
+\code{\link[openxlsx]{openxlsx}} package.
+}
+\note{
+The raw values in the \code{augmentedRCBD} object are rounded off to 2
+  digits in the word and excel reports. However, in case of excel report, the
+  raw values are present in the cell and are formatted to display only 2
+  digits.
+
+  So, iff values such as adjusted means are being used of downsteram
+  analysis, export the raw values from within R or use the excel report.
+
+  This default rounding can be changed by setting the global options
+  \code{augmentedRCBD.round.digits}. For example
+  \code{setOption(augmentedRCBD.round.digits = 3)} sets the number of decimal
+  places for rounding to 3.
+
+  Values will not be rounded to zero, instead will be rounded to the nearest
+  decimal place.
 }
 \examples{
 # Example data
@@ -36,8 +54,14 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            console = FALSE)
 
 \donttest{
-report.augmentedRCBD.bulk(bout, file.path(tempdir(),
-                          "augmentedRCBD bulk output.docx"))
+report.augmentedRCBD.bulk(aug.bulk = bout,
+                          target = file.path(tempdir(),
+                                             "augmentedRCBD bulk output.docx"),
+                          file.type = "word")
+report.augmentedRCBD.bulk(aug.bulk = bout,
+                          target = file.path(tempdir(),
+                                             "augmentedRCBD bulk output.xlsx"),
+                          file.type = "excel")
 }
 
 }
