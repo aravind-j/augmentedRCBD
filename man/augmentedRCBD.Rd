@@ -70,6 +70,8 @@ A list of class \code{augmentedRCBD} containing the following
  compact letter display of pairwise comparisons of treatments. Means with at
  least one letter common are not significantly different statistically. This
  is computed only if argument \code{group} is \code{TRUE} }
+ \item{\code{warning}}{A vector of warning messages (if any) captured during
+ model fitting. }
 }
 \description{
 \code{augmentedRCBD} is a function for analysis of variance of an augmented
@@ -157,7 +159,7 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 \seealso{
 \code{\link[agricolae]{DAU.test}},
  \href{https://www.rdocumentation.org/packages/easyanova/versions/5.0/topics/ea1}{\code{ea1}},
-  \code{\link[emmeans]{emmeans}},
+ \code{\link[emmeans]{emmeans}},
  \code{\link[emmeans:CLD.emmGrid]{cld.emmGrid}},
  \href{https://rdrr.io/rforge/plantbreeding/man/aug.rcb.html}{\code{aug.rcb}}
 }
