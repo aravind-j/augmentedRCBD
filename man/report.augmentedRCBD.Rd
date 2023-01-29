@@ -4,7 +4,13 @@
 \alias{report.augmentedRCBD}
 \title{Generate MS Word or Excel Report from \code{augmentedRCBD} Output}
 \usage{
-report.augmentedRCBD(aug, target, file.type = c("word", "excel"))
+report.augmentedRCBD(
+  aug,
+  target,
+  file.type = c("word", "excel"),
+  k = 2.063,
+  check.col = "red"
+)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
@@ -13,6 +19,17 @@ report.augmentedRCBD(aug, target, file.type = c("word", "excel"))
 
 \item{file.type}{The file type of the report. Either \code{"word"} for MS
 Word report file or \code{"excel"} for MS Excel report file.}
+
+\item{k}{The standardized selection differential or selection intensity
+ required for computation of Genetic advance. Default is 2.063 for 5\%
+ selection proportion (see \strong{Details} in
+\code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if
+\code{gva = FALSE}.}
+
+\item{check.col}{The colour(s) to be used to highlight check values in the
+plot as a character vector. Must be valid colour values in R (named
+colours, hexadecimal representation, index of colours [\code{1:8}] in
+default R \code{palette()} etc.).}
 }
 \description{
 \code{report.augmentedRCBD} generates a tidy report from an object of class
@@ -58,11 +75,15 @@ out <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 report.augmentedRCBD(aug = out,
                      target = file.path(tempdir(),
                                         "augmentedRCBD output.docx"),
-                     file.type = "word")
+                     file.type = "word",
+                     check.col = c("brown", "darkcyan",
+                                   "forestgreen", "purple"))
 report.augmentedRCBD(aug = out,
                      target = file.path(tempdir(),
                                         "augmentedRCBD output.xlsx"),
-                     file.type = "excel")
+                     file.type = "excel",
+                     check.col = c("brown", "darkcyan",
+                                   "forestgreen", "purple"))
 }
 
 }

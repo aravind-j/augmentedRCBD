@@ -26,6 +26,15 @@
 #' @param target The path to the report file to be created.
 #' @param file.type The file type of the report. Either \code{"word"} for MS
 #'   Word report file or \code{"excel"} for MS Excel report file.
+#' @param k The standardized selection differential or selection intensity
+#'   required for computation of Genetic advance. Default is 2.063 for 5\%
+#'   selection proportion (see \strong{Details} in
+#'  \code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if
+#'  \code{gva = FALSE}.
+#' @param check.col The colour(s) to be used to highlight check values in the
+#'   plot as a character vector. Must be valid colour values in R (named
+#'   colours, hexadecimal representation, index of colours [\code{1:8}] in
+#'   default R \code{palette()} etc.).
 #'
 #' @note The raw values in the \code{augmentedRCBD} object are rounded off to 2
 #'   digits in the word and excel reports. However, in case of excel report, the
@@ -77,20 +86,38 @@
 #' report.augmentedRCBD(aug = out,
 #'                      target = file.path(tempdir(),
 #'                                         "augmentedRCBD output.docx"),
-#'                      file.type = "word")
+#'                      file.type = "word",
+#'                      check.col = c("brown", "darkcyan",
+#'                                    "forestgreen", "purple"))
 #' report.augmentedRCBD(aug = out,
 #'                      target = file.path(tempdir(),
 #'                                         "augmentedRCBD output.xlsx"),
-#'                      file.type = "excel")
+#'                      file.type = "excel",
+#'                      check.col = c("brown", "darkcyan",
+#'                                    "forestgreen", "purple"))
 #' }
 #'
-report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
+report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
+                                 k = 2.063, check.col = "red"){
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class "augmentedRCBD"')
   }
 
   file.type <- match.arg(file.type)
+
+  # check.col
+  if (!all(iscolour(check.col))) {
+    stop('"check.col" specifies invalid colour(s)')
+  }
+
+  checks <- out$Details$`Check treatments`
+
+  if (length(check.col) != 1) {
+    if (length(check.col) != length(checks)) {
+      stop('"checks" and "check.col" are of unequal lengths')
+    }
+  }
 
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
@@ -99,6 +126,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       stop(target, " should have '.docx' extension.")
     }
 
+    suppar <- fp_text(vertical.align = "superscript")
 
     augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
                                      "template.docx"))
@@ -135,7 +163,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
     }
     anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                          ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
+                          ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
     colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
     anovata$Df <- as.character(anovata$Df)
@@ -145,13 +173,18 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     anovata[, c("F value", "Pr(>F)")] <-
       lapply(anovata[, c("F value", "Pr(>F)")], round.conditional,
              digits = max(round.digits, 3))
+    nsindex <- which(anovata[, 7] == "ns")
     anovata <- autofit(regulartable(anovata))
+    if (!is.null(nsindex)) {
+      anovata <- compose(anovata, part = "body", i = nsindex, j = 7,
+                         value = as_paragraph(as_sup("ns")))
+    }
     anovata <- align(anovata, j = 2:6, align = "right", part = "all")
     anovata <- bold(anovata, part = "header")
     augreport <- body_add_flextable(augreport, anovata)
-    augreport <- body_add_par(augreport,
-                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-                              style = "Normal")
+    augreport <- body_add_fpar(augreport,
+                               value = fpar(ftext("ns", suppar),
+                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
 
     # ANOVA, BA
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
@@ -163,7 +196,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
     }
     anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
+                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
     colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
     anovaba$Df <- as.character(anovaba$Df)
@@ -173,14 +206,18 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     anovaba[, c("F value", "Pr(>F)")] <-
       lapply(anovaba[, c("F value", "Pr(>F)")], round.conditional,
              digits = max(round.digits, 3))
+    nsindex <- which(anovaba[, 7] == "ns")
     anovaba <- autofit(regulartable(anovaba))
+    if (!is.null(nsindex)) {
+      anovaba <- compose(anovaba, part = "body", i = nsindex, j = 7,
+                         value = as_paragraph(as_sup("ns")))
+    }
     anovaba <- align(anovaba, j = 2:6, align = "right", part = "all")
     anovaba <- bold(anovaba, part = "header")
     augreport <- body_add_flextable(augreport, anovaba)
-    augreport <- body_add_par(augreport,
-                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-                              style = "Normal")
-
+    augreport <- body_add_fpar(augreport,
+                               value = fpar(ftext("ns", suppar),
+                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     # Std. Errors
     augreport <- body_add_par(augreport,
                               value = "Standard Errors and Critical Differences",
@@ -226,7 +263,14 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
                               style = "heading 1")
     src <- tempfile(fileext = ".png")
     png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-    plot(freqdist.augmentedRCBD(aug, xlab = ""))
+    fqwarn <- NULL
+    plot(freqdist.augmentedRCBD(aug, xlab = "", check.col = check.col))
+    withCallingHandlers({
+      plot(freqdist.augmentedRCBD(aug, xlab = "", check.col = check.col))
+    }, warning = function(w) {
+      fqwarn <<- append(fqwarn, cli::ansi_strip(w$message))
+      invokeRestart("muffleWarning")
+    })
     dev.off()
     augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
     rm(src)
@@ -237,10 +281,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
     descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
                                         ifelse(descout$Skewness.p.value. <= 0.05,
-                                               "*", "ⁿˢ"))
+                                               "*", "ns"))
     descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
                                         ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                               "*", "ⁿˢ"))
+                                               "*", "ns"))
     desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
               "Max", "Skewness.statistic.", "Kurtosis.statistic.")
     descout[, desc] <- apply(descout[, desc], MARGIN = 2,
@@ -248,43 +292,59 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
     colnames(descout) <- c("Count", "Mean", "Std.Error", "Std.Deviation",
                            "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
                            "Kurtosis_sig")
-    descout$Skewness <- paste(descout$Skewness,
-                              stringi::stri_pad_right(descout$Skewness_sig, 3),
-                              sep = " ")
-    descout$Kurtosis <- paste(descout$Kurtosis,
-                              stringi::stri_pad_right(descout$Kurtosis_sig, 3),
-                              sep = " ")
-    descout <- descout[, c("Count", "Mean", "Std.Error", "Std.Deviation",
-                           "Min", "Max", "Skewness", "Kurtosis")]
+    descout <- rbind(descout[, c("Count", "Mean", "Std.Error", "Std.Deviation",
+                                 "Min", "Max", "Skewness", "Kurtosis")],
+                     c(rep("", 6),
+                       unlist(descout[,
+                                      c("Skewness_sig", "Kurtosis_sig")])))
+
     descout <- data.frame(t(descout))
     descout <- cbind(Statistic = rownames(descout), descout)
     rownames(descout) <- NULL
-    colnames(descout) <- c("Statistic", "Value")
-
+    colnames(descout) <- c("Statistic", "Value", " ")
+    nsindex <- which(descout[, 3] == "ns")
     descout <- autofit(regulartable(descout))
+    if (!is.null(nsindex)) {
+      descout <- compose(descout, part = "body", i = nsindex, j = 3,
+                         value = as_paragraph(as_sup("ns")))
+    }
     descout <- align(descout, j = 2, align = "right", part = "all")
+    descout <- align(descout, j = 3, align = "left", part = "all")
     descout <- bold(descout, part = "header")
     augreport <- body_add_flextable(augreport, descout)
 
-    augreport <- body_add_par(augreport,
-                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-                              style = "Normal")
+    augreport <- body_add_fpar(augreport,
+                               value = fpar(ftext("ns", suppar),
+                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+
 
     # GVA
     augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
                               style = "heading 1")
-    gvaout <- data.frame(gva.augmentedRCBD(aug))
+    gvaout <- gva.augmentedRCBD(aug, k = k)
+    gvawarn <- NULL
+    withCallingHandlers({
+      gvaout <- data.frame(gva.augmentedRCBD(aug, k = k))
+
+    }, warning = function(w) {
+      gvawarn <<- append(gvawarn, conditionMessage(w))
+      invokeRestart("muffleWarning")
+    })
+    gvaout <- data.frame(gvaout)
     gvaout <- dplyr::mutate_if(gvaout, is.numeric, round.conditional,
                                digits = round.digits)
     gvaout <- data.frame(t(gvaout))
     gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
     rownames(gvaout) <- NULL
-    colnames(gvaout) <- c("Statistic", "Value")
+    gvaout$x <-  c(rep("", 11), rep("*", 3))
+    colnames(gvaout) <- c("Statistic", "Value", " ")
 
     gvaout <- autofit(regulartable(gvaout))
     gvaout <- align(gvaout, j = 2, align = "right", part = "all")
+    gvaout <- align(gvaout, j = 3, align = "left", part = "all")
     gvaout <- bold(gvaout, part = "header")
     augreport <- body_add_flextable(augreport, gvaout)
+    augreport <- body_add_par(augreport, value = paste("* k =", k))
 
     # Comparisons
     if (!is.null(aug$Comparisons)) {
@@ -329,6 +389,31 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       augreport <- body_add_flextable(augreport, gps)
     }
 
+    # Warnings
+    if (!all( unlist(lapply(list(fqwarn, gvawarn), is.null)))) {
+      augreport <- body_add_par(augreport, value = "Warnings",
+                                style = "heading 1")
+
+      if (!is.null(fqwarn)) {
+        augreport <- body_add_par(augreport,
+                                  value = "Frequency Distribution",
+                                  style = "heading 2")
+        augreport <- body_add_par(augreport,
+                                  value = fqwarn,
+                                  style = "Code")
+      }
+
+      if (!is.null(gvawarn)) {
+        augreport <- body_add_par(augreport,
+                                  value = "Genetic Variablity Analysis",
+                                  style = "heading 2")
+        augreport <- body_add_par(augreport,
+                                  value = gvawarn,
+                                  style = "Code")
+
+      }
+    }
+
     augreport <- body_add_par(augreport,
                               value = "################## The End ##################",
                               style = "Center text")
@@ -342,329 +427,329 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel")){
       stop(target, " should have '.xlsx' extension.")
     }
 
-  # Create workbook
-  wb <- createWorkbook()
-  modifyBaseFont(wb, fontSize = 10, fontName = "Arial")
+    # Create workbook
+    wb <- createWorkbook()
+    modifyBaseFont(wb, fontSize = 10, fontName = "Arial")
 
-  hs <- createStyle(halign = "left", valign = "bottom")
+    hs <- createStyle(halign = "left", valign = "bottom")
 
-  num.base <- paste("0.", paste(rep(0, round.digits), collapse = ""), sep = "")
-  numstyle <- createStyle(numFmt = num.base)
-  num.base.p <- paste("0.", paste(rep(0, max(round.digits, 3)),
-                                  collapse = ""), sep = "")
-  numstyle.p <- createStyle(numFmt = num.base.p)
-  ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
-  dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
-  nsstyle <- createStyle(numFmt = paste(num.base, '"ⁿˢ"'))
+    num.base <- paste("0.", paste(rep(0, round.digits), collapse = ""), sep = "")
+    numstyle <- createStyle(numFmt = num.base)
+    num.base.p <- paste("0.", paste(rep(0, max(round.digits, 3)),
+                                    collapse = ""), sep = "")
+    numstyle.p <- createStyle(numFmt = num.base.p)
+    ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
+    dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
+    nsstyle <- createStyle(numFmt = paste(num.base, '"ⁿˢ"'))
 
-  # Index
-  index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
-             "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
-             "Means", "Frequency Distribution", "Descriptive Statistics",
-             "Genetic Variability Analysis")
+    # Index
+    index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
+               "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
+               "Means", "Frequency Distribution", "Descriptive Statistics",
+               "Genetic Variability Analysis")
 
-  if (!is.null(aug$Comparisons)) {
-    index <- c(index,"Comparisons")
-  }
-  if (!is.null(aug$Groups)) {
-    index <- c(index,"Groups")
-  }
+    if (!is.null(aug$Comparisons)) {
+      index <- c(index,"Comparisons")
+    }
+    if (!is.null(aug$Groups)) {
+      index <- c(index,"Groups")
+    }
 
-  index <- data.frame(`Sl.No` = seq_along(index), Sheets = index)
+    index <- data.frame(`Sl.No` = seq_along(index), Sheets = index)
 
-  addWorksheet(wb, sheetName = "Index", gridLines = FALSE)
-  insertImage(wb, sheet = "Index",
-              file = system.file("extdata", "augmentedRCBD.png",
-                                 package = "augmentedRCBD"),
-              startCol = "A", startRow = 2,
-              width = 1, height = 1.1)
-  writeData(wb, sheet = "Index",
-            x = "https://aravind-j.github.io/augmentedRCBD",
-            startCol = "C", startRow = 4, borders = "none")
-  writeData(wb, sheet = "Index",
-            x = "https://github.com/aravind-j/augmentedRCBD",
-            startCol = "C", startRow = 5, borders = "none")
-  writeData(wb, sheet = "Index",
-            x = "https://CRAN.R-project.org/package=augmentedRCBD",
-            startCol = "C", startRow = 6, borders = "none")
-  writeDataTable(wb, sheet = "Index", x = index,
-            startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
-            headerStyle = hs, tableStyle = "TableStyleLight1",
-            withFilter = FALSE, bandedRows = FALSE)
-  addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
-           rows = 9, cols = 2, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "Index", cols = 1:3, widths = "auto")
+    addWorksheet(wb, sheetName = "Index", gridLines = FALSE)
+    insertImage(wb, sheet = "Index",
+                file = system.file("extdata", "augmentedRCBD.png",
+                                   package = "augmentedRCBD"),
+                startCol = "A", startRow = 2,
+                width = 1, height = 1.1)
+    writeData(wb, sheet = "Index",
+              x = "https://aravind-j.github.io/augmentedRCBD",
+              startCol = "C", startRow = 4, borders = "none")
+    writeData(wb, sheet = "Index",
+              x = "https://github.com/aravind-j/augmentedRCBD",
+              startCol = "C", startRow = 5, borders = "none")
+    writeData(wb, sheet = "Index",
+              x = "https://CRAN.R-project.org/package=augmentedRCBD",
+              startCol = "C", startRow = 6, borders = "none")
+    writeDataTable(wb, sheet = "Index", x = index,
+                   startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
+                   headerStyle = hs, tableStyle = "TableStyleLight1",
+                   withFilter = FALSE, bandedRows = FALSE)
+    addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
+             rows = 9, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Index", cols = 1:3, widths = "auto")
 
-  # Details
-  Details <- t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
-                          `Number of treatments` = aug$Details$`Number of treatments`,
-                          `Number of check treatments` = aug$Details$`Number of check treatments`,
-                          `Number of test treatments` = aug$Details$`Number of test treatments`,
-                          `Check treatments` =  paste(aug$Details$`Check treatments`,
-                                                      collapse = ", ")))
-  Details <- data.frame(Details)
-  Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
-  colnames(Details) <- c("Item", "Details")
+    # Details
+    Details <- t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
+                            `Number of treatments` = aug$Details$`Number of treatments`,
+                            `Number of check treatments` = aug$Details$`Number of check treatments`,
+                            `Number of test treatments` = aug$Details$`Number of test treatments`,
+                            `Check treatments` =  paste(aug$Details$`Check treatments`,
+                                                        collapse = ", ")))
+    Details <- data.frame(Details)
+    Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
+    colnames(Details) <- c("Item", "Details")
 
-  addWorksheet(wb, sheetName = "Details", gridLines = FALSE)
-  writeDataTable(wb, sheet = "Details", x = Details,
-            colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-            tableStyle = "TableStyleLight1", withFilter = FALSE,
-            bandedRows = FALSE)
-  setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
-
-  # ANOVA, TA
-  if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
-    anovata <- aug$`ANOVA, Treatment Adjusted`
-  } else {
-    anovata <- data.frame(aug$`ANOVA, Treatment Adjusted`[[1]])
-    anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
-  }
-  anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                        ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
-  colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                         "F value", "Pr(>F)", " ")
-
-  addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
-  writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted", x = anovata,
-                 colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                 tableStyle = "TableStyleLight1", withFilter = FALSE,
-                 bandedRows = FALSE)
-  addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle,
-           rows = 2:6, cols = 3:4, stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle.p,
-           rows = 2:6, cols = 5:6, stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
-           style = createStyle(halign = "right"),
-           rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
-               cols = 1:ncol(anovata), widths = "auto")
-  writeData(wb, sheet = "ANOVA, Treatment Adjusted",
-            xy = c("A", 7),
-            x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-            borders = "none")
-
-  # ANOVA, BA
-  if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
-    anovaba <- aug$`ANOVA, Block Adjusted`
-  } else {
-    anovaba <- data.frame(aug$`ANOVA, Block Adjusted`[[1]])
-    anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
-  }
-  anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
-  colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                         "F value", "Pr(>F)", " ")
-
-  addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
-  writeDataTable(wb, sheet = "ANOVA, Block Adjusted", x = anovaba,
-                 colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                 tableStyle = "TableStyleLight1", withFilter = FALSE,
-                 bandedRows = FALSE)
-  addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
-           rows = 2:7, cols = 3:4, stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
-           rows = 2:7, cols = 5:6, stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "ANOVA, Block Adjusted",
-           style = createStyle(halign = "right"),
-           rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "ANOVA, Block Adjusted",
-               cols = 1:ncol(anovaba), widths = "auto")
-  writeData(wb, sheet = "ANOVA, Block Adjusted",
-            xy = c("A", 8),
-            x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-            borders = "none")
-
-  # Std. Errors
-  se <- aug$`Std. Errors`
-  se <- cbind(Comparison = row.names(se), se)
-
-  addWorksheet(wb, sheetName = "SEs and CDs", gridLines = FALSE)
-  writeDataTable(wb, sheet = "SEs and CDs", x = se,
-                 colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                 tableStyle = "TableStyleLight1", withFilter = FALSE,
-                 bandedRows = FALSE)
-  addStyle(wb,  sheet = "SEs and CDs", style = numstyle,
-           rows = 2:5, cols = 2:3, stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "SEs and CDs", style = createStyle(halign = "right"),
-           rows = 1, cols = 2:3, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "SEs and CDs",
-               cols = 1:ncol(se), widths = "auto")
-
-  # Overall adjusted mean
-  addWorksheet(wb, sheetName = "Overall Adjusted Mean", gridLines = FALSE)
-  writeData(wb, sheet = "Overall Adjusted Mean",
-            x = aug$`Overall adjusted mean`,
-            startCol = "A", startRow = 1, borders = "none")
-  addStyle(wb,  sheet = "Overall Adjusted Mean", style = numstyle,
-           rows = 1, cols = 1, stack = FALSE)
-
-  # Coefficient of variation
-  addWorksheet(wb, sheetName = "Coefficient of Variation", gridLines = FALSE)
-  writeData(wb, sheet = "Coefficient of Variation", x = aug$CV,
-            startCol = "A", startRow = 1, borders = "none")
-  addStyle(wb,  sheet = "Coefficient of Variation", style = numstyle,
-           rows = 1, cols = 1, stack = FALSE)
-
-  # Means
-  Means <- aug$Means
-
-  addWorksheet(wb, sheetName = "Means", gridLines = FALSE)
-  writeDataTable(wb, sheet = "Means", x = Means,
-                 colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                 tableStyle = "TableStyleLight1", withFilter = FALSE,
-                 bandedRows = FALSE)
-  addStyle(wb,  sheet = "Means", style = numstyle,
-           rows = 2:(nrow(Means) + 1), cols = c(3:4, 6:8),
-           stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "Means", style = createStyle(halign = "right"),
-           rows = 1, cols = 3:8, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "Means",
-               cols = 1:ncol(Means), widths = "auto")
-
-  # Freq dist
-  addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
-  plot(freqdist.augmentedRCBD(aug, xlab = ""))
-  insertPlot(wb, sheet = "Frequency Distribution",
-             xy = c("B", 2))
-  dev.off()
-
-  # Desc stat
-  descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
-
-  descout_sub <- descout[, c("Skewness.p.value.", "Kurtosis.p.value.")]
-  descout <- descout[, c("Count", "Mean", "Std.Error", "Std.Deviation",
-                         "Min", "Max", "Skewness.statistic.",
-                         "Kurtosis.statistic.")]
-  colnames(descout) <- gsub("\\.statistic\\.", "", colnames(descout))
-  descout <- data.frame(t(descout))
-  descout <- cbind(Statistic = rownames(descout), descout)
-  rownames(descout) <- NULL
-  colnames(descout) <- c("Statistic", "Value")
-
-  addWorksheet(wb, sheetName = "Descriptive Statistics", gridLines = FALSE)
-  writeDataTable(wb, sheet = "Descriptive Statistics", x = descout,
-                 colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                 tableStyle = "TableStyleLight1", withFilter = FALSE,
-                 bandedRows = FALSE)
-  addStyle(wb,  sheet = "Descriptive Statistics", style = numstyle,
-           rows = 3:7, cols = 2, stack = FALSE, gridExpand = TRUE)
-  addStyle(wb,  sheet = "Descriptive Statistics",
-           style = if(descout_sub$Skewness.p.value. <= 0.01) {
-             dsstyle } else {
-               if (descout_sub$Skewness.p.value. <= 0.05) {
-                 ssstyle
-               } else {
-                 nsstyle
-               }
-             },
-           rows = 8, cols = 2, stack = FALSE)
-  addStyle(wb,  sheet = "Descriptive Statistics",
-           style = if(descout_sub$Kurtosis.p.value. <= 0.01) {
-             dsstyle } else {
-               if (descout_sub$Kurtosis.p.value. <= 0.05) {
-                 ssstyle
-               } else {
-                 nsstyle
-               }
-             },
-           rows = 9, cols = 2, stack = FALSE)
-  addStyle(wb,  sheet = "Descriptive Statistics",
-           style = createStyle(halign = "right"),
-           rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "Descriptive Statistics",
-               cols = 1:ncol(descout), widths = "auto")
-  writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
-            x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-            borders = "none")
-
-  # GVA
-  gvaout <- data.frame(gva.augmentedRCBD(aug))
-  gvaout <- data.frame(t(gvaout))
-  gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
-  rownames(gvaout) <- NULL
-  colnames(gvaout) <- c("Statistic", "Value")
-
-  stat_cat <- c("GCV.category", "PCV.category", "hBS.category", "GAM.category")
-  gvaout_sub <- gvaout[gvaout$Statistic %in% stat_cat, ]
-  gvaout[gvaout$Statistic %in% stat_cat, ]$Value <- "0"
-  gvaout$Value <- as.numeric(gvaout$Value)
-
-  addWorksheet(wb, sheetName = "Genetic Variability Analysis",
-               gridLines = FALSE)
-  writeDataTable(wb, sheet = "Genetic Variability Analysis", x = gvaout,
-                 colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                 tableStyle = "TableStyleLight1", withFilter = FALSE,
-                 bandedRows = FALSE)
-  addStyle(wb,  sheet = "Genetic Variability Analysis", style = numstyle,
-           rows = c(2:6, 8, 10:11, 13:14), cols = 2,
-           stack = FALSE, gridExpand = TRUE)
-  writeData(wb, sheet = "Genetic Variability Analysis",
-            x = gvaout_sub[gvaout_sub == "GCV.category", ]$Value,
-            xy = c("B", 7), borders = "none")
-  writeData(wb, sheet = "Genetic Variability Analysis",
-            x = gvaout_sub[gvaout_sub == "PCV.category", ]$Value,
-            xy = c("B", 9), borders = "none")
-  writeData(wb, sheet = "Genetic Variability Analysis",
-            x = gvaout_sub[gvaout_sub == "hBS.category", ]$Value,
-            xy = c("B", 12), borders = "none")
-  writeData(wb, sheet = "Genetic Variability Analysis",
-            x = gvaout_sub[gvaout_sub == "GAM.category", ]$Value,
-            xy = c("B", 15), borders = "none")
-  addStyle(wb,  sheet = "Genetic Variability Analysis",
-           style = createStyle(halign = "right"),
-           rows = 1:15, cols = 2, stack = TRUE, gridExpand = TRUE)
-  setColWidths(wb, sheet = "Genetic Variability Analysis",
-               cols = 1:ncol(gvaout), widths = "auto")
-
-  # Comparisons
-  if (!is.null(aug$Comparisons)) {
-
-    cmp <- aug$Comparisons
-
-    addWorksheet(wb, sheetName = "Comparisons",
-                 gridLines = FALSE)
-    writeData(wb, sheet = "Comparisons", xy = c("A", 1),
-              x = paste("Comparison method:",
-                        aug$`Comparison method`), borders = "none")
-    writeDataTable(wb, sheet = "Comparisons",
-                   x = cmp, xy = c("A", 2),
+    addWorksheet(wb, sheetName = "Details", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Details", x = Details,
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                   tableStyle = "TableStyleLight1", bandedRows = FALSE,
-                   withFilter = FALSE)
-    addStyle(wb,  sheet = "Comparisons", style = numstyle,
-             rows = 3:(nrow(cmp) + 2), cols = c(2:3, 5:6),
-             stack = FALSE, gridExpand = TRUE)
-    addStyle(wb,  sheet = "Comparisons", style = numstyle.p,
-             rows = 3:(nrow(cmp) + 2), cols = c(5:6),
-             stack = FALSE, gridExpand = TRUE)
-    addStyle(wb,  sheet = "Comparisons", style = createStyle(halign = "right"),
-             rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
-    writeData(wb, sheet = "Comparisons", xy = c("A", nrow(cmp) + 3),
-              x = "* P \u2264 0.05; ** P \u2264 0.01", borders = "none")
-  }
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
 
-  # Groups
-  if (!is.null(aug$Groups)) {
-    addWorksheet(wb, sheetName = "Groups",
-                 gridLines = FALSE)
-    writeData(wb, sheet = "Groups", xy = c("A", 1),
-              x = paste("Comparison method:",
-                        aug$`Comparison method`), borders = "none")
-    gps <- aug$Groups
+    # ANOVA, TA
+    if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
+      anovata <- aug$`ANOVA, Treatment Adjusted`
+    } else {
+      anovata <- data.frame(aug$`ANOVA, Treatment Adjusted`[[1]])
+      anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
+    }
+    anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
+                          ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
+    colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
+                           "F value", "Pr(>F)", " ")
 
-    writeDataTable(wb, sheet = "Groups", x = gps, xy = c("A", 2),
+    addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
+    writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted", x = anovata,
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                   tableStyle = "TableStyleLight1", bandedRows = FALSE,
-                   withFilter = FALSE)
-    addStyle(wb,  sheet = "Groups", style = numstyle,
-             rows = 3:(nrow(gps) + 2), cols = c(2:3, 5:6),
-             stack = FALSE, gridExpand = TRUE)
-    addStyle(wb,  sheet = "Groups", style = createStyle(halign = "right"),
-             rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
-  }
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle,
+             rows = 2:6, cols = 3:4, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle.p,
+             rows = 2:6, cols = 5:6, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
+                 cols = 1:ncol(anovata), widths = "auto")
+    writeData(wb, sheet = "ANOVA, Treatment Adjusted",
+              xy = c("A", 7),
+              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              borders = "none")
 
-  saveWorkbook(wb = wb, file = target, overwrite = TRUE)
+    # ANOVA, BA
+    if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
+      anovaba <- aug$`ANOVA, Block Adjusted`
+    } else {
+      anovaba <- data.frame(aug$`ANOVA, Block Adjusted`[[1]])
+      anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
+    }
+    anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
+                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
+    colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
+                           "F value", "Pr(>F)", " ")
+
+    addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
+    writeDataTable(wb, sheet = "ANOVA, Block Adjusted", x = anovaba,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
+             rows = 2:7, cols = 3:4, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
+             rows = 2:7, cols = 5:6, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "ANOVA, Block Adjusted",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "ANOVA, Block Adjusted",
+                 cols = 1:ncol(anovaba), widths = "auto")
+    writeData(wb, sheet = "ANOVA, Block Adjusted",
+              xy = c("A", 8),
+              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              borders = "none")
+
+    # Std. Errors
+    se <- aug$`Std. Errors`
+    se <- cbind(Comparison = row.names(se), se)
+
+    addWorksheet(wb, sheetName = "SEs and CDs", gridLines = FALSE)
+    writeDataTable(wb, sheet = "SEs and CDs", x = se,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "SEs and CDs", style = numstyle,
+             rows = 2:5, cols = 2:3, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "SEs and CDs", style = createStyle(halign = "right"),
+             rows = 1, cols = 2:3, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "SEs and CDs",
+                 cols = 1:ncol(se), widths = "auto")
+
+    # Overall adjusted mean
+    addWorksheet(wb, sheetName = "Overall Adjusted Mean", gridLines = FALSE)
+    writeData(wb, sheet = "Overall Adjusted Mean",
+              x = aug$`Overall adjusted mean`,
+              startCol = "A", startRow = 1, borders = "none")
+    addStyle(wb,  sheet = "Overall Adjusted Mean", style = numstyle,
+             rows = 1, cols = 1, stack = FALSE)
+
+    # Coefficient of variation
+    addWorksheet(wb, sheetName = "Coefficient of Variation", gridLines = FALSE)
+    writeData(wb, sheet = "Coefficient of Variation", x = aug$CV,
+              startCol = "A", startRow = 1, borders = "none")
+    addStyle(wb,  sheet = "Coefficient of Variation", style = numstyle,
+             rows = 1, cols = 1, stack = FALSE)
+
+    # Means
+    Means <- aug$Means
+
+    addWorksheet(wb, sheetName = "Means", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Means", x = Means,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Means", style = numstyle,
+             rows = 2:(nrow(Means) + 1), cols = c(3:4, 6:8),
+             stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "Means", style = createStyle(halign = "right"),
+             rows = 1, cols = 3:8, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Means",
+                 cols = 1:ncol(Means), widths = "auto")
+
+    # Freq dist
+    addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
+    plot(freqdist.augmentedRCBD(aug, xlab = ""))
+    insertPlot(wb, sheet = "Frequency Distribution",
+               xy = c("B", 2))
+    dev.off()
+
+    # Desc stat
+    descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
+
+    descout_sub <- descout[, c("Skewness.p.value.", "Kurtosis.p.value.")]
+    descout <- descout[, c("Count", "Mean", "Std.Error", "Std.Deviation",
+                           "Min", "Max", "Skewness.statistic.",
+                           "Kurtosis.statistic.")]
+    colnames(descout) <- gsub("\\.statistic\\.", "", colnames(descout))
+    descout <- data.frame(t(descout))
+    descout <- cbind(Statistic = rownames(descout), descout)
+    rownames(descout) <- NULL
+    colnames(descout) <- c("Statistic", "Value")
+
+    addWorksheet(wb, sheetName = "Descriptive Statistics", gridLines = FALSE)
+    writeDataTable(wb, sheet = "Descriptive Statistics", x = descout,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Descriptive Statistics", style = numstyle,
+             rows = 3:7, cols = 2, stack = FALSE, gridExpand = TRUE)
+    addStyle(wb,  sheet = "Descriptive Statistics",
+             style = if(descout_sub$Skewness.p.value. <= 0.01) {
+               dsstyle } else {
+                 if (descout_sub$Skewness.p.value. <= 0.05) {
+                   ssstyle
+                 } else {
+                   nsstyle
+                 }
+               },
+             rows = 8, cols = 2, stack = FALSE)
+    addStyle(wb,  sheet = "Descriptive Statistics",
+             style = if(descout_sub$Kurtosis.p.value. <= 0.01) {
+               dsstyle } else {
+                 if (descout_sub$Kurtosis.p.value. <= 0.05) {
+                   ssstyle
+                 } else {
+                   nsstyle
+                 }
+               },
+             rows = 9, cols = 2, stack = FALSE)
+    addStyle(wb,  sheet = "Descriptive Statistics",
+             style = createStyle(halign = "right"),
+             rows = 1, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Descriptive Statistics",
+                 cols = 1:ncol(descout), widths = "auto")
+    writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
+              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              borders = "none")
+
+    # GVA
+    gvaout <- data.frame(gva.augmentedRCBD(aug))
+    gvaout <- data.frame(t(gvaout))
+    gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
+    rownames(gvaout) <- NULL
+    colnames(gvaout) <- c("Statistic", "Value")
+
+    stat_cat <- c("GCV.category", "PCV.category", "hBS.category", "GAM.category")
+    gvaout_sub <- gvaout[gvaout$Statistic %in% stat_cat, ]
+    gvaout[gvaout$Statistic %in% stat_cat, ]$Value <- "0"
+    gvaout$Value <- as.numeric(gvaout$Value)
+
+    addWorksheet(wb, sheetName = "Genetic Variability Analysis",
+                 gridLines = FALSE)
+    writeDataTable(wb, sheet = "Genetic Variability Analysis", x = gvaout,
+                   colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                   tableStyle = "TableStyleLight1", withFilter = FALSE,
+                   bandedRows = FALSE)
+    addStyle(wb,  sheet = "Genetic Variability Analysis", style = numstyle,
+             rows = c(2:6, 8, 10:11, 13:14), cols = 2,
+             stack = FALSE, gridExpand = TRUE)
+    writeData(wb, sheet = "Genetic Variability Analysis",
+              x = gvaout_sub[gvaout_sub == "GCV.category", ]$Value,
+              xy = c("B", 7), borders = "none")
+    writeData(wb, sheet = "Genetic Variability Analysis",
+              x = gvaout_sub[gvaout_sub == "PCV.category", ]$Value,
+              xy = c("B", 9), borders = "none")
+    writeData(wb, sheet = "Genetic Variability Analysis",
+              x = gvaout_sub[gvaout_sub == "hBS.category", ]$Value,
+              xy = c("B", 12), borders = "none")
+    writeData(wb, sheet = "Genetic Variability Analysis",
+              x = gvaout_sub[gvaout_sub == "GAM.category", ]$Value,
+              xy = c("B", 15), borders = "none")
+    addStyle(wb,  sheet = "Genetic Variability Analysis",
+             style = createStyle(halign = "right"),
+             rows = 1:15, cols = 2, stack = TRUE, gridExpand = TRUE)
+    setColWidths(wb, sheet = "Genetic Variability Analysis",
+                 cols = 1:ncol(gvaout), widths = "auto")
+
+    # Comparisons
+    if (!is.null(aug$Comparisons)) {
+
+      cmp <- aug$Comparisons
+
+      addWorksheet(wb, sheetName = "Comparisons",
+                   gridLines = FALSE)
+      writeData(wb, sheet = "Comparisons", xy = c("A", 1),
+                x = paste("Comparison method:",
+                          aug$`Comparison method`), borders = "none")
+      writeDataTable(wb, sheet = "Comparisons",
+                     x = cmp, xy = c("A", 2),
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", bandedRows = FALSE,
+                     withFilter = FALSE)
+      addStyle(wb,  sheet = "Comparisons", style = numstyle,
+               rows = 3:(nrow(cmp) + 2), cols = c(2:3, 5:6),
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "Comparisons", style = numstyle.p,
+               rows = 3:(nrow(cmp) + 2), cols = c(5:6),
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "Comparisons", style = createStyle(halign = "right"),
+               rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+      writeData(wb, sheet = "Comparisons", xy = c("A", nrow(cmp) + 3),
+                x = "* P \u2264 0.05; ** P \u2264 0.01", borders = "none")
+    }
+
+    # Groups
+    if (!is.null(aug$Groups)) {
+      addWorksheet(wb, sheetName = "Groups",
+                   gridLines = FALSE)
+      writeData(wb, sheet = "Groups", xy = c("A", 1),
+                x = paste("Comparison method:",
+                          aug$`Comparison method`), borders = "none")
+      gps <- aug$Groups
+
+      writeDataTable(wb, sheet = "Groups", x = gps, xy = c("A", 2),
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", bandedRows = FALSE,
+                     withFilter = FALSE)
+      addStyle(wb,  sheet = "Groups", style = numstyle,
+               rows = 3:(nrow(gps) + 2), cols = c(2:3, 5:6),
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "Groups", style = createStyle(halign = "right"),
+               rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+    }
+
+    saveWorkbook(wb = wb, file = target, overwrite = TRUE)
   }
 
   message(paste("File created at", target))

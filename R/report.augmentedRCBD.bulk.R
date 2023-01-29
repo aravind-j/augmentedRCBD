@@ -102,6 +102,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       stop(target, " should have '.docx' extension.")
     }
 
+    suppar <- fp_text(vertical.align = "superscript")
+
     augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
                                      "template.docx"))
 
@@ -152,8 +154,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                            colnames(anovata))))
     names(mcols) <- traits
     colnames(anovata) <- gsub("_Mean.Sq", "", colnames(anovata))
+    nsindex <- lapply(mcols, function(x) which(anovata[, x[2]] == "ns"))
     anovata <- flextable(anovata)
     for(i in 1:ntraits) {
+      if (!is.null(nsindex[[traits[[i]]]])) {
+        anovata <- compose(anovata, part = "body", i = nsindex[[traits[[i]]]],
+                           j = mcols[[traits[[i]]]][2],
+                           value = as_paragraph(as_sup("ns")))
+      }
       anovata <- merge_at(anovata, 1, mcols[[traits[i]]], "header")
     }
     anovata <- bold(anovata, part = "header")
@@ -172,9 +180,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovata <- autofit(anovata)
     augreport <- body_add_flextable(augreport, anovata)
 
-    augreport <- body_add_par(augreport,
-                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-                              style = "Normal")
+    augreport <- body_add_fpar(augreport,
+                               value = fpar(ftext("ns", suppar),
+                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     # ANOVA, BA
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                               style = "heading 1")
@@ -190,8 +198,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                                     colnames(anovaba))))
     names(mcols) <- traits
     colnames(anovaba) <- gsub("_Mean.Sq", "", colnames(anovaba))
+    nsindex <- lapply(mcols, function(x) which(anovaba[, x[2]] == "ns"))
     anovaba <- flextable(anovaba)
     for(i in 1:ntraits) {
+      if (!is.null(nsindex[[traits[[i]]]])) {
+        anovaba <- compose(anovaba, part = "body", i = nsindex[[traits[[i]]]],
+                           j = mcols[[traits[[i]]]][2],
+                           value = as_paragraph(as_sup("ns")))
+      }
       anovaba <- merge_at(anovaba, 1, mcols[[traits[i]]], "header")
     }
     anovaba <- bold(anovaba, part = "header")
@@ -210,9 +224,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovaba <- autofit(anovaba)
     augreport <- body_add_flextable(augreport, anovaba)
 
-    augreport <- body_add_par(augreport,
-                              value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-                              style = "Normal")
+    augreport <- body_add_fpar(augreport,
+                               value = fpar(ftext("ns", suppar),
+                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
 
     # Std. error
     augreport <- body_add_par(augreport, value = "Standard Errors",
@@ -291,7 +305,17 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    "Max", "Skewness", "Kurtosis")
       descout[, descols] <- lapply(descout[, descols], round.conditional,
                                    digits = round.digits)
+      nsindex1 <- which(descout[, 9] == "ns")
+      nsindex2 <- which(descout[, 11] == "ns")
       descout <- flextable(descout)
+      if (!is.null(nsindex1)) {
+        descout <- compose(descout, part = "body", i = nsindex1, j = 9,
+                           value = as_paragraph(as_sup("ns")))
+      }
+      if (!is.null(nsindex2)) {
+        descout <- compose(descout, part = "body", i = nsindex2, j = 11,
+                           value = as_paragraph(as_sup("ns")))
+      }
       descout <- merge_at(descout, 1, 8:9, "header")
       descout <- merge_at(descout, 1, 10:11, "header")
       descout <- bold(descout, part = "header")
@@ -301,9 +325,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       descout <- autofit(descout)
       augreport <- body_add_flextable(augreport, descout)
 
-      augreport <- body_add_par(augreport,
-                                value = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
-                                style = "Normal")
+      augreport <- body_add_fpar(augreport,
+                                 value = fpar(ftext("ns", suppar),
+                                              ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     }
 
     # Frequency distribution
@@ -463,7 +487,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     numstyle <- createStyle(numFmt = num.base)
     ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
-    nsstyle <- createStyle(numFmt = paste(num.base, '"ⁿˢ"'))
+    nsstyle <- createStyle(numFmt = paste(num.base, '"ns"'))
 
     ntraits <- aug.bulk$Details$`Number of Traits`
     traits <- aug.bulk$Details$Traits
@@ -568,7 +592,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
             addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = dsstyle,
                      rows = i + 2, cols = col, stack = FALSE)
           }
-          if (anovata_sig[i, col] == "ⁿˢ") {
+          if (anovata_sig[i, col] == "ns") {
             addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = nsstyle,
                      rows = i + 2, cols = col, stack = FALSE)
           }
@@ -624,7 +648,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = dsstyle,
                    rows = i + 2, cols = col, stack = FALSE)
         }
-        if (anovaba_sig[i, col] == "ⁿˢ") {
+        if (anovaba_sig[i, col] == "ns") {
           addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = nsstyle,
                    rows = i + 2, cols = col, stack = FALSE)
         }
@@ -785,7 +809,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           addStyle(wb,  sheet = "Descriptive Statistics", style = dsstyle,
                    rows = i + 1, cols = 8, stack = FALSE)
         }
-        if (descout_org$Skewness_sig[i]  == "ⁿˢ") {
+        if (descout_org$Skewness_sig[i]  == "ns") {
           addStyle(wb,  sheet = "Descriptive Statistics", style = nsstyle,
                    rows = i + 1, cols = 8, stack = FALSE)
         }
@@ -799,7 +823,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           addStyle(wb,  sheet = "Descriptive Statistics", style = dsstyle,
                    rows = i + 1, cols = 9, stack = FALSE)
         }
-        if (descout_org$Kurtosis_sig[i]  == "ⁿˢ") {
+        if (descout_org$Kurtosis_sig[i]  == "ns") {
           addStyle(wb,  sheet = "Descriptive Statistics", style = nsstyle,
                    rows = i + 1, cols = 9, stack = FALSE)
         }
