@@ -10,6 +10,9 @@ report.augmentedRCBD.bulk(aug.bulk, target, file.type = c("word", "excel"))
 \item{aug.bulk}{An object of class \code{augmentedRCBD.bulk}.}
 
 \item{target}{The path to the docx file to be created.}
+
+\item{file.type}{The file type of the report. Either \code{"word"} for MS
+Word report file or \code{"excel"} for MS Excel report file.}
 }
 \description{
 \code{report.augmentedRCBD.bulk} generates a tidy report from an object of

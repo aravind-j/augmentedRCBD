@@ -440,7 +440,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     numstyle.p <- createStyle(numFmt = num.base.p)
     ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
-    nsstyle <- createStyle(numFmt = paste(num.base, '"ⁿˢ"'))
+    nsstyle <- createStyle(numFmt = paste(num.base, '"ns"'))
 
     # Index
     index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
@@ -506,7 +506,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
     }
     anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                          ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
+                          ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
     colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
 
@@ -526,7 +526,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                  cols = 1:ncol(anovata), widths = "auto")
     writeData(wb, sheet = "ANOVA, Treatment Adjusted",
               xy = c("A", 7),
-              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # ANOVA, BA
@@ -537,7 +537,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
     }
     anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
+                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
     colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
 
@@ -557,7 +557,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                  cols = 1:ncol(anovaba), widths = "auto")
     writeData(wb, sheet = "ANOVA, Block Adjusted",
               xy = c("A", 8),
-              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # Std. Errors
@@ -660,7 +660,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     setColWidths(wb, sheet = "Descriptive Statistics",
                  cols = 1:ncol(descout), widths = "auto")
     writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
-              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # GVA

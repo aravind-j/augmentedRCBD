@@ -24,6 +24,8 @@
 #'
 #' @param aug.bulk An object of class \code{augmentedRCBD.bulk}.
 #' @param target The path to the docx file to be created.
+#' @param file.type The file type of the report. Either \code{"word"} for MS
+#'   Word report file or \code{"excel"} for MS Excel report file.
 #'
 #' @export
 #' @import officer
