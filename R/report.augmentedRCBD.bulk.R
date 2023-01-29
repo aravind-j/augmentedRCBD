@@ -608,7 +608,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     mergeCells(wb, sheet = "ANOVA, Treatment Adjusted",
                cols = 3:(ntraits + 2), rows = 1)
     writeData(wb, sheet = "ANOVA, Treatment Adjusted", xy = c("A", 8),
-              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # ANOVA, BA
@@ -664,7 +664,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     mergeCells(wb, sheet = "ANOVA, Block Adjusted",
                cols = 3:(ntraits + 2), rows = 1)
     writeData(wb, sheet = "ANOVA, Block Adjusted", xy = c("A", 9),
-              x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # Std. Error
@@ -831,7 +831,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       setColWidths(wb, sheet = "Descriptive Statistics",
                    cols = 1:ncol(descout), widths = "auto")
       writeData(wb, sheet = "Descriptive Statistics", xy = c("A", ntraits + 2),
-                x = "ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01",
+                x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
                 borders = "none")
     }
 
