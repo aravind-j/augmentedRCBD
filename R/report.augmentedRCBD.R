@@ -264,7 +264,6 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     src <- tempfile(fileext = ".png")
     png(filename = src, width = 6, height = 4, units = 'in', res = 300)
     fqwarn <- NULL
-    plot(freqdist.augmentedRCBD(aug, xlab = "", check.col = check.col))
     withCallingHandlers({
       plot(freqdist.augmentedRCBD(aug, xlab = "", check.col = check.col))
     }, warning = function(w) {
@@ -325,9 +324,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     gvawarn <- NULL
     withCallingHandlers({
       gvaout <- data.frame(gva.augmentedRCBD(aug, k = k))
-
     }, warning = function(w) {
-      gvawarn <<- append(gvawarn, conditionMessage(w))
+      gvawarn <<- append(gvawarn, cli::ansi_strip(w$message))
       invokeRestart("muffleWarning")
     })
     gvaout <- data.frame(gvaout)
