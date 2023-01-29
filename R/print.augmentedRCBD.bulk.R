@@ -73,7 +73,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                   max(nchar(x$`ANOVA, Treatment Adjusted`$Df)) + 5),
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Treatment Adjusted`)
-  cat("ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  cat("ns P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
   dcols <- setdiff(colnames(x$`ANOVA, Block Adjusted`),
@@ -94,7 +94,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                   max(nchar(x$`ANOVA, Block Adjusted`$Df)) + 5),
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Block Adjusted`)
-  cat("ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  cat("ns P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
   x$CV$CV <- round.conditional(x$CV$CV, digits = round.digits)
@@ -127,21 +127,28 @@ print.augmentedRCBD.bulk <- function(x, ...){
                "Std.Deviation", "Min", "Max", "Skewness", "Skewness_sig",
                "Kurtosis", "Kurtosis_sig")
   print(x$`Descriptive statistics`[, descols])
-  cat("ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  cat("ns P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\n\nGenetic Variability Analysis\n")
   cat("===================\n")
   gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
   x$`Genetic variability analysis`[, gvap] <-
     apply(x$`Genetic variability analysis`[, gvap], MARGIN = 2,
           FUN = round.conditional)
+  cat(paste("k =", x$k, "\n"))
   print(x$`Genetic variability analysis`)
   cat("\n\nWarning Messages\n")
   cat("===================\n")
   if (!is.null(x$warnings$Model)) {
+    cat("\n\n[Model]\n")
     cat(paste(x$warnings$Model), sep = "\n")
   }
   if (!is.null(x$warnings$`Freq. dist`)) {
+    cat("\n\n[Frequency Distribution]\n")
     cat(paste(x$warnings$`Freq. dist`), sep = "\n")
+  }
+  if (!is.null(x$warnings$GVA)) {
+    cat("\n\n[GVA]\n")
+    cat(paste(x$warnings$GVA), sep = "\n")
   }
   cat("\nTreatment Means\n")
   cat("===============\n")

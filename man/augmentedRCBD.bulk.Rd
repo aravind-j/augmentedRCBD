@@ -15,6 +15,7 @@ augmentedRCBD.bulk(
   describe = TRUE,
   freqdist = TRUE,
   gva = TRUE,
+  k = 2.063,
   check.col = "red",
   console = TRUE
 )
@@ -48,10 +49,16 @@ is \code{TRUE}.}
 \item{gva}{If \code{TRUE}, genetic variability analysis will be done. Default
 is \code{TRUE}.}
 
+\item{k}{The standardized selection differential or selection intensity
+ required for computation of Genetic advance. Default is 2.063 for 5\%
+ selection proportion (see \strong{Details} in
+\code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if
+\code{gva = FALSE}.}
+
 \item{check.col}{The colour(s) to be used to highlight check values in the
 plot as a character vector. Must be valid colour values in R (named
 colours, hexadecimal representation, index of colours [\code{1:8}] in
-default R `palette()` etc.).}
+default R \code{palette()} etc.).}
 
 \item{console}{If \code{TRUE}, output will be printed to console. Default is
 \code{TRUE}.}
@@ -78,12 +85,15 @@ A list of class \code{augmentedRCBD.bulk} containing the following
   \item{\code{Descriptive statistics}}{A data frame of descriptive statistics
   for the specified traits.} \item{\code{Frequency distribution}}{A list of
   ggplot2 plot grobs of the frequency distribution plots.}
+  \item{\code{k}}{The standardized selection differential or selection
+  intensity used for computaton of Genetic advance.}
   \item{\code{Genetic variability analysis}}{A data frame of genetic
   variability statistics for the specified traits.} \item{\code{GVA plots}}{A
   list of three ggplot2 objects with the plots for (a) Phenotypic and
   Genotypic CV, (b) Broad sense heritability and (c) Genetic advance over
   mean} \item{\code{warnings}}{A list of warning messages (if any) captured
-  during model fitting and frequency distribution plotting.}
+  during model fitting, frequency distribution plotting and genetic
+  variability analysis.}
 }
 \description{
 \code{augmentedRCBD.bulk} is a wrapper around the functions

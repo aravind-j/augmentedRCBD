@@ -51,9 +51,14 @@
 #' @param check.col The colour(s) to be used to highlight check values in the
 #'   plot as a character vector. Must be valid colour values in R (named
 #'   colours, hexadecimal representation, index of colours [\code{1:8}] in
-#'   default R `palette()` etc.).
+#'   default R \code{palette()} etc.).
 #' @param console If \code{TRUE}, output will be printed to console. Default is
 #'   \code{TRUE}.
+#' @param k The standardized selection differential or selection intensity
+#'   required for computation of Genetic advance. Default is 2.063 for 5\%
+#'   selection proportion (see \strong{Details} in
+#'  \code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if
+#'  \code{gva = FALSE}.
 #'
 #' @return A list of class \code{augmentedRCBD.bulk} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used and
@@ -76,12 +81,15 @@
 #'   \item{\code{Descriptive statistics}}{A data frame of descriptive statistics
 #'   for the specified traits.} \item{\code{Frequency distribution}}{A list of
 #'   ggplot2 plot grobs of the frequency distribution plots.}
+#'   \item{\code{k}}{The standardized selection differential or selection
+#'   intensity used for computaton of Genetic advance.}
 #'   \item{\code{Genetic variability analysis}}{A data frame of genetic
 #'   variability statistics for the specified traits.} \item{\code{GVA plots}}{A
 #'   list of three ggplot2 objects with the plots for (a) Phenotypic and
 #'   Genotypic CV, (b) Broad sense heritability and (c) Genetic advance over
 #'   mean} \item{\code{warnings}}{A list of warning messages (if any) captured
-#'   during model fitting and frequency distribution plotting.}
+#'   during model fitting, frequency distribution plotting and genetic
+#'   variability analysis.}
 #'
 #' @examples
 #' # Example data
@@ -129,7 +137,7 @@
 #' @export
 augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                alpha = 0.05, describe = TRUE,
-                               freqdist = TRUE, gva = TRUE,
+                               freqdist = TRUE, gva = TRUE, k = 2.063,
                                check.col = "red", console = TRUE) {
 
   # Check if data.frame
@@ -307,9 +315,9 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovaba <- dplyr::bind_rows(anovaba)
 
   anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                        ifelse(anovata$Pr..F. <= 0.05, "*", "ⁿˢ"))
+                        ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
   anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ⁿˢ"))
+                        ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
 
   anovata$Source <- trimws(anovata$Source)
   anovaba$Source <- trimws(anovaba$Source)
@@ -424,10 +432,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
     descout$Skewness_sig <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
                                         ifelse(descout$Skewness.p.value. <= 0.05,
-                                               "*", "ⁿˢ"))
+                                               "*", "ns"))
     descout$Kurtosis_sig <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
                                         ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                               "*", "ⁿˢ"))
+                                               "*", "ns"))
 
     colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error",
                            "Std.Deviation", "Min", "Max", "Skewness",
@@ -459,7 +467,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     for (i in seq_along(traits)) {
 
       withCallingHandlers({
-        gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]])
+        gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]], k = k)
 
       }, warning = function(w) {
         gvawarn <<- append(gvawarn, traits[i])
@@ -606,6 +614,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     }
   }
 
+  k <- ifelse(gva, k, NULL)
 
   out <- list(Details = Details, `ANOVA, Treatment Adjusted` = anovataout,
               `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans,
@@ -613,7 +622,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
               alpha = alpha, `Std. Errors` = seout, CD = cdout,
               `Overall adjusted mean` = oadjmean,
               `CV` = cvout, `Descriptive statistics` = descout,
-              `Frequency distribution` = fqout,
+              `Frequency distribution` = fqout, k = k,
               `Genetic variability analysis` = gvaout,
               `GVA plots` = gvaplots,
               warnings = list(Model = warn, `Freq. dist` = fqwarn,
