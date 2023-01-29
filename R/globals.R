@@ -21,7 +21,8 @@ if (getRversion() >= "2.15.1")  {
   utils::globalVariables(
     c(
       "xmax", "xmin", "ymax", "ymin", "Means", "lower", "upper", "Category",
-      "Trait", "Treatment", "sl", "value", "variable", "anovatable", "out"
+      "Trait", "Treatment", "sl", "value", "variable", "anovatable", "out",
+      "gvawarn"
     )
   )
 }
