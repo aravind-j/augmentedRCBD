@@ -86,9 +86,13 @@
 <div class="section level3">
 <h3 id="updated-functions-0-1-6">UPDATED FUNCTIONS:<a class="anchor" aria-label="anchor" href="#updated-functions-0-1-6"></a></h3>
 <ul><li>
-<code>augmentedRCBD</code> - Fixed ignoring of <code>group = TRUE</code> when <code>truncate.means</code> is <code>TRUE</code>.</li>
+<code>augmentedRCBD</code> - Fixed ignoring of <code>group = TRUE</code> when <code>truncate.means</code> is <code>TRUE</code>. Added warnings to output.</li>
 <li>
-<code>augmentedRCBD.bulk</code> - Fixed issue with using only a single trait.</li>
+<code>augmentedRCBD.bulk</code> - Fixed issue with using only a single trait. Converted rounded outputs to raw ones. Added <code>k</code> argument.</li>
+<li>
+<code>report.augmentedRCBD</code> - Added missing headers in word file. Added excel report. Added global option for rounding. Added <code>k</code> and <code>check.col</code> arguments.</li>
+<li>
+<code>report.augmentedRCBD.bulk</code> - Fixed issue (<a href="https://github.com/aravind-j/augmentedRCBD/issues/11" class="external-link">#11</a>) with <code>cli</code> colour being captured in warning message output leading to error in creation of word file. Added excel report. Added global option for rounding.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="vignette-0-1-6">VIGNETTE:<a class="anchor" aria-label="anchor" href="#vignette-0-1-6"></a></h3>
@@ -184,7 +188,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

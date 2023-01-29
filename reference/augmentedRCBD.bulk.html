@@ -108,6 +108,7 @@ frame object.</p>
 <span>  describe <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  freqdist <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  gva <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  k <span class="op">=</span> <span class="fl">2.063</span>,</span>
 <span>  check.col <span class="op">=</span> <span class="st">"red"</span>,</span>
 <span>  console <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -161,11 +162,19 @@ is <code>TRUE</code>.</p></dd>
 is <code>TRUE</code>.</p></dd>
 
 
+<dt>k</dt>
+<dd><p>The standardized selection differential or selection intensity
+ required for computation of Genetic advance. Default is 2.063 for 5%
+ selection proportion (see <strong>Details</strong> in
+<code><a href="gva.augmentedRCBD.html">gva.augmentedRCBD</a></code>). Ignored if
+<code>gva = FALSE</code>.</p></dd>
+
+
 <dt>check.col</dt>
 <dd><p>The colour(s) to be used to highlight check values in the
 plot as a character vector. Must be valid colour values in R (named
 colours, hexadecimal representation, index of colours [<code>1:8</code>] in
-default R `palette()` etc.).</p></dd>
+default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette()</a></code> etc.).</p></dd>
 
 
 <dt>console</dt>
@@ -184,11 +193,12 @@ default R `palette()` etc.).</p></dd>
   the traits/characters.</p></dd>
  <dt><code>ANOVA, Treatment Adjusted</code></dt>
 <dd><p>A data
-  frame of mean sum of squares of the specified traits from treatment
-  adjusted ANOVA.</p></dd>
- <dt><code>ANOVA, Block Adjusted</code></dt>
-<dd><p>A data frame of mean
-  sum of squares of the specified traits from block adjusted ANOVA</p></dd>
+  frame of mean sum of squares, p value and stastical significance of the
+  specified traits from treatment adjusted ANOVA.</p></dd>
+ <dt><code>ANOVA, Block
+  Adjusted</code></dt>
+<dd><p>A data frame of mean sum of squares, p value and stastical
+  significance of the specified traits from block adjusted ANOVA</p></dd>
 
   <dt><code>Means</code></dt>
 <dd><p>A data frame of the adjusted means of the treatments
@@ -222,6 +232,10 @@ default R `palette()` etc.).</p></dd>
 <dd><p>A list of
   ggplot2 plot grobs of the frequency distribution plots.</p></dd>
 
+  <dt><code>k</code></dt>
+<dd><p>The standardized selection differential or selection
+  intensity used for computaton of Genetic advance.</p></dd>
+
   <dt><code>Genetic variability analysis</code></dt>
 <dd><p>A data frame of genetic
   variability statistics for the specified traits.</p></dd>
@@ -232,7 +246,8 @@ default R `palette()` etc.).</p></dd>
   mean</p></dd>
  <dt><code>warnings</code></dt>
 <dd><p>A list of warning messages (if any) captured
-  during model fitting and frequency distribution plotting.</p></dd>
+  during model fitting, frequency distribution plotting and genetic
+  variability analysis.</p></dd>
 
 </dl></div>
     <div id="note">
@@ -287,22 +302,26 @@ default R `palette()` etc.).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANOVA, Treatment Adjusted</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                               Source Df         y1          y2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        Block (ignoring Treatments)  2 180.04 *   3509.67 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Treatment (eliminating Blocks) 11  25.92 ns  5360.49 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   Treatment: Check  3  17.64 ns   716.75 ns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Treatment: Test and Test vs. Check  8  29.02 ns  7101.89 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                          Residuals  6  26.97      286.25    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           Mean.Sq</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                               Source Df     y1         y2   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        Block (ignoring Treatments)  2 180.04  * 3509.67 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Treatment (eliminating Blocks) 11  25.92 ns 5360.49 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   Treatment: Check  3  17.64 ns  716.75 ns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Treatment: Test and Test vs. Check  8  29.02 ns 7101.89 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                          Residuals  6  26.97     286.25   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANOVA, Block Adjusted</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =====================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           Source Df        y1           y2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Treatment (ignoring Blocks) 11 52.33 ns    5882.5 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2               Treatment: Check  3 17.64 ns    716.75 ns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      Treatment: Test vs. Check  1 16.87 ns  27694.41 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                Treatment: Test  7 72.27 ns   4980.41 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Block (eliminating Treatments)  2 34.75 ns    638.58 ns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                      Residuals  6 26.97       286.25    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                       Mean.Sq</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           Source Df    y1          y2   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    Treatment (ignoring Blocks) 11 52.33 ns  5882.50 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               Treatment: Check  3 17.64 ns   716.75 ns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      Treatment: Test vs. Check  1 16.87 ns 27694.41 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                Treatment: Test  7 72.27 ns  4980.41 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Block (eliminating Treatments)  2 34.75 ns   638.58 ns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                      Residuals  6 26.97      286.25   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficient of Variation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
@@ -321,7 +340,7 @@ default R `palette()` etc.).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Standard Errors</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                 Comparison   y1    y2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 A Test Treatment and a Control Treatment  6.7 21.84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 A Test Treatment and a Control Treatment 6.70 21.84</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                  Control Treatment Means 4.24 13.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   Two Test Treatments (Different Blocks) 8.21 26.75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4         Two Test Treatments (Same Block) 7.34 23.93</span>
@@ -329,27 +348,30 @@ default R `palette()` etc.).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Critical Difference</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> alpha = 0.05                                Comparison    y1    y2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> alpha = 0.05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 Comparison    y1    y2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 A Test Treatment and a Control Treatment 16.41 53.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  Control Treatment Means 10.38  33.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  Control Treatment Means 10.38 33.80</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   Two Test Treatments (Different Blocks) 20.09 65.46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4         Two Test Treatments (Same Block) 17.97 58.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive Statistics</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> skew...1    y1    12  81.06      1.55          5.36  73.25   93.5 0.93 ns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> skew...2    y2    12 298.48     18.92         65.55 213.67 437.67 0.74 ns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Kurtosis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> skew...1 3.52 ns </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> skew...2 2.79 ns </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Trait Count   Mean Std.Error Std.Deviation    Min    Max Skewness</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    y1    12  81.06      1.55          5.36  73.25  93.50     0.93</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    y2    12 298.48     18.92         65.55 213.67 437.67     0.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Skewness_sig Kurtosis Kurtosis_sig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           ns     3.52           ns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           ns     2.79           ns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Genetic Variability Analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k = 2.063 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trait   Mean      PV      GV     EV   GCV GCV.category   PCV PCV.category</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    y1  81.06   72.27    45.3  26.97   8.3          Low 10.49       Medium</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    y1  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64         High</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ECV   hBS hBS.category     GA   GAM GAM.category</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 6.41 62.68         High  10.99 13.56       Medium</span>
@@ -358,24 +380,32 @@ default R `palette()` etc.).</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Warning Messages</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [Frequency Distribution]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Removed 2 rows containing missing values (geom_bar).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Removed 2 rows containing missing values (`geom_bar()`).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Removed 2 rows containing missing values (geom_bar).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Removed 2 rows containing missing values (`geom_bar()`).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [GVA]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Treatment Means</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===============</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment    y1     y2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 84.67    256</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 84.67 256.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         10 77.25 437.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         11  86.5 299.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         12  79.5 288.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          2    79    228</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          3    82 247.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          4 83.33    264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         11 86.50 299.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         12 79.50 288.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          2 79.00 228.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          3 82.00 247.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          4 83.33 264.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8          5 78.25 293.92</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9          6 78.25 382.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10         7  93.5 346.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         7 93.50 346.42</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11         8 73.25 213.67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12         9 77.25 323.92</span>
 <span class="r-in"><span></span></span>
@@ -416,7 +446,7 @@ default R `palette()` etc.).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
