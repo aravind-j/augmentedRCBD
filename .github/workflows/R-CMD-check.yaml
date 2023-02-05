@@ -49,7 +49,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           # Set up chocolatey profile so that refreshenv is an powershell alias
-          $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."   
+          $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
           # Install ghostscript and update env
           choco install ghostscript --no-progress
@@ -66,12 +66,17 @@ jobs:
           extra-packages: any::rcmdcheck, any::XML
           needs: check
 
+      - name: add TeX deps
+        run: |
+          tinytex::tlmgr_install(pkgs = c("roboto", "gnu-freefont",
+                                          "texlive-scripts"))
+
       - name: Check
         run: |
           options(crayon.enabled = TRUE)
-          
+
           Sys.info()['sysname']
-          
+
           # Set R_GSCMD in Windows
           if (Sys.info()['sysname'] == "Windows") {
             system.partition = 'c:'
@@ -94,7 +99,7 @@ jobs:
               }
             }
           }
-          
+
           rcmdcheck::rcmdcheck(args = c("--as-cran", "--run-donttest"),
                                build_args = c("--compact-vignettes=gs+qpdf"),
                                error_on = "warning", check_dir = "check",
