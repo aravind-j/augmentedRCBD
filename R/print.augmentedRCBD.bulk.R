@@ -65,6 +65,13 @@ print.augmentedRCBD.bulk <- function(x, ...){
                                                  "_Mean.Sq",
                                                  sep = "")],
            round.conditional, digits = round.digits)
+  x$`ANOVA, Treatment Adjusted`[, paste(traits,
+                                        "_sig",
+                                        sep = "")] <-
+    lapply(x$`ANOVA, Treatment Adjusted`[, paste(traits,
+                                                 "_sig",
+                                                 sep = "")],
+           function(sig) ifelse(sig == "ns", "\u207f\u02e2", sig))
   colnames(x$`ANOVA, Treatment Adjusted`) <-
     gsub("(^.+)(_sig$)", "", colnames(x$`ANOVA, Treatment Adjusted`))
   colnames(x$`ANOVA, Treatment Adjusted`) <-
@@ -73,7 +80,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                   max(nchar(x$`ANOVA, Treatment Adjusted`$Df)) + 5),
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Treatment Adjusted`)
-  cat("ns P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
   dcols <- setdiff(colnames(x$`ANOVA, Block Adjusted`),
@@ -86,6 +93,13 @@ print.augmentedRCBD.bulk <- function(x, ...){
                                                  "_Mean.Sq",
                                                  sep = "")],
            round.conditional, digits = round.digits)
+  x$`ANOVA, Block Adjusted`[, paste(traits,
+                                        "_sig",
+                                        sep = "")] <-
+    lapply(x$`ANOVA, Block Adjusted`[, paste(traits,
+                                                 "_sig",
+                                                 sep = "")],
+           function(sig) ifelse(sig == "ns", "\u207f\u02e2", sig))
   colnames(x$`ANOVA, Block Adjusted`) <-
     gsub("(^.+)(_sig$)", "", colnames(x$`ANOVA, Block Adjusted`))
   colnames(x$`ANOVA, Block Adjusted`) <-
@@ -94,7 +108,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                   max(nchar(x$`ANOVA, Block Adjusted`$Df)) + 5),
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Block Adjusted`)
-  cat("ns P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
   x$CV$CV <- round.conditional(x$CV$CV, digits = round.digits)
@@ -123,11 +137,15 @@ print.augmentedRCBD.bulk <- function(x, ...){
   x$`Descriptive statistics`[, desc] <-
     apply(x$`Descriptive statistics`[, desc], MARGIN = 2,
                            FUN = round.conditional)
+  x$`Descriptive statistics`[, c("Kurtosis_sig", "Skewness_sig")] <-
+    apply(x$`Descriptive statistics`[, c("Kurtosis_sig", "Skewness_sig")],
+          MARGIN = 2, FUN = function(sig) ifelse(sig == "ns",
+                                                 "\u207f\u02e2", sig))
   descols <- c("Trait", "Count", "Mean", "Std.Error",
                "Std.Deviation", "Min", "Max", "Skewness", "Skewness_sig",
                "Kurtosis", "Kurtosis_sig")
   print(x$`Descriptive statistics`[, descols])
-  cat("ns P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\n\nGenetic Variability Analysis\n")
   cat("===================\n")
   gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
