@@ -9,9 +9,11 @@ output:
     fig_caption: no
     number_sections: no
     toc: no
+    latex_engine: xelatex
   html_document:
     number_sections: yes
     toc: yes
+mainfont: Roboto
 documentclass: article
 header-includes:
 - \usepackage{fancyhdr}
@@ -30,6 +32,8 @@ header-includes:
 - \newcommand{\blandscape}{\begin{landscape}}
 - \newcommand{\elandscape}{\end{landscape}}
 - \renewcommand\thesection{\arabic{section}}
+- \setmonofont[Scale=MatchLowercase]{FreeMonoBold}
+- \setmonofont[Scale=0.9]{FreeMonoBold}
 link-citations: yes
 csl: frontiers.csl
 resource_files:
@@ -40,6 +44,7 @@ bibliography: REFERENCES.bib
 vignette: |
   %\VignetteIndexEntry{Data_Analysis_with_augmentedRCBD}
   %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
@@ -142,8 +147,6 @@ if (!file.exists(rstudio_file <- 'rstudio.png')) download.file(rstudio_url, rstu
 rstudiopanes_url = 'https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/rstudio%20panes.png'
 if (!file.exists(rstudiopanes_file <- 'rstudio panes.png')) download.file(rstudiopanes_url, rstudiopanes_file, mode = 'wb')
 ```
-
-\clearpage
 
 # 3 Getting Started
 
