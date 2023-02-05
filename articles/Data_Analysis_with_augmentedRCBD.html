@@ -115,7 +115,7 @@
                         <h4 data-toc-skip class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 data-toc-skip class="date">2023-01-29</h4>
+            <h4 data-toc-skip class="date">2023-02-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/vignettes/Data_Analysis_with_augmentedRCBD.Rmd" class="external-link"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -161,7 +161,6 @@
 <h2 id="rsoft">2 <code>R</code> software<a class="anchor" aria-label="anchor" href="#rsoft"></a>
 </h2>
 <p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(Tippmann, <a href="#ref-tippmann_programming_2015" role="doc-biblioref">2015</a>)</span>.</p>
-
 </div>
 <div class="section level2">
 <h2 id="getting-started">3 Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -674,7 +673,7 @@ $row.names
 <div class="section level3">
 <h3 id="pack">4.7 Packages<a class="anchor" aria-label="anchor" href="#pack"></a>
 </h3>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19109</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19140</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install the package 'readxl' for importing data from excel</span></span>
@@ -1417,6 +1416,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -1438,6 +1438,22 @@ Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
 Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
 Residuals                       6  161.8   26.97               
 
+Coefficient of Variation
+========================
+6.372367
+
+Overall Adjusted Mean
+=====================
+81.0625
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             4.240458 10.37603
+Two Test Treatments (Same Block)                    7.344688 17.97180
+Two Test Treatments (Different Blocks)              8.211611 20.09309
+A Test Treatment and a Control Treatment            6.704752 16.40594
+
 Treatment Means
 ===============
    Treatment Block Means   SE r   Min   Max Adjusted Means
@@ -1454,21 +1470,6 @@ Treatment Means
 11         8     3 70.00 &lt;NA&gt; 1 70.00 70.00          73.25
 12         9     2 78.00 &lt;NA&gt; 1 78.00 78.00          77.25
 
-Coefficient of Variation
-========================
-6.372367
-
-Overall Adjusted Mean
-=====================
-81.0625
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             4.240458 10.37603
-Two Test Treatments (Same Block)                    7.344688 17.97180
-Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Comparisons
 ==================
@@ -1578,6 +1579,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -1601,6 +1603,22 @@ Residuals                       6   1718     286
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
+Coefficient of Variation
+========================
+6.057617
+
+Overall Adjusted Mean
+=====================
+298.4792
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             13.81424 33.80224
+Two Test Treatments (Same Block)                    23.92697 58.54719
+Two Test Treatments (Different Blocks)              26.75117 65.45775
+A Test Treatment and a Control Treatment            21.84224 53.44603
+
 Treatment Means
 ===============
    Treatment Block  Means    SE r    Min    Max Adjusted Means
@@ -1617,21 +1635,6 @@ Treatment Means
 11         8     3 226.00  &lt;NA&gt; 1 226.00 226.00         213.67
 12         9     2 311.00  &lt;NA&gt; 1 311.00 311.00         323.92
 
-Coefficient of Variation
-========================
-6.057617
-
-Overall Adjusted Mean
-=====================
-298.4792
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             13.81424 33.80224
-Two Test Treatments (Same Block)                    23.92697 58.54719
-Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Comparisons
 ==================
@@ -1753,6 +1756,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -1774,6 +1778,22 @@ Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
 Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
 Residuals                       6  161.8   26.97               
 
+Coefficient of Variation
+========================
+6.372367
+
+Overall Adjusted Mean
+=====================
+81.0625
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             4.240458 10.37603
+Two Test Treatments (Same Block)                    7.344688 17.97180
+Two Test Treatments (Different Blocks)              8.211611 20.09309
+A Test Treatment and a Control Treatment            6.704752 16.40594
+
 Treatment Means
 ===============
    Treatment Block Means   SE r   Min   Max Adjusted Means
@@ -1790,21 +1810,6 @@ Treatment Means
 11         8     3 70.00 &lt;NA&gt; 1 70.00 70.00          73.25
 12         9     2 78.00 &lt;NA&gt; 1 78.00 78.00          77.25
 
-Coefficient of Variation
-========================
-6.372367
-
-Overall Adjusted Mean
-=====================
-81.0625
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             4.240458 10.37603
-Two Test Treatments (Same Block)                    7.344688 17.97180
-Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Comparisons
 ==================
@@ -1914,6 +1919,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -1937,6 +1943,22 @@ Residuals                       6   1718     286
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
+Coefficient of Variation
+========================
+6.057617
+
+Overall Adjusted Mean
+=====================
+298.4792
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             13.81424 33.80224
+Two Test Treatments (Same Block)                    23.92697 58.54719
+Two Test Treatments (Different Blocks)              26.75117 65.45775
+A Test Treatment and a Control Treatment            21.84224 53.44603
+
 Treatment Means
 ===============
    Treatment Block  Means    SE r    Min    Max Adjusted Means
@@ -1953,21 +1975,6 @@ Treatment Means
 11         8     3 226.00  &lt;NA&gt; 1 226.00 226.00         213.67
 12         9     2 311.00  &lt;NA&gt; 1 311.00 311.00         323.92
 
-Coefficient of Variation
-========================
-6.057617
-
-Overall Adjusted Mean
-=====================
-298.4792
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             13.81424 33.80224
-Two Test Treatments (Same Block)                    23.92697 58.54719
-Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Comparisons
 ==================
@@ -2079,6 +2086,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -2100,6 +2108,22 @@ Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
 Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
 Residuals                       6  161.8   26.97               
 
+Coefficient of Variation
+========================
+6.372367
+
+Overall Adjusted Mean
+=====================
+81.0625
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             4.240458 10.37603
+Two Test Treatments (Same Block)                    7.344688 17.97180
+Two Test Treatments (Different Blocks)              8.211611 20.09309
+A Test Treatment and a Control Treatment            6.704752 16.40594
+
 Treatment Means
 ===============
    Treatment Block Means   SE r   Min   Max Adjusted Means
@@ -2116,21 +2140,6 @@ Treatment Means
 11         8     3 70.00 &lt;NA&gt; 1 70.00 70.00          73.25
 12         9     2 78.00 &lt;NA&gt; 1 78.00 78.00          77.25
 
-Coefficient of Variation
-========================
-6.372367
-
-Overall Adjusted Mean
-=====================
-81.0625
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             4.240458 10.37603
-Two Test Treatments (Same Block)                    7.344688 17.97180
-Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Comparisons
 ==================
@@ -2238,6 +2247,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -2261,6 +2271,22 @@ Residuals                       6   1718     286
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
+Coefficient of Variation
+========================
+6.057617
+
+Overall Adjusted Mean
+=====================
+298.4792
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             13.81424 33.80224
+Two Test Treatments (Same Block)                    23.92697 58.54719
+Two Test Treatments (Different Blocks)              26.75117 65.45775
+A Test Treatment and a Control Treatment            21.84224 53.44603
+
 Treatment Means
 ===============
    Treatment Block  Means    SE r    Min    Max Adjusted Means
@@ -2277,21 +2303,6 @@ Treatment Means
 11         8     3 226.00  &lt;NA&gt; 1 226.00 226.00         213.67
 12         9     2 311.00  &lt;NA&gt; 1 311.00 311.00         323.92
 
-Coefficient of Variation
-========================
-6.057617
-
-Overall Adjusted Mean
-=====================
-298.4792
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             13.81424 33.80224
-Two Test Treatments (Same Block)                    23.92697 58.54719
-Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Comparisons
 ==================
@@ -2404,6 +2415,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value Pr(&gt;F)  
@@ -2425,6 +2437,22 @@ Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215
 Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342
 Residuals                       6  161.8   26.97               
 
+Coefficient of Variation
+========================
+6.372367
+
+Overall Adjusted Mean
+=====================
+81.0625
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             4.240458 10.37603
+Two Test Treatments (Same Block)                    7.344688 17.97180
+Two Test Treatments (Different Blocks)              8.211611 20.09309
+A Test Treatment and a Control Treatment            6.704752 16.40594
+
 Treatment Means
 ===============
    Treatment Block Means   SE r   Min   Max Adjusted Means
@@ -2441,21 +2469,6 @@ Treatment Means
 11         8     3 70.00 &lt;NA&gt; 1 70.00 70.00          73.25
 12         9     2 78.00 &lt;NA&gt; 1 78.00 78.00          77.25
 
-Coefficient of Variation
-========================
-6.372367
-
-Overall Adjusted Mean
-=====================
-81.0625
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             4.240458 10.37603
-Two Test Treatments (Same Block)                    7.344688 17.97180
-Two Test Treatments (Different Blocks)              8.211611 20.09309
-A Test Treatment and a Control Treatment            6.704752 16.40594
 
 Comparisons
 ==================
@@ -2561,6 +2574,7 @@ Number of check treatments "4"
 Number of test treatments  "8"         
 Check treatments           "1, 2, 3, 4"
 
+
 ANOVA, Treatment Adjusted
 =========================
                                      Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -2584,6 +2598,22 @@ Residuals                       6   1718     286
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
+Coefficient of Variation
+========================
+6.057617
+
+Overall Adjusted Mean
+=====================
+298.4792
+
+Standard Errors
+===================
+                                         Std. Error of Diff.  CD (5%)
+Control Treatment Means                             13.81424 33.80224
+Two Test Treatments (Same Block)                    23.92697 58.54719
+Two Test Treatments (Different Blocks)              26.75117 65.45775
+A Test Treatment and a Control Treatment            21.84224 53.44603
+
 Treatment Means
 ===============
    Treatment Block  Means    SE r    Min    Max Adjusted Means
@@ -2600,21 +2630,6 @@ Treatment Means
 11         8     3 226.00  &lt;NA&gt; 1 226.00 226.00         213.67
 12         9     2 311.00  &lt;NA&gt; 1 311.00 311.00         323.92
 
-Coefficient of Variation
-========================
-6.057617
-
-Overall Adjusted Mean
-=====================
-298.4792
-
-Standard Errors
-===================
-                                         Std. Error of Diff.  CD (5%)
-Control Treatment Means                             13.81424 33.80224
-Two Test Treatments (Same Block)                    23.92697 58.54719
-Two Test Treatments (Different Blocks)              26.75117 65.45775
-A Test Treatment and a Control Treatment            21.84224 53.44603
 
 Comparisons
 ==================
@@ -3001,23 +3016,23 @@ ANOVA, Treatment Adjusted
                                           Mean.Sq
                               Source Df     y1         y2   
 1        Block (ignoring Treatments)  2 180.04  * 3509.67 **
-2     Treatment (eliminating Blocks) 11  25.92 ns 5360.49 **
-3                   Treatment: Check  3  17.64 ns  716.75 ns
-4 Treatment: Test and Test vs. Check  8  29.02 ns 7101.89 **
+2     Treatment (eliminating Blocks) 11  25.92 ⁿˢ 5360.49 **
+3                   Treatment: Check  3  17.64 ⁿˢ  716.75 ⁿˢ
+4 Treatment: Test and Test vs. Check  8  29.02 ⁿˢ 7101.89 **
 5                          Residuals  6  26.97     286.25   
-ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
+ⁿˢ P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
 
 ANOVA, Block Adjusted
 =====================
                                       Mean.Sq
                           Source Df    y1          y2   
-1    Treatment (ignoring Blocks) 11 52.33 ns  5882.50 **
-2               Treatment: Check  3 17.64 ns   716.75 ns
-3      Treatment: Test vs. Check  1 16.87 ns 27694.41 **
-4                Treatment: Test  7 72.27 ns  4980.41 **
-5 Block (eliminating Treatments)  2 34.75 ns   638.58 ns
+1    Treatment (ignoring Blocks) 11 52.33 ⁿˢ  5882.50 **
+2               Treatment: Check  3 17.64 ⁿˢ   716.75 ⁿˢ
+3      Treatment: Test vs. Check  1 16.87 ⁿˢ 27694.41 **
+4                Treatment: Test  7 72.27 ⁿˢ  4980.41 **
+5 Block (eliminating Treatments)  2 34.75 ⁿˢ   638.58 ⁿˢ
 6                      Residuals  6 26.97      286.25   
-ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
+ⁿˢ P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
 
 Coefficient of Variation
 ========================
@@ -3058,9 +3073,9 @@ Descriptive Statistics
 1    y1    12  81.06      1.55          5.36  73.25  93.50     0.93
 2    y2    12 298.48     18.92         65.55 213.67 437.67     0.74
   Skewness_sig Kurtosis Kurtosis_sig
-1           ns     3.52           ns
-2           ns     2.79           ns
-ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
+1           ⁿˢ     3.52           ⁿˢ
+2           ⁿˢ     2.79           ⁿˢ
+ⁿˢ P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
 
 
 Genetic Variability Analysis
@@ -3129,23 +3144,23 @@ ANOVA, Treatment Adjusted
                                           Mean.Sq
                               Source Df     y1         y2   
 1        Block (ignoring Treatments)  2 180.04  * 3509.67 **
-2     Treatment (eliminating Blocks) 11  25.92 ns 5360.49 **
-3                   Treatment: Check  3  17.64 ns  716.75 ns
-4 Treatment: Test and Test vs. Check  8  29.02 ns 7101.89 **
+2     Treatment (eliminating Blocks) 11  25.92 ⁿˢ 5360.49 **
+3                   Treatment: Check  3  17.64 ⁿˢ  716.75 ⁿˢ
+4 Treatment: Test and Test vs. Check  8  29.02 ⁿˢ 7101.89 **
 5                          Residuals  6  26.97     286.25   
-ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
+ⁿˢ P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
 
 ANOVA, Block Adjusted
 =====================
                                       Mean.Sq
                           Source Df    y1          y2   
-1    Treatment (ignoring Blocks) 11 52.33 ns  5882.50 **
-2               Treatment: Check  3 17.64 ns   716.75 ns
-3      Treatment: Test vs. Check  1 16.87 ns 27694.41 **
-4                Treatment: Test  7 72.27 ns  4980.41 **
-5 Block (eliminating Treatments)  2 34.75 ns   638.58 ns
+1    Treatment (ignoring Blocks) 11 52.33 ⁿˢ  5882.50 **
+2               Treatment: Check  3 17.64 ⁿˢ   716.75 ⁿˢ
+3      Treatment: Test vs. Check  1 16.87 ⁿˢ 27694.41 **
+4                Treatment: Test  7 72.27 ⁿˢ  4980.41 **
+5 Block (eliminating Treatments)  2 34.75 ⁿˢ   638.58 ⁿˢ
 6                      Residuals  6 26.97      286.25   
-ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
+ⁿˢ P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
 
 Coefficient of Variation
 ========================
@@ -3186,9 +3201,9 @@ Descriptive Statistics
 1    y1    12  81.06      1.55          5.36  73.25  93.50     0.93
 2    y2    12 298.48     18.92         65.55 213.67 437.67     0.74
   Skewness_sig Kurtosis Kurtosis_sig
-1           ns     3.52           ns
-2           ns     2.79           ns
-ns P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
+1           ⁿˢ     3.52           ⁿˢ
+2           ⁿˢ     2.79           ⁿˢ
+ⁿˢ P &gt; 0.05; * P &lt;= 0.05; ** P &lt;= 0.01
 
 
 Genetic Variability Analysis
@@ -3299,10 +3314,10 @@ other attached packages:
 loaded via a namespace (and not attached):
   [1] bitops_1.0-7       fs_1.6.0           httr_1.4.4        
   [4] rprojroot_2.0.3    tools_4.2.2        bslib_0.4.2       
-  [7] utf8_1.2.2         R6_2.5.1           colorspace_2.1-0  
+  [7] utf8_1.2.3         R6_2.5.1           colorspace_2.1-0  
  [10] withr_2.5.0        tidyselect_1.2.0   emmeans_1.8.4-1   
  [13] moments_0.14.1     curl_5.0.0         compiler_4.2.2    
- [16] textshaping_0.3.6  cli_3.6.0          flextable_0.8.4   
+ [16] textshaping_0.3.6  cli_3.6.0          flextable_0.8.5   
  [19] xml2_1.3.3         desc_1.4.2         officer_0.5.2     
  [22] sandwich_3.0-2     labeling_0.4.2     sass_0.4.5        
  [25] scales_1.2.1       mvtnorm_1.1-3      askpass_1.1       
@@ -3312,7 +3327,7 @@ loaded via a namespace (and not attached):
  [37] htmltools_0.5.4    highr_0.10         fastmap_1.1.0     
  [40] rlang_1.0.6        httpcode_0.3.0     shiny_1.7.4       
  [43] farver_2.1.1       jquerylib_0.1.4    generics_0.1.3    
- [46] zoo_1.8-11         jsonlite_1.8.4     dplyr_1.0.10      
+ [46] zoo_1.8-11         jsonlite_1.8.4     dplyr_1.1.0       
  [49] zip_2.2.2          RCurl_1.98-1.10    magrittr_2.0.3    
  [52] Matrix_1.5-1       Rcpp_1.0.10        munsell_0.5.0     
  [55] fansi_1.0.4        gdtools_0.3.0      lifecycle_1.0.3   
@@ -3326,7 +3341,7 @@ loaded via a namespace (and not attached):
  [79] data.table_1.14.6  vctrs_0.5.2        httpuv_1.6.8      
  [82] Rdpack_2.4         gtable_0.3.1       openssl_2.0.5     
  [85] purrr_1.0.1        cachem_1.0.6       ggplot2_3.4.0     
- [88] xfun_0.36          openxlsx_4.2.5.1   mime_0.12         
+ [88] xfun_0.37          openxlsx_4.2.5.1   mime_0.12         
  [91] rbibutils_2.2.13   xtable_1.8-4       later_1.3.0       
  [94] ragg_1.2.5         survival_3.4-0     tibble_3.1.8      
  [97] memoise_2.0.1      numform_0.7.0      TH.data_1.1-1     

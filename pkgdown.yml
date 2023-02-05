@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   Data_Analysis_with_augmentedRCBD: Data_Analysis_with_augmentedRCBD.html
-last_built: 2023-01-29T08:44Z
+last_built: 2023-02-05T03:45Z
 urls:
   reference: https://aravind-j.github.io/augmentedRCBD/reference
   article: https://aravind-j.github.io/augmentedRCBD/articles
