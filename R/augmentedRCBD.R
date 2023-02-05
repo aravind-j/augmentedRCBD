@@ -211,6 +211,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     }
   }
 
+  warn <- NULL
+
+  withCallingHandlers({
+
   # Fix treatment order so that checks are in the beginning
   if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
     #if (!is.null(checks)) {
@@ -308,10 +312,6 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                       Min = mi, Max = ma)
   Means <- merge(Means, tb, by.x = "Treatment", by.y = "treatment")
   Means <- Means[c("Treatment", "Block", "Means", "SE", "r", "Min", "Max")]
-
-  warn <- NULL
-
-  withCallingHandlers({
 
     # ANOVA 1 - `ANOVA, Treatment Adjusted`
     # Get helmert contrasts for Type III SS
@@ -486,7 +486,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     }
 
   }, warning = function(w) {
-    gvawarn <<- append(warn, conditionMessage(w))
+    warn <<- append(warn, conditionMessage(w))
+    warning(conditionMessage(w), call. = FALSE)
     invokeRestart("muffleWarning")
   })
 
