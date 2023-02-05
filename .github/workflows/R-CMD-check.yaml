@@ -68,8 +68,7 @@ jobs:
 
       - name: add TeX deps
         run: |
-          tinytex::tlmgr_install(pkgs = c("roboto", "gnu-freefont",
-                                          "texlive-scripts"))
+          tinytex::tlmgr_install(pkgs = c("roboto", "gnu-freefont", "texlive-scripts"))
 
       - name: Check
         run: |
