@@ -66,13 +66,10 @@ jobs:
           extra-packages: any::rcmdcheck, any::XML
           needs: check
 
-      - name: add TeX deps
-        run: |
-          tinytex::tlmgr_install(pkgs = c("roboto", "gnu-freefont", "texlive-scripts"))
-
       - name: Check
         run: |
           options(crayon.enabled = TRUE)
+          tinytex::tlmgr_install(pkgs = c("roboto", "gnu-freefont", "texlive-scripts"))
 
           Sys.info()['sysname']
 
