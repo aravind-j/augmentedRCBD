@@ -33,6 +33,7 @@
 #' @import ggplot2
 #' @importFrom grDevices png
 #' @importFrom grDevices dev.off
+#' @importFrom grDevices dev.new
 #' @importFrom methods is
 #' @importFrom stats qnorm
 #' @importFrom graphics plot
@@ -489,7 +490,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     numstyle <- createStyle(numFmt = num.base)
     ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
-    nsstyle <- createStyle(numFmt = paste(num.base, '"ns"'))
+    nsstyle <- createStyle(numFmt = paste(num.base, '"\u207f\u02e2"'))
 
     ntraits <- aug.bulk$Details$`Number of Traits`
     traits <- aug.bulk$Details$Traits
@@ -610,7 +611,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     mergeCells(wb, sheet = "ANOVA, Treatment Adjusted",
                cols = 3:(ntraits + 2), rows = 1)
     writeData(wb, sheet = "ANOVA, Treatment Adjusted", xy = c("A", 8),
-              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # ANOVA, BA
@@ -666,7 +667,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     mergeCells(wb, sheet = "ANOVA, Block Adjusted",
                cols = 3:(ntraits + 2), rows = 1)
     writeData(wb, sheet = "ANOVA, Block Adjusted", xy = c("A", 9),
-              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # Std. Error
@@ -833,7 +834,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       setColWidths(wb, sheet = "Descriptive Statistics",
                    cols = 1:ncol(descout), widths = "auto")
       writeData(wb, sheet = "Descriptive Statistics", xy = c("A", ntraits + 2),
-                x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+                x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
                 borders = "none")
     }
 
@@ -912,10 +913,13 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         writeData(wb, sheet = "GVA Plots",
                   x = "Genetic Advance Over Mean",
                   startCol = "A", startRow = 51, borders = "none")
-        plot(aug.bulk$`GVA plots`$`Genetic advance over mean`)
+        plot(aug.bulk$`GVA plots`$`Broad sense heritability`)
         insertPlot(wb, sheet = "GVA Plots",
                    xy = c("A", 52))
         dev.off()
+        # workaround for cleanEx() issue
+        # https://github.com/jonathonthill/MMAPPR2/issues/90#issue-367025989
+        dev.new()
       }
 
       addStyle(wb, sheet = "GVA Plots", rows = c(1, 26, 52), cols = 1,
