@@ -121,12 +121,16 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
 
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
+  wstring1 <- "Test treatments are replicated"
+  wstring2 <- "Negative adjusted means for the following"
+
   if (file.type == "word") {
     if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
       stop(target, " should have '.docx' extension.")
     }
 
     suppar <- fp_text(vertical.align = "superscript")
+    redpar <- fp_text(color = "red")
 
     augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
                                      "template.docx"))
@@ -152,6 +156,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     Details <- regulartable(data = data.frame(Details))
     Details <- autofit(Details)
     augreport <- body_add_flextable(augreport, Details)
+    if (any(grepl(wstring1, aug$warnings))) {
+      augreport <- body_add_fpar(augreport,
+                                 value = fpar(ftext(wstring1, redpar)))
+    }
 
     # ANOVA, TA
     augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
@@ -316,7 +324,6 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                                value = fpar(ftext("ns", suppar),
                                             ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
 
-
     # GVA
     augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
                               style = "heading 1")
@@ -388,9 +395,18 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     }
 
     # Warnings
-    if (!all( unlist(lapply(list(fqwarn, gvawarn), is.null)))) {
+    if (!all(unlist(lapply(list(aug$warnings, fqwarn, gvawarn), is.null)))) {
       augreport <- body_add_par(augreport, value = "Warnings",
                                 style = "heading 1")
+
+      if (!is.null(aug$warnings)) {
+        augreport <- body_add_par(augreport,
+                                  value = "Model",
+                                  style = "heading 2")
+        augreport <- body_add_par(augreport,
+                                  value = aug$warnings,
+                                  style = "Code")
+      }
 
       if (!is.null(fqwarn)) {
         augreport <- body_add_par(augreport,
@@ -438,13 +454,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     numstyle.p <- createStyle(numFmt = num.base.p)
     ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
-    nsstyle <- createStyle(numFmt = paste(num.base, '"ns"'))
+    nsstyle <- createStyle(numFmt = paste(num.base, '"\u207f\u02e2"'))
 
     # Index
     index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
                "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
                "Means", "Frequency Distribution", "Descriptive Statistics",
-               "Genetic Variability Analysis")
+               "Genetic Variability Analysis", "Warnings")
 
     if (!is.null(aug$Comparisons)) {
       index <- c(index,"Comparisons")
@@ -504,7 +520,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
     }
     anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                          ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
+                          ifelse(anovata$Pr..F. <= 0.05, "*", "\u207f\u02e2"))
     colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
 
@@ -524,7 +540,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                  cols = 1:ncol(anovata), widths = "auto")
     writeData(wb, sheet = "ANOVA, Treatment Adjusted",
               xy = c("A", 7),
-              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # ANOVA, BA
@@ -535,7 +551,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
     }
     anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
+                          ifelse(anovaba$Pr..F. <= 0.05, "*", "\u207f\u02e2"))
     colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
                            "F value", "Pr(>F)", " ")
 
@@ -555,7 +571,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                  cols = 1:ncol(anovaba), widths = "auto")
     writeData(wb, sheet = "ANOVA, Block Adjusted",
               xy = c("A", 8),
-              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # Std. Errors
@@ -607,7 +623,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
 
     # Freq dist
     addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
-    plot(freqdist.augmentedRCBD(aug, xlab = ""))
+    fqwarn <- NULL
+    withCallingHandlers({
+      plot(freqdist.augmentedRCBD(aug, xlab = "", check.col = check.col))
+    }, warning = function(w) {
+      fqwarn <<- append(fqwarn, cli::ansi_strip(w$message))
+      invokeRestart("muffleWarning")
+    })
     insertPlot(wb, sheet = "Frequency Distribution",
                xy = c("B", 2))
     dev.off()
@@ -658,11 +680,17 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     setColWidths(wb, sheet = "Descriptive Statistics",
                  cols = 1:ncol(descout), widths = "auto")
     writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
-              x = "ns P > 0.05; * P <= 0.05; ** P <= 0.01",
+              x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
 
     # GVA
-    gvaout <- data.frame(gva.augmentedRCBD(aug))
+    gvawarn <- NULL
+    withCallingHandlers({
+      gvaout <- data.frame(gva.augmentedRCBD(aug, k = k))
+    }, warning = function(w) {
+      gvawarn <<- append(gvawarn, cli::ansi_strip(w$message))
+      invokeRestart("muffleWarning")
+    })
     gvaout <- data.frame(t(gvaout))
     gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
     rownames(gvaout) <- NULL
@@ -745,6 +773,41 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                stack = FALSE, gridExpand = TRUE)
       addStyle(wb,  sheet = "Groups", style = createStyle(halign = "right"),
                rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+    }
+
+    # Warnings
+    if (!all( unlist(lapply(list(aug$warnings, fqwarn, gvawarn), is.null)))) {
+      addWorksheet(wb, sheetName = "Warnings", gridLines = FALSE)
+
+      row1 <- 1
+
+      if (!is.null(aug$warnings)) {
+        writeData(wb, sheet = "Warnings", x = "Model",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = aug$warnings,
+                  startCol = "A", row1 + 1, borders = "none")
+        row1 <- row1 + 2 + length(fqwarn)
+      }
+
+      if (!is.null(fqwarn)) {
+        writeData(wb, sheet = "Warnings", x = "Frequency Distribution",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = fqwarn,
+                  startCol = "A", row1 + 1, borders = "none")
+        row1 <- row1 + 2 + length(fqwarn)
+      }
+      if (!is.null(gvawarn)) {
+        writeData(wb, sheet = "Warnings", x = "Genetic Variablity Analysis",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = gvawarn,
+                  startCol = "A", row1 + 1, borders = "none")
+        row1 <- row1 + 2 + length(gvawarn)
+      }
+
+
     }
 
     saveWorkbook(wb = wb, file = target, overwrite = TRUE)

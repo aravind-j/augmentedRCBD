@@ -32,6 +32,9 @@ print.augmentedRCBD <- function(x, ...){
 
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
+  wstring1 <- "Test treatments are replicated"
+  wstring2 <- "Negative adjusted means for the following"
+
   cat("\nAugmented Design Details\n")
   cat("========================\n")
   Details <- x$Details
@@ -47,18 +50,26 @@ print.augmentedRCBD <- function(x, ...){
   rownames(Details) <- gsub("\\.", " ", rownames(Details))
   colnames(Details) <- c("")
   print(Details)
+  cat("\n")
+  if (any(grepl(wstring1, x$warnings))) {
+    warning(wstring1, call. = FALSE, immediate. = TRUE)
+  }
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
   print(x$`ANOVA, Treatment Adjusted`)
+  if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"), x$warnings))) {
+    warning(x$warnings[!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                              x$warnings)],
+            call. = FALSE, immediate. = TRUE)
+  }
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
   print(x$`ANOVA, Block Adjusted`)
-  cat("\nTreatment Means\n")
-  cat("===============\n")
-  x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
-    lapply(x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
-           round.conditional, digits = round.digits)
-  print(x$Means)
+  if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"), x$warnings))) {
+    warning(x$warnings[!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                              x$warnings)],
+            call. = FALSE, immediate. = TRUE)
+  }
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
   cat(x$CV)
@@ -68,6 +79,23 @@ print.augmentedRCBD <- function(x, ...){
   cat("\n\nStandard Errors\n")
   cat("===================\n")
   print(x$`Std. Errors`)
+  if (!is.null(x$x$warnings)) {
+    cat("\n\nWarning Messages\n")
+    cat("===================\n")
+    cat("\n\n[Model]\n")
+    cat(paste(x$x$warnings), sep = "\n")
+  }
+  cat("\nTreatment Means\n")
+  cat("===============\n")
+  x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
+    lapply(x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
+           round.conditional, digits = round.digits)
+  print(x$Means)
+  cat("\n")
+  if (any(grepl(wstring2, x$warnings))) {
+    warning(x$warnings[grepl(wstring2, x$warnings)],
+            call. = FALSE, immediate. = TRUE)
+  }
   if (!is.null(x$Comparisons)) {
     cat("\nComparisons\n")
     cat("==================\n")
