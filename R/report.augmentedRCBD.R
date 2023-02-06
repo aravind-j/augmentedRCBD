@@ -62,6 +62,7 @@
 #' @importFrom grDevices dev.off
 #' @importFrom methods is
 #' @importFrom stringi stri_pad_right
+#' @importFrom stringi stri_trans_totitle
 #' @importFrom graphics plot
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
@@ -111,7 +112,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     stop('"check.col" specifies invalid colour(s)')
   }
 
-  checks <- out$Details$`Check treatments`
+  checks <- aug$Details$`Check treatments`
 
   if (length(check.col) != 1) {
     if (length(check.col) != length(checks)) {
@@ -122,7 +123,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
   wstring1 <- "Test treatments are replicated"
-  wstring2 <- "Negative adjusted means for the following"
+  wstring2 <- "Negative adjusted means were generated for the following"
 
   if (file.type == "word") {
     if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
@@ -130,7 +131,6 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     }
 
     suppar <- fp_text(vertical.align = "superscript")
-    redpar <- fp_text(color = "red")
 
     augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
                                      "template.docx"))
@@ -157,8 +157,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     Details <- autofit(Details)
     augreport <- body_add_flextable(augreport, Details)
     if (any(grepl(wstring1, aug$warnings))) {
-      augreport <- body_add_fpar(augreport,
-                                 value = fpar(ftext(wstring1, redpar)))
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+      augreport <- body_add_par(augreport, value = wstring1, style = "Warning")
     }
 
     # ANOVA, TA
@@ -261,10 +261,34 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
       lapply(Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
              round.conditional, digits = round.digits)
+    if (any(grepl(wstring2, aug$warnings))) {
+      wstring2_mod <- trimws(unlist(strsplit(aug$warnings[grepl(wstring2,
+                                                                aug$warnings)],
+                                             "\n")))
+      neg_trts <- trimws(unlist(strsplit(wstring2_mod[2], ",")))
+      neg_index <- which(Means$Treatment %in% neg_trts)
+      Means$x <- ""
+      Means[neg_index, ]$x <- "\u2020"
+      colnames(Means) <- c("Treatment", "Block", "Means", "SE", "r", "Min",
+                           "Max", "Adjusted Means",  " ")
+    }
     Means <- autofit(regulartable(Means))
     Means <- align(Means, j = 2:8, align = "right", part = "all")
     Means <- bold(Means, part = "header")
     augreport <- body_add_flextable(augreport, Means)
+    if (any(grepl(wstring2, aug$warnings))) {
+      neg_msg <- gsub(" were generated for the following treatment\\(s\\)", "",
+                      wstring2_mod[1])
+      if (!is.na(wstring2_mod[3])) {
+        neg_msg <- paste(neg_msg, " (",
+                         stri_trans_totitle(gsub("They were ", "",
+                                                 wstring2_mod[3]),
+                                            type = "sentence"),
+                         ")", sep = "")
+      }
+      neg_msg <- paste("\u2020 ", neg_msg, ".", sep = "")
+      augreport <- body_add_par(augreport, value = neg_msg, style = "Normal")
+    }
 
     # Freq dist
     augreport <- body_add_par(augreport, value = "Frequency Distribution",
@@ -281,6 +305,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     dev.off()
     augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
     rm(src)
+    if (!is.null(fqwarn)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+      for (i in seq_along(fqwarn)) {
+        augreport <- body_add_par(augreport, value = fqwarn[i],
+                                  style = "Warning")
+      }
+    }
 
     # Desc stat
     augreport <- body_add_par(augreport, value = "Descriptive Statistics",
@@ -342,7 +373,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
     rownames(gvaout) <- NULL
     gvaout$x <-  c(rep("", 11), rep("*", 3))
+    gvaout$x <- ifelse(is.na(gvaout$t.gvaout.), "", gvaout$x)
     colnames(gvaout) <- c("Statistic", "Value", " ")
+
 
     gvaout <- autofit(regulartable(gvaout))
     gvaout <- align(gvaout, j = 2, align = "right", part = "all")
@@ -350,6 +383,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     gvaout <- bold(gvaout, part = "header")
     augreport <- body_add_flextable(augreport, gvaout)
     augreport <- body_add_par(augreport, value = paste("* k =", k))
+    if (!is.null(gvawarn)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+      for (i in seq_along(gvawarn)) {
+        augreport <- body_add_par(augreport, value = gvawarn[i],
+                                  style = "Warning")
+      }
+    }
 
     # Comparisons
     if (!is.null(aug$Comparisons)) {
@@ -403,27 +443,32 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
         augreport <- body_add_par(augreport,
                                   value = "Model",
                                   style = "heading 2")
-        augreport <- body_add_par(augreport,
-                                  value = aug$warnings,
-                                  style = "Code")
+        warn_mod <- trimws(unlist(strsplit(aug$warnings, "\n")))
+        for (i in seq_along(warn_mod)) {
+          augreport <- body_add_par(augreport,
+                                     value = warn_mod[i],
+                                     style = "Code")
+        }
       }
 
       if (!is.null(fqwarn)) {
         augreport <- body_add_par(augreport,
                                   value = "Frequency Distribution",
                                   style = "heading 2")
-        augreport <- body_add_par(augreport,
-                                  value = fqwarn,
-                                  style = "Code")
+        for (i in seq_along(fqwarn)) {
+          augreport <- body_add_par(augreport, value = fqwarn[i],
+                                    style = "Code")
+        }
       }
 
       if (!is.null(gvawarn)) {
         augreport <- body_add_par(augreport,
                                   value = "Genetic Variablity Analysis",
                                   style = "heading 2")
-        augreport <- body_add_par(augreport,
-                                  value = gvawarn,
-                                  style = "Code")
+        for (i in seq_along(gvawarn)) {
+          augreport <- body_add_par(augreport, value = gvawarn[i],
+                                    style = "Code")
+        }
 
       }
     }
@@ -455,19 +500,23 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
     nsstyle <- createStyle(numFmt = paste(num.base, '"\u207f\u02e2"'))
+    csstyle <- createStyle(numFmt = paste(num.base, '"\u2020"'))
+    numstyle2 <- createStyle(numFmt = paste(num.base, '"\u00A0""\u00A0"'))
 
     # Index
     index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
                "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
                "Means", "Frequency Distribution", "Descriptive Statistics",
-               "Genetic Variability Analysis", "Warnings")
+               "Genetic Variability Analysis")
 
     if (!is.null(aug$Comparisons)) {
-      index <- c(index,"Comparisons")
+      index <- c(index, "Comparisons")
     }
     if (!is.null(aug$Groups)) {
-      index <- c(index,"Groups")
+      index <- c(index, "Groups")
     }
+
+    index <- c(index, "Warnings")
 
     index <- data.frame(`Sl.No` = seq_along(index), Sheets = index)
 
@@ -511,6 +560,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
     setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
+    if (any(grepl(wstring1, aug$warnings))) {
+      writeData(wb, sheet = "Details", xy = c("A", 8),
+                x = wstring1, borders = "none")
+      addStyle(wb,  sheet = "Details",
+               style = createStyle(fontColour  = "#C00000"),
+               rows = 8, cols = 1, stack = FALSE, gridExpand = TRUE)
+    }
 
     # ANOVA, TA
     if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
@@ -620,6 +676,36 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
              rows = 1, cols = 3:8, stack = TRUE, gridExpand = TRUE)
     setColWidths(wb, sheet = "Means",
                  cols = 1:ncol(Means), widths = "auto")
+    if (any(grepl(wstring2, aug$warnings))) {
+      wstring2_mod <- trimws(unlist(strsplit(aug$warnings[grepl(wstring2,
+                                                                aug$warnings)],
+                                             "\n")))
+      neg_trts <- trimws(unlist(strsplit(wstring2_mod[2], ",")))
+      neg_index <- which(Means$Treatment %in% neg_trts)
+      neg_index2 <- which(!(Means$Treatment %in% neg_trts))
+
+      addStyle(wb,  sheet = "Means", style = csstyle,
+               rows = neg_index + 1,
+               cols = 8, stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "Means", style = numstyle2,
+               rows = neg_index2 + 1,
+               cols = 8, stack = FALSE, gridExpand = TRUE)
+
+      neg_msg <- gsub(" were generated for the following treatment\\(s\\)", "",
+                            wstring2_mod[1])
+      if (!is.na(wstring2_mod[3])) {
+        neg_msg <- paste(neg_msg, " (",
+                         stri_trans_totitle(gsub("They were ", "",
+                                                 wstring2_mod[3]),
+                                            type = "sentence"),
+                         ")", sep = "")
+      }
+      neg_msg <- paste("\u2020 ", neg_msg, ".", sep = "")
+      writeData(wb, sheet = "Means", x = neg_msg, xy = c("A", nrow(Means) + 2),
+                borders = "none")
+    }
+    setColWidths(wb, sheet = "Means", cols = 1,
+                 widths = max(nchar(Means$Treatment) + 7))
 
     # Freq dist
     addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
@@ -631,8 +717,16 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       invokeRestart("muffleWarning")
     })
     insertPlot(wb, sheet = "Frequency Distribution",
-               xy = c("B", 2))
+               xy = c("A", 2))
     dev.off()
+    if (!is.null(fqwarn)) {
+      writeData(wb, sheet = "Frequency Distribution", xy = c("A", 25),
+                x = fqwarn, borders = "none")
+      addStyle(wb,  sheet = "Frequency Distribution",
+               style = createStyle(fontColour  = "#C00000"),
+               rows = 25:(25 + length(fqwarn)), cols = 1,
+               stack = FALSE, gridExpand = TRUE)
+    }
 
     # Desc stat
     descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
@@ -694,7 +788,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     gvaout <- data.frame(t(gvaout))
     gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
     rownames(gvaout) <- NULL
-    colnames(gvaout) <- c("Statistic", "Value")
+    gvaout$x <-  c(rep("", 11), rep("*", 3))
+    gvaout$x <- ifelse(is.na(gvaout$t.gvaout.), "", gvaout$x)
+    colnames(gvaout) <- c("Statistic", "Value", " ")
 
     stat_cat <- c("GCV.category", "PCV.category", "hBS.category", "GAM.category")
     gvaout_sub <- gvaout[gvaout$Statistic %in% stat_cat, ]
@@ -727,6 +823,19 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
              rows = 1:15, cols = 2, stack = TRUE, gridExpand = TRUE)
     setColWidths(wb, sheet = "Genetic Variability Analysis",
                  cols = 1:ncol(gvaout), widths = "auto")
+    writeData(wb, sheet = "Genetic Variability Analysis",
+              x = paste("* k =", k),
+              xy = c("A", 16), borders = "none")
+    if (!is.null(gvawarn)) {
+      writeData(wb, sheet = "Genetic Variability Analysis", xy = c("A", 18),
+                x = gvawarn, borders = "none")
+      addStyle(wb,  sheet = "Genetic Variability Analysis",
+               style = createStyle(fontColour  = "#C00000"),
+               rows = 18:(18 + length(gvawarn) - 1), cols = 1,
+               stack = FALSE, gridExpand = TRUE)
+    }
+    setColWidths(wb, sheet = "Genetic Variability Analysis", cols = 1,
+                 widths = max(nchar(gvaout$Statistic) + 7))
 
     # Comparisons
     if (!is.null(aug$Comparisons)) {
@@ -782,12 +891,16 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       row1 <- 1
 
       if (!is.null(aug$warnings)) {
+        warn_mod <- trimws(unlist(strsplit(aug$warnings, "\n")))
         writeData(wb, sheet = "Warnings", x = "Model",
                   startCol = "A", startRow = row1, borders = "none")
         writeData(wb, sheet = "Warnings",
-                  x = aug$warnings,
+                  x = warn_mod,
                   startCol = "A", row1 + 1, borders = "none")
-        row1 <- row1 + 2 + length(fqwarn)
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
+        row1 <- row1 + 2 + length(warn_mod)
       }
 
       if (!is.null(fqwarn)) {
@@ -796,6 +909,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
         writeData(wb, sheet = "Warnings",
                   x = fqwarn,
                   startCol = "A", row1 + 1, borders = "none")
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
         row1 <- row1 + 2 + length(fqwarn)
       }
       if (!is.null(gvawarn)) {
@@ -804,6 +920,9 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
         writeData(wb, sheet = "Warnings",
                   x = gvawarn,
                   startCol = "A", row1 + 1, borders = "none")
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
         row1 <- row1 + 2 + length(gvawarn)
       }
 

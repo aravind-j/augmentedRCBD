@@ -33,7 +33,7 @@ print.augmentedRCBD <- function(x, ...){
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
   wstring1 <- "Test treatments are replicated"
-  wstring2 <- "Negative adjusted means for the following"
+  wstring2 <- "Negative adjusted means were generated for the following"
 
   cat("\nAugmented Design Details\n")
   cat("========================\n")
@@ -52,7 +52,13 @@ print.augmentedRCBD <- function(x, ...){
   print(Details)
   cat("\n")
   if (any(grepl(wstring1, x$warnings))) {
-    warning(wstring1, call. = FALSE, immediate. = TRUE)
+    dups <- out$Means[!(out$Means$Treatment %in% checks), ]$Treatment
+    dups <- dups[duplicated(dups)]
+    dups <- out$Means[out$Means$Treatment %in% dups, c("Treatment", "Block")]
+    rownames(dups) <- NULL
+    warning("Following test treatments are replicated.", call. = FALSE,
+            immediate. = TRUE)
+    print(dups)
   }
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
