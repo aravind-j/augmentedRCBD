@@ -69,7 +69,6 @@ jobs:
       - name: Check
         run: |
           options(crayon.enabled = TRUE)
-          tinytex::tlmgr_install(pkgs = c("roboto", "gnu-freefont", "texlive-scripts"))
 
           Sys.info()['sysname']
 
