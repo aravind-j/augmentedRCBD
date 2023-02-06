@@ -468,7 +468,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       negadjmeans <- which(Means$`Adjusted Means` < 0)
       negadjmeanst <- as.character(Means$Treatment[negadjmeans])
 
-      negmsg <- paste('Negative adjusted means for the following treatment(s)',
+      negmsg <- paste('Negative adjusted means were generated for the following treatment(s)',
                       '\n', paste(negadjmeanst, collapse = ", "))
 
       if (truncate.means == TRUE) {
