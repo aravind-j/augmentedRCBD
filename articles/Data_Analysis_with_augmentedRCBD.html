@@ -115,7 +115,7 @@
                         <h4 data-toc-skip class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 data-toc-skip class="date">2023-02-05</h4>
+            <h4 data-toc-skip class="date">2023-02-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/vignettes/Data_Analysis_with_augmentedRCBD.Rmd" class="external-link"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -161,6 +161,7 @@
 <h2 id="rsoft">2 <code>R</code> software<a class="anchor" aria-label="anchor" href="#rsoft"></a>
 </h2>
 <p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(Tippmann, <a href="#ref-tippmann_programming_2015" role="doc-biblioref">2015</a>)</span>.</p>
+
 </div>
 <div class="section level2">
 <h2 id="getting-started">3 Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -2952,14 +2953,35 @@ $`GAM category`
 <div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report for variable y1</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
-<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"augmentedRCBD output - y1.docx"</span><span class="op">)</span><span class="op">)</span></span>
+<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                                        <span class="st">"augmentedRCBD output.docx"</span><span class="op">)</span>,</span>
+<span>                     file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># MS word report for variable y2</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
-<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"augmentedRCBD output - y2.docx"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out2</span>,</span>
+<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                                        <span class="st">"augmentedRCBD output.docx"</span><span class="op">)</span>,</span>
+<span>                     file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
 <strong>Fig. 6</strong>: MS Word report generated with <code>report.agumentedRCBD</code> function.
+</p>
+<p>Alternatively, the analysis results can also be exported to a MS Excel file as follows.</p>
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># MS excel report for variable y1</span></span>
+<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
+<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                                        <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span>
+<span>                     file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># MS excel report for variable y2</span></span>
+<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out2</span>,</span>
+<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                                        <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span>
+<span>                     file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDexcel.png" align="center" alt="The `R` download location."></p>
+<p style="text-align: left;">
+<strong>Fig. 6</strong>: MS Excel report generated with <code>report.agumentedRCBD</code> function.
 </p>
 </div>
 </div>
@@ -2967,27 +2989,27 @@ $`GAM category`
 <h2 id="data-analysis-for-a-multiple-traits">8 Data Analysis for a Multiple Traits<a class="anchor" aria-label="anchor" href="#data-analysis-for-a-multiple-traits"></a>
 </h2>
 <p>Analysis of data for a multiple traits simultaneously can be performed by using <code>augmentedRCBD.bulk</code> function. It generates an object of class <code>augmentedRCBD.bulk</code>. Such an object can then be taken as input by <code>print.augmentedRCBD.bulk</code> to print the results to console. The results can also be exported as a MS Word report using the <code>report.augmentedRCBD.bulk</code> function.</p>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-77-1.png" width="700"></p>
-<p><strong>Fig. 7</strong>. Workflow for analysis of multiple traits with <code>augmentedRCBD</code>.</p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-80-1.png" width="700"></p>
+<p><strong>Fig. 8</strong>. Workflow for analysis of multiple traits with <code>augmentedRCBD</code>.</p>
 <div class="section level3">
 <h3 id="augmentedrcbd-bulk">8.1 <code>augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#augmentedrcbd-bulk"></a>
 </h3>
 <p>Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
 <p>Rather than performing the analysis individually for each variable/trait separately using <code>augmentedRCBD</code>, the analysis can be performed simultaneously for for both the traits using <code>augmentedRCBD.bulk</code> function. It is a wrapper around the <code>augmentedRCBD</code> core function and its associated helper functions.</p>
 <p>However in this case treatment comparisons/grouping by least significant difference or Tukey’s honest significant difference method is not computed. Also the output object size is reduced using the <code>simplify = TRUE</code> argument in the <code>augmentedRCBD</code> function.</p>
 <p>The logical arguments <code>describe</code>, <code>freqdist</code> and <code>gva</code> can be used to specify whether to generate the descriptive statistics, frequency distribution plots and genetic variability statistics respectively. If <code>gva = TRUE</code>, then plots to compare phenotypic and genotypic coefficient of variation, broad sense heritability and genetic advance over mean between traits are also generated.</p>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, block <span class="op">=</span> <span class="st">"blk"</span>,</span>
 <span>                           treatment <span class="op">=</span> <span class="st">"trt"</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
 <span>                           checks <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, describe <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -3124,7 +3146,7 @@ Treatment Means
 <h3 id="print-augmentedrcbd-bulk">8.2 <code>print.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd-bulk"></a>
 </h3>
 <p>The results of analysis in an object of class <code>augmentedRCBD.bulk</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -3252,14 +3274,26 @@ Treatment Means
 <h3 id="report-augmentedrcbd-bulk">8.3 <code>report.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd-bulk"></a>
 </h3>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
 <span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                          <span class="st">"augmentedRCBD bulk output.docx"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>                                             <span class="st">"augmentedRCBD bulk output.docx"</span><span class="op">)</span>,</span>
+<span>                          file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
-<strong>Fig. 8</strong>: MS Word report generated with <code>report.agumentedRCBD.bulk</code> function.
+<strong>Fig. 9</strong>: MS Word report generated with <code>report.agumentedRCBD.bulk</code> function.
+</p>
+<p>Alternatively, the analysis results can also be exported to a MS Excel file as follows.</p>
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># MS excel report</span></span>
+<span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
+<span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                                             <span class="st">"augmentedRCBD bulk output.xlsx"</span><span class="op">)</span>,</span>
+<span>                          file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkexcel.png" align="center" alt="The `R` download location."></p>
+<p style="text-align: left;">
+<strong>Fig. 10</strong>: MS Excel report generated with <code>report.agumentedRCBD.bulk</code> function.
 </p>
 </div>
 </div>
@@ -3292,7 +3326,7 @@ citing the package.</code></pre>
 <div class="section level2">
 <h2 id="session-info">10 Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.2.2 (2022-10-31)
 Platform: x86_64-apple-darwin17.0 (64-bit)
