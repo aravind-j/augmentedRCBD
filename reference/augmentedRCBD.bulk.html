@@ -300,6 +300,7 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of traits           "2"         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Traits                     "y1, y2"    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANOVA, Treatment Adjusted</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                           Mean.Sq</span>
@@ -371,11 +372,18 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> k = 2.063 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Trait   Mean      PV      GV     EV   GCV GCV.category   PCV PCV.category</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    y1  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64         High</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  y1 †  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  y2   298.48 4980.41 4694.16 286.25 22.95         High 23.64         High</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ECV   hBS hBS.category     GA   GAM GAM.category</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 6.41 62.68         High  10.99 13.56       Medium</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 5.67 94.25         High 137.22 45.97         High</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> † P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> ‡ Negative GV detected.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>  GCV, GCV category, hBS, hBS category, GA, GAM and</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>  GAM category could not be computed.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Warning Messages</span>
@@ -383,31 +391,31 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [Frequency Distribution]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;y1&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Removed 2 rows containing missing values (`geom_bar()`).</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;y2&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Removed 2 rows containing missing values (`geom_bar()`).</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [GVA]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;y1&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Treatment Means</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ===============</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment    y1     y2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 84.67 256.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         10 77.25 437.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         11 86.50 299.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         12 79.50 288.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          2 79.00 228.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          3 82.00 247.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          4 83.33 264.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          5 78.25 293.92</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          6 78.25 382.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10         7 93.50 346.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11         8 73.25 213.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12         9 77.25 323.92</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Block    y1     y2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       84.67 256.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         10     3 77.25 437.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         11     1 86.50 299.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         12     1 79.50 288.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          2       79.00 228.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          3       82.00 247.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          4       83.33 264.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          5     2 78.25 293.92</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          6     3 78.25 382.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         7     1 93.50 346.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11         8     3 73.25 213.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12         9     2 77.25 323.92</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Frequency distribution plots</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">bout</span><span class="op">$</span><span class="va">`Frequency distribution`</span>, <span class="va">plot</span><span class="op">)</span></span></span>

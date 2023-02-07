@@ -115,7 +115,7 @@
                         <h4 data-toc-skip class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 data-toc-skip class="date">2023-02-06</h4>
+            <h4 data-toc-skip class="date">2023-02-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/vignettes/Data_Analysis_with_augmentedRCBD.Rmd" class="external-link"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -674,7 +674,7 @@ $row.names
 <div class="section level3">
 <h3 id="pack">4.7 Packages<a class="anchor" aria-label="anchor" href="#pack"></a>
 </h3>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19146</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
+<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19143</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install the package 'readxl' for importing data from excel</span></span>
@@ -3033,6 +3033,7 @@ Check treatments           "1, 2, 3, 4"
 Number of traits           "2"         
 Traits                     "y1, y2"    
 
+
 ANOVA, Treatment Adjusted
 =========================
                                           Mean.Sq
@@ -3104,49 +3105,55 @@ Genetic Variability Analysis
 ===================
 k = 2.063 
   Trait   Mean      PV      GV     EV   GCV GCV.category   PCV PCV.category
-1    y1  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium
-2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64         High
+1  y1 †  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium
+2  y2   298.48 4980.41 4694.16 286.25 22.95         High 23.64         High
    ECV   hBS hBS.category     GA   GAM GAM.category
 1 6.41 62.68         High  10.99 13.56       Medium
-2 5.67 94.25         High 137.22 45.97         High
-
+2 5.67 94.25         High 137.22 45.97         High</code></pre>
+<pre><code>Warning: 
+† P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</code></pre>
+<pre><code>Warning: 
+‡ Negative GV detected.
+ GCV, GCV category, hBS, hBS category, GA, GAM and
+ GAM category could not be computed.</code></pre>
+<pre><code>
 
 Warning Messages
 ===================
 
 
 [Frequency Distribution]
-y1
+&lt;y1&gt;
 Removed 2 rows containing missing values (`geom_bar()`).
-y2
+&lt;y2&gt;
 Removed 2 rows containing missing values (`geom_bar()`).
 
 
 [GVA]
-y1
+&lt;y1&gt;
 P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.
 
 Treatment Means
 ===============
-   Treatment    y1     y2
-1          1 84.67 256.00
-2         10 77.25 437.67
-3         11 86.50 299.42
-4         12 79.50 288.42
-5          2 79.00 228.00
-6          3 82.00 247.67
-7          4 83.33 264.00
-8          5 78.25 293.92
-9          6 78.25 382.67
-10         7 93.50 346.42
-11         8 73.25 213.67
-12         9 77.25 323.92</code></pre>
+   Treatment Block    y1     y2
+1          1       84.67 256.00
+2         10     3 77.25 437.67
+3         11     1 86.50 299.42
+4         12     1 79.50 288.42
+5          2       79.00 228.00
+6          3       82.00 247.67
+7          4       83.33 264.00
+8          5     2 78.25 293.92
+9          6     3 78.25 382.67
+10         7     1 93.50 346.42
+11         8     3 73.25 213.67
+12         9     2 77.25 323.92</code></pre>
 </div>
 <div class="section level3">
 <h3 id="print-augmentedrcbd-bulk">8.2 <code>print.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd-bulk"></a>
 </h3>
 <p>The results of analysis in an object of class <code>augmentedRCBD.bulk</code> can be printed to the console as follows.</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -3161,6 +3168,7 @@ Check treatments           "1, 2, 3, 4"
 Number of traits           "2"         
 Traits                     "y1, y2"    
 
+
 ANOVA, Treatment Adjusted
 =========================
                                           Mean.Sq
@@ -3232,49 +3240,55 @@ Genetic Variability Analysis
 ===================
 k = 2.063 
   Trait   Mean      PV      GV     EV   GCV GCV.category   PCV PCV.category
-1    y1  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium
-2    y2 298.48 4980.41 4694.16 286.25 22.95         High 23.64         High
+1  y1 †  81.06   72.27   45.30  26.97  8.30          Low 10.49       Medium
+2  y2   298.48 4980.41 4694.16 286.25 22.95         High 23.64         High
    ECV   hBS hBS.category     GA   GAM GAM.category
 1 6.41 62.68         High  10.99 13.56       Medium
-2 5.67 94.25         High 137.22 45.97         High
-
+2 5.67 94.25         High 137.22 45.97         High</code></pre>
+<pre><code>Warning: 
+† P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</code></pre>
+<pre><code>Warning: 
+‡ Negative GV detected.
+ GCV, GCV category, hBS, hBS category, GA, GAM and
+ GAM category could not be computed.</code></pre>
+<pre><code>
 
 Warning Messages
 ===================
 
 
 [Frequency Distribution]
-y1
+&lt;y1&gt;
 Removed 2 rows containing missing values (`geom_bar()`).
-y2
+&lt;y2&gt;
 Removed 2 rows containing missing values (`geom_bar()`).
 
 
 [GVA]
-y1
+&lt;y1&gt;
 P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.
 
 Treatment Means
 ===============
-   Treatment    y1     y2
-1          1 84.67 256.00
-2         10 77.25 437.67
-3         11 86.50 299.42
-4         12 79.50 288.42
-5          2 79.00 228.00
-6          3 82.00 247.67
-7          4 83.33 264.00
-8          5 78.25 293.92
-9          6 78.25 382.67
-10         7 93.50 346.42
-11         8 73.25 213.67
-12         9 77.25 323.92</code></pre>
+   Treatment Block    y1     y2
+1          1       84.67 256.00
+2         10     3 77.25 437.67
+3         11     1 86.50 299.42
+4         12     1 79.50 288.42
+5          2       79.00 228.00
+6          3       82.00 247.67
+7          4       83.33 264.00
+8          5     2 78.25 293.92
+9          6     3 78.25 382.67
+10         7     1 93.50 346.42
+11         8     3 73.25 213.67
+12         9     2 77.25 323.92</code></pre>
 </div>
 <div class="section level3">
 <h3 id="report-augmentedrcbd-bulk">8.3 <code>report.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd-bulk"></a>
 </h3>
 <p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
 <span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -3285,7 +3299,7 @@ Treatment Means
 <strong>Fig. 9</strong>: MS Word report generated with <code>report.agumentedRCBD.bulk</code> function.
 </p>
 <p>Alternatively, the analysis results can also be exported to a MS Excel file as follows.</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS excel report</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
 <span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -3326,7 +3340,7 @@ citing the package.</code></pre>
 <div class="section level2">
 <h2 id="session-info">10 Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.2.2 (2022-10-31)
 Platform: x86_64-apple-darwin17.0 (64-bit)
@@ -3346,7 +3360,7 @@ other attached packages:
 [1] diagram_1.6.5            shape_1.4.6              augmentedRCBD_0.1.5.9000
 
 loaded via a namespace (and not attached):
-  [1] bitops_1.0-7       fs_1.6.0           httr_1.4.4        
+  [1] bitops_1.0-7       fs_1.6.1           httr_1.4.4        
   [4] rprojroot_2.0.3    tools_4.2.2        bslib_0.4.2       
   [7] utf8_1.2.3         R6_2.5.1           colorspace_2.1-0  
  [10] withr_2.5.0        tidyselect_1.2.0   emmeans_1.8.4-1   
@@ -3375,7 +3389,7 @@ loaded via a namespace (and not attached):
  [79] data.table_1.14.6  vctrs_0.5.2        httpuv_1.6.8      
  [82] Rdpack_2.4         gtable_0.3.1       openssl_2.0.5     
  [85] purrr_1.0.1        cachem_1.0.6       ggplot2_3.4.0     
- [88] xfun_0.37          openxlsx_4.2.5.1   mime_0.12         
+ [88] xfun_0.37          openxlsx_4.2.5.2   mime_0.12         
  [91] rbibutils_2.2.13   xtable_1.8-4       later_1.3.0       
  [94] ragg_1.2.5         survival_3.4-0     tibble_3.1.8      
  [97] memoise_2.0.1      numform_0.7.0      TH.data_1.1-1     
