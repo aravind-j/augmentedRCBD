@@ -43,7 +43,7 @@
 #'   raw values are present in the cell and are formatted to display only 2
 #'   digits.
 #'
-#'   So, iff values such as adjusted means are being used of downsteram
+#'   So, if values such as adjusted means are being used of downstream
 #'   analysis, export the raw values from within R or use the excel report.
 #'
 #'   This default rounding can be changed by setting the global options
@@ -100,6 +100,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
+  wstring1 <- "Test treatments are replicated"
+  wstring2 <- "Negative adjusted means were generated for the following"
+
   if (file.type == "word") {
     if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
       stop(target, " should have '.docx' extension.")
@@ -110,7 +113,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
                                      "template.docx"))
 
-    augreport <- body_add_par(augreport, value = "augmentedRCBD", style = "Title")
+    augreport <- body_add_par(augreport, value = "augmentedRCBD",
+                              style = "Title")
     augreport <- body_add_toc(augreport, level = 2)
 
     traits <- aug.bulk$Details$Traits
@@ -130,9 +134,23 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
     colnames(Details) <- c("Item", "Details")
 
+    checks <- aug.bulk$Details$`Check treatments`
+
     Details <- regulartable(data = data.frame(Details))
     Details <- autofit(Details)
     augreport <- body_add_flextable(augreport, Details)
+    if (any(grepl(wstring1, unlist(aug.bulk$warnings)))) {
+      dups <- aug.bulk$Means[!(aug.bulk$Means$Treatment %in% checks), ]$Treatment
+      dups <- dups[duplicated(dups)]
+      dups <- aug.bulk$Means[aug.bulk$Means$Treatment %in% dups, c("Treatment", "Block")]
+      rownames(dups) <- NULL
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+      augreport <- body_add_par(augreport,
+                                value = "Following test treatments are replicated.",
+                                style = "Warning")
+      augreport <- body_add_flextable(augreport,
+                                      theme_alafoli(autofit(regulartable(dups))))
+    }
 
     merge_mss_sig <- function(i) {
       paste(round.conditional(anovatable[, paste(traits[i], "_Mean.Sq",
@@ -150,7 +168,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                  paste(traits, "Pr(>F)", sep = "_"))]
     colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
     anovata[, paste(traits, "_Mean.Sq", sep = "")] <-
-      lapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
+      sapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
     mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
                                                           sep = ""),
@@ -194,7 +212,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                  paste(traits, "Pr(>F)", sep = "_"))]
     colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
     anovaba[, paste(traits, "_Mean.Sq", sep = "")] <-
-      lapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
+      sapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
     mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
                                                           sep = ""),
@@ -360,12 +378,65 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    "hBS","GA", "GAM")
       GVA[, gvacols] <- lapply(GVA[, gvacols], round.conditional,
                                digits = round.digits)
+
+      if (!is.null(aug.bulk$warnings$GVA)) {
+        gwstring1 <- "may not be appropriate for this trait"
+        gwstring2 <- "Negative GV detected"
+
+        if (any(grepl(paste(c(gwstring1, gwstring2), collapse = "|"),
+                      aug.bulk$warnings$GVA))) {
+          new_trait <- GVA$Trait
+          gwhltv <- rep("", length(new_trait))
+
+          if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+            gwhlt1 <- names(sapply(aug.bulk$warnings$GVA,
+                                   function(gvaw) any(grepl(gwstring1, gvaw))))
+            gwhltv[which(new_trait %in% gwhlt1)] <-
+              paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
+          }
+          if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+            gwhlt2 <- names(sapply(aug.bulk$warnings$GVA,
+                                   function(gvaw) any(grepl(gwstring2, gvaw))))
+            gwhltv[which(new_trait %in% gwhlt2)] <-
+              paste( gwhltv[which(new_trait %in% gwhlt2)], "\u2021", sep = "")
+          }
+          gwhltv <- stringi::stri_pad_right(gwhltv, width = max(nchar(gwhltv)),
+                                            pad = "\u00A0")
+
+          new_trait <- paste(stringi::stri_pad_right(GVA$Trait,
+                                                     width = max(nchar(GVA$Trait)),
+                                                     pad = "\u00A0"),
+                             gwhltv)
+          GVA$Trait <- new_trait
+        }
+
+      }
+
       GVA <- flextable(GVA)
       GVA <- bold(GVA, part = "header")
       GVA <- align(GVA, j = c(2:6, 8, 10:11, 13:14),
                    align = "right", part = "all")
       GVA <- autofit(GVA)
       augreport <- body_add_flextable(augreport, GVA)
+
+      if (!is.null(aug.bulk$warnings$GVA)) {
+        if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+          augreport <-
+            body_add_par(augreport,
+                         value = paste(c("\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
+                                         "Genetic variability analysis may not be appropriate for this trait."),
+                                       collapse = ""),
+                         style = "Warning")
+        }
+        if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+          augreport <-
+            body_add_par(augreport,
+                         value = paste(c("\u2021 Negative GV detected. ",
+                                         "GCV, GCV category, hBS, hBS category, GA, GAM and GAM category could not be computed."),
+                                       collapse = ""),
+                         style = "Warning")
+        }
+      }
     }
 
     # GVA plots
@@ -419,14 +490,43 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                               style = "heading 1")
     adj.means <- aug.bulk$Means
     colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
-    adj.means[, traits] <- lapply(adj.means[, traits], round.conditional,
+    adj.means[, traits] <- sapply(adj.means[, traits], round.conditional,
                                   digits = round.digits)
+    if (any(grepl(wstring2, aug.bulk$warnings))) {
+
+      neg_msg <- "Negative adjusted means"
+      if (any(grepl("truncated to zero", aug.bulk$warnings))) {
+        neg_msg <- paste(neg_msg, " (",
+                         "Truncated to zero",
+                         ")", sep = "")
+      }
+      neg_msg <- paste("\u2020 ", neg_msg, ".", sep = "")
+
+      neg_df <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
+                                                     aug.bulk$warnings$Model)],
+                       function(x) trimws(unlist(strsplit(x, "\n"))))
+      neg_df <- lapply(neg_df, function(x) unlist(strsplit(x[[2]], ", ")))
+
+      neg_traits <- names(neg_df)
+
+      adj.means[, neg_traits] <-
+        sapply(neg_traits,
+               function(nt) paste(adj.means[, nt],
+                                  ifelse(adj.means$Treatment %in% neg_df[[nt]],
+                                         "\u2020", "\u00A0\u00A0"),
+                                  sep = "\u00A0"))
+
+    }
     adj.means <- flextable(adj.means)
     adj.means <- bold(adj.means, part = "header")
-    adj.means <- align(adj.means, j = 2:(length(traits) + 1),
+    adj.means <- align(adj.means, j = 3:(length(traits) + 2),
                  align = "right", part = "all")
     adj.means <- autofit(adj.means)
     augreport <- body_add_flextable(augreport, adj.means)
+
+    if (any(grepl(wstring2, aug.bulk$warnings))) {
+      augreport <- body_add_par(augreport, value = neg_msg, style = "Normal")
+    }
 
     # Warnings
     if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
@@ -491,6 +591,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     ssstyle <- createStyle(numFmt = paste(num.base, '"*"'))
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
     nsstyle <- createStyle(numFmt = paste(num.base, '"\u207f\u02e2"'))
+    csstyle <- createStyle(numFmt = paste(num.base, '"\u2020"'))
+    numstyle2 <- createStyle(numFmt = paste(num.base, '"\u00A0""\u00A0"'))
 
     ntraits <- aug.bulk$Details$`Number of Traits`
     traits <- aug.bulk$Details$Traits
@@ -508,7 +610,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     if (!is.null(aug.bulk$`Frequency distribution`)) {
       index <- c(index,"Frequency Distribution")
     }
-    if (!is.null(aug.bulk$`Genetic variability analysis`)) {
+    if (!is.null(GVA)) {
       index <- c(index,"Genetic Variability Analysis", "GVA Plots")
     }
     index <- c(index, "Adjusted Means", "Warnings")
@@ -551,12 +653,30 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
     colnames(Details) <- c("Item", "Details")
 
+    checks <- aug.bulk$Details$`Check treatments`
+
     addWorksheet(wb, sheetName = "Details", gridLines = FALSE)
     writeDataTable(wb, sheet = "Details", x = Details,
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
     setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
+    if (any(grepl(wstring1, unlist(aug.bulk$warnings)))) {
+      dups <- aug.bulk$Means[!(aug.bulk$Means$Treatment %in% checks), ]$Treatment
+      dups <- dups[duplicated(dups)]
+      dups <- aug.bulk$Means[aug.bulk$Means$Treatment %in% dups, c("Treatment", "Block")]
+      rownames(dups) <- NULL
+      writeData(wb, sheet = "Details", xy = c("A", 10),
+                x = "Following test treatments are replicated.",
+                borders = "none")
+      addStyle(wb,  sheet = "Details",
+               style = createStyle(fontColour  = "#C00000"),
+               rows = 10, cols = 1, stack = FALSE, gridExpand = TRUE)
+      writeDataTable(wb, sheet = "Details", x = dups, xy = c("A", 12),
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+    }
 
     # ANOVA, TA
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
@@ -672,7 +792,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # Std. Error
     SE <- aug.bulk$`Std. Errors`
-    SE[, traits] <- lapply(SE[, traits], as.numeric)
+    SE[, traits] <- sapply(SE[, traits], as.numeric)
     colnames(SE) <- make.names(colnames(SE), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Standard Errors", gridLines = FALSE)
@@ -691,7 +811,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # CD
     CD <- aug.bulk$CD
-    CD[, traits] <- lapply(CD[, traits], as.numeric)
+    CD[, traits] <- sapply(CD[, traits], as.numeric)
     colnames(CD) <- make.names(colnames(CD), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Critical Difference", gridLines = FALSE)
@@ -936,13 +1056,45 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
     addStyle(wb,  sheet = "Adjusted Means", style = numstyle,
-             rows = 2:(ntreats + 1), cols = 2:(ntraits + 1), stack = FALSE,
-             gridExpand = TRUE)
+             rows = 2:(nrow(adj.means) + 1), cols = 3:(ntraits + 2),
+             stack = FALSE, gridExpand = TRUE)
     addStyle(wb,  sheet = "Adjusted Means",
              style = createStyle(halign = "right"),
-             rows = 1, cols = 2:(ntraits + 1), stack = TRUE, gridExpand = TRUE)
+             rows = 1, cols = 3:(ntraits + 2), stack = TRUE, gridExpand = TRUE)
     setColWidths(wb, sheet = "Adjusted Means",
                  cols = 1:ncol(adj.means), widths = "auto")
+    if (any(grepl(wstring2, aug.bulk$warnings))) {
+
+      neg_msg <- "Negative adjusted means"
+      if (any(grepl("truncated to zero", aug.bulk$warnings))) {
+        neg_msg <- paste(neg_msg, " (",
+                         "Truncated to zero",
+                         ")", sep = "")
+      }
+      neg_msg <- paste("\u2020 ", neg_msg, ".", sep = "")
+
+      neg_df <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
+                                                     aug.bulk$warnings$Model)],
+                       function(x) trimws(unlist(strsplit(x, "\n"))))
+      neg_df <- lapply(neg_df, function(x) unlist(strsplit(x[[2]], ", ")))
+
+      neg_traits <- names(neg_df)
+
+      for (i in seq_along(neg_traits)) {
+        neg_trts <- neg_df[[neg_traits[i]]]
+        neg_index <- which(adj.means$Treatment %in% neg_trts)
+        neg_index2 <- which(!(adj.means$Treatment %in% neg_trts))
+
+        addStyle(wb,  sheet = "Adjusted Means", style = csstyle,
+                 rows = neg_index + 1,
+                 cols = which(colnames(adj.means) == neg_traits[i]),
+                 stack = FALSE, gridExpand = TRUE)
+        addStyle(wb,  sheet = "Adjusted Means", style = numstyle2,
+                 rows = neg_index2 + 1,
+                 cols = which(colnames(adj.means) == neg_traits[i]),
+                 stack = FALSE, gridExpand = TRUE)
+      }
+    }
 
     # Warnings
     if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {

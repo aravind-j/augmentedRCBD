@@ -34,6 +34,9 @@ print.augmentedRCBD.bulk <- function(x, ...){
 
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
+  wstring1 <- "Test treatments are replicated"
+  wstring2 <- "Negative adjusted means were generated for the following"
+
   cat("\nAugmented Design Details\n")
   cat("========================\n")
   Details <- x$Details
@@ -53,6 +56,16 @@ print.augmentedRCBD.bulk <- function(x, ...){
   rownames(Details) <- gsub("\\.", " ", rownames(Details))
   colnames(Details) <- c("")
   print(Details)
+  cat("\n")
+  if (any(grepl(wstring1, unlist(x$warnings)))) {
+    dups <- x$Means[!(x$Means$Treatment %in% checks), ]$Treatment
+    dups <- dups[duplicated(dups)]
+    dups <- x$Means[x$Means$Treatment %in% dups, c("Treatment", "Block")]
+    rownames(dups) <- NULL
+    warning("Following test treatments are replicated.", call. = FALSE,
+            immediate. = TRUE)
+    print(dups)
+  }
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
   dcols <- setdiff(colnames(x$`ANOVA, Treatment Adjusted`),
@@ -61,14 +74,14 @@ print.augmentedRCBD.bulk <- function(x, ...){
   x$`ANOVA, Treatment Adjusted`[, paste(traits,
                                         "_Mean.Sq",
                                         sep = "")] <-
-    lapply(x$`ANOVA, Treatment Adjusted`[, paste(traits,
+    sapply(x$`ANOVA, Treatment Adjusted`[, paste(traits,
                                                  "_Mean.Sq",
                                                  sep = "")],
            round.conditional, digits = round.digits)
   x$`ANOVA, Treatment Adjusted`[, paste(traits,
                                         "_sig",
                                         sep = "")] <-
-    lapply(x$`ANOVA, Treatment Adjusted`[, paste(traits,
+    sapply(x$`ANOVA, Treatment Adjusted`[, paste(traits,
                                                  "_sig",
                                                  sep = "")],
            function(sig) ifelse(sig == "ns", "\u207f\u02e2", sig))
@@ -81,24 +94,30 @@ print.augmentedRCBD.bulk <- function(x, ...){
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Treatment Adjusted`)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                 x$warnings$Model))) {
+    warn_wlist(x$warnings$Model[!grepl(paste(c(wstring1, wstring2),
+                                             collapse = "|"),
+                                       x$warnings$Model)])
+  }
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
   dcols <- setdiff(colnames(x$`ANOVA, Block Adjusted`),
                    paste(traits, "_Pr(>F)", sep = ""))
   x$`ANOVA, Block Adjusted` <- x$`ANOVA, Block Adjusted`[, dcols]
   x$`ANOVA, Block Adjusted`[, paste(traits,
-                                        "_Mean.Sq",
-                                        sep = "")] <-
-    lapply(x$`ANOVA, Block Adjusted`[, paste(traits,
-                                                 "_Mean.Sq",
-                                                 sep = "")],
+                                    "_Mean.Sq",
+                                    sep = "")] <-
+    sapply(x$`ANOVA, Block Adjusted`[, paste(traits,
+                                             "_Mean.Sq",
+                                             sep = "")],
            round.conditional, digits = round.digits)
   x$`ANOVA, Block Adjusted`[, paste(traits,
-                                        "_sig",
-                                        sep = "")] <-
-    lapply(x$`ANOVA, Block Adjusted`[, paste(traits,
-                                                 "_sig",
-                                                 sep = "")],
+                                    "_sig",
+                                    sep = "")] <-
+    sapply(x$`ANOVA, Block Adjusted`[, paste(traits,
+                                             "_sig",
+                                             sep = "")],
            function(sig) ifelse(sig == "ns", "\u207f\u02e2", sig))
   colnames(x$`ANOVA, Block Adjusted`) <-
     gsub("(^.+)(_sig$)", "", colnames(x$`ANOVA, Block Adjusted`))
@@ -109,6 +128,12 @@ print.augmentedRCBD.bulk <- function(x, ...){
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Block Adjusted`)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+  if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                 x$warnings$Model))) {
+    warn_wlist(x$warnings$Model[!grepl(paste(c(wstring1, wstring2),
+                                             collapse = "|"),
+                                       x$warnings$Model)])
+  }
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
   x$CV$CV <- round.conditional(x$CV$CV, digits = round.digits)
@@ -136,7 +161,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
             "Max", "Skewness", "Kurtosis")
   x$`Descriptive statistics`[, desc] <-
     apply(x$`Descriptive statistics`[, desc], MARGIN = 2,
-                           FUN = round.conditional)
+          FUN = round.conditional)
   x$`Descriptive statistics`[, c("Kurtosis_sig", "Skewness_sig")] <-
     apply(x$`Descriptive statistics`[, c("Kurtosis_sig", "Skewness_sig")],
           MARGIN = 2, FUN = function(sig) ifelse(sig == "ns",
@@ -153,24 +178,94 @@ print.augmentedRCBD.bulk <- function(x, ...){
     apply(x$`Genetic variability analysis`[, gvap], MARGIN = 2,
           FUN = round.conditional)
   cat(paste("k =", x$k, "\n"))
-  print(x$`Genetic variability analysis`)
+  if (!is.null(x$warnings$GVA)) {
+    gwstring1 <- "may not be appropriate for this trait"
+    gwstring2 <- "Negative GV detected"
+
+    if (any(grepl(paste(c(gwstring1, gwstring2), collapse = "|"),
+                  x$warnings$GVA))) {
+      new_trait <- x$`Genetic variability analysis`$Trait
+      gwhltv <- rep("", length(new_trait))
+
+      if (grepl(gwstring1, x$warnings$GVA)) {
+        gwhlt1 <- names(sapply(x$warnings$GVA,
+                               function(gvaw) any(grepl(gwstring1, gvaw))))
+        gwhltv[which(new_trait %in% gwhlt1)] <-
+          paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
+      }
+      if (grepl(gwstring2, x$warnings$GVA)) {
+        gwhlt2 <- names(sapply(x$warnings$GVA,
+                               function(gvaw) any(grepl(gwstring2, gvaw))))
+        gwhltv[which(new_trait %in% gwhlt2)] <-
+          paste( gwhltv[which(new_trait %in% gwhlt2)], "\u2021", sep = "")
+      }
+      gwhltv <- stringi::stri_pad_right(gwhltv, width = max(nchar(gwhltv)))
+
+      new_trait <- paste(stringi::stri_pad_right(x$`Genetic variability analysis`$Trait,
+                                                 width = max(nchar(x$`Genetic variability analysis`$Trait))),
+                         gwhltv)
+      x$`Genetic variability analysis`$Trait <- new_trait
+
+      print(x$`Genetic variability analysis`)
+      cat("\n")
+
+      if (grepl(gwstring1, x$warnings$GVA)) {
+        warning("\n\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
+            "Genetic variability analysis may not be appropriate for this trait.\n",
+            call. = FALSE, immediate. = TRUE)
+      }
+      if (grepl(gwstring1, x$warnings$GVA)) {
+        warning("\n\u2021 Negative GV detected.",
+            "\n GCV, GCV category, hBS, hBS category, GA, GAM and\n GAM category could not be computed.",
+            call. = FALSE, immediate. = TRUE)
+      }
+    }
+
+  } else {
+    print(x$`Genetic variability analysis`)
+  }
   cat("\n\nWarning Messages\n")
   cat("===================\n")
   if (!is.null(x$warnings$Model)) {
     cat("\n\n[Model]\n")
-    cat(paste(x$warnings$Model), sep = "\n")
+    print_wlist(x$warnings$Model)
   }
   if (!is.null(x$warnings$`Freq. dist`)) {
     cat("\n\n[Frequency Distribution]\n")
-    cat(paste(x$warnings$`Freq. dist`), sep = "\n")
+    print_wlist(x$warnings$`Freq. dist`)
   }
   if (!is.null(x$warnings$GVA)) {
     cat("\n\n[GVA]\n")
-    cat(paste(x$warnings$GVA), sep = "\n")
+    print_wlist(x$warnings$GVA)
   }
   cat("\nTreatment Means\n")
   cat("===============\n")
   x$Means[, traits] <- lapply(x$Means[, traits, drop = FALSE],
                               round.conditional, digits = round.digits)
   print(x$Means)
+  if (any(grepl(wstring2, x$warnings))) {
+    warn_wlist(x$warnings$Model[grepl(wstring2, x$warnings$Model)])
+  }
 }
+
+
+warn_wlist <- function(wlist) {
+  invisible(sapply(seq_along(wlist), function(i) {
+    cat("\n")
+    warning(strwrap(prefix = "\n", initial = "",
+                    x = c(paste("<", names(wlist)[i], ">", sep = ""),
+                          trimws(unlist(strsplit(wlist[[i]], "\n"))))),
+            call. = FALSE, immediate. = TRUE)
+  }, simplify = TRUE, USE.NAMES = FALSE))
+}
+
+print_wlist <- function(wlist) {
+  invisible(sapply(seq_along(wlist), function(i) {
+    cat("<", names(wlist)[i], ">", sep = "")
+    cat("\n")
+    cat(wlist[[i]])
+    cat("\n")
+  }, simplify = TRUE, USE.NAMES = FALSE))
+}
+
+

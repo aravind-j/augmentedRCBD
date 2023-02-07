@@ -41,7 +41,7 @@
 #'   raw values are present in the cell and are formatted to display only 2
 #'   digits.
 #'
-#'   So, iff values such as adjusted means are being used of downsteram
+#'   So, if values such as adjusted means are being used of downstream
 #'   analysis, export the raw values from within R or use the excel report.
 #'
 #'   This default rounding can be changed by setting the global options
@@ -157,8 +157,16 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     Details <- autofit(Details)
     augreport <- body_add_flextable(augreport, Details)
     if (any(grepl(wstring1, aug$warnings))) {
+      dups <- aug$Means[!(aug$Means$Treatment %in% checks), ]$Treatment
+      dups <- dups[duplicated(dups)]
+      dups <- aug$Means[aug$Means$Treatment %in% dups, c("Treatment", "Block")]
+      rownames(dups) <- NULL
       augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
-      augreport <- body_add_par(augreport, value = wstring1, style = "Warning")
+      augreport <- body_add_par(augreport,
+                                value = "Following test treatments are replicated.",
+                                style = "Warning")
+      augreport <- body_add_flextable(augreport,
+                                      theme_alafoli(autofit(regulartable(dups))))
     }
 
     # ANOVA, TA
@@ -561,11 +569,20 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                    bandedRows = FALSE)
     setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
     if (any(grepl(wstring1, aug$warnings))) {
+      dups <- aug$Means[!(aug$Means$Treatment %in% checks), ]$Treatment
+      dups <- dups[duplicated(dups)]
+      dups <- aug$Means[aug$Means$Treatment %in% dups, c("Treatment", "Block")]
+      rownames(dups) <- NULL
       writeData(wb, sheet = "Details", xy = c("A", 8),
-                x = wstring1, borders = "none")
+                x = "Following test treatments are replicated.",
+                borders = "none")
       addStyle(wb,  sheet = "Details",
                style = createStyle(fontColour  = "#C00000"),
                rows = 8, cols = 1, stack = FALSE, gridExpand = TRUE)
+      writeDataTable(wb, sheet = "Details", x = dups, xy = c("A", 10),
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
     }
 
     # ANOVA, TA
