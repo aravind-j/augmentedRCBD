@@ -264,7 +264,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   output <- vector("list", length(traits))
   names(output) <- traits
 
-  warn <- NULL
+  warn <- vector("list", length(traits))
+  names(warn) <- traits
   for (i in seq_along(traits)) {
 
     withCallingHandlers({
@@ -275,8 +276,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                    group = FALSE, console = FALSE,
                                    simplify = TRUE)
     }, warning = function(w) {
-      warn <<- append(warn, traits[i])
-      warn <<- append(warn, conditionMessage(w))
+      warn[[i]] <<- append(warn[[i]], conditionMessage(w))
       invokeRestart("muffleWarning")
     })
 
@@ -374,7 +374,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   adjmeans <- lapply(adjmeans, function(x) dplyr::mutate_if(x, is.factor,
                                                             as.character))
   adjmeans <- dplyr::bind_rows(adjmeans)
-  adjmeans <- reshape2::dcast(adjmeans, Treatment ~ Trait,
+  adjmeans <- reshape2::dcast(adjmeans, Treatment + Block ~ Trait,
                               value.var = "Adjusted Means",
                               fun.aggregate = mean)
   # Check statistics
@@ -460,18 +460,15 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     gvaout <- vector("list", length(traits))
     names(gvaout) <- traits
 
-    # gvawarn <- data.frame(Trait = traits, Message = NA_character_,
-    #                      stringsAsFactors = FALSE)
-
-    gvawarn <- NULL
+    gvawarn <- vector("list", length(traits))
+    names(gvawarn) <- traits
     for (i in seq_along(traits)) {
 
       withCallingHandlers({
         gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]], k = k)
 
       }, warning = function(w) {
-        gvawarn <<- append(gvawarn, traits[i])
-        gvawarn <<- append(gvawarn, conditionMessage(w))
+        gvawarn[[i]] <<- append(gvawarn[[i]], conditionMessage(w))
         invokeRestart("muffleWarning")
       })
     }
@@ -596,10 +593,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     fqout <- vector("list", length(traits))
     names(fqout) <- traits
 
-    # fqwarn <- data.frame(Trait = traits, Message = NA_character_,
-    #                      stringsAsFactors = FALSE)
-
-    fqwarn <- NULL
+    fqwarn <- vector("list", length(traits))
+    names(fqwarn) <- traits
     for (i in seq_along(traits)) {
 
       withCallingHandlers({
@@ -607,14 +602,20 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                              xlab = traits[i],
                                              check.col = check.col)
       }, warning = function(w) {
-        fqwarn <<- append(fqwarn, traits[i])
-        fqwarn <<- append(fqwarn, cli::ansi_strip(w$message))
+        fqwarn[[i]] <<- append(fqwarn[[i]],
+                               cli::ansi_strip(conditionMessage(w)))
         invokeRestart("muffleWarning")
       })
     }
   }
 
   k <- ifelse(gva, k, NULL)
+
+  wrnlist <- list(Model = warn[which(!sapply(warn , is.null))],
+                  `Freq. dist` = fqwarn[which(!sapply(fqwarn , is.null))],
+                  GVA = gvawarn[which(!sapply(gvawarn , is.null))])
+
+  wrnlist[which(sapply(wrnlist, function(x) length(x) == 0))] <- list(NULL)
 
   out <- list(Details = Details, `ANOVA, Treatment Adjusted` = anovataout,
               `ANOVA, Block Adjusted` = anovabaout, Means = adjmeans,
@@ -624,9 +625,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
               `CV` = cvout, `Descriptive statistics` = descout,
               `Frequency distribution` = fqout, k = k,
               `Genetic variability analysis` = gvaout,
-              `GVA plots` = gvaplots,
-              warnings = list(Model = warn, `Freq. dist` = fqwarn,
-                              GVA = gvawarn))
+              `GVA plots` = gvaplots, warnings = wrnlist)
 
   # Set Class
   class(out) <- "augmentedRCBD.bulk"
