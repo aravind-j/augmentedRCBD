@@ -52,9 +52,9 @@ print.augmentedRCBD <- function(x, ...){
   print(Details)
   cat("\n")
   if (any(grepl(wstring1, x$warnings))) {
-    dups <- out$Means[!(out$Means$Treatment %in% checks), ]$Treatment
+    dups <- x$Means[!(x$Means$Treatment %in% checks), ]$Treatment
     dups <- dups[duplicated(dups)]
-    dups <- out$Means[out$Means$Treatment %in% dups, c("Treatment", "Block")]
+    dups <- x$Means[x$Means$Treatment %in% dups, c("Treatment", "Block")]
     rownames(dups) <- NULL
     warning("Following test treatments are replicated.", call. = FALSE,
             immediate. = TRUE)
