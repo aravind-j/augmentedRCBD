@@ -83,7 +83,7 @@ print.augmentedRCBD <- function(x, ...){
   cat("=====================\n")
   cat(x$`Overall adjusted mean`)
   cat("\n\nStandard Errors\n")
-  cat("===================\n")
+  cat("===============\n")
   print(x$`Std. Errors`)
   if (!is.null(x$x$warnings)) {
     cat("\n\nWarning Messages\n")
@@ -104,7 +104,7 @@ print.augmentedRCBD <- function(x, ...){
   }
   if (!is.null(x$Comparisons)) {
     cat("\nComparisons\n")
-    cat("==================\n")
+    cat("===========\n")
     cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
     x$Comparisons[, c("estimate", "SE")] <-
       lapply(x$Comparisons[, c("estimate", "SE")],
@@ -116,7 +116,7 @@ print.augmentedRCBD <- function(x, ...){
   }
   if (!is.null(x$Groups)) {
     cat("\nTreatment Groups\n")
-    cat("==================\n")
+    cat("================\n")
     cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
     x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
       lapply(x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],

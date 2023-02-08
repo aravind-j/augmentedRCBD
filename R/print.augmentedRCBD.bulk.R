@@ -145,7 +145,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                       digits = round.digits)
   print(x$`Overall adjusted mean`)
   cat("\n\nStandard Errors\n")
-  cat("===================\n")
+  cat("===============\n")
   x$`Std. Errors`[, traits] <- lapply(x$`Std. Errors`[, traits, drop = FALSE],
                                       round.conditional, digits = round.digits)
   print(x$`Std. Errors`)
@@ -156,7 +156,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                            round.conditional, digits = round.digits)
   print(x$CD)
   cat("\n\nDescriptive Statistics\n")
-  cat("===================\n")
+  cat("======================\n")
   desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
             "Max", "Skewness", "Kurtosis")
   x$`Descriptive statistics`[, desc] <-
@@ -172,7 +172,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   print(x$`Descriptive statistics`[, descols])
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\n\nGenetic Variability Analysis\n")
-  cat("===================\n")
+  cat("============================\n")
   gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
   x$`Genetic variability analysis`[, gvap] <-
     apply(x$`Genetic variability analysis`[, gvap], MARGIN = 2,
@@ -225,7 +225,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
     print(x$`Genetic variability analysis`)
   }
   cat("\n\nWarning Messages\n")
-  cat("===================\n")
+  cat("================\n")
   if (!is.null(x$warnings$Model)) {
     cat("\n\n[Model]\n")
     print_wlist(x$warnings$Model)
