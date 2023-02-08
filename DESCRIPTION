@@ -24,7 +24,7 @@ Description: Functions for analysis of data generated from experiments in
     <doi:10.2307/2527837>. Computes analysis of variance, adjusted means,
     descriptive statistics, genetic variability statistics etc. Further includes
     data visualization and report generation functions.
-Copyright: 2015-2022, ICAR-NBPGR
+Copyright: 2015-2023, ICAR-NBPGR
 License: GPL-2 | GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.0.1)
