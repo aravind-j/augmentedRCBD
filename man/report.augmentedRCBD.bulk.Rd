@@ -26,7 +26,7 @@ The raw values in the \code{augmentedRCBD} object are rounded off to 2
   raw values are present in the cell and are formatted to display only 2
   digits.
 
-  So, iff values such as adjusted means are being used of downstream
+  So, if values such as adjusted means are being used of downstream
   analysis, export the raw values from within R or use the excel report.
 
   This default rounding can be changed by setting the global options
