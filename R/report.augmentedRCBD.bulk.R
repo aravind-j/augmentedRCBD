@@ -724,6 +724,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                      tableStyle = "TableStyleLight1", withFilter = FALSE,
                      bandedRows = FALSE)
     }
+    setColWidths(wb, sheet = "Details", cols = 1,
+                 widths = max(nchar(Details$Item)) + 5)
 
     # ANOVA, TA
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
@@ -780,6 +782,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     writeData(wb, sheet = "ANOVA, Treatment Adjusted", xy = c("A", 8),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
+    setColWidths(wb, sheet = "ANOVA, Treatment Adjusted", cols = 1,
+                 widths = max(nchar(anovata$Source)) + 5)
 
     # ANOVA, BA
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
@@ -836,6 +840,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     writeData(wb, sheet = "ANOVA, Block Adjusted", xy = c("A", 9),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
+    setColWidths(wb, sheet = "ANOVA, Block Adjusted", cols = 1,
+                 widths = max(nchar(anovaba$Source)) + 5)
 
     # Std. Error
     SE <- aug.bulk$`Std. Errors`
@@ -944,6 +950,12 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "Check Statistics",
                  cols = 1:ncol(aug.bulk$`Check statistics`[[1]]),
                  widths = "auto")
+    setColWidths(wb, sheet = "Check Statistics",
+                 cols = 5:6,
+                 widths = max(unlist(lapply(aug.bulk$`Check statistics`,
+                                            function(chkst) max(nchar(chkst$Max),
+                                                                nchar(chkst$Max),
+                                                                3)))) + 5)
     rm(indexdf)
 
     # Descriptive statistics
@@ -1003,6 +1015,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       writeData(wb, sheet = "Descriptive Statistics", xy = c("A", ntraits + 2),
                 x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
                 borders = "none")
+      setColWidths(wb, sheet = "Descriptive Statistics", cols = 1,
+                   widths = max(nchar(descout$Trait)) + 5)
     }
 
     # Frequency distribution
@@ -1115,6 +1129,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         }
         rm(row1)
       }
+      setColWidths(wb, sheet = "Genetic Variability Analysis", cols = 1,
+                   widths = max(nchar(GVA$Trait)) + 5)
 
     }
 
@@ -1211,6 +1227,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       writeData(wb, sheet = "Adjusted Means", x = neg_msg,
                 startCol = "A",  startRow = nrow(adj.means) + 2,
                 borders = "none")
+      setColWidths(wb, sheet = "Adjusted Means",
+                   cols = 1, widths = max(nchar(adj.means$Treatment), 9) + 5)
 
      }
 

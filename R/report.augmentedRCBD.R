@@ -601,6 +601,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                      tableStyle = "TableStyleLight1", withFilter = FALSE,
                      bandedRows = FALSE)
     }
+    setColWidths(wb, sheet = "Details", cols = 1,
+                 widths = max(nchar(Details$Item)) + 5)
 
     # ANOVA, TA
     if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
@@ -632,6 +634,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
               xy = c("A", 7),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
+    setColWidths(wb, sheet = "ANOVA, Treatment Adjusted", cols = 1,
+                 widths = max(nchar(anovata$Source)) + 5)
 
     # ANOVA, BA
     if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
@@ -663,6 +667,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
               xy = c("A", 8),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
+    setColWidths(wb, sheet = "ANOVA, Block Adjusted", cols = 1,
+                 widths = max(nchar(anovata$Source)) + 5)
 
     # Std. Errors
     se <- aug$`Std. Errors`
@@ -739,7 +745,11 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                 borders = "none")
     }
     setColWidths(wb, sheet = "Means", cols = 1,
-                 widths = max(nchar(Means$Treatment) + 7))
+                 widths = max(nchar(Means$Treatment), 9) + 7)
+    setColWidths(wb, sheet = "Means", cols = 6,
+                 widths = max(nchar(Means$Min), 5) + 2)
+    setColWidths(wb, sheet = "Means", cols = 7,
+                 widths = max(nchar(Means$Max), 5) + 2)
 
     # Freq dist
     addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
@@ -810,6 +820,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     writeData(wb, sheet = "Descriptive Statistics", xy = c("A", 10),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
+    setColWidths(wb, sheet = "Descriptive Statistics", cols = 1,
+                 widths = max(nchar(descout$Statistic)) + 5)
 
     # GVA
     gvawarn <- NULL
@@ -896,6 +908,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
       writeData(wb, sheet = "Comparisons", xy = c("A", nrow(cmp) + 3),
                 x = "* P \u2264 0.05; ** P \u2264 0.01", borders = "none")
+      setColWidths(wb, sheet = "Comparisons", cols = 1,
+                   widths = max(nchar(cmp$contrast), 8) + 5)
     }
 
     # Groups
@@ -916,6 +930,11 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                stack = FALSE, gridExpand = TRUE)
       addStyle(wb,  sheet = "Groups", style = createStyle(halign = "right"),
                rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
+      setColWidths(wb, sheet = "Groups", cols = 1,
+                   widths = max(nchar(as.character(gps$Treatment)), 9) + 3)
+      setColWidths(wb, sheet = "Groups", cols = 2,
+                   widths = max(nchar(as.character(gps$`Adjusted Means`)),
+                                14) + 3)
     }
 
     # Warnings
