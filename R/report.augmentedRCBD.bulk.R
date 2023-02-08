@@ -37,6 +37,7 @@
 #' @importFrom methods is
 #' @importFrom stats qnorm
 #' @importFrom graphics plot
+#' @importFrom utils capture.output citation stack
 #'
 #' @note The raw values in the \code{augmentedRCBD} object are rounded off to 2
 #'   digits in the word and excel reports. However, in case of excel report, the
@@ -365,6 +366,17 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         dev.off()
         augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
         rm(src)
+        if (!is.null(aug.bulk$warnings$`Freq. dist`[[traits[i]]])) {
+          wlist <- lapply(aug.bulk$warnings$`Freq. dist`[[traits[i]]],
+                          function(wtext) fpar(ftext(wtext),
+                                               fp_p = fp_par(padding.bottom = 2,
+                                                             word_style = "Warning")))
+
+          attributes(wlist) <- list(class = c("block_list", "block"))
+          augreport <- body_add_blocks(augreport, blocks = wlist)
+          rm(wlist)
+        }
+
       }
     }
 
@@ -428,7 +440,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                        collapse = ""),
                          style = "Warning")
         }
-        if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+        if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
           augreport <-
             body_add_par(augreport,
                          value = paste(c("\u2021 Negative GV detected. ",
@@ -538,8 +550,16 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$Model)) {
           augreport <- body_add_par(augreport,
-                                    value = aug.bulk$warnings$Model[i],
-                                    style = "Code")
+                                    value = names(aug.bulk$warnings$Model)[i],
+                                    style = "heading 4")
+          wlist <- lapply(aug.bulk$warnings$Model[[i]],
+                          function(wtext) fpar(ftext(wtext),
+                                               fp_p = fp_par(padding.bottom = 2,
+                                                             word_style = "Code")))
+
+          attributes(wlist) <- list(class = c("block_list", "block"))
+          augreport <- body_add_blocks(augreport, blocks = wlist)
+          rm(wlist)
         }
       }
 
@@ -549,27 +569,49 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
           augreport <- body_add_par(augreport,
-                                    value = aug.bulk$warnings$`Freq. dist`[i],
-                                    style = "Code")
+                                    value = names(aug.bulk$warnings$`Freq. dist`)[i],
+                                    style = "heading 4")
+          wlist <- lapply(aug.bulk$warnings$`Freq. dist`[[i]],
+                          function(wtext) fpar(ftext(wtext),
+                                               fp_p = fp_par(padding.bottom = 2,
+                                                             word_style = "Code")))
+
+          attributes(wlist) <- list(class = c("block_list", "block"))
+          augreport <- body_add_blocks(augreport, blocks = wlist)
+          rm(wlist)
         }
       }
-
       if (!is.null(aug.bulk$warnings$GVA)) {
         augreport <- body_add_par(augreport,
                                   value = "Genetic Variablity Analysis",
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$GVA)) {
           augreport <- body_add_par(augreport,
-                                    value = aug.bulk$warnings$GVA[i],
-                                    style = "Code")
+                                    value = names(aug.bulk$warnings$GVA)[i],
+                                    style = "heading 4")
+          wlist <- lapply(aug.bulk$warnings$GVA[[i]],
+                          function(wtext) fpar(ftext(wtext),
+                                               fp_p = fp_par(padding.bottom = 2,
+                                                             word_style = "Code")))
+
+          attributes(wlist) <- list(class = c("block_list", "block"))
+          augreport <- body_add_blocks(augreport, blocks = wlist)
+          rm(wlist)
         }
       }
     }
 
+    augreport <- body_add_par(augreport, value = "Citation Info",
+                              style = "heading 1")
 
-    augreport <- body_add_par(augreport,
-                              value = "################## The End ##################",
-                              style = "Center text")
+    citout <- capture.output(citation("augmentedRCBD"))
+    citlist <- lapply(citout,
+                      function(ctext) fpar(ftext(ctext),
+                                           fp_p = fp_par(padding.bottom = 2,
+                                                         word_style = "Code")))
+
+    attributes(citlist) <- list(class = c("block_list", "block"))
+    augreport <- body_add_blocks(augreport, blocks = citlist)
 
     print(augreport, target = target)
 
@@ -592,7 +634,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     dsstyle <- createStyle(numFmt = paste(num.base, '"**"'))
     nsstyle <- createStyle(numFmt = paste(num.base, '"\u207f\u02e2"'))
     csstyle <- createStyle(numFmt = paste(num.base, '"\u2020"'))
-    numstyle2 <- createStyle(numFmt = paste(num.base, '"\u00A0""\u00A0"'))
+    padstyle <- createStyle(numFmt = paste(num.base, '"\u00A0""\u00A0"'))
 
     ntraits <- aug.bulk$Details$`Number of Traits`
     traits <- aug.bulk$Details$Traits
@@ -610,7 +652,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     if (!is.null(aug.bulk$`Frequency distribution`)) {
       index <- c(index,"Frequency Distribution")
     }
-    if (!is.null(GVA)) {
+    if (!is.null(aug.bulk$GVA)) {
       index <- c(index,"Genetic Variability Analysis", "GVA Plots")
     }
     index <- c(index, "Adjusted Means", "Warnings")
@@ -640,6 +682,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
              rows = 9, cols = 2, stack = TRUE, gridExpand = TRUE)
     setColWidths(wb, sheet = "Index", cols = 1:3, widths = "auto")
+
+    citout <- capture.output(citation("augmentedRCBD"))
+    writeData(wb, sheet = "Index", x = citout,
+              startCol = "B", startRow = 25, borders = "none")
+    setColWidths(wb, sheet = "Index", cols = 2, widths = 5)
 
     # Details
     Details <- t(data.frame(`Number of blocks` = aug.bulk$Details$`Number of blocks`,
@@ -721,7 +768,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           }
       }
     }
-    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = numstyle,
+    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = padstyle,
              rows = 7, cols = 3:(ntraits + 2), stack = FALSE)
     setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
                  cols = 1:ncol(anovata), widths = "auto")
@@ -777,7 +824,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         }
       }
     }
-    addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = numstyle,
+    addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = padstyle,
              rows = 8, cols = 3:(ntraits + 2), stack = FALSE)
     setColWidths(wb, sheet = "ANOVA, Block Adjusted",
                  cols = 1:ncol(anovaba), widths = "auto")
@@ -976,6 +1023,15 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         insertPlot(wb, sheet = "Frequency Distribution",
                    xy = c("B", row1))
         dev.off()
+        if (!is.null(aug.bulk$warnings$`Freq. dist`[[traits[i]]])) {
+          writeData(wb, sheet = "Frequency Distribution",
+                    x = aug.bulk$warnings$`Freq. dist`[[traits[i]]],
+                    startCol = "J", startRow = row1 + 1, borders = "none")
+          addStyle(wb,  sheet = "Frequency Distribution",
+                   style = createStyle(fontColour  = "#C00000"),
+                   rows = row1 + length(aug.bulk$warnings$`Freq. dist`[[traits[i]]]),
+                   cols = 10, stack = FALSE, gridExpand = TRUE)
+        }
         rm(row1)
       }
       setColWidths(wb, sheet = "Frequency Distribution",
@@ -986,6 +1042,37 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # GVA
     if (!is.null(aug.bulk$`Genetic variability analysis`)) {
       GVA <- aug.bulk$`Genetic variability analysis`
+
+      if (!is.null(aug.bulk$warnings$GVA)) {
+        gwstring1 <- "may not be appropriate for this trait"
+        gwstring2 <- "Negative GV detected"
+        if (any(grepl(paste(c(gwstring1, gwstring2), collapse = "|"),
+                      aug.bulk$warnings$GVA))) {
+          new_trait <- GVA$Trait
+          gwhltv <- rep("", length(new_trait))
+
+          if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+            gwhlt1 <- names(sapply(aug.bulk$warnings$GVA,
+                                   function(gvaw) any(grepl(gwstring1, gvaw))))
+            gwhltv[which(new_trait %in% gwhlt1)] <-
+              paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
+          }
+          if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+            gwhlt2 <- names(sapply(aug.bulk$warnings$GVA,
+                                   function(gvaw) any(grepl(gwstring2, gvaw))))
+            gwhltv[which(new_trait %in% gwhlt2)] <-
+              paste( gwhltv[which(new_trait %in% gwhlt2)], "\u2021", sep = "")
+          }
+          gwhltv <- stringi::stri_pad_right(gwhltv, width = max(nchar(gwhltv)),
+                                            pad = "\u00A0")
+
+          new_trait <- paste(stringi::stri_pad_right(GVA$Trait,
+                                                     width = max(nchar(GVA$Trait)),
+                                                     pad = "\u00A0"),
+                             gwhltv)
+          GVA$Trait <- new_trait
+        }
+      }
 
       addWorksheet(wb, sheetName = "Genetic Variability Analysis",
                    gridLines = FALSE)
@@ -1002,6 +1089,33 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                gridExpand = TRUE)
       setColWidths(wb, sheet = "Genetic Variability Analysis",
                    cols = 1:ncol(GVA), widths = "auto")
+
+      if (!is.null(aug.bulk$warnings$GVA)) {
+        row1 <- nrow(GVA) + 2
+        if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+          writeData(wb, sheet = "Genetic Variability Analysis",
+                    x = paste(c("\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
+                                "Genetic variability analysis may not be appropriate for this trait."),
+                              collapse = ""),
+                    startCol = "A", startRow = row1, borders = "none")
+          addStyle(wb,  sheet = "Genetic Variability Analysis",
+                   style = createStyle(fontColour  = "#C00000"),
+                   rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
+          row1 <- row1 + 1
+        }
+        if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+          writeData(wb, sheet = "Genetic Variability Analysis",
+                    x = paste(c("\u2021 Negative GV detected. ",
+                                "GCV, GCV category, hBS, hBS category, GA, GAM and GAM category could not be computed."),
+                              collapse = ""),
+                    startCol = "A", startRow = row1, borders = "none")
+          addStyle(wb,  sheet = "Genetic Variability Analysis",
+                   style = createStyle(fontColour  = "#C00000"),
+                   rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
+        }
+        rm(row1)
+      }
+
     }
 
     # GVA plots
@@ -1089,12 +1203,16 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                  rows = neg_index + 1,
                  cols = which(colnames(adj.means) == neg_traits[i]),
                  stack = FALSE, gridExpand = TRUE)
-        addStyle(wb,  sheet = "Adjusted Means", style = numstyle2,
+        addStyle(wb,  sheet = "Adjusted Means", style = padstyle,
                  rows = neg_index2 + 1,
                  cols = which(colnames(adj.means) == neg_traits[i]),
                  stack = FALSE, gridExpand = TRUE)
       }
-    }
+      writeData(wb, sheet = "Adjusted Means", x = neg_msg,
+                startCol = "A",  startRow = nrow(adj.means) + 2,
+                borders = "none")
+
+     }
 
     # Warnings
     if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
@@ -1103,29 +1221,44 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       row1 <- 1
 
       if (!is.null(aug.bulk$warnings$Model)) {
+        warn <- stack(aug.bulk$warnings$Model)
+        warn <- warn[, 2:1]
         writeData(wb, sheet = "Warnings", x = "Model",
                   startCol = "A", startRow = row1, borders = "none")
         writeData(wb, sheet = "Warnings",
-                  x = aug.bulk$warnings$Model,
-                  startCol = "A", row1 + 1, borders = "none")
-        row1 <- row1 + 2 + length(aug.bulk$warnings$Model)
+                  x = warn, startCol = "A", startRow = row1 + 1,
+                  borders = "none", colNames = FALSE)
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
+        row1 <- row1 + 2 + nrow(warn)
       }
 
       if (!is.null(aug.bulk$warnings$`Freq. dist`)) {
+        fqwarn <- stack(aug.bulk$warnings$`Freq. dist`)
+        fqwarn <- fqwarn[, 2:1]
         writeData(wb, sheet = "Warnings", x = "Frequency Distribution",
                   startCol = "A", startRow = row1, borders = "none")
         writeData(wb, sheet = "Warnings",
-                  x = aug.bulk$warnings$`Freq. dist`,
-                  startCol = "A", row1 + 1, borders = "none")
-        row1 <- row1 + 2 + length(aug.bulk$warnings$`Freq. dist`)
+                  x = fqwarn, startCol = "A", startRow = row1 + 1,
+                  borders = "none", colNames = FALSE)
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
+        row1 <- row1 + 2 + nrow(fqwarn)
       }
 
       if (!is.null(aug.bulk$warnings$GVA)) {
+        gvawarn <- stack(aug.bulk$warnings$GVA)
+        gvawarn <- gvawarn[, 2:1]
         writeData(wb, sheet = "Warnings", x = "Genetic Variablity Analysis",
                   startCol = "A", startRow = row1, borders = "none")
         writeData(wb, sheet = "Warnings",
-                  x = aug.bulk$warnings$GVA,
-                  startCol = "A", row1 + 1, borders = "none")
+                  x = gvawarn, startCol = "A", startRow = row1 + 1,
+                  borders = "none", colNames = FALSE)
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
       }
     }
 
