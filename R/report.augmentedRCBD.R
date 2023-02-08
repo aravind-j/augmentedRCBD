@@ -61,9 +61,9 @@
 #' @importFrom grDevices png
 #' @importFrom grDevices dev.off
 #' @importFrom methods is
-#' @importFrom stringi stri_pad_right
-#' @importFrom stringi stri_trans_totitle
+#' @importFrom stringi stri_pad_right stri_trans_totitle
 #' @importFrom graphics plot
+#' @importFrom utils capture.output citation stack
 #'
 #' @seealso \code{\link[officer]{officer}}, \code{\link[flextable]{flextable}}
 #'
@@ -481,9 +481,21 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       }
     }
 
-    augreport <- body_add_par(augreport,
-                              value = "################## The End ##################",
-                              style = "Center text")
+    # augreport <- body_add_par(augreport,
+    #                           value = "################## The End ##################",
+    #                           style = "Center text")
+
+    augreport <- body_add_par(augreport, value = "Citation Info",
+                              style = "heading 1")
+
+    citout <- capture.output(citation("augmentedRCBD"))
+    citlist <- lapply(citout,
+                      function(ctext) fpar(ftext(ctext),
+                                           fp_p = fp_par(padding.bottom = 2,
+                                                         word_style = "Code")))
+
+    attributes(citlist) <- list(class = c("block_list", "block"))
+    augreport <- body_add_blocks(augreport, blocks = citlist)
 
     print(augreport, target = target)
 
@@ -550,6 +562,11 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
              rows = 9, cols = 2, stack = TRUE, gridExpand = TRUE)
     setColWidths(wb, sheet = "Index", cols = 1:3, widths = "auto")
+
+    citout <- capture.output(citation("augmentedRCBD"))
+    writeData(wb, sheet = "Index", x = citout,
+              startCol = "B", startRow = 25, borders = "none")
+    setColWidths(wb, sheet = "Index", cols = 2, widths = 5)
 
     # Details
     Details <- t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
