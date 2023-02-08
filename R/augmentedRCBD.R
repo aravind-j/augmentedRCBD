@@ -486,7 +486,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     }
 
   }, warning = function(w) {
-    warn <<- append(warn, conditionMessage(w))
+    warn <<- append(warn, cli::ansi_strip(conditionMessage(w)))
     warning(conditionMessage(w), call. = FALSE)
     invokeRestart("muffleWarning")
   })

@@ -276,7 +276,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                    group = FALSE, console = FALSE,
                                    simplify = TRUE)
     }, warning = function(w) {
-      warn[[i]] <<- append(warn[[i]], conditionMessage(w))
+      warn[[i]] <<- append(warn[[i]], cli::ansi_strip(conditionMessage(w)))
       invokeRestart("muffleWarning")
     })
 
@@ -468,7 +468,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
         gvaout[[i]] <- gva.augmentedRCBD(output[[traits[i]]], k = k)
 
       }, warning = function(w) {
-        gvawarn[[i]] <<- append(gvawarn[[i]], conditionMessage(w))
+        gvawarn[[i]] <<- append(gvawarn[[i]],
+                                cli::ansi_strip(conditionMessage(w)))
         invokeRestart("muffleWarning")
       })
     }
