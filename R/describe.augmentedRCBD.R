@@ -78,7 +78,7 @@
 describe.augmentedRCBD <- function(aug) { # all treatments (test + checks)
 
   if (!is(aug, "augmentedRCBD")) {
-    stop('"aug" is not of class "augmentedRCBD"')
+    stop('"aug" is not of class "augmentedRCBD".')
   }
 
   adjmeans <- aug$Means$`Adjusted Means`

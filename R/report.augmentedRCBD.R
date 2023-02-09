@@ -102,21 +102,21 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                                  k = 2.063, check.col = "red"){
 
   if (!is(aug, "augmentedRCBD")) {
-    stop('"aug" is not of class "augmentedRCBD"')
+    stop('"aug" is not of class "augmentedRCBD".')
   }
 
   file.type <- match.arg(file.type)
 
   # check.col
   if (!all(iscolour(check.col))) {
-    stop('"check.col" specifies invalid colour(s)')
+    stop('"check.col" specifies invalid colour(s).')
   }
 
   checks <- aug$Details$`Check treatments`
 
   if (length(check.col) != 1) {
     if (length(check.col) != length(checks)) {
-      stop('"checks" and "check.col" are of unequal lengths')
+      stop('"checks" and "check.col" are of unequal lengths.')
     }
   }
 

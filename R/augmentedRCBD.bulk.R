@@ -142,24 +142,24 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
   # Check if data.frame
   if (!is.data.frame(data)) {
-    stop('"data" should be a data frame object')
+    stop('"data" should be a data frame object.')
   }
 
   if (any(c("tbl_dataf", "tbl") %in% class(data))) {
-    warning('"data" is of type tibble\nCoercing to data frame')
+    warning('"data" is of type tibble.\nCoercing to data frame.')
     data <- as.data.frame(data)
   }
 
   # check if block column present in data
   if (!(block %in% colnames(data))) {
     stop(paste('Column ', block,
-               ' specified as the block column is not present in "data"',
+               ' specified as the block column is not present in "data".',
                sep = ""))
   }
   # check if treatment column present in data
   if (!(treatment %in% colnames(data))) {
     stop(paste('Column ', treatment,
-               ' specified as the treatment column is not present in "data"',
+               ' specified as the treatment column is not present in "data".',
                sep = ""))
   }
   # check if trait columns present in data
@@ -183,12 +183,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   }
   # alpha
   if (!(0 < alpha && alpha < 1)) {
-    stop('"alpha" should be between 0 and 1 (0 < alpha < 1)')
+    stop('"alpha" should be between 0 and 1 (0 < alpha < 1).')
   }
 
   # check.col
   if (!all(iscolour(check.col))) {
-    stop('"check.col" specifies invalid colour(s)')
+    stop('"check.col" specifies invalid colour(s).')
   }
 
   # convert to factor
@@ -215,12 +215,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
       print(treatmentorder)
       stop(paste('"checks" are not replicated across all the blocks (',
-                 nblocks, ')', sep = ""))
+                 nblocks, ').', sep = ""))
     }
 
     tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
     if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-      warning("Test treatments are replicated")
+      warning("Test treatments are replicated.")
     }
 
   } else {# i.e. "checks" is not specified
@@ -243,7 +243,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       print(treatmentorder)
       stop(paste("Checks cannot be inferred as none of the treatments are",
                  "replicated across all the blocks (",
-                 nblocks, ")", sep = ""))
+                 nblocks, ").", sep = ""))
     }
 
     checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
@@ -251,13 +251,13 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
     tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
     if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-      warning("Test treatments are replicated")
+      warning("Test treatments are replicated.")
     }
   }
 
   if (length(check.col) != 1) {
    if (length(check.col) != length(checks)) {
-     stop('"checks" and "check.col" are of unequal lengths')
+     stop('"checks" and "check.col" are of unequal lengths.')
    }
  }
 

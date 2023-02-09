@@ -174,25 +174,25 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   # Checks
   # block
   if (!is.factor(block)) {
-    stop('"block" should be of class "factor"')
+    stop('"block" should be of class "factor".')
   }
   # treatment
   if (!is.factor(treatment)) {
-    stop('"treatment" should be of class "factor"')
+    stop('"treatment" should be of class "factor".')
   }
   # y
   if (!(is.vector(y, mode = "integer") | is.vector(y, mode = "numeric"))) {
-    stop('"y" should be a vector of class "numeric" or "integer"')
+    stop('"y" should be a vector of class "numeric" or "integer".')
   }
   if (!(length(y) == length(treatment) && length(treatment) == length(block))) {
-    stop('"block", "treatment" and "y" are of unequal lengths')
+    stop('"block", "treatment" and "y" are of unequal lengths.')
   }
   if (TRUE %in% is.na(y)) { # check for missing values
-    stop('"y" has missing value(s)')
+    stop('"y" has missing value(s).')
   }
   # alpha
   if (!(0 < alpha && alpha < 1)) {
-    stop('"alpha" should be between 0 and 1 (0 < alpha < 1)')
+    stop('"alpha" should be between 0 and 1 (0 < alpha < 1).')
   }
   # method.comp
   method.comp <- match.arg(method.comp, c("lsd", "tukey", "none"),
@@ -233,12 +233,12 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
       print(treatmentorder)
       stop(paste('"checks" are not replicated across all the blocks (',
-                 nblocks, ')', sep = ""))
+                 nblocks, ').', sep = ""))
     }
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
     if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
-      warning("Test treatments are replicated")
+      warning("Test treatments are replicated.")
     }
 
     nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
@@ -267,7 +267,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       print(treatmentorder)
       stop(paste("Checks cannot be inferred as none of the treatments are",
                  "replicated across all the blocks (",
-                 nblocks, ")", sep = ""))
+                 nblocks, ").", sep = ""))
     }
 
     checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
@@ -275,7 +275,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
     if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
-      warning("Test treatments are replicated")
+      warning("Test treatments are replicated.")
     }
   }
 

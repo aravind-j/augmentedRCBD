@@ -85,12 +85,12 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
                                    check.col = "red") {
 
   if (!is(aug, "augmentedRCBD")) {
-    stop('"aug" is not of class "augmentedRCBD"')
+    stop('"aug" is not of class "augmentedRCBD".')
   }
 
   # check.col
   if (!all(iscolour(check.col))) {
-    stop('"check.col" specifies invalid colour(s)')
+    stop('"check.col" specifies invalid colour(s).')
   }
 
 
@@ -99,7 +99,7 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
 
   if (length(check.col) != 1) {
     if (length(check.col) != length(checks)) {
-      stop('"checks" and "check.col" are of unequal lengths')
+      stop('"checks" and "check.col" are of unequal lengths.')
     }
   }
 

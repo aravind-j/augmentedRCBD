@@ -94,7 +94,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                       file.type = c("word", "excel")){
 
   if (!is(aug.bulk, "augmentedRCBD.bulk")) {
-    stop('"aug.bulk" is not of class "augmentedRCBD.bulk"')
+    stop('"aug.bulk" is not of class "augmentedRCBD.bulk".')
   }
 
   file.type <- match.arg(file.type)
