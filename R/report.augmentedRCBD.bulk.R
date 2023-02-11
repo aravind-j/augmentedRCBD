@@ -161,6 +161,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                                     sep = "")], 3))
     }
 
+    anova_warn <- NULL
+    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                   unlist(aug.bulk$warnings$Model)))) {
+      anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
+                                                         aug.bulk$warnings$Model)],
+                           function(x) trimws(unlist(strsplit(x, "\n"))))
+      }
+
     # ANOVA, TA
     augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                               style = "heading 1")
@@ -205,6 +213,17 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_fpar(augreport,
                                value = fpar(ftext("ns", suppar),
                                             ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    if (!is.null(anova_warn)) {
+      for (i in seq_along(anova_warn)) {
+        augreport <- body_add_par(augreport,
+                                  value = paste("[", names(anova_warn)[i], "]",
+                                                sep = ""),
+                                  style = "Warning")
+        augreport <- body_add_par(augreport, value = anova_warn[i],
+                                  style = "Warning")
+      }
+    }
+
     # ANOVA, BA
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                               style = "heading 1")
@@ -249,6 +268,16 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_fpar(augreport,
                                value = fpar(ftext("ns", suppar),
                                             ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    if (!is.null(anova_warn)) {
+      for (i in seq_along(anova_warn)) {
+        augreport <- body_add_par(augreport,
+                                  value = paste("[", names(anova_warn)[i], "]",
+                                                sep = ""),
+                                  style = "Warning")
+        augreport <- body_add_par(augreport, value = anova_warn[i],
+                                  style = "Warning")
+      }
+    }
 
     # Std. error
     augreport <- body_add_par(augreport, value = "Standard Errors",
@@ -367,14 +396,10 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
         rm(src)
         if (!is.null(aug.bulk$warnings$`Freq. dist`[[traits[i]]])) {
-          wlist <- lapply(aug.bulk$warnings$`Freq. dist`[[traits[i]]],
-                          function(wtext) fpar(ftext(wtext),
-                                               fp_p = fp_par(padding.bottom = 2,
-                                                             word_style = "Warning")))
-
-          attributes(wlist) <- list(class = c("block_list", "block"))
-          augreport <- body_add_blocks(augreport, blocks = wlist)
-          rm(wlist)
+          fq_wlist <- wlist2blist(aug.bulk$warnings$`Freq. dist`[[traits[i]]],
+                                  fp_p = fp_par(padding.bottom = 2,
+                                                word_style = "Warning"))
+          augreport <- body_add_blocks(augreport, blocks = fq_wlist)
         }
 
       }
@@ -552,13 +577,10 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           augreport <- body_add_par(augreport,
                                     value = names(aug.bulk$warnings$Model)[i],
                                     style = "heading 4")
-          wlist <- lapply(aug.bulk$warnings$Model[[i]],
-                          function(wtext) fpar(ftext(wtext),
-                                               fp_p = fp_par(padding.bottom = 2,
-                                                             word_style = "Code")))
-
-          attributes(wlist) <- list(class = c("block_list", "block"))
-          augreport <- body_add_blocks(augreport, blocks = wlist)
+          wlist <- wlist2blist(aug.bulk$warnings$Model[[i]],
+                               fp_p = fp_par(padding.bottom = 2,
+                                             word_style = "Code"))
+           augreport <- body_add_blocks(augreport, blocks = wlist)
           rm(wlist)
         }
       }
@@ -571,12 +593,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           augreport <- body_add_par(augreport,
                                     value = names(aug.bulk$warnings$`Freq. dist`)[i],
                                     style = "heading 4")
-          wlist <- lapply(aug.bulk$warnings$`Freq. dist`[[i]],
-                          function(wtext) fpar(ftext(wtext),
-                                               fp_p = fp_par(padding.bottom = 2,
-                                                             word_style = "Code")))
-
-          attributes(wlist) <- list(class = c("block_list", "block"))
+          wlist <- wlist2blist(aug.bulk$warnings$`Freq. dist`[[i]],
+                               fp_p = fp_par(padding.bottom = 2,
+                                             word_style = "Code"))
           augreport <- body_add_blocks(augreport, blocks = wlist)
           rm(wlist)
         }
@@ -589,12 +608,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           augreport <- body_add_par(augreport,
                                     value = names(aug.bulk$warnings$GVA)[i],
                                     style = "heading 4")
-          wlist <- lapply(aug.bulk$warnings$GVA[[i]],
-                          function(wtext) fpar(ftext(wtext),
-                                               fp_p = fp_par(padding.bottom = 2,
-                                                             word_style = "Code")))
-
-          attributes(wlist) <- list(class = c("block_list", "block"))
+          wlist <- wlist2blist(aug.bulk$warnings$GVA,
+                               fp_p = fp_par(padding.bottom = 2,
+                                             word_style = "Code"))
           augreport <- body_add_blocks(augreport, blocks = wlist)
           rm(wlist)
         }
@@ -603,14 +619,10 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     augreport <- body_add_par(augreport, value = "Citation Info",
                               style = "heading 1")
-
     citout <- capture.output(citation("augmentedRCBD"))
-    citlist <- lapply(citout,
-                      function(ctext) fpar(ftext(ctext),
-                                           fp_p = fp_par(padding.bottom = 2,
-                                                         word_style = "Code")))
-
-    attributes(citlist) <- list(class = c("block_list", "block"))
+    citlist <- wlist2blist(citout,
+                           fp_p = fp_par(padding.bottom = 2,
+                                         word_style = "Code"))
     augreport <- body_add_blocks(augreport, blocks = citlist)
 
     print(augreport, target = target)
@@ -727,6 +739,16 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "Details", cols = 1,
                  widths = max(nchar(Details$Item)) + 5)
 
+    anova_warn <- NULL
+    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                   unlist(aug.bulk$warnings$Model)))) {
+      anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
+                                                         aug.bulk$warnings$Model)],
+                           function(x) trimws(unlist(strsplit(x, "\n"))))
+      anova_warn <- stack(anova_warn)
+      anova_warn <- anova_warn[, 2:1]
+    }
+
     # ANOVA, TA
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
     anovata <- anovata[, setdiff(colnames(anovata),
@@ -784,6 +806,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
               borders = "none")
     setColWidths(wb, sheet = "ANOVA, Treatment Adjusted", cols = 1,
                  widths = max(nchar(anovata$Source)) + 5)
+    if (!is.null(anova_warn)) {
+      writeData(wb, sheet = "ANOVA, Treatment Adjusted",
+                xy = c("A", 10), x = anova_warn, borders = "none")
+      addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+               style = createStyle(fontColour  = "#C00000"),
+               rows = (10 - 1 + nrow(anova_warn)), cols = 1,
+               stack = FALSE, gridExpand = TRUE)
+    }
 
     # ANOVA, BA
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
@@ -842,6 +872,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
               borders = "none")
     setColWidths(wb, sheet = "ANOVA, Block Adjusted", cols = 1,
                  widths = max(nchar(anovaba$Source)) + 5)
+    if (!is.null(anova_warn)) {
+      writeData(wb, sheet = "ANOVA, Treatment Adjusted",
+                xy = c("A", 11), x = anova_warn, borders = "none")
+      addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+               style = createStyle(fontColour  = "#C00000"),
+               rows = (11 - 1 + nrow(anova_warn)), cols = 1,
+               stack = FALSE, gridExpand = TRUE)
+    }
 
     # Std. Error
     SE <- aug.bulk$`Std. Errors`
@@ -1286,4 +1324,12 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
   message(paste("File created at", target))
 
+}
+
+
+wlist2blist <- function(wlist, fp_p = fp_par()) {
+  outlist <- lapply(wlist, function(wtext) fpar(ftext(wtext),
+                                                fp_p = fp_par()))
+  attributes(outlist) <- list(class = c("block_list", "block"))
+  return(outlist)
 }

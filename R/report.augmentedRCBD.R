@@ -169,6 +169,14 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                                       theme_alafoli(autofit(regulartable(dups))))
     }
 
+    anova_warn <- NULL
+    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                   aug$warnings))) {
+      anova_warn <- aug$warnings[!grepl(paste(c(wstring1, wstring2),
+                                              collapse = "|"),
+                                        aug$warnings)]
+    }
+
     # ANOVA, TA
     augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                               style = "heading 1")
@@ -201,6 +209,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     augreport <- body_add_fpar(augreport,
                                value = fpar(ftext("ns", suppar),
                                             ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    if (!is.null(anova_warn)) {
+      for (i in seq_along(anova_warn)) {
+        augreport <- body_add_par(augreport, value = anova_warn[i],
+                                  style = "Warning")
+      }
+    }
 
     # ANOVA, BA
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
@@ -234,6 +248,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     augreport <- body_add_fpar(augreport,
                                value = fpar(ftext("ns", suppar),
                                             ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    if (!is.null(anova_warn)) {
+      for (i in seq_along(anova_warn)) {
+        augreport <- body_add_par(augreport, value = anova_warn[i],
+                                  style = "Warning")
+      }
+    }
+
     # Std. Errors
     augreport <- body_add_par(augreport,
                               value = "Standard Errors and Critical Differences",
@@ -481,20 +502,12 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       }
     }
 
-    # augreport <- body_add_par(augreport,
-    #                           value = "################## The End ##################",
-    #                           style = "Center text")
-
     augreport <- body_add_par(augreport, value = "Citation Info",
                               style = "heading 1")
-
     citout <- capture.output(citation("augmentedRCBD"))
-    citlist <- lapply(citout,
-                      function(ctext) fpar(ftext(ctext),
-                                           fp_p = fp_par(padding.bottom = 2,
-                                                         word_style = "Code")))
-
-    attributes(citlist) <- list(class = c("block_list", "block"))
+    citlist <- wlist2blist(citout,
+                           fp_p = fp_par(padding.bottom = 2,
+                                         word_style = "Code"))
     augreport <- body_add_blocks(augreport, blocks = citlist)
 
     print(augreport, target = target)
@@ -604,6 +617,14 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     setColWidths(wb, sheet = "Details", cols = 1,
                  widths = max(nchar(Details$Item)) + 5)
 
+    anova_warn <- NULL
+    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
+                   aug$warnings))) {
+      anova_warn <- aug$warnings[!grepl(paste(c(wstring1, wstring2),
+                                              collapse = "|"),
+                                        aug$warnings)]
+    }
+
     # ANOVA, TA
     if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
       anovata <- aug$`ANOVA, Treatment Adjusted`
@@ -636,6 +657,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
               borders = "none")
     setColWidths(wb, sheet = "ANOVA, Treatment Adjusted", cols = 1,
                  widths = max(nchar(anovata$Source)) + 5)
+    if (!is.null(anova_warn)) {
+      writeData(wb, sheet = "ANOVA, Treatment Adjusted",
+                xy = c("A", 9), x = anova_warn, borders = "none")
+    }
 
     # ANOVA, BA
     if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
@@ -669,6 +694,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
               borders = "none")
     setColWidths(wb, sheet = "ANOVA, Block Adjusted", cols = 1,
                  widths = max(nchar(anovata$Source)) + 5)
+    if (!is.null(anova_warn)) {
+      writeData(wb, sheet = "ANOVA, Block Adjusted",
+                xy = c("A", 10), x = anova_warn, borders = "none")
+    }
 
     # Std. Errors
     se <- aug$`Std. Errors`
