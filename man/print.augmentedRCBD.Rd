@@ -15,8 +15,9 @@
 \code{print.augmentedRCBD} prints to console the summary of an object of
 class \code{augmentedRCBD} including the augmented design details, ANOVA
 (Treatment adjusted), ANOVA (Block adjusted), treatment means, coefficient of
-variation, overall adjusted mean, critical differences and standard errors. The treatment/genotype
-groups along with the grouping method are also printed if they were computed.
+variation, overall adjusted mean, critical differences and standard errors.
+The treatment/genotype groups along with the grouping method are also printed
+if they were computed.
 }
 \seealso{
 \code{\link[augmentedRCBD]{augmentedRCBD}}

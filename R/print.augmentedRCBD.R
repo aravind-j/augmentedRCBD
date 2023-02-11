@@ -20,8 +20,9 @@
 #' \code{print.augmentedRCBD} prints to console the summary of an object of
 #' class \code{augmentedRCBD} including the augmented design details, ANOVA
 #' (Treatment adjusted), ANOVA (Block adjusted), treatment means, coefficient of
-#' variation, overall adjusted mean, critical differences and standard errors. The treatment/genotype
-#' groups along with the grouping method are also printed if they were computed.
+#' variation, overall adjusted mean, critical differences and standard errors.
+#' The treatment/genotype groups along with the grouping method are also printed
+#' if they were computed.
 #'
 #' @param x An object of class \code{augmentedRCBD}.
 #' @param ... Unused
@@ -58,7 +59,7 @@ print.augmentedRCBD <- function(x, ...){
     rownames(dups) <- NULL
     warning("Following test treatments are replicated.", call. = FALSE,
             immediate. = TRUE)
-    print(dups)
+    print(dups, row.names = FALSE)
   }
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
@@ -96,7 +97,7 @@ print.augmentedRCBD <- function(x, ...){
   x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
     lapply(x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
            round.conditional, digits = round.digits)
-  print(x$Means)
+  print(x$Means, row.names = FALSE)
   cat("\n")
   if (any(grepl(wstring2, x$warnings))) {
     warning(x$warnings[grepl(wstring2, x$warnings)],
@@ -112,7 +113,7 @@ print.augmentedRCBD <- function(x, ...){
     x$Comparisons[, c("t.ratio", "p.value")] <-
       lapply(x$Comparisons[, c("t.ratio", "p.value")],
              round.conditional, digits = max(round.digits, 3))
-    print(x$Comparisons)
+    print(x$Comparisons, row.names = FALSE)
   }
   if (!is.null(x$Groups)) {
     cat("\nTreatment Groups\n")
@@ -121,6 +122,6 @@ print.augmentedRCBD <- function(x, ...){
     x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
       lapply(x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],
              round.conditional, digits = round.digits)
-    print(x$Groups)
+    print(x$Groups, row.names = FALSE)
   }
 }

@@ -64,7 +64,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
     rownames(dups) <- NULL
     warning("Following test treatments are replicated.", call. = FALSE,
             immediate. = TRUE)
-    print(dups)
+    print(dups, row.names = FALSE)
   }
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
@@ -92,7 +92,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat(paste(rep(" ", max(nchar(x$`ANOVA, Treatment Adjusted`$Source)) +
                   max(nchar(x$`ANOVA, Treatment Adjusted`$Df)) + 5),
             collapse = ""), "Mean.Sq\n")
-  print(x$`ANOVA, Treatment Adjusted`)
+  print(x$`ANOVA, Treatment Adjusted`, row.names = FALSE)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
                  x$warnings$Model))) {
@@ -126,7 +126,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat(paste(rep(" ", max(nchar(x$`ANOVA, Block Adjusted`$Source)) +
                   max(nchar(x$`ANOVA, Block Adjusted`$Df)) + 5),
             collapse = ""), "Mean.Sq\n")
-  print(x$`ANOVA, Block Adjusted`)
+  print(x$`ANOVA, Block Adjusted`, row.names = FALSE)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
                  x$warnings$Model))) {
@@ -137,24 +137,24 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
   x$CV$CV <- round.conditional(x$CV$CV, digits = round.digits)
-  print(x$CV)
+  print(x$CV, row.names = FALSE)
   cat("\n\nOverall Adjusted Mean\n")
   cat("=====================\n")
   x$`Overall adjusted mean`$Overall.adjusted.mean <-
     round.conditional(x$`Overall adjusted mean`$Overall.adjusted.mean,
                       digits = round.digits)
-  print(x$`Overall adjusted mean`)
+  print(x$`Overall adjusted mean`, row.names = FALSE)
   cat("\n\nStandard Errors\n")
   cat("===============\n")
   x$`Std. Errors`[, traits] <- lapply(x$`Std. Errors`[, traits, drop = FALSE],
                                       round.conditional, digits = round.digits)
-  print(x$`Std. Errors`)
+  print(x$`Std. Errors`, row.names = FALSE)
   cat("\n\nCritical Difference\n")
   cat("===================\n")
   cat(paste("alpha =", x$alpha, "\n"))
   x$CD[, traits] <- lapply(x$CD[, traits, drop = FALSE],
                            round.conditional, digits = round.digits)
-  print(x$CD)
+  print(x$CD, row.names = FALSE)
   cat("\n\nDescriptive Statistics\n")
   cat("======================\n")
   desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
@@ -169,7 +169,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   descols <- c("Trait", "Count", "Mean", "Std.Error",
                "Std.Deviation", "Min", "Max", "Skewness", "Skewness_sig",
                "Kurtosis", "Kurtosis_sig")
-  print(x$`Descriptive statistics`[, descols])
+  print(x$`Descriptive statistics`[, descols], row.names = FALSE)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
   cat("\n\nGenetic Variability Analysis\n")
   cat("============================\n")
@@ -206,7 +206,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
                          gwhltv)
       x$`Genetic variability analysis`$Trait <- new_trait
 
-      print(x$`Genetic variability analysis`)
+      print(x$`Genetic variability analysis`, row.names = FALSE)
       cat("\n")
 
       if (grepl(gwstring1, x$warnings$GVA)) {
@@ -222,7 +222,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
     }
 
   } else {
-    print(x$`Genetic variability analysis`)
+    print(x$`Genetic variability analysis`, row.names = FALSE)
   }
   cat("\n\nWarning Messages\n")
   cat("================\n")
@@ -242,7 +242,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("===============\n")
   x$Means[, traits] <- lapply(x$Means[, traits, drop = FALSE],
                               round.conditional, digits = round.digits)
-  print(x$Means)
+  print(x$Means, row.names = FALSE)
   if (any(grepl(wstring2, x$warnings))) {
     warn_wlist(x$warnings$Model[grepl(wstring2, x$warnings$Model)])
   }
