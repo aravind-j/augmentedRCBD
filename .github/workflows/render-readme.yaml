@@ -43,6 +43,16 @@ jobs:
           remotes::install_cran("devtools")
           remotes::install_cran("RCurl")
           remotes::install_cran("kableExtra")
+          remotes::install_cran("desc")
+        shell: Rscript {0}
+
+      - name: Update date field in DESCRIPTION
+        run: |
+          pkgdesc <- desc::desc()
+          if (is.na(pkgdesc$get("Date")) | pkgdesc$get("Date") != Sys.Date()) {
+            pkgdesc$set("Date", Sys.Date())
+            pkgdesc$write()
+          }
         shell: Rscript {0}
 
       - name: Render README.md using rmarkdown
