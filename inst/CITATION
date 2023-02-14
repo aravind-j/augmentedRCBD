@@ -1,13 +1,18 @@
-citHeader("To cite the R package 'augmentedRCBD' in publications use:")
 
 if(!exists("meta") || is.null(meta)) meta <- packageDescription("augmentedRCBD")
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
 if (!length(year)) {
- year <- format(packageDate("augmentedRCBD"), "%Y")
+  year <- format(packageDate("augmentedRCBD"), "%Y")
 }
 vers <- paste("R package version", meta$Version)
 
-citEntry(entry  = "Manual",
+hd <- "To cite the R package 'augmentedRCBD' in publications use:"
+ft <- paste("This free and open-source software implements academic",
+            "research by the authors and co-workers. If you use it, please support",
+            "the project by citing the package.", collapse = "\n")
+
+bibentry(header = hd,
+         bibtype = "Manual",
          title  = "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
          author = c(person(given = "J.", family = "Aravind",
                            email = "aravindj@nbpgr.ernet.in",
@@ -28,8 +33,5 @@ citEntry(entry  = "Manual",
            year, ").  augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. ",
            vers, ", ", "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD",
            ".", sep=""),
-         note = {c(paste(vers), "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD")})
-
-citFooter("This free and open-source software implements academic
-research by the authors and co-workers. If you use it, please support
-the project by citing the package.")
+         note = {c(paste(vers), "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD")},
+         footer = ft)
