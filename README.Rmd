@@ -156,7 +156,6 @@ kosdf2 <- kable_styling(kosdf, bootstrap_options = c("striped", "hover"),
               full_width = F, position = "left")
 
 # os_index <- c(6, 1, 3, 2)
-os_index <- c(6, 3, 4)
 os_index <- c(6, 3, 2)
 
 names(os_index) <- c(paste("[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)]",
