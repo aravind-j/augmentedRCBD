@@ -33,3 +33,5 @@
 ^\.xlsx$
 ^\.docx$
 ^RoughWork$
+^CITATION\.cff$
+^codemeta\.json$

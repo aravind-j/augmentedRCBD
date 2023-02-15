@@ -1,0 +1,74 @@
+# -----------------------------------------------------------
+# CITATION file created with {cffr} R package, v0.4.1
+# See also: https://docs.ropensci.org/cffr/
+# -----------------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "augmentedRCBD" in publications use:'
+type: software
+license:
+- GPL-2.0-only
+- GPL-3.0-only
+title: 'augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs'
+version: 0.1.5.9000
+abstract: Functions for analysis of data generated from experiments in augmented randomised
+  complete block design according to Federer, W.T. (1961) <doi:10.2307/2527837>. Computes
+  analysis of variance, adjusted means, descriptive statistics, genetic variability
+  statistics etc. Further includes data visualization and report generation functions.
+authors:
+- family-names: Aravind
+  given-names: J.
+  email: j.aravind@icar.gov.in
+  orcid: https://orcid.org/0000-0002-4791-442X
+- family-names: Mukesh Sankar
+  given-names: S.
+  email: mukeshsankar@gmail.com
+- family-names: Wankhede
+  given-names: Dhammaprakash Pandhari
+  email: d.wankhede@icar.gov.in
+  orcid: https://orcid.org/0000-0001-6384-8664
+- family-names: Kaur
+  given-names: Vikender
+  email: vikender.kaur@icar.gov.in
+preferred-citation:
+  type: manual
+  title: 'augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs'
+  authors:
+  - family-names: Aravind
+    given-names: J.
+    email: aravindj@nbpgr.ernet.in
+    orcid: https://orcid.org/0000-0002-4791-442X
+  - family-names: Mukesh Sankar
+    given-names: S.
+    email: mukeshsankar@gmail.com
+  - family-names: Wankhede
+    given-names: Dhammaprakash Pandhari
+    email: d.wankhede@icar.gov.in
+    orcid: https://orcid.org/0000-0001-6384-8664
+  - family-names: Kaur
+    given-names: Vikender
+    email: vikender.kaur@icar.gov.in
+  year: '2023'
+  notes:
+  - R package version 0.1.5.9000
+  - https://aravind-j.github.io/augmentedRCBD/
+  - https://cran.r-project.org/package=augmentedRCBD
+repository: https://CRAN.R-project.org/package=augmentedRCBD
+repository-code: https://github.com/aravind-j/augmentedRCBD
+url: https://CRAN.R-project.org/package=augmentedRCBD
+date-released: '2023-02-11'
+contact:
+- family-names: Aravind
+  given-names: J.
+  email: j.aravind@icar.gov.in
+  orcid: https://orcid.org/0000-0002-4791-442X
+keywords:
+- augmented-block
+- augmented-design
+- augmented-rcbd
+- r
+identifiers:
+- type: url
+  value: https://aravind-j.github.io/augmentedRCBD/
+- type: url
+  value: https://doi.org/10.5281/zenodo.1310011
