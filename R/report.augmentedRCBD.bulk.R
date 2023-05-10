@@ -175,7 +175,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
     anovata <- anovata[, setdiff(colnames(anovata),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
+    # colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
     anovata[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
@@ -230,7 +230,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
     anovaba <- anovaba[, setdiff(colnames(anovaba),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
+    # colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
     anovaba[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
@@ -283,7 +283,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "Standard Errors",
                               style = "heading 1")
     SE <- aug.bulk$`Std. Errors`
-    colnames(SE) <- make.names(colnames(SE), unique = TRUE)
+    # colnames(SE) <- make.names(colnames(SE), unique = TRUE)
     SE[, traits] <- lapply(SE[, traits, drop = FALSE],
            round.conditional, digits = round.digits)
     SE <- autofit(flextable(SE))
@@ -298,7 +298,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                             sep = ""),
                               style = "heading 1")
     CD <- aug.bulk$CD
-    colnames(CD) <- make.names(colnames(CD), unique = TRUE)
+    # colnames(CD) <- make.names(colnames(CD), unique = TRUE)
     CD[, traits] <- lapply(CD[, traits, drop = FALSE],
                  round.conditional, digits = round.digits)
     CD <- autofit(flextable(CD))
@@ -425,13 +425,13 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           new_trait <- GVA$Trait
           gwhltv <- rep("", length(new_trait))
 
-          if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+          if (any(grepl(gwstring1, aug.bulk$warnings$GVA))) {
             gwhlt1 <- names(sapply(aug.bulk$warnings$GVA,
                                    function(gvaw) any(grepl(gwstring1, gvaw))))
             gwhltv[which(new_trait %in% gwhlt1)] <-
               paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
           }
-          if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+          if (any(grepl(gwstring2, aug.bulk$warnings$GVA))) {
             gwhlt2 <- names(sapply(aug.bulk$warnings$GVA,
                                    function(gvaw) any(grepl(gwstring2, gvaw))))
             gwhltv[which(new_trait %in% gwhlt2)] <-
@@ -457,7 +457,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       augreport <- body_add_flextable(augreport, GVA)
 
       if (!is.null(aug.bulk$warnings$GVA)) {
-        if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+        if (any(grepl(gwstring1, aug.bulk$warnings$GVA))) {
           augreport <-
             body_add_par(augreport,
                          value = paste(c("\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
@@ -465,7 +465,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                        collapse = ""),
                          style = "Warning")
         }
-        if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+        if (any(grepl(gwstring2, aug.bulk$warnings$GVA))) {
           augreport <-
             body_add_par(augreport,
                          value = paste(c("\u2021 Negative GV detected. ",
@@ -526,7 +526,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "Adjusted Means",
                               style = "heading 1")
     adj.means <- aug.bulk$Means
-    colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
+    # colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
     adj.means[, traits] <- sapply(adj.means[, traits], round.conditional,
                                   digits = round.digits)
     if (any(grepl(wstring2, aug.bulk$warnings))) {
@@ -753,7 +753,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
     anovata <- anovata[, setdiff(colnames(anovata),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
+    # colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
     anovata_sig <- anovata[, c("Source", "Df",
                                paste(traits, "_sig", sep = ""))]
     colnames(anovata_sig) <- gsub("_sig", "", colnames(anovata_sig))
@@ -819,7 +819,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
     anovaba <- anovaba[, setdiff(colnames(anovaba),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
+    # colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
     anovaba_sig <- anovaba[, c("Source", "Df",
                                paste(traits, "_sig", sep = ""))]
     colnames(anovaba_sig) <- gsub("_sig", "", colnames(anovaba_sig))
@@ -884,7 +884,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # Std. Error
     SE <- aug.bulk$`Std. Errors`
     SE[, traits] <- sapply(SE[, traits], as.numeric)
-    colnames(SE) <- make.names(colnames(SE), unique = TRUE)
+    # colnames(SE) <- make.names(colnames(SE), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Standard Errors", gridLines = FALSE)
     writeDataTable(wb, sheet = "Standard Errors", x = SE,
@@ -903,7 +903,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # CD
     CD <- aug.bulk$CD
     CD[, traits] <- sapply(CD[, traits], as.numeric)
-    colnames(CD) <- make.names(colnames(CD), unique = TRUE)
+    # colnames(CD) <- make.names(colnames(CD), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Critical Difference", gridLines = FALSE)
     writeDataTable(wb, sheet = "Critical Difference", x = CD,
@@ -922,7 +922,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # CV
     CV <- aug.bulk$CV
     CV$CV <- as.numeric(CV$CV)
-    colnames(CV) <- make.names(colnames(CV), unique = TRUE)
+    # colnames(CV) <- make.names(colnames(CV), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Coefficient of Variance", gridLines = FALSE)
     writeDataTable(wb, sheet = "Coefficient of Variance", x = CV,
@@ -941,7 +941,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # Overall adj. mean
     oadjmean <- aug.bulk$`Overall adjusted mean`
     oadjmean$Overall.adjusted.mean <- as.numeric(oadjmean$Overall.adjusted.mean)
-    colnames(oadjmean) <- make.names(colnames(oadjmean), unique = TRUE)
+    # colnames(oadjmean) <- make.names(colnames(oadjmean), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Overall Adjusted Mean", gridLines = FALSE)
     writeDataTable(wb, sheet = "Overall Adjusted Mean", x = oadjmean,
@@ -1103,13 +1103,13 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           new_trait <- GVA$Trait
           gwhltv <- rep("", length(new_trait))
 
-          if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+          if (any(grepl(gwstring1, aug.bulk$warnings$GVA))) {
             gwhlt1 <- names(sapply(aug.bulk$warnings$GVA,
                                    function(gvaw) any(grepl(gwstring1, gvaw))))
             gwhltv[which(new_trait %in% gwhlt1)] <-
               paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
           }
-          if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+          if (any(grepl(gwstring2, aug.bulk$warnings$GVA))) {
             gwhlt2 <- names(sapply(aug.bulk$warnings$GVA,
                                    function(gvaw) any(grepl(gwstring2, gvaw))))
             gwhltv[which(new_trait %in% gwhlt2)] <-
@@ -1144,7 +1144,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
       if (!is.null(aug.bulk$warnings$GVA)) {
         row1 <- nrow(GVA) + 2
-        if (grepl(gwstring1, aug.bulk$warnings$GVA)) {
+        if (any(grepl(gwstring1, aug.bulk$warnings$GVA))) {
           writeData(wb, sheet = "Genetic Variability Analysis",
                     x = paste(c("\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
                                 "Genetic variability analysis may not be appropriate for this trait."),
@@ -1155,7 +1155,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
           row1 <- row1 + 1
         }
-        if (grepl(gwstring2, aug.bulk$warnings$GVA)) {
+        if (any(grepl(gwstring2, aug.bulk$warnings$GVA))) {
           writeData(wb, sheet = "Genetic Variability Analysis",
                     x = paste(c("\u2021 Negative GV detected. ",
                                 "GCV, GCV category, hBS, hBS category, GA, GAM and GAM category could not be computed."),
@@ -1216,7 +1216,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     # Adjusted Means
     adj.means <- aug.bulk$Means
-    colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
+    # colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Adjusted Means", gridLines = FALSE)
     writeDataTable(wb, sheet = "Adjusted Means", x = adj.means,

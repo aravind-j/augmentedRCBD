@@ -187,13 +187,13 @@ print.augmentedRCBD.bulk <- function(x, ...){
       new_trait <- x$`Genetic variability analysis`$Trait
       gwhltv <- rep("", length(new_trait))
 
-      if (grepl(gwstring1, x$warnings$GVA)) {
+      if (any(grepl(gwstring1, x$warnings$GVA))) {
         gwhlt1 <- names(sapply(x$warnings$GVA,
                                function(gvaw) any(grepl(gwstring1, gvaw))))
         gwhltv[which(new_trait %in% gwhlt1)] <-
           paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
       }
-      if (grepl(gwstring2, x$warnings$GVA)) {
+      if (any(grepl(gwstring2, x$warnings$GVA))) {
         gwhlt2 <- names(sapply(x$warnings$GVA,
                                function(gvaw) any(grepl(gwstring2, gvaw))))
         gwhltv[which(new_trait %in% gwhlt2)] <-
@@ -209,12 +209,12 @@ print.augmentedRCBD.bulk <- function(x, ...){
       print(x$`Genetic variability analysis`, row.names = FALSE)
       cat("\n")
 
-      if (grepl(gwstring1, x$warnings$GVA)) {
+      if (any(grepl(gwstring1, x$warnings$GVA))) {
         warning("\n\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
             "Genetic variability analysis may not be appropriate for this trait.\n",
             call. = FALSE, immediate. = TRUE)
       }
-      if (grepl(gwstring1, x$warnings$GVA)) {
+      if (any(grepl(gwstring1, x$warnings$GVA))) {
         warning("\n\u2021 Negative GV detected.",
             "\n GCV, GCV category, hBS, hBS category, GA, GAM and\n GAM category could not be computed.",
             call. = FALSE, immediate. = TRUE)

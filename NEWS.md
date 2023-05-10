@@ -4,7 +4,8 @@
 * `augmentedRCBD` - Fixed ignoring of `group = TRUE` when `truncate.means` is `TRUE`. Added warnings to output.
 * `augmentedRCBD.bulk` - Fixed issue with using only a single trait. Converted rounded outputs to raw ones. Added `k` argument.
 * `report.augmentedRCBD` - Added missing headers in word file. Added excel report. Added global option for rounding. Added `k` and `check.col` arguments.
-* `report.augmentedRCBD.bulk` - Fixed issue (#11) with `cli` colour being captured in warning message output leading to error in creation of word file. Added excel report. Added global option for rounding. 
+* `report.augmentedRCBD.bulk` - Fixed issue (#11) with `cli` colour being captured in warning message output leading to error in creation of word file. Added excel report. Added global option for rounding. Fixed issue (#14) with same warning in multiple traits generating error(s).
+* `print.augmentedRCBD.bulk`- Fixed issue (#14) with same warning in multiple traits generating error(s).
 
 ## VIGNETTE:
 * Fixed fetching CRAN page for version history to fail gracefully when access is down.
