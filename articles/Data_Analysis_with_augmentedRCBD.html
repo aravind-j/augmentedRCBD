@@ -107,15 +107,18 @@
 
       
 
-      </header><script src="Data_Analysis_with_augmentedRCBD_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Data Analysis with <code>augmentedRCBD</code>
+      <h1 data-toc-skip>Data Analysis with
+<code>augmentedRCBD</code>
 </h1>
-                        <h4 data-toc-skip class="author">Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
+                        <h4 data-toc-skip class="author">Aravind,
+J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D.
+P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 data-toc-skip class="date">2023-05-12</h4>
+            <h4 data-toc-skip class="date">2023-05-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/vignettes/Data_Analysis_with_augmentedRCBD.Rmd" class="external-link"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -127,46 +130,71 @@
 <p>
 </p>
 <ol style="list-style-type: decimal">
-<li>Division of Germplasm Conservation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.
+<li>Division of Germplasm Conservation, ICAR-National Bureau of Plant
+Genetic Resources, New Delhi.
 </li>
 </ol>
 <p>
 </p>
 <ol start="2" style="list-style-type: decimal">
-<li>Division of Genetics, ICAR-Indian Agricultural Research Institute, New Delhi.
+<li>Division of Genetics, ICAR-Indian Agricultural Research Institute,
+New Delhi.
 </li>
 </ol>
 <p>
 </p>
 <ol start="3" style="list-style-type: decimal">
-<li>Division of Genomic Resources, ICAR-National Bureau of Plant Genetic Resources, New Delhi.
+<li>Division of Genomic Resources, ICAR-National Bureau of Plant Genetic
+Resources, New Delhi.
 </li>
 </ol>
 <p>
 </p>
 <ol start="4" style="list-style-type: decimal">
-<li>Division of Germplasm Evaluation, ICAR-National Bureau of Plant Genetic Resources, New Delhi.
+<li>Division of Germplasm Evaluation, ICAR-National Bureau of Plant
+Genetic Resources, New Delhi.
 </li>
 </ol>
 <p><img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height="200" style="padding: 10px; border: none; float: right;"></p>
 <div class="section level2">
 <h2 id="overview">1 Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)" class="external-link"><code>R</code> statistical programming language</a> as an add-on (or ‘package’ in the <code>R</code> <em>lingua franca</em>). It performs the analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956</a><a href="#ref-federer_augmented_1956" role="doc-biblioref">a</a>, <a href="#ref-federer_augmented_1956-1" role="doc-biblioref">1956</a><a href="#ref-federer_augmented_1956-1" role="doc-biblioref">b</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>. It also computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. and includes options for data visualization and report generation.</p>
-<p>This tutorial aims to educate the users in utilising this package for performing such analysis. Utilising <code>augmentedRCBD</code> for data analysis requires a basic knowledge of <code>R</code> programming language. However, as many of the intended end-users may not be familiar with <code>R</code>, <a href="#rsoft">sections 2 to 4</a> give a ‘gentle’ introduction to <code>R</code>, especially those aspects which are necessary to get <code>augmentedRCBD</code> up and running for performing data analysis in a Windows environment. Users already familiar with <code>R</code> can feel free to skip to <a href="#install">section 5</a>.</p>
-
+<p>The software <code>augmentedRCBD</code> is built on the <a href="https://en.wikipedia.org/wiki/R_(programming_language)" class="external-link"><code>R</code>
+statistical programming language</a> as an add-on (or ‘package’ in the
+<code>R</code> <em>lingua franca</em>). It performs the analysis of data
+generated from experiments in augmented randomised complete block design
+according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956a</a>, <a href="#ref-federer_augmented_1956-1" role="doc-biblioref">1956b</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>. It also computes analysis of
+variance, adjusted means, descriptive statistics, genetic variability
+statistics etc. and includes options for data visualization and report
+generation.</p>
+<p>This tutorial aims to educate the users in utilising this package for
+performing such analysis. Utilising <code>augmentedRCBD</code> for data
+analysis requires a basic knowledge of <code>R</code> programming
+language. However, as many of the intended end-users may not be familiar
+with <code>R</code>, <a href="#rsoft">sections 2 to 4</a> give a
+‘gentle’ introduction to <code>R</code>, especially those aspects which
+are necessary to get <code>augmentedRCBD</code> up and running for
+performing data analysis in a Windows environment. Users already
+familiar with <code>R</code> can feel free to skip to <a href="#install">section 5</a>.</p>
 <p><img src="https://www.r-project.org/logo/Rlogo.png" align="right" alt="logo" width="173" height="134" style="padding: 10px; border: none; float: right;"></p>
 </div>
 <div class="section level2">
 <h2 id="rsoft">2 <code>R</code> software<a class="anchor" aria-label="anchor" href="#rsoft"></a>
 </h2>
-<p>It is a free software environment for statistical computing and graphics. It is free and open source, platform independent (works on Linux, Windows or MacOS), very flexible, comprehensive with robust interfaces for all the popular programming languages as well as databases. It is strengthened by its diverse library of add-on packages extending its ability as well as the incredible community support. It is one of the most popular tools being used in academia today <span class="citation">(Tippmann, <a href="#ref-tippmann_programming_2015" role="doc-biblioref">2015</a>)</span>.</p>
-
+<p>It is a free software environment for statistical computing and
+graphics. It is free and open source, platform independent (works on
+Linux, Windows or MacOS), very flexible, comprehensive with robust
+interfaces for all the popular programming languages as well as
+databases. It is strengthened by its diverse library of add-on packages
+extending its ability as well as the incredible community support. It is
+one of the most popular tools being used in academia today <span class="citation">(<a href="#ref-tippmann_programming_2015" role="doc-biblioref">Tippmann, 2015</a>)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="getting-started">3 Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>This section details the steps required to set up the <code>R</code> programming environment under a third-party interface called <code>RStudio</code> in Windows.</p>
+<p>This section details the steps required to set up the <code>R</code>
+programming environment under a third-party interface called
+<code>RStudio</code> in Windows.</p>
 <div class="section level3">
 <h3 id="installing-r">3.1 Installing <code>R</code><a class="anchor" aria-label="anchor" href="#installing-r"></a>
 </h3>
@@ -179,7 +207,10 @@
 <div class="section level3">
 <h3 id="installing-rstudio">3.2 Installing <code>RStudio</code><a class="anchor" aria-label="anchor" href="#installing-rstudio"></a>
 </h3>
-<p>The basic <a href="https://en.wikipedia.org/wiki/Command_line_interface" class="external-link">command line interface</a> in native <code>R</code> is rather limiting. There are several interfaces which enhance it’s functionality and ease of use, <a href="https://www.rstudio.com/" class="external-link"><code>RStudio</code></a> being one of the most popular among <code>R</code> programmers.</p>
+<p>The basic <a href="https://en.wikipedia.org/wiki/Command_line_interface" class="external-link">command line
+interface</a> in native <code>R</code> is rather limiting. There are
+several interfaces which enhance it’s functionality and ease of use, <a href="https://www.rstudio.com/" class="external-link"><code>RStudio</code></a> being one of
+the most popular among <code>R</code> programmers.</p>
 <p>Download and install <code>RStudio</code> for Windows from <a href="https://www.rstudio.com/products/rstudio/download/#download" class="external-link uri">https://www.rstudio.com/products/rstudio/download/#download</a></p>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/rstudio.png" align="center" alt="The `RStudio` download location."></p>
 <p style="text-align: left;">
@@ -189,16 +220,21 @@
 <div class="section level3">
 <h3 id="the-rstudio-interface">3.3 The <code>RStudio</code> Interface<a class="anchor" aria-label="anchor" href="#the-rstudio-interface"></a>
 </h3>
-<p>On opening <code>RStudio</code>, the default interface with four panes/windows is visible as follows. Few panes have different tabs.</p>
+<p>On opening <code>RStudio</code>, the default interface with four
+panes/windows is visible as follows. Few panes have different tabs.</p>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/rstudio%20panes.png" align="center" alt="The default `RStudio` interface with the four panes."></p>
 <p style="text-align: left;">
-<strong>Fig. 3</strong>: The default <code>RStudio</code> interface with the four panes.
+<strong>Fig. 3</strong>: The default <code>RStudio</code> interface with
+the four panes.
 </p>
 <div class="section level4">
 <h4 id="console">3.3.1 Console<a class="anchor" aria-label="anchor" href="#console"></a>
 </h4>
-<p>This is where the action happens. Here any authentic <code>R</code> code typed after the ‘<code>&gt;</code>’ prompt will be executed after pressing ‘Enter’ to generate the output.</p>
-<p>For example, type <code>1+1</code> in the console and press ‘Enter’.</p>
+<p>This is where the action happens. Here any authentic <code>R</code>
+code typed after the ‘<code>&gt;</code>’ prompt will be executed after
+pressing ‘Enter’ to generate the output.</p>
+<p>For example, type <code>1+1</code> in the console and press
+‘Enter’.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span><span class="op">+</span><span class="fl">1</span></span></code></pre></div>
 <pre><code>[1] 2</code></pre>
@@ -206,33 +242,58 @@
 <div class="section level4">
 <h4 id="source">3.3.2 Source<a class="anchor" aria-label="anchor" href="#source"></a>
 </h4>
-<p>This is where <code>R</code> Scripts (collection of code) can be created and edited. <code>R</code> scripts are text files with a <code>.R</code> extension. <code>R</code> Code for analysis can be typed and saved in such <code>R</code> scripts. New scripts can be opened by clicking ‘File|New File’ and selecting ‘R Script’. Code can be selected from <code>R</code> Scripts and sent to console for evaluation by clicking ‘Run’ on the ‘Source’ pane or by pressing ‘Ctrl + Enter’.</p>
+<p>This is where <code>R</code> Scripts (collection of code) can be
+created and edited. <code>R</code> scripts are text files with a
+<code>.R</code> extension. <code>R</code> Code for analysis can be typed
+and saved in such <code>R</code> scripts. New scripts can be opened by
+clicking ‘File|New File’ and selecting ‘R Script’. Code can be selected
+from <code>R</code> Scripts and sent to console for evaluation by
+clicking ‘Run’ on the ‘Source’ pane or by pressing ‘Ctrl + Enter’.</p>
 </div>
 <div class="section level4">
 <h4 id="environmenthistoryconnections">3.3.3 Environment|History|Connections<a class="anchor" aria-label="anchor" href="#environmenthistoryconnections"></a>
 </h4>
-<p>The ‘Environment’ tab shows the list of all the ‘objects’ (see <a href="#ObjFun">section 4.3</a>) defined in the current <code>R</code> session. It has also some buttons up top to open, save and clear the environment as well as few options for import of data under <code>Import Dataset</code>.</p>
-<p>The ‘History’ tab shows a history of all the code that was previously evaluated. This is useful, if you want to go back to some code.</p>
-<p>The ‘Connections’ tab helps to establish and manage connections with different databases and data sources.</p>
+<p>The ‘Environment’ tab shows the list of all the ‘objects’ (see <a href="#ObjFun">section 4.3</a>) defined in the current <code>R</code>
+session. It has also some buttons up top to open, save and clear the
+environment as well as few options for import of data under
+<code>Import Dataset</code>.</p>
+<p>The ‘History’ tab shows a history of all the code that was previously
+evaluated. This is useful, if you want to go back to some code.</p>
+<p>The ‘Connections’ tab helps to establish and manage connections with
+different databases and data sources.</p>
 </div>
 <div class="section level4">
 <h4 id="filesplotspackageshelpviewer">3.3.4 Files|Plots|Packages|Help|Viewer<a class="anchor" aria-label="anchor" href="#filesplotspackageshelpviewer"></a>
 </h4>
-<p>The ‘Files’ tab shows a sleek file browser to access the file directory in the computer with options to manage the working directory (see <a href="#wdir">section 4.1</a>) under the More button.</p>
-<p>The ‘Plots’ tab shows all the plots generated in <code>R</code> with buttons to delete unnecessary ones and export useful ones as a pdf file or as an image file.</p>
-<p>The ‘Packages’ tab shows a list of all the <code>R</code> add-on packages installed. The check box on the left shows whether they are loaded or not. There are also buttons to install and update <code>R</code> packages.</p>
-<p>The ‘Viewer’ tab shows any web content output generated by an <code>R</code> code.</p>
+<p>The ‘Files’ tab shows a sleek file browser to access the file
+directory in the computer with options to manage the working directory
+(see <a href="#wdir">section 4.1</a>) under the More button.</p>
+<p>The ‘Plots’ tab shows all the plots generated in <code>R</code> with
+buttons to delete unnecessary ones and export useful ones as a pdf file
+or as an image file.</p>
+<p>The ‘Packages’ tab shows a list of all the <code>R</code> add-on
+packages installed. The check box on the left shows whether they are
+loaded or not. There are also buttons to install and update
+<code>R</code> packages.</p>
+<p>The ‘Viewer’ tab shows any web content output generated by an
+<code>R</code> code.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="some-basics">4 Some Basics<a class="anchor" aria-label="anchor" href="#some-basics"></a>
 </h2>
-<p>This section describes some basics to enable the users to have a working knowledge in <code>R</code> in order to use <code>augmentedRCBD</code>.</p>
+<p>This section describes some basics to enable the users to have a
+working knowledge in <code>R</code> in order to use
+<code>augmentedRCBD</code>.</p>
 <div class="section level3">
 <h3 id="wdir">4.1 Working Directory<a class="anchor" aria-label="anchor" href="#wdir"></a>
 </h3>
-<p>It is a file path to a folder on the computer which is recognised by <code>R</code> as the default location to read files from or write files to. The code <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> shows the current working directory, while <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> can be used to change the existing working directory.</p>
+<p>It is a file path to a folder on the computer which is recognised by
+<code>R</code> as the default location to read files from or write files
+to. The code <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code> shows the current working directory,
+while <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd()</a></code> can be used to change the existing working
+directory.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print current working directory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -242,12 +303,19 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"C:/Data Analysis/"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "C:/Data Analysis/"</code></pre>
-<p>One key detail is that file paths in <code>R</code> uses forward slashes (<code>/</code>) as in MacOS or Linux, unlike backward slashes (<code>\</code>) in Windows. This needs to be considered while copying paths from default Windows file explorer.</p>
+<p>One key detail is that file paths in <code>R</code> uses forward
+slashes (<code>/</code>) as in MacOS or Linux, unlike backward slashes
+(<code>\</code>) in Windows. This needs to be considered while copying
+paths from default Windows file explorer.</p>
 </div>
 <div class="section level3">
 <h3 id="expression-and-assignment">4.2 Expression and Assignment<a class="anchor" aria-label="anchor" href="#expression-and-assignment"></a>
 </h3>
-<p>Expressions are instructions in the form of code to be entered after the <code>&gt;</code> prompt in the console. Expressions can be a constant, an arithmetic or a condition. A more advanced and most useful expression is a function call (see <a href="#ObjFun">section 4.3</a>).</p>
+<p>Expressions are instructions in the form of code to be entered after
+the <code>&gt;</code> prompt in the console. Expressions can be a
+constant, an arithmetic or a condition. A more advanced and most useful
+expression is a function call (see <a href="#ObjFun">section
+4.3</a>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Constant</span></span>
 <span><span class="fl">123</span></span></code></pre></div>
@@ -267,23 +335,39 @@
 <code class="sourceCode R"><span><span class="co"># Function call (mean of a series of numbers)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>,<span class="fl">56</span>,<span class="fl">89</span>,<span class="fl">35</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 51.25</code></pre>
-<p>Information from an expression can be stored as an ‘object’ (see <a href="#ObjFun">section 4.3</a>) by assigning a name using the operator ‘<code>&lt;-</code>’.</p>
+<p>Information from an expression can be stored as an ‘object’ (see <a href="#ObjFun">section 4.3</a>) by assigning a name using the operator
+‘<code>&lt;-</code>’.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assign the result of the expression 1 + 2 to an object 'a'</span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></span>
 <span><span class="va">a</span></span></code></pre></div>
 <pre><code>[1] 3</code></pre>
-<p>It is recommended to add comments to explain the code by using the ‘<code>#</code>’ sign. Any code after the ‘<code>#</code>’ sign will be ignored by <code>R</code>.</p>
+<p>It is recommended to add comments to explain the code by using the
+‘<code>#</code>’ sign. Any code after the ‘<code>#</code>’ sign will be
+ignored by <code>R</code>.</p>
 </div>
 <div class="section level3">
 <h3 id="ObjFun">4.3 Objects and Functions<a class="anchor" aria-label="anchor" href="#ObjFun"></a>
 </h3>
-<p><code>R</code> is an object-oriented programming language (OOP). Any kind or construct created in <code>R</code> is an ‘object’. Each object has a ‘class’ (shown using the <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code> function) and different ‘attributes’ which defines what operations can be done on that object. There are different types of data structure objects in <code>R</code> such as vectors, matrices, factors, data frames, and lists. A ‘function’ is also an object, which defines a procedure or a sequence of expressions.</p>
+<p><code>R</code> is an object-oriented programming language (OOP). Any
+kind or construct created in <code>R</code> is an ‘object’. Each object
+has a ‘class’ (shown using the <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code> function) and
+different ‘attributes’ which defines what operations can be done on that
+object. There are different types of data structure objects in
+<code>R</code> such as vectors, matrices, factors, data frames, and
+lists. A ‘function’ is also an object, which defines a procedure or a
+sequence of expressions.</p>
 <div class="section level4">
 <h4 id="vector">4.3.1 Vector<a class="anchor" aria-label="anchor" href="#vector"></a>
 </h4>
-<p>A vector is a collection of elements of a single type (or ‘mode’). The common vector modes are ‘numeric’, ‘integer’, ‘character’ and ‘logical’. The <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> function is used to create vectors. The functions <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>, <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> and <code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code> show the attributes of vectors.</p>
-<p>Vector modes ‘numeric’ stores real numbers, while ‘integer’ stores integers, which can be enforced by suffixing elements with ‘<code>L</code>’.</p>
+<p>A vector is a collection of elements of a single type (or ‘mode’).
+The common vector modes are ‘numeric’, ‘integer’, ‘character’ and
+‘logical’. The <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> function is used to create vectors. The
+functions <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>, <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> and
+<code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code> show the attributes of vectors.</p>
+<p>Vector modes ‘numeric’ stores real numbers, while ‘integer’ stores
+integers, which can be enforced by suffixing elements with
+‘<code>L</code>’.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A numeric vector</span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span><span class="op">)</span></span>
@@ -318,7 +402,8 @@
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 3</code></pre>
-<p>The vector mode ‘logical’ stores ‘<code>TRUE</code>’ OR ‘<code>FALSE</code>’ logical data.</p>
+<p>The vector mode ‘logical’ stores ‘<code>TRUE</code>’ OR
+‘<code>FALSE</code>’ logical data.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#logical vector</span></span>
 <span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span><span class="op">)</span></span>
@@ -334,7 +419,8 @@
 <div class="section level4">
 <h4 id="factor">4.3.2 Factor<a class="anchor" aria-label="anchor" href="#factor"></a>
 </h4>
-<p>A ‘factor’ in <code>R</code> stores data from categorical data in variables as different levels.</p>
+<p>A ‘factor’ in <code>R</code> stores data from categorical data in
+variables as different levels.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">catg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"male"</span>,<span class="st">"female"</span>,<span class="st">"female"</span>,<span class="st">"male"</span>,<span class="st">"male"</span><span class="op">)</span></span>
 <span><span class="va">catg</span></span></code></pre></div>
@@ -358,7 +444,8 @@ Levels: female male</code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">factor_catg</span><span class="op">)</span></span></code></pre></div>
 <pre><code> Factor w/ 2 levels "female","male": 2 1 1 2 2</code></pre>
-<p>A character, numeric or integer vector can be transformed to a factor by using the <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor()</a></code> function.</p>
+<p>A character, numeric or integer vector can be transformed to a factor
+by using the <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor()</a></code> function.</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Conversion of numeric to factor</span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span><span class="op">)</span></span>
@@ -408,7 +495,8 @@ Levels: female male</code></pre>
 <div class="section level4">
 <h4 id="matrix">4.3.3 Matrix<a class="anchor" aria-label="anchor" href="#matrix"></a>
 </h4>
-<p>A ‘matrix’ in <code>R</code> is a vector with the attributes ‘<code>nrow</code>’ and ‘<code>ncol</code>’.</p>
+<p>A ‘matrix’ in <code>R</code> is a vector with the attributes
+‘<code>nrow</code>’ and ‘<code>ncol</code>’.</p>
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate 5 * 4 numeric matrix</span></span>
 <span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">5</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
@@ -433,7 +521,10 @@ Levels: female male</code></pre>
 <div class="section level4">
 <h4 id="list">4.3.4 List<a class="anchor" aria-label="anchor" href="#list"></a>
 </h4>
-<p>A ‘list’ is a container containing different objects. The contents of list need not be of the same type or mode. A list can encompass a mixture of data types such as vectors, matrices, data frames, other lists or any other data structure.</p>
+<p>A ‘list’ is a container containing different objects. The contents of
+list need not be of the same type or mode. A list can encompass a
+mixture of data types such as vectors, matrices, data frames, other
+lists or any other data structure.</p>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">m</span>, <span class="va">d</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">b</span>, <span class="va">c</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">w</span><span class="op">)</span></span></code></pre></div>
@@ -451,7 +542,11 @@ Levels: female male</code></pre>
 <div class="section level4">
 <h4 id="dataframe">4.3.5 Data Frame<a class="anchor" aria-label="anchor" href="#dataframe"></a>
 </h4>
-<p>A ‘data frame’ in <code>R</code> is a special kind of list with every element having equal length. It is very important for handling tabular data in <code>R</code>. It is a array like structure with rows and columns. Each column needs to be of a single data type, however data type can vary between columns.</p>
+<p>A ‘data frame’ in <code>R</code> is a special kind of list with every
+element having equal length. It is very important for handling tabular
+data in <code>R</code>. It is a array like structure with rows and
+columns. Each column needs to be of a single data type, however data
+type can vary between columns.</p>
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">L</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
@@ -490,13 +585,20 @@ $row.names
 <div class="section level4">
 <h4 id="functions">4.3.6 Functions<a class="anchor" aria-label="anchor" href="#functions"></a>
 </h4>
-<p>All of the work in <code>R</code> is done by functions. It is an object defining a procedure which takes one or more objects as input (or ‘arguments’), performs some action on them and finally gives a new object as output (or ‘return’). <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>, <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>, <code>+</code>, etc. are all functions.</p>
-<p>For example the function <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> takes a numeric vector as argument and returns the mean as a numeric vector.</p>
+<p>All of the work in <code>R</code> is done by functions. It is an
+object defining a procedure which takes one or more objects as input (or
+‘arguments’), performs some action on them and finally gives a new
+object as output (or ‘return’). <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>,
+<code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>, <code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>, <code>+</code>, etc. are all
+functions.</p>
+<p>For example the function <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> takes a numeric vector
+as argument and returns the mean as a numeric vector.</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 2.1</code></pre>
-<p>The user can also create custom functions. For example the function <code>foo</code> adds two numbers and gives the result.</p>
+<p>The user can also create custom functions. For example the function
+<code>foo</code> adds two numbers and gives the result.</p>
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span></span>
@@ -509,7 +611,8 @@ $row.names
 <div class="section level3">
 <h3 id="special-elements">4.4 Special Elements<a class="anchor" aria-label="anchor" href="#special-elements"></a>
 </h3>
-<p>In addition to numbers and text, there are some special elements which can be included in different data objects.</p>
+<p>In addition to numbers and text, there are some special elements
+which can be included in different data objects.</p>
 <p><code>NA</code> (not available) indicates missing data.</p>
 <div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.5</span>, <span class="cn">NA</span>, <span class="fl">8.6</span><span class="op">)</span></span>
@@ -541,7 +644,9 @@ $row.names
 <div class="section level3">
 <h3 id="indexing">4.5 Indexing<a class="anchor" aria-label="anchor" href="#indexing"></a>
 </h3>
-<p>The <code>[</code> function is used to extract elements of an object by indexing (numeric or logical). Named elements in lists and data frames can be extracted by using the <code>$</code> operator.</p>
+<p>The <code>[</code> function is used to extract elements of an object
+by indexing (numeric or logical). Named elements in lists and data
+frames can be extracted by using the <code>$</code> operator.</p>
 <p>Consider a vector <code>a</code>.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3.3</span>, <span class="fl">2.8</span>, <span class="fl">6.7</span><span class="op">)</span></span>
@@ -662,7 +767,11 @@ $row.names
 <div class="section level3">
 <h3 id="help-documentation">4.6 Help Documentation<a class="anchor" aria-label="anchor" href="#help-documentation"></a>
 </h3>
-<p>The help documentation regarding any function can be viewed using the <code>?</code> or <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code> function. The help documentation shows the default usage of the function including, the arguments that are taken by the function and the type of output object returned (‘Value’).</p>
+<p>The help documentation regarding any function can be viewed using the
+<code>?</code> or <code><a href="https://rdrr.io/r/utils/help.html" class="external-link">help()</a></code> function. The help documentation
+shows the default usage of the function including, the arguments that
+are taken by the function and the type of output object returned
+(‘Value’).</p>
 <div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">?</span><span class="va">ls</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/help.html" class="external-link">help</a></span><span class="op">(</span><span class="va">ls</span><span class="op">)</span></span>
@@ -674,12 +783,19 @@ $row.names
 <div class="section level3">
 <h3 id="pack">4.7 Packages<a class="anchor" aria-label="anchor" href="#pack"></a>
 </h3>
-<p>Packages in <code>R</code> are collections of <code>R</code> functions, data, and compiled code in a well-defined format. They are add-ons which extend the functionality of <code>R</code> and at present, there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19501</a> packages available for deployment and use at the official repository, the Comprehensive R Archive Network (CRAN).</p>
-<p>Valid packages from CRAN can be installed by using the <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> command.</p>
+<p>Packages in <code>R</code> are collections of <code>R</code>
+functions, data, and compiled code in a well-defined format. They are
+add-ons which extend the functionality of <code>R</code> and at present,
+there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19501</a>
+packages available for deployment and use at the official repository,
+the Comprehensive R Archive Network (CRAN).</p>
+<p>Valid packages from CRAN can be installed by using the
+<code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code> command.</p>
 <div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install the package 'readxl' for importing data from excel</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">readxl</span><span class="op">)</span></span></code></pre></div>
-<p>Installed packages can be loaded using the function <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>.</p>
+<p>Installed packages can be loaded using the function
+<code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>.</p>
 <div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install the package 'readxl' for importing data from excel</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org" class="external-link">readxl</a></span><span class="op">)</span></span></code></pre></div>
@@ -687,9 +803,15 @@ $row.names
 <div class="section level3">
 <h3 id="impexp">4.8 Importing and Exporting Tabular Data<a class="anchor" aria-label="anchor" href="#impexp"></a>
 </h3>
-<p>Tabular data from a spreadsheet can be imported into <code>R</code> in different ways. Consider some data such as in Table 1. Copy this data in to a spreadsheet editor such as MS Excel and save it as <code>augdata.csv</code>, a comma-separated-value file and <code>augdata.xlsx</code>, an Excel file in the working directory (<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>).</p>
+<p>Tabular data from a spreadsheet can be imported into <code>R</code>
+in different ways. Consider some data such as in Table 1. Copy this data
+in to a spreadsheet editor such as MS Excel and save it as
+<code>augdata.csv</code>, a comma-separated-value file and
+<code>augdata.xlsx</code>, an Excel file in the working directory
+(<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>).</p>
 <p style="text-align: left;">
-<strong>Table 1</strong>: Example data from an experiment in augmented RCBD design.
+<strong>Table 1</strong>: Example data from an experiment in augmented
+RCBD design.
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -821,7 +943,9 @@ $row.names
 </tr>
 </tbody>
 </table>
-<p>The <code>augdata.csv</code> file can be imported into <code>R</code> using the <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code> function or the <a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link"><code>read_csv()</code></a> function in the <code>readr</code> package.</p>
+<p>The <code>augdata.csv</code> file can be imported into <code>R</code>
+using the <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code> function or the <a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link"><code>read_csv()</code></a>
+function in the <code>readr</code> package.</p>
 <div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"augdata.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
@@ -830,7 +954,9 @@ $row.names
  $ trt: num  1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<p>The argument <code>stringsAsFactors = FALSE</code> reads the text columns as of type <code>character</code> instead of the default <code>factor</code>.</p>
+<p>The argument <code>stringsAsFactors = FALSE</code> reads the text
+columns as of type <code>character</code> instead of the default
+<code>factor</code>.</p>
 <div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"augdata.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
@@ -839,7 +965,9 @@ $row.names
  $ trt: num  1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<p>The <code>augdata.xlsx</code> file can be imported into <code>R</code> using the <a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link"><code>read_excel()</code></a> function in the <code>readxl</code> package.</p>
+<p>The <code>augdata.xlsx</code> file can be imported into
+<code>R</code> using the <a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link"><code>read_excel()</code></a>
+function in the <code>readxl</code> package.</p>
 <div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org" class="external-link">readxl</a></span><span class="op">)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"augdata.xlsx"</span><span class="op">)</span></span></code></pre></div>
@@ -848,14 +976,19 @@ $row.names
  $ trt: num  1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<p>The tabular data can be exported from <code>R</code> to a <code>.csv</code> (comma-separated-value) file by the <a href="https://www.rdocumentation.org/packages/utils/versions/3.5.1/topics/write.table" class="external-link"><code>write.csv()</code></a> function.</p>
+<p>The tabular data can be exported from <code>R</code> to a
+<code>.csv</code> (comma-separated-value) file by the <a href="https://www.rdocumentation.org/packages/utils/versions/3.5.1/topics/write.table" class="external-link"><code>write.csv()</code></a>
+function.</p>
 <div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span>, file <span class="op">=</span> <span class="st">"augdata.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="additional-resources">4.9 Additional Resources<a class="anchor" aria-label="anchor" href="#additional-resources"></a>
 </h3>
-<p>To learn more about <code>R</code>, there are umpteen number of online tutorials as well as free courses available. Queries about various aspects can be put to the active and vibrant `R community online.</p>
+<p>To learn more about <code>R</code>, there are umpteen number of
+online tutorials as well as free courses available. Queries about
+various aspects can be put to the active and vibrant `R community
+online.</p>
 <ul>
 <li>Online tutorials
 <ul>
@@ -884,7 +1017,8 @@ $row.names
 <div class="section level2">
 <h2 id="install">5 Installation of <code>augmentedRCBD</code><a class="anchor" aria-label="anchor" href="#install"></a>
 </h2>
-<p>The package <code>augmentedRCBD</code> can be installed using the following functions.</p>
+<p>The package <code>augmentedRCBD</code> can be installed using the
+following functions.</p>
 <div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install from CRAN</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'augmentedRCBD'</span>, dependencies<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
@@ -893,7 +1027,11 @@ $row.names
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://devtools.r-lib.org/" class="external-link">'devtools'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'devtools'</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aravind-j/augmentedRCBD"</span><span class="op">)</span></span></code></pre></div>
-<p>The stable release is hosted in <a href="https://CRAN.R-project.org/package=augmentedRCBD" class="external-link">CRAN</a> <a href="#pack">(see section 4.7)</a>, while the under-development version is hosted as a <a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">Github</a> repository. To install from github, you need to use the <a href="https://devtools.r-lib.org/reference/reexports.html" class="external-link"><code>install_github()</code></a> function from <a href="https://devtools.r-lib.org/" class="external-link">`devtools</a> package.</p>
+<p>The stable release is hosted in <a href="https://CRAN.R-project.org/package=augmentedRCBD" class="external-link">CRAN</a> <a href="#pack">(see section 4.7)</a>, while the under-development version
+is hosted as a <a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">Github</a> repository.
+To install from github, you need to use the <a href="https://devtools.r-lib.org/reference/reexports.html" class="external-link"><code>install_github()</code></a>
+function from <a href="https://devtools.r-lib.org/" class="external-link">`devtools</a>
+package.</p>
 <p>Then the package can be loaded using the function</p>
 <div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">augmentedRCBD</a></span><span class="op">)</span></span></code></pre></div>
@@ -916,8 +1054,10 @@ Welcome to augmentedRCBD version 0.1.5.9000
 # To suppress this message use:
   suppressPackageStartupMessages(library(augmentedRCBD))
 --------------------------------------------------------------------------------</code></pre>
-<p>The current version of the package is 0.1.5. The previous versions are as follows.</p>
-<p><strong>Table 2.</strong> Version history of <code>augmentedRCBD</code> <code>R</code> package.</p>
+<p>The current version of the package is 0.1.5. The previous versions
+are as follows.</p>
+<p><strong>Table 2.</strong> Version history of
+<code>augmentedRCBD</code> <code>R</code> package.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Version</th>
@@ -946,15 +1086,23 @@ Welcome to augmentedRCBD version 0.1.5.9000
 </tr>
 </tbody>
 </table>
-<p>To know detailed history of changes use <code>news(package='augmentedRCBD')</code>.</p>
+<p>To know detailed history of changes use
+<code>news(package='augmentedRCBD')</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="data-format">6 Data Format<a class="anchor" aria-label="anchor" href="#data-format"></a>
 </h2>
-<p>Certain details need to be considered for arranging experimental data for analysis using the <code>augmentedRCBD</code> package.</p>
-<p>The data should be in long/vertical form, where each row has the data from one genotype per block. For example, consider the following data (Table 3) recorded for a trait from an experiment laid out in an augmented block design with 3 blocks and 12 genotypes(or treatment) with 6 to 7 genotypes/block. 8 genotypes (Test, G 5 to G 12) are not replicated, while 4 genotypes (Check, G 1 to G 4) are replicated.</p>
+<p>Certain details need to be considered for arranging experimental data
+for analysis using the <code>augmentedRCBD</code> package.</p>
+<p>The data should be in long/vertical form, where each row has the data
+from one genotype per block. For example, consider the following data
+(Table 3) recorded for a trait from an experiment laid out in an
+augmented block design with 3 blocks and 12 genotypes(or treatment) with
+6 to 7 genotypes/block. 8 genotypes (Test, G 5 to G 12) are not
+replicated, while 4 genotypes (Check, G 1 to G 4) are replicated.</p>
 <p style="text-align: left;">
-<strong>Table 3</strong>: Data from an experiment in augmented RCBD design.
+<strong>Table 3</strong>: Data from an experiment in augmented RCBD
+design.
 </p>
 <table class="table"><tbody>
 <tr class="odd">
@@ -1018,9 +1166,12 @@ Welcome to augmentedRCBD version 0.1.5.9000
 <td align="left">70</td>
 </tr>
 </tbody></table>
-<p>This data needs to be arranged with columns showing block, genotype (or treatment) and the data of the trait for each genotype per block (Table 4).</p>
+<p>This data needs to be arranged with columns showing block, genotype
+(or treatment) and the data of the trait for each genotype per block
+(Table 4).</p>
 <p style="text-align: left;">
-<strong>Table 4</strong>: Data from an experiment in augmented RCBD design arranged in long-form.
+<strong>Table 4</strong>: Data from an experiment in augmented RCBD
+design arranged in long-form.
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -1131,9 +1282,11 @@ Welcome to augmentedRCBD version 0.1.5.9000
 </tr>
 </tbody>
 </table>
-<p>The data for block and genotype (or treatment) can also be depicted as numbers (Table 5).</p>
+<p>The data for block and genotype (or treatment) can also be depicted
+as numbers (Table 5).</p>
 <p style="text-align: left;">
-<strong>Table 5</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Block and Treatment as numbers).
+<strong>Table 5</strong>: Data from an experiment in augmented RCBD
+design arranged in long-form (Block and Treatment as numbers).
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -1246,7 +1399,8 @@ Welcome to augmentedRCBD version 0.1.5.9000
 </table>
 <p>Multiple traits can be added as additional columns (Table 6).</p>
 <p style="text-align: left;">
-<strong>Table 6</strong>: Data from an experiment in augmented RCBD design arranged in long-form (Multiple traits).
+<strong>Table 6</strong>: Data from an experiment in augmented RCBD
+design arranged in long-form (Multiple traits).
 </p>
 <table class="table">
 <thead><tr class="header">
@@ -1378,19 +1532,38 @@ Welcome to augmentedRCBD version 0.1.5.9000
 </tr>
 </tbody>
 </table>
-<p>Data should preferably be balanced i.e. all the check genotypes should be present in all the blocks. If not, a warning is issued. The number of test genotypes can vary within a block. There should not be any missing values. Rows of genotypes with missing values for one or more traits should be removed.</p>
-<p>Such a tabular data should be imported (<a href="#impexp">see section 7.8</a>) into <code>R</code> as a data frame object (<a href="#dataframe">see section 4.3.5</a>). The columns with the block and treatment categorical data should of the type factor (<a href="#factor">see section 4.3.2</a>), while the column(s) with the trait data should be of the type integer or numeric (<a href="#vector">see section 4.3.1</a>).</p>
+<p>Data should preferably be balanced i.e. all the check genotypes
+should be present in all the blocks. If not, a warning is issued. The
+number of test genotypes can vary within a block. There should not be
+any missing values. Rows of genotypes with missing values for one or
+more traits should be removed.</p>
+<p>Such a tabular data should be imported (<a href="#impexp">see section
+7.8</a>) into <code>R</code> as a data frame object (<a href="#dataframe">see section 4.3.5</a>). The columns with the block and
+treatment categorical data should of the type factor (<a href="#factor">see section 4.3.2</a>), while the column(s) with the
+trait data should be of the type integer or numeric (<a href="#vector">see section 4.3.1</a>).</p>
 </div>
 <div class="section level2">
 <h2 id="data-analysis-for-a-single-trait">7 Data Analysis for a Single Trait<a class="anchor" aria-label="anchor" href="#data-analysis-for-a-single-trait"></a>
 </h2>
-<p>Analysis of data for a single trait can be performed by using <code>augmentedRCBD</code> function. It generates an object of class <code>augmentedRCBD</code>. Such an object can then be taken as input by the several functions to print the results to console (<code>print.augmentedRCBD</code>), generate descriptive statistics from adjusted means (<code>describe.augmentedRCBD</code>), plot frequency distribution (<code>freqdist.augmentedRCBD</code>) and computed genetic variability statistics (gva.augmentedRCBD). All these outputs can also be exported as a MS Word report using the <code>report.augmentedRCBD</code> function.</p>
+<p>Analysis of data for a single trait can be performed by using
+<code>augmentedRCBD</code> function. It generates an object of class
+<code>augmentedRCBD</code>. Such an object can then be taken as input by
+the several functions to print the results to console
+(<code>print.augmentedRCBD</code>), generate descriptive statistics from
+adjusted means (<code>describe.augmentedRCBD</code>), plot frequency
+distribution (<code>freqdist.augmentedRCBD</code>) and computed genetic
+variability statistics (gva.augmentedRCBD). All these outputs can also
+be exported as a MS Word report using the
+<code>report.augmentedRCBD</code> function.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-59-1.png" width="700"></p>
-<p><strong>Fig. 4</strong>. Workflow for analysis of single traits with <code>augmentedRCBD</code>.</p>
+<p><strong>Fig. 4</strong>. Workflow for analysis of single traits with
+<code>augmentedRCBD</code>.</p>
 <div class="section level3">
 <h3 id="augmentedrcbd">7.1 <code>augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#augmentedrcbd"></a>
 </h3>
-<p>Consider the data in <a href="#impexp">Table 1</a>. The data can be imported into <code>R</code> as <a href="#vector">vectors</a> as follows.</p>
+<p>Consider the data in <a href="#impexp">Table 1</a>. The data can be
+imported into <code>R</code> as <a href="#vector">vectors</a> as
+follows.</p>
 <div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -1398,12 +1571,15 @@ Welcome to augmentedRCBD version 0.1.5.9000
 <span>        <span class="fl">70</span>, <span class="fl">75</span>, <span class="fl">74</span><span class="op">)</span></span>
 <span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>, <span class="fl">250</span>,</span>
 <span>        <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span><span class="op">)</span></span></code></pre></div>
-<p>The <code>blk</code> and <code>trt</code> vectors with the block and treatment data need to be converted into factors as follows before analysis.</p>
+<p>The <code>blk</code> and <code>trt</code> vectors with the block and
+treatment data need to be converted into factors as follows before
+analysis.</p>
 <div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
-<p>With the data in appropriate format, the analysis can be performed as follows for the trait <code>y1</code> as follows.</p>
+<p>With the data in appropriate format, the analysis can be performed as
+follows for the trait <code>y1</code> as follows.</p>
 <div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -1566,7 +1742,8 @@ Method : lsd
 <div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
-<p>Similarly the analysis for the trait <code>y2</code> can be computed as follows.</p>
+<p>Similarly the analysis for the trait <code>y2</code> can be computed
+as follows.</p>
 <div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -1731,7 +1908,10 @@ Method : lsd
 <div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
-<p>The data can also be imported as a <a href="#dataframe">data frame</a> and then used for analysis. Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
+<p>The data can also be imported as a <a href="#dataframe">data
+frame</a> and then used for analysis. Consider the data frame
+<code>data</code> imported from <a href="#impexp">Table 1</a> according
+to the instructions in <a href="#impexp">section 4.8</a>.</p>
 <div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
@@ -2071,7 +2251,10 @@ Method : lsd
 <div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "augmentedRCBD"</code></pre>
-<p>Check genotypes are inferred by default on the basis of number of replications. However, if some test genotypes are also replicated, they may also be falsely detected as checks. To avoid this, the checks can be specified by the <code>checks</code> argument.</p>
+<p>Check genotypes are inferred by default on the basis of number of
+replications. However, if some test genotypes are also replicated, they
+may also be falsely detected as checks. To avoid this, the checks can be
+specified by the <code>checks</code> argument.</p>
 <div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Results for variable y1 (checks specified)</span></span>
 <span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span>
@@ -2396,13 +2579,19 @@ Method : lsd
          7         346.42 18.27  6   301.70   391.13      56 
          6         382.67 18.27  6   337.95   427.38       67
         10         437.67 18.27  6   392.95   482.38        7</code></pre>
-<p>In case the large number of treatments or genotypes, it is advisable to avoid treatment comparisons with the <code>group = FALSE</code> argument as it will be memory and processor intensive. Further it is advised to simplify output with <code>simplify = TRUE</code> in order to reduce output object size.</p>
-<p>If <code>truncate.means = TRUE</code>, then any negative adjusted means will be truncated to zero with a warning.</p>
+<p>In case the large number of treatments or genotypes, it is advisable
+to avoid treatment comparisons with the <code>group = FALSE</code>
+argument as it will be memory and processor intensive. Further it is
+advised to simplify output with <code>simplify = TRUE</code> in order to
+reduce output object size.</p>
+<p>If <code>truncate.means = TRUE</code>, then any negative adjusted
+means will be truncated to zero with a warning.</p>
 </div>
 <div class="section level3">
 <h3 id="print-augmentedrcbd">7.2 <code>print.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd"></a>
 </h3>
-<p>The results of analysis in an object of class <code>augmentedRCBD</code> can be printed to the console as follows.</p>
+<p>The results of analysis in an object of class
+<code>augmentedRCBD</code> can be printed to the console as follows.</p>
 <div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results for variable y1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
@@ -2727,7 +2916,13 @@ Method : lsd
 <div class="section level3">
 <h3 id="describe-augmentedrcbd">7.3 <code>describe.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#describe-augmentedrcbd"></a>
 </h3>
-<p>The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D’Agostino test of skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and Glynn (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be computed as follows.</p>
+<p>The descriptive statistics such as count, mean, standard error,
+minimum, maximum, skewness ( with p-value from D’Agostino test of
+skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from
+Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and
+Glynn (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the
+results in an object of class <code>augmentedRCBD</code> can be computed
+as follows.</p>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Descriptive statistics for variable y1</span></span>
 <span><span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
@@ -2800,7 +2995,9 @@ $`Kurtosis(p.value)`
 <div class="section level3">
 <h3 id="freqdist-augmentedrcbd">7.4 <code>freqdist.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#freqdist-augmentedrcbd"></a>
 </h3>
-<p>The frequency distribution of the adjusted means from the results in an object of class <code>augmentedRCBD</code> can be plotted as follows.</p>
+<p>The frequency distribution of the adjusted means from the results in
+an object of class <code>augmentedRCBD</code> can be plotted as
+follows.</p>
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></code></pre></div>
@@ -2815,7 +3012,8 @@ $`Kurtosis(p.value)`
 <div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-2.png" width="700"></p>
-<p>The colours for the check values may be specified using the argument <code>check.col</code>.</p>
+<p>The colours for the check values may be specified using the argument
+<code>check.col</code>.</p>
 <div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">colset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span><span class="op">)</span></span>
 <span></span>
@@ -2832,7 +3030,8 @@ $`Kurtosis(p.value)`
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-2.png" width="700"></p>
-<p>The default the check highlighting can be avoided using the argument <code>highlight.check = FALSE</code>.</p>
+<p>The default the check highlighting can be avoided using the argument
+<code>highlight.check = FALSE</code>.</p>
 <div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span>
@@ -2853,7 +3052,18 @@ $`Kurtosis(p.value)`
 <div class="section level3">
 <h3 id="gva-augmentedrcbd">7.5 <code>gva.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#gva-augmentedrcbd"></a>
 </h3>
-<p>The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (<span class="citation">Federer and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>), <em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of class <code>augmentedRCBD</code> as follows. Genetic variability analysis needs to be performed only if the sum of squares of “Treatment: Test” are significant.</p>
+<p>The genetic variability statistics such as mean, phenotypic,
+genotypic and environmental variation (<span class="citation">Federer
+and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and
+environmental coefficient of variation (<span class="citation">Burton
+(<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and
+genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability
+(<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>),
+<em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic
+advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of
+class <code>augmentedRCBD</code> as follows. Genetic variability
+analysis needs to be performed only if the sum of squares of “Treatment:
+Test” are significant.</p>
 <div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Genetic variability statistics for variable y1</span></span>
 <span><span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
@@ -2944,12 +3154,15 @@ $GAM
 
 $`GAM category`
 [1] "High"</code></pre>
-<p>Negative estimates of variance components if computed are not abnormal. For information on how to deal with these, refer <span class="citation">Robinson et al. (<a href="#ref-robinson_genetic_1955" role="doc-biblioref">1955</a>)</span> and <span class="citation">Dudley and Moll (<a href="#ref-dudley_interpretation_1969" role="doc-biblioref">1969</a>)</span>.</p>
+<p>Negative estimates of variance components if computed are not
+abnormal. For information on how to deal with these, refer <span class="citation">Robinson et al. (<a href="#ref-robinson_genetic_1955" role="doc-biblioref">1955</a>)</span> and <span class="citation">Dudley
+and Moll (<a href="#ref-dudley_interpretation_1969" role="doc-biblioref">1969</a>)</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="report-augmentedrcbd">7.5 <code>report.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd"></a>
 </h3>
-<p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
+<p>The results generated by the analysis can be exported to a MS Word
+file as follows.</p>
 <div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report for variable y1</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
@@ -2964,9 +3177,11 @@ $`GAM category`
 <span>                     file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
-<strong>Fig. 6</strong>: MS Word report generated with <code>report.agumentedRCBD</code> function.
+<strong>Fig. 6</strong>: MS Word report generated with
+<code>report.agumentedRCBD</code> function.
 </p>
-<p>Alternatively, the analysis results can also be exported to a MS Excel file as follows.</p>
+<p>Alternatively, the analysis results can also be exported to a MS
+Excel file as follows.</p>
 <div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS excel report for variable y1</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
@@ -2981,16 +3196,24 @@ $`GAM category`
 <span>                     file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDexcel.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
-<strong>Fig. 6</strong>: MS Excel report generated with <code>report.agumentedRCBD</code> function.
+<strong>Fig. 6</strong>: MS Excel report generated with
+<code>report.agumentedRCBD</code> function.
 </p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="data-analysis-for-a-multiple-traits">8 Data Analysis for a Multiple Traits<a class="anchor" aria-label="anchor" href="#data-analysis-for-a-multiple-traits"></a>
 </h2>
-<p>Analysis of data for a multiple traits simultaneously can be performed by using <code>augmentedRCBD.bulk</code> function. It generates an object of class <code>augmentedRCBD.bulk</code>. Such an object can then be taken as input by <code>print.augmentedRCBD.bulk</code> to print the results to console. The results can also be exported as a MS Word report using the <code>report.augmentedRCBD.bulk</code> function.</p>
+<p>Analysis of data for a multiple traits simultaneously can be
+performed by using <code>augmentedRCBD.bulk</code> function. It
+generates an object of class <code>augmentedRCBD.bulk</code>. Such an
+object can then be taken as input by
+<code>print.augmentedRCBD.bulk</code> to print the results to console.
+The results can also be exported as a MS Word report using the
+<code>report.augmentedRCBD.bulk</code> function.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-80-1.png" width="700"></p>
-<p><strong>Fig. 8</strong>. Workflow for analysis of multiple traits with <code>augmentedRCBD</code>.</p>
+<p><strong>Fig. 8</strong>. Workflow for analysis of multiple traits
+with <code>augmentedRCBD</code>.</p>
 <div class="section level3">
 <h3 id="augmentedrcbd-bulk">8.1 <code>augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#augmentedrcbd-bulk"></a>
 </h3>
@@ -3006,9 +3229,24 @@ $`GAM category`
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
-<p>Rather than performing the analysis individually for each variable/trait separately using <code>augmentedRCBD</code>, the analysis can be performed simultaneously for for both the traits using <code>augmentedRCBD.bulk</code> function. It is a wrapper around the <code>augmentedRCBD</code> core function and its associated helper functions.</p>
-<p>However in this case treatment comparisons/grouping by least significant difference or Tukey’s honest significant difference method is not computed. Also the output object size is reduced using the <code>simplify = TRUE</code> argument in the <code>augmentedRCBD</code> function.</p>
-<p>The logical arguments <code>describe</code>, <code>freqdist</code> and <code>gva</code> can be used to specify whether to generate the descriptive statistics, frequency distribution plots and genetic variability statistics respectively. If <code>gva = TRUE</code>, then plots to compare phenotypic and genotypic coefficient of variation, broad sense heritability and genetic advance over mean between traits are also generated.</p>
+<p>Rather than performing the analysis individually for each
+variable/trait separately using <code>augmentedRCBD</code>, the analysis
+can be performed simultaneously for for both the traits using
+<code>augmentedRCBD.bulk</code> function. It is a wrapper around the
+<code>augmentedRCBD</code> core function and its associated helper
+functions.</p>
+<p>However in this case treatment comparisons/grouping by least
+significant difference or Tukey’s honest significant difference method
+is not computed. Also the output object size is reduced using the
+<code>simplify = TRUE</code> argument in the <code>augmentedRCBD</code>
+function.</p>
+<p>The logical arguments <code>describe</code>, <code>freqdist</code>
+and <code>gva</code> can be used to specify whether to generate the
+descriptive statistics, frequency distribution plots and genetic
+variability statistics respectively. If <code>gva = TRUE</code>, then
+plots to compare phenotypic and genotypic coefficient of variation,
+broad sense heritability and genetic advance over mean between traits
+are also generated.</p>
 <div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, block <span class="op">=</span> <span class="st">"blk"</span>,</span>
 <span>                           treatment <span class="op">=</span> <span class="st">"trt"</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
@@ -3152,7 +3390,9 @@ Treatment Means
 <div class="section level3">
 <h3 id="print-augmentedrcbd-bulk">8.2 <code>print.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd-bulk"></a>
 </h3>
-<p>The results of analysis in an object of class <code>augmentedRCBD.bulk</code> can be printed to the console as follows.</p>
+<p>The results of analysis in an object of class
+<code>augmentedRCBD.bulk</code> can be printed to the console as
+follows.</p>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></span></code></pre></div>
@@ -3287,7 +3527,8 @@ Treatment Means
 <div class="section level3">
 <h3 id="report-augmentedrcbd-bulk">8.3 <code>report.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd-bulk"></a>
 </h3>
-<p>The results generated by the analysis can be exported to a MS Word file as follows.</p>
+<p>The results generated by the analysis can be exported to a MS Word
+file as follows.</p>
 <div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS word report</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
@@ -3296,9 +3537,11 @@ Treatment Means
 <span>                          file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
-<strong>Fig. 9</strong>: MS Word report generated with <code>report.agumentedRCBD.bulk</code> function.
+<strong>Fig. 9</strong>: MS Word report generated with
+<code>report.agumentedRCBD.bulk</code> function.
 </p>
-<p>Alternatively, the analysis results can also be exported to a MS Excel file as follows.</p>
+<p>Alternatively, the analysis results can also be exported to a MS
+Excel file as follows.</p>
 <div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS excel report</span></span>
 <span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
@@ -3307,7 +3550,8 @@ Treatment Means
 <span>                          file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkexcel.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
-<strong>Fig. 10</strong>: MS Excel report generated with <code>report.agumentedRCBD.bulk</code> function.
+<strong>Fig. 10</strong>: MS Excel report generated with
+<code>report.agumentedRCBD.bulk</code> function.
 </p>
 </div>
 </div>
@@ -3398,53 +3642,86 @@ loaded via a namespace (and not attached):
 [100] fs_1.6.2                zoo_1.8-12              pkgconfig_2.0.3        </code></pre>
 </div>
 <div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references">
-<div id="ref-anscombe_distribution_1983">
-<p>Anscombe, F. J., and Glynn, W. J. (1983). Distribution of the kurtosis statistic <em>b</em><span class="math inline">\(_{{2}}\)</span> for normal samples. <em>Biometrika</em> 70, 227–234. doi:<a href="https://doi.org/10.1093/biomet/70.1.227" class="external-link">10.1093/biomet/70.1.227</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-anscombe_distribution_1983" class="csl-entry">
+Anscombe, F. J., and Glynn, W. J. (1983). Distribution of the kurtosis
+statistic <em>b</em><span class="math inline">\(_{{2}}\)</span> for
+normal samples. <em>Biometrika</em> 70, 227–234. doi:<a href="https://doi.org/10.1093/biomet/70.1.227" class="external-link">10.1093/biomet/70.1.227</a>.
 </div>
-<div id="ref-burton_quantitative_1951">
-<p>Burton, G. W. (1951). Quantitative inheritance in pearl millet (<em>Pennisetum glaucum</em>). <em>Agronomy Journal</em> 43, 409–417. doi:<a href="https://doi.org/10.2134/agronj1951.00021962004300090001x" class="external-link">10.2134/agronj1951.00021962004300090001x</a>.</p>
+<div id="ref-burton_quantitative_1951" class="csl-entry">
+Burton, G. W. (1951). Quantitative inheritance in pearl millet
+(<em><span>Pennisetum</span> glaucum</em>). <em>Agronomy Journal</em>
+43, 409–417. doi:<a href="https://doi.org/10.2134/agronj1951.00021962004300090001x" class="external-link">10.2134/agronj1951.00021962004300090001x</a>.
 </div>
-<div id="ref-burton_qualitative_1952">
-<p>Burton, G. W. (1952). Qualitative inheritance in grasses. Vol. 1. in <em>Proceedings of the 6th International Grassland Congress, Pennsylvania State College</em>, 17–23.</p>
+<div id="ref-burton_qualitative_1952" class="csl-entry">
+Burton, G. W. (1952). Qualitative inheritance in grasses.
+<span>Vol</span>. 1. in <em>Proceedings of the 6th
+<span>International</span> <span>Grassland</span> <span>Congress</span>,
+<span>Pennsylvania</span> <span>State</span> <span>College</span></em>,
+17–23.
 </div>
-<div id="ref-dagostino_transformation_1970">
-<p>D’Agostino, R. B. (1970). Transformation to normality of the null distribution of <em>g</em><span class="math inline">\(_{{1}}\)</span>. <em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679" class="external-link">10.1093/biomet/57.3.679</a>.</p>
+<div id="ref-dagostino_transformation_1970" class="csl-entry">
+D’Agostino, R. B. (1970). Transformation to normality of the null
+distribution of <em>g</em><span class="math inline">\(_{{1}}\)</span>.
+<em>Biometrika</em> 57, 679–681. doi:<a href="https://doi.org/10.1093/biomet/57.3.679" class="external-link">10.1093/biomet/57.3.679</a>.
 </div>
-<div id="ref-dudley_interpretation_1969">
-<p>Dudley, J. W., and Moll, R. H. (1969). Interpretation and use of estimates of heritability and genetic variances in plant breeding. <em>Crop Science</em> 9, 257–262. doi:<a href="https://doi.org/10.2135/cropsci1969.0011183X000900030001x" class="external-link">10.2135/cropsci1969.0011183X000900030001x</a>.</p>
+<div id="ref-dudley_interpretation_1969" class="csl-entry">
+Dudley, J. W., and Moll, R. H. (1969). Interpretation and use of
+estimates of heritability and genetic variances in plant breeding.
+<em>Crop Science</em> 9, 257–262. doi:<a href="https://doi.org/10.2135/cropsci1969.0011183X000900030001x" class="external-link">10.2135/cropsci1969.0011183X000900030001x</a>.
 </div>
-<div id="ref-federer_augmented_1956">
-<p>Federer, W. T. (1956a). Augmented (or Hoonuiaku) designs. <em>The Hawaiian Planters’ Record</em> LV(2), 191–208.</p>
+<div id="ref-federer_augmented_1956-1" class="csl-entry">
+Federer, W. T. (1956b). Augmented (or <span>Hoonuiaku</span>)
+<span>Designs</span>. New York: Cornell University Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841" class="external-link">https://ecommons.cornell.edu/handle/1813/32841</a>.
 </div>
-<div id="ref-federer_augmented_1956-1">
-<p>Federer, W. T. (1956b). Augmented (or Hoonuiaku) Designs. New York: Cornell University Available at: <a href="https://ecommons.cornell.edu/handle/1813/32841" class="external-link">https://ecommons.cornell.edu/handle/1813/32841</a>.</p>
+<div id="ref-federer_augmented_1956" class="csl-entry">
+Federer, W. T. (1956a). Augmented (or <span>Hoonuiaku</span>) designs.
+<em>The Hawaiian Planters’ Record</em> LV(2), 191–208.
 </div>
-<div id="ref-federer_augmented_1961">
-<p>Federer, W. T. (1961). Augmented designs with one-way elimination of heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837" class="external-link">10.2307/2527837</a>.</p>
+<div id="ref-federer_augmented_1961" class="csl-entry">
+Federer, W. T. (1961). Augmented designs with one-way elimination of
+heterogeneity. <em>Biometrics</em> 17, 447–473. doi:<a href="https://doi.org/10.2307/2527837" class="external-link">10.2307/2527837</a>.
 </div>
-<div id="ref-federerModelConsiderationsVariance1976">
-<p>Federer, W. T., and Searle, S. R. (1976). Model Considerations and Variance Component Estimation in Augmented Completely Randomized and Randomized Complete Blocks Designs-Preliminary Version. New York: Cornell University Available at: <a href="https://hdl.handle.net/1813/32691" class="external-link">https://hdl.handle.net/1813/32691</a>.</p>
+<div id="ref-federerModelConsiderationsVariance1976" class="csl-entry">
+Federer, W. T., and Searle, S. R. (1976). Model
+<span>Considerations</span> and <span>Variance</span>
+<span>Component</span> <span>Estimation</span> in <span>Augmented</span>
+<span>Completely</span> <span>Randomized</span> and
+<span>Randomized</span> <span>Complete</span> <span>Blocks</span>
+<span>Designs</span>-<span>Preliminary</span> <span>Version</span>. New
+York: Cornell University Available at: <a href="https://hdl.handle.net/1813/32691" class="external-link">https://hdl.handle.net/1813/32691</a>.
 </div>
-<div id="ref-johnson_estimates_1955">
-<p>Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates of genetic and environmental variability in soybeans. <em>Agronomy journal</em> 47, 314–318. doi:<a href="https://doi.org/10.2134/agronj1955.00021962004700070009x" class="external-link">10.2134/agronj1955.00021962004700070009x</a>.</p>
+<div id="ref-johnson_estimates_1955" class="csl-entry">
+Johnson, H. W., Robinson, H. F., and Comstock, R. E. (1955). Estimates
+of genetic and environmental variability in soybeans. <em>Agronomy
+journal</em> 47, 314–318. doi:<a href="https://doi.org/10.2134/agronj1955.00021962004700070009x" class="external-link">10.2134/agronj1955.00021962004700070009x</a>.
 </div>
-<div id="ref-lush_intra-sire_1940">
-<p>Lush, J. L. (1940). Intra-sire correlations or regressions of offspring on dam as a method of estimating heritability of characteristics. <em>Proceedings of the American Society of Animal Nutrition</em> 1940, 293–301. doi:<a href="https://doi.org/10.2527/jas1940.19401293x" class="external-link">10.2527/jas1940.19401293x</a>.</p>
+<div id="ref-lush_intra-sire_1940" class="csl-entry">
+Lush, J. L. (1940). Intra-sire correlations or regressions of offspring
+on dam as a method of estimating heritability of characteristics.
+<em>Proceedings of the American Society of Animal Nutrition</em> 1940,
+293–301. doi:<a href="https://doi.org/10.2527/jas1940.19401293x" class="external-link">10.2527/jas1940.19401293x</a>.
 </div>
-<div id="ref-robinson_quantitative_1966">
-<p>Robinson, H. F. (1966). Quantitative genetics in relation to breeding on centennial of Mendelism. <em>Indian Journal of Genetics and Plant Breeding</em>, 171.</p>
+<div id="ref-robinson_quantitative_1966" class="csl-entry">
+Robinson, H. F. (1966). Quantitative genetics in relation to breeding on
+centennial of <span>Mendelism</span>. <em>Indian Journal of Genetics and
+Plant Breeding</em>, 171.
 </div>
-<div id="ref-robinson_genetic_1955">
-<p>Robinson, H. F., Comstock, R. E., and Harvey, P. H. (1955). Genetic variances in open pollinated varieties of corn. <em>Genetics</em> 40, 45–60. doi:<a href="https://doi.org/10.1093/genetics/40.1.45" class="external-link">10.1093/genetics/40.1.45</a>.</p>
+<div id="ref-robinson_genetic_1955" class="csl-entry">
+Robinson, H. F., Comstock, R. E., and Harvey, P. H. (1955). Genetic
+variances in open pollinated varieties of corn. <em>Genetics</em> 40,
+45–60. doi:<a href="https://doi.org/10.1093/genetics/40.1.45" class="external-link">10.1093/genetics/40.1.45</a>.
 </div>
-<div id="ref-sivasubramaniam_genotypic_1973">
-<p>Sivasubramaniam, S., and Madhavamenon, P. (1973). Genotypic and phenotypic variability in rice. <em>The Madras Agricultural Journal</em> 60, 1093–1096.</p>
+<div id="ref-sivasubramaniam_genotypic_1973" class="csl-entry">
+Sivasubramaniam, S., and Madhavamenon, P. (1973). Genotypic and
+phenotypic variability in rice. <em>The Madras Agricultural Journal</em>
+60, 1093–1096.
 </div>
-<div id="ref-tippmann_programming_2015">
-<p>Tippmann, S. (2015). Programming tools: Adventures with R. <em>Nature News</em> 517, 109. doi:<a href="https://doi.org/10.1038/517109a" class="external-link">10.1038/517109a</a>.</p>
+<div id="ref-tippmann_programming_2015" class="csl-entry">
+Tippmann, S. (2015). Programming tools: <span>Adventures</span> with
+<span>R</span>. <em>Nature News</em> 517, 109. doi:<a href="https://doi.org/10.1038/517109a" class="external-link">10.1038/517109a</a>.
 </div>
 </div>
 </div>
