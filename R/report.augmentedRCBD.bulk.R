@@ -179,9 +179,17 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovata[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
-    mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
-                                                          sep = ""),
-                                           colnames(anovata))))
+    # mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
+    #                                                       sep = ""),
+    #                                        colnames(anovata))))
+    mcols <- lapply(traits, function(x) {c(which(grepl(paste(x, "_Mean.Sq",
+                                                             sep = ""),
+                                                       colnames(anovata),
+                                                       fixed = TRUE)),
+                                           which(grepl(paste(x, "_sig",
+                                                             sep = ""),
+                                                       colnames(anovata),
+                                                       fixed = TRUE)))})
     names(mcols) <- traits
     colnames(anovata) <- gsub("_Mean.Sq", "", colnames(anovata))
     nsindex <- lapply(mcols, function(x) which(anovata[, x[2]] == "ns"))
@@ -234,9 +242,17 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anovaba[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
-    mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
-                                                          sep = ""),
-                                                    colnames(anovaba))))
+    # mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
+    #                                                       sep = ""),
+    #                                                 colnames(anovaba))))
+    mcols <- lapply(traits, function(x) {c(which(grepl(paste(x, "_Mean.Sq",
+                                                             sep = ""),
+                                                       colnames(anovaba),
+                                                       fixed = TRUE)),
+                                           which(grepl(paste(x, "_sig",
+                                                             sep = ""),
+                                                       colnames(anovaba),
+                                                       fixed = TRUE)))})
     names(mcols) <- traits
     colnames(anovaba) <- gsub("_Mean.Sq", "", colnames(anovaba))
     nsindex <- lapply(mcols, function(x) which(anovaba[, x[2]] == "ns"))
