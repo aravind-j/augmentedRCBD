@@ -1,11 +1,118 @@
 
+<script type="application/ld+json">
+      {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "type": "SoftwareSourceCode",
+      "author": [
+        {
+          "id": "https://orcid.org/0000-0002-4791-442X",
+          "type": "Person",
+          "email": [
+            "j.aravind@icar.gov.in",
+            "aravindj@nbpgr.ernet.in"
+          ],
+          "familyName": "Aravind",
+          "givenName": "J."
+        },
+        {
+          "type": "Person",
+          "email": "mukeshsankar@gmail.com",
+          "familyName": "Mukesh Sankar",
+          "givenName": "S."
+        },
+        {
+          "id": "https://orcid.org/0000-0001-6384-8664",
+          "type": "Person",
+          "email": "d.wankhede@icar.gov.in",
+          "familyName": "Wankhede",
+          "givenName": [
+            "Dhammaprakash",
+            "Pandhari"
+          ]
+        },
+        {
+          "type": "Person",
+          "email": "vikender.kaur@icar.gov.in",
+          "familyName": "Kaur",
+          "givenName": "Vikender"
+        }
+      ],
+      "codeRepository": "https://github.com/aravind-j/augmentedRCBD",
+      "copyrightHolder": {
+        "type": "Organization",
+        "name": "ICAR-NBGPR"
+      },
+      "description": "Functions for analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. (1961) <doi:10.2307/2527837>. Computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. Further includes data visualization and report generation functions.",
+      "license": "https://spdx.org/licenses/GPL-2.0",
+      "name": "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
+      "programmingLanguage": {
+        "type": "ComputerLanguage",
+        "name": "R",
+        "url": "https://r-project.org"
+      },
+      "provider": {
+        "id": "https://cran.r-project.org",
+        "type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "runtimePlatform": "R Under development (unstable) (2023-04-28 r84338 ucrt)",
+      "version": "0.1.5.9000"
+    },
+    {
+      "type": "SoftwareSourceCode",
+      "author": [
+        {
+          "id": "https://orcid.org/0000-0002-4791-442X",
+          "type": "Person",
+          "email": [
+            "j.aravind@icar.gov.in",
+            "aravindj@nbpgr.ernet.in"
+          ],
+          "familyName": "Aravind",
+          "givenName": "J."
+        },
+        {
+          "type": "Person",
+          "email": "mukeshsankar@gmail.com",
+          "familyName": "Mukesh Sankar",
+          "givenName": "S."
+        },
+        {
+          "type": "Person",
+          "email": "d.wankhede@icar.gov.in",
+          "familyName": "Wankhede",
+          "givenName": [
+            "Dhammaprakash",
+            "Pandhari"
+          ]
+        },
+        {
+          "type": "Person",
+          "email": "vikender.kaur@icar.gov.in",
+          "familyName": "Kaur",
+          "givenName": "Vikender"
+        }
+      ],
+      "description": [
+        "R package version 0.1.5.9000",
+        "https://aravind-j.github.io/augmentedRCBD/",
+        "https://cran.r-project.org/package=augmentedRCBD"
+      ],
+      "name": "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs"
+    }
+  ]
+}
+    </script>
 <!-- 
 <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" width="20%" />
 -->
 
 ## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
-###### Version : [0.1.5.9000](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-2023: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.1.5.9000](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-2023: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### *Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>*
 
@@ -18,13 +125,13 @@
 4.  Division of Germplasm Evaluation, ICAR-National Bureau of Plant
     Genetic Resources, New Delhi.
 
------
+------------------------------------------------------------------------
 
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.0.2-6666ff.svg?logo=R)](https://cran.r-project.org/)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version-last-release/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
 [![Dependencies](https://tinyverse.netlify.com/badge/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green)](https://CRAN.R-project.org/package=augmentedRCBD)
@@ -35,7 +142,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--02--06-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--05--22-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website -
@@ -45,7 +152,7 @@ pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github
 <!-- [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/aravind-j/augmentedRCBD/total.svg)] -->
 <!-- [![Rdoc](https://www.rdocumentation.org/badges/version/augmentedRCBD)](https://www.rdocumentation.org/packages/augmentedRCBD) -->
 
------
+------------------------------------------------------------------------
 
 ## Description
 
@@ -105,248 +212,132 @@ news(package='augmentedRCBD')
 ## CRAN checks
 
 <table class="table table-striped table-hover" style="width: auto !important; ">
-
 <thead>
-
 <tr>
-
 <th style="text-align:left;">
-
 Flavour
-
 </th>
-
 <th style="text-align:left;">
-
 CRAN check
-
 </th>
-
 </tr>
-
 </thead>
-
 <tbody>
-
 <tr grouplength="6">
-
 <td colspan="2" style="border-bottom: 1px solid;">
-
 <strong>[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-devel-linux-x86\_64-debian-clang
-
+r-devel-linux-x86_64-debian-clang
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-devel-linux-x86\_64-debian-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-devel-linux-x86_64-debian-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-devel-linux-x86\_64-debian-gcc
-
+r-devel-linux-x86_64-debian-gcc
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-devel-linux-x86\_64-debian-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-devel-linux-x86_64-debian-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-devel-linux-x86\_64-fedora-clang
-
+r-devel-linux-x86_64-fedora-clang
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-devel-linux-x86\_64-fedora-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-devel-linux-x86_64-fedora-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-devel-linux-x86\_64-fedora-gcc
-
+r-devel-linux-x86_64-fedora-gcc
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-devel-linux-x86\_64-fedora-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-devel-linux-x86_64-fedora-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-patched-linux-x86\_64
-
+r-patched-linux-x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-patched-linux-x86\_64](https://badges.cranchecks.info/flavor/r-patched-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-patched-linux-x86_64](https://badges.cranchecks.info/flavor/r-patched-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-release-linux-x86\_64
-
+r-release-linux-x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-release-linux-x86\_64](https://badges.cranchecks.info/flavor/r-release-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-release-linux-x86_64](https://badges.cranchecks.info/flavor/r-release-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr grouplength="3">
-
 <td colspan="2" style="border-bottom: 1px solid;">
-
 <strong>[![Windows](https://shields.io/badge/Windows--9cf?logo=Windows&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-devel-windows-ix86+x86\_64
-
+r-devel-windows-ix86+x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-devel-windows-ix86+x86\_64](https://badges.cranchecks.info/flavor/r-devel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-devel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-devel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-release-windows-ix86+x86\_64
-
+r-release-windows-ix86+x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-release-windows-ix86+x86\_64](https://badges.cranchecks.info/flavor/r-release-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-release-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-release-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-oldrel-windows-ix86+x86\_64
-
+r-oldrel-windows-ix86+x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-oldrel-windows-ix86+x86\_64](https://badges.cranchecks.info/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-oldrel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr grouplength="2">
-
 <td colspan="2" style="border-bottom: 1px solid;">
-
 <strong>[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-release-macos-x86\_64
-
+r-release-macos-x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-release-macos-x86\_64](https://badges.cranchecks.info/flavor/r-release-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-release-macos-x86_64](https://badges.cranchecks.info/flavor/r-release-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;padding-left: 2em;" indentlevel="1">
-
-r-oldrel-macos-x86\_64
-
+r-oldrel-macos-x86_64
 </td>
-
 <td style="text-align:left;">
-
 [![CRAN check -
-r-oldrel-macos-x86\_64](https://badges.cranchecks.info/flavor/r-oldrel-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-
+r-oldrel-macos-x86_64](https://badges.cranchecks.info/flavor/r-oldrel-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
 </td>
-
 </tr>
-
 </tbody>
-
 </table>
 
 ## Citing `augmentedRCBD`
@@ -357,27 +348,22 @@ To cite the methods in the package use:
 citation("augmentedRCBD")
 ```
 
-``` 
+    To cite the R package 'augmentedRCBD' in publications use:
 
-To cite the R package 'augmentedRCBD' in publications use:
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2023).  augmentedRCBD: Analysis of Augmented Randomised
+      Complete Block Designs. R package version 0.1.5.9000,
+      https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
-  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2023).
-  augmentedRCBD: Analysis of Augmented Randomised Complete Block
-  Designs. R package version 0.1.5.9000,
-  https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
+    A BibTeX entry for LaTeX users is
 
-A BibTeX entry for LaTeX users is
+      @Manual{,
+        title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
+        author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
+        year = {2023},
+        note = {R package version 0.1.5.9000},
+        note = {https://aravind-j.github.io/augmentedRCBD/},
+        note = {https://cran.r-project.org/package=augmentedRCBD},
+      }
 
-  @Manual{,
-    title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
-    author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-    year = {2023},
-    note = {R package version 0.1.5.9000},
-    note = {https://aravind-j.github.io/augmentedRCBD/},
-    note = {https://cran.r-project.org/package=augmentedRCBD},
-  }
-
-This free and open-source software implements academic research by the
-authors and co-workers. If you use it, please support the project by
-citing the package.
-```
+    This free and open-source software implements academic research by the authors and co-workers. If you use it, please
+    support the project by citing the package.

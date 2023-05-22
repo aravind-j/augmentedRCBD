@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2022-10-11 r83083 ucrt)",
+  "runtimePlatform": "R Under development (unstable) (2023-04-28 r84338 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -383,7 +383,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1638.988KB",
+  "fileSize": "1640.471KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -419,7 +419,6 @@
       "description": ["R package version 0.1.5.9000", "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD"]
     }
   ],
-  "releaseNotes": "https://github.com/aravind-j/augmentedRCBD/blob/master/NEWS.md",
   "readme": "https://github.com/aravind-j/augmentedRCBD/blob/master/README.md",
   "contIntegration": "https://github.com/aravind-j/augmentedRCBD/actions",
   "developmentStatus": ["https://www.repostatus.org/#inactive", "https://lifecycle.r-lib.org/articles/stages.html#stable"],

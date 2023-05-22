@@ -1,0 +1,105 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "type": "SoftwareSourceCode",
+      "author": [
+        {
+          "id": "https://orcid.org/0000-0002-4791-442X",
+          "type": "Person",
+          "email": [
+            "j.aravind@icar.gov.in",
+            "aravindj@nbpgr.ernet.in"
+          ],
+          "familyName": "Aravind",
+          "givenName": "J."
+        },
+        {
+          "type": "Person",
+          "email": "mukeshsankar@gmail.com",
+          "familyName": "Mukesh Sankar",
+          "givenName": "S."
+        },
+        {
+          "id": "https://orcid.org/0000-0001-6384-8664",
+          "type": "Person",
+          "email": "d.wankhede@icar.gov.in",
+          "familyName": "Wankhede",
+          "givenName": [
+            "Dhammaprakash",
+            "Pandhari"
+          ]
+        },
+        {
+          "type": "Person",
+          "email": "vikender.kaur@icar.gov.in",
+          "familyName": "Kaur",
+          "givenName": "Vikender"
+        }
+      ],
+      "codeRepository": "https://github.com/aravind-j/augmentedRCBD",
+      "copyrightHolder": {
+        "type": "Organization",
+        "name": "ICAR-NBGPR"
+      },
+      "description": "Functions for analysis of data generated from experiments in augmented randomised complete block design according to Federer, W.T. (1961) <doi:10.2307/2527837>. Computes analysis of variance, adjusted means, descriptive statistics, genetic variability statistics etc. Further includes data visualization and report generation functions.",
+      "license": "https://spdx.org/licenses/GPL-2.0",
+      "name": "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
+      "programmingLanguage": {
+        "type": "ComputerLanguage",
+        "name": "R",
+        "url": "https://r-project.org"
+      },
+      "provider": {
+        "id": "https://cran.r-project.org",
+        "type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "runtimePlatform": "R Under development (unstable) (2023-04-28 r84338 ucrt)",
+      "version": "0.1.5.9000"
+    },
+    {
+      "type": "SoftwareSourceCode",
+      "author": [
+        {
+          "id": "https://orcid.org/0000-0002-4791-442X",
+          "type": "Person",
+          "email": [
+            "j.aravind@icar.gov.in",
+            "aravindj@nbpgr.ernet.in"
+          ],
+          "familyName": "Aravind",
+          "givenName": "J."
+        },
+        {
+          "type": "Person",
+          "email": "mukeshsankar@gmail.com",
+          "familyName": "Mukesh Sankar",
+          "givenName": "S."
+        },
+        {
+          "type": "Person",
+          "email": "d.wankhede@icar.gov.in",
+          "familyName": "Wankhede",
+          "givenName": [
+            "Dhammaprakash",
+            "Pandhari"
+          ]
+        },
+        {
+          "type": "Person",
+          "email": "vikender.kaur@icar.gov.in",
+          "familyName": "Kaur",
+          "givenName": "Vikender"
+        }
+      ],
+      "description": [
+        "R package version 0.1.5.9000",
+        "https://aravind-j.github.io/augmentedRCBD/",
+        "https://cran.r-project.org/package=augmentedRCBD"
+      ],
+      "name": "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs"
+    }
+  ]
+}
