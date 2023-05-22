@@ -57,7 +57,7 @@
         "url": "https://cran.r-project.org"
       },
       "runtimePlatform": "R Under development (unstable) (2023-04-28 r84338 ucrt)",
-      "version": "0.1.5.9000"
+      "version": "0.1.6"
     },
     {
       "type": "SoftwareSourceCode",
@@ -95,7 +95,7 @@
         }
       ],
       "description": [
-        "R package version 0.1.5.9000",
+        "R package version 0.1.6",
         "https://aravind-j.github.io/augmentedRCBD/",
         "https://cran.r-project.org/package=augmentedRCBD"
       ],

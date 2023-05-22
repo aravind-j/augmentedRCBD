@@ -10,7 +10,7 @@ license:
 - GPL-2.0-only
 - GPL-3.0-only
 title: 'augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs'
-version: 0.1.5.9000
+version: 0.1.6
 abstract: Functions for analysis of data generated from experiments in augmented randomised
   complete block design according to Federer, W.T. (1961) <doi:10.2307/2527837>. Computes
   analysis of variance, adjusted means, descriptive statistics, genetic variability
@@ -50,7 +50,7 @@ preferred-citation:
     email: vikender.kaur@icar.gov.in
   year: '2023'
   notes:
-  - R package version 0.1.5.9000
+  - R package version 0.1.6
   - https://aravind-j.github.io/augmentedRCBD/
   - https://cran.r-project.org/package=augmentedRCBD
 repository: https://CRAN.R-project.org/package=augmentedRCBD
