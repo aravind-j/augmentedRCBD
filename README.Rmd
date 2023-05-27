@@ -153,28 +153,27 @@ osdf$`CRAN check` <- paste("[![CRAN check - ", osdf$Flavour, "]",
                            sep = "")
 ```
 
-```{r, echo = FALSE, results='asis', message=FALSE}
-library(kableExtra, warn.conflicts = FALSE)
 
-kosdf <- kbl(osdf[, c("Flavour", "CRAN check")], row.names = FALSE)
+```{r, echo = FALSE, results='asis'}
+cat("[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)", "\n")
 
-kosdf2 <- kable_styling(kosdf, bootstrap_options = c("striped", "hover"),
-              full_width = F, position = "left")
+knitr::kable(osdf[osdf$OS == "Linux", c(2, 3)], format = "simple", 
+             col.names = c("", ""), 
+             row.names = FALSE)
 
-# os_index <- c(6, 1, 3, 2)
-os_index <- c(6, 3, 2)
+cat("[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)", "\n")
 
-names(os_index) <- c(paste("[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)]",
-                           chklink, sep = ""),
-                     # paste("[![Solaris](https://shields.io/badge/Solaris--9cf?logo=Oracle&style=social)]",
-                     #       chklink, sep = ""),
-                     paste("[![Windows](https://shields.io/badge/Windows--9cf?logo=Windows&style=social)]",
-                           chklink, sep = ""),
-                     paste("[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)]",
-                           chklink, sep = ""))
+knitr::kable(osdf[osdf$OS == "Windows", c(2, 3)], format = "simple", 
+             col.names = c("", ""),
+             row.names = FALSE)
 
-pack_rows(kosdf2, index = os_index)
+cat("[![MacOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)", "\n")
 
+knitr::kable(osdf[osdf$OS == "macOS", c(2, 3)], format = "simple", 
+             col.names = c("", ""),
+             row.names = FALSE)
+
+cat("\n")
 ```
 
 ## Citing `augmentedRCBD`

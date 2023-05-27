@@ -35,3 +35,4 @@
 ^RoughWork$
 ^CITATION\.cff$
 ^codemeta\.json$
+^cran-comments-archive\.md$
