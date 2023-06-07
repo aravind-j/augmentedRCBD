@@ -59,7 +59,7 @@
         "url": "https://cran.r-project.org"
       },
       "runtimePlatform": "R Under development (unstable) (2023-04-28 r84338 ucrt)",
-      "version": "0.1.5.9000"
+      "version": "0.1.6"
     },
     {
       "type": "SoftwareSourceCode",
@@ -97,7 +97,7 @@
         }
       ],
       "description": [
-        "R package version 0.1.5.9000",
+        "R package version 0.1.6",
         "https://aravind-j.github.io/augmentedRCBD/",
         "https://cran.r-project.org/package=augmentedRCBD"
       ],
@@ -112,7 +112,7 @@
 
 ## `augmentedRCBD`: Analysis of Augmented Randomised Complete Block Designs <img src="https://raw.githubusercontent.com/aravind-j/augmentedRCBD/master/inst/extdata/augmentedRCBD.png" align="right" alt="logo" width="173" height = "200" style = "border: none; float: right;">
 
-###### Version : [0.1.6](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-2023: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [0.1.6.9000](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-2023: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2\|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### *Aravind, J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D. P.<sup>3</sup>, and Kaur, V.<sup>4</sup>*
 
@@ -135,14 +135,14 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Dependencies](https://tinyverse.netlify.com/badge/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
 [![rstudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green)](https://CRAN.R-project.org/package=augmentedRCBD)
-[![develVersion](https://img.shields.io/badge/devel%20version-0.1.5.9000-orange.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![develVersion](https://img.shields.io/badge/devel%20version-0.1.6.9000-orange.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Github Code
 Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![R-CMD-check](https://github.com/aravind-j/augmentedRCBD/workflows/R-CMD-check/badge.svg)](https://github.com/aravind-j/augmentedRCBD/actions)
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2023--05--23-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2023--06--07-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website -
@@ -211,134 +211,31 @@ news(package='augmentedRCBD')
 
 ## CRAN checks
 
-<table class="table table-striped table-hover" style="width: auto !important; ">
-<thead>
-<tr>
-<th style="text-align:left;">
-Flavour
-</th>
-<th style="text-align:left;">
-CRAN check
-</th>
-</tr>
-</thead>
-<tbody>
-<tr grouplength="6">
-<td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![Linux](https://shields.io/badge/Linux--9cf?logo=Linux&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-linux-x86_64-debian-clang
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-devel-linux-x86_64-debian-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-linux-x86_64-debian-gcc
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-devel-linux-x86_64-debian-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-linux-x86_64-fedora-clang
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-devel-linux-x86_64-fedora-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-linux-x86_64-fedora-gcc
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-devel-linux-x86_64-fedora-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-patched-linux-x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-patched-linux-x86_64](https://badges.cranchecks.info/flavor/r-patched-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-release-linux-x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-release-linux-x86_64](https://badges.cranchecks.info/flavor/r-release-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr grouplength="3">
-<td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![Windows](https://shields.io/badge/Windows--9cf?logo=Windows&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-devel-windows-ix86+x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-devel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-devel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-release-windows-ix86+x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-release-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-release-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-oldrel-windows-ix86+x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-oldrel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr grouplength="2">
-<td colspan="2" style="border-bottom: 1px solid;">
-<strong>[![MacOS](https://shields.io/badge/MacOS--9cf?logo=Apple&style=social)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)</strong>
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-release-macos-x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-release-macos-x86_64](https://badges.cranchecks.info/flavor/r-release-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;padding-left: 2em;" indentlevel="1">
-r-oldrel-macos-x86_64
-</td>
-<td style="text-align:left;">
-[![CRAN check -
-r-oldrel-macos-x86_64](https://badges.cranchecks.info/flavor/r-oldrel-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)
-</td>
-</tr>
-</tbody>
-</table>
+[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)
+
+|                                   |                                                                                                                                                                                                                        |
+|:----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| r-devel-linux-x86_64-debian-clang | [![CRAN check - r-devel-linux-x86_64-debian-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html) |
+| r-devel-linux-x86_64-debian-gcc   | [![CRAN check - r-devel-linux-x86_64-debian-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-debian-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)     |
+| r-devel-linux-x86_64-fedora-clang | [![CRAN check - r-devel-linux-x86_64-fedora-clang](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-clang/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html) |
+| r-devel-linux-x86_64-fedora-gcc   | [![CRAN check - r-devel-linux-x86_64-fedora-gcc](https://badges.cranchecks.info/flavor/r-devel-linux-x86_64-fedora-gcc/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)     |
+| r-patched-linux-x86_64            | [![CRAN check - r-patched-linux-x86_64](https://badges.cranchecks.info/flavor/r-patched-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)                       |
+| r-release-linux-x86_64            | [![CRAN check - r-release-linux-x86_64](https://badges.cranchecks.info/flavor/r-release-linux-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)                       |
+
+[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)
+
+|                               |                                                                                                                                                                                                                |
+|:------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| r-devel-windows-ix86+x86_64   | [![CRAN check - r-devel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-devel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)     |
+| r-release-windows-ix86+x86_64 | [![CRAN check - r-release-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-release-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html) |
+| r-oldrel-windows-ix86+x86_64  | [![CRAN check - r-oldrel-windows-ix86+x86_64](https://badges.cranchecks.info/flavor/r-oldrel-windows-ix86+x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)   |
+
+[![MacOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)
+
+|                        |                                                                                                                                                                                                  |
+|:-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| r-release-macos-x86_64 | [![CRAN check - r-release-macos-x86_64](https://badges.cranchecks.info/flavor/r-release-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html) |
+| r-oldrel-macos-x86_64  | [![CRAN check - r-oldrel-macos-x86_64](https://badges.cranchecks.info/flavor/r-oldrel-macos-x86_64/augmentedRCBD.svg)](https://cran.r-project.org/web/checks/check_results_augmentedRCBD.html)   |
 
 ## Citing `augmentedRCBD`
 
@@ -350,8 +247,8 @@ citation("augmentedRCBD")
 
     To cite the R package 'augmentedRCBD' in publications use:
 
-      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2023).  augmentedRCBD: Analysis of Augmented Randomised
-      Complete Block Designs. R package version 0.1.6,
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. ().  augmentedRCBD: Analysis of Augmented Randomised
+      Complete Block Designs. R package version 0.1.6.9000,
       https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
     A BibTeX entry for LaTeX users is
@@ -359,8 +256,7 @@ citation("augmentedRCBD")
       @Manual{,
         title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
         author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
-        year = {2023},
-        note = {R package version 0.1.6},
+        note = {R package version 0.1.6.9000},
         note = {https://aravind-j.github.io/augmentedRCBD/},
         note = {https://cran.r-project.org/package=augmentedRCBD},
       }
