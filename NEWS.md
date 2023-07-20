@@ -1,5 +1,8 @@
 # augmentedRCBD  0.1.7
 
+## UPDATED FUNCTIONS:
+* `report.augmentedRCBD.bulk` - Fixed report creation when anova warnings are present.
+
 # augmentedRCBD  0.1.6
 
 ## UPDATED FUNCTIONS:

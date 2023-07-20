@@ -164,9 +164,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anova_warn <- NULL
     if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
                    unlist(aug.bulk$warnings$Model)))) {
-      anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
-                                                         aug.bulk$warnings$Model)],
-                           function(x) trimws(unlist(strsplit(x, "\n"))))
+      # anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
+      #                                                    aug.bulk$warnings$Model)],
+      #                      function(x) trimws(unlist(strsplit(x, "\n"))))
+      anova_warn <-
+        lapply(aug.bulk$warnings$Model[!grepl(paste(c(wstring1, wstring2),
+                                                    collapse = "|"),
+                                              unlist(aug.bulk$warnings$Model))],
+               function(x) trimws(unlist(strsplit(x, "\n"))))
       }
 
     # ANOVA, TA
@@ -182,14 +187,13 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
     #                                                       sep = ""),
     #                                        colnames(anovata))))
-    mcols <- lapply(traits, function(x) {c(which(grepl(paste(x, "_Mean.Sq",
-                                                             sep = ""),
-                                                       colnames(anovata),
-                                                       fixed = TRUE)),
-                                           which(grepl(paste(x, "_sig",
-                                                             sep = ""),
-                                                       colnames(anovata),
-                                                       fixed = TRUE)))})
+    mcols <- lapply(traits,
+                    function(x) {c(which(colnames(anovata) ==
+                                           paste(x, "_Mean.Sq",
+                                                 sep = "")),
+                                   which(colnames(anovata) ==
+                                           paste(x, "_sig",
+                                                 sep = "")))})
     names(mcols) <- traits
     colnames(anovata) <- gsub("_Mean.Sq", "", colnames(anovata))
     nsindex <- lapply(mcols, function(x) which(anovata[, x[2]] == "ns"))
@@ -245,14 +249,13 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     # mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
     #                                                       sep = ""),
     #                                                 colnames(anovaba))))
-    mcols <- lapply(traits, function(x) {c(which(grepl(paste(x, "_Mean.Sq",
-                                                             sep = ""),
-                                                       colnames(anovaba),
-                                                       fixed = TRUE)),
-                                           which(grepl(paste(x, "_sig",
-                                                             sep = ""),
-                                                       colnames(anovaba),
-                                                       fixed = TRUE)))})
+    mcols <- lapply(traits,
+                    function(x) {c(which(colnames(anovaba) ==
+                                           paste(x, "_Mean.Sq",
+                                                 sep = "")),
+                                   which(colnames(anovaba) ==
+                                           paste(x, "_sig",
+                                                 sep = "")))})
     names(mcols) <- traits
     colnames(anovaba) <- gsub("_Mean.Sq", "", colnames(anovaba))
     nsindex <- lapply(mcols, function(x) which(anovaba[, x[2]] == "ns"))
@@ -758,9 +761,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     anova_warn <- NULL
     if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
                    unlist(aug.bulk$warnings$Model)))) {
-      anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
-                                                         aug.bulk$warnings$Model)],
-                           function(x) trimws(unlist(strsplit(x, "\n"))))
+      # anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
+      #                                                    aug.bulk$warnings$Model)],
+      #                      function(x) trimws(unlist(strsplit(x, "\n"))))
+      anova_warn <-
+        lapply(aug.bulk$warnings$Model[!grepl(paste(c(wstring1, wstring2),
+                                                    collapse = "|"),
+                                              unlist(aug.bulk$warnings$Model))],
+               function(x) trimws(unlist(strsplit(x, "\n"))))
       anova_warn <- stack(anova_warn)
       anova_warn <- anova_warn[, 2:1]
     }
@@ -824,10 +832,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                  widths = max(nchar(anovata$Source)) + 5)
     if (!is.null(anova_warn)) {
       writeData(wb, sheet = "ANOVA, Treatment Adjusted",
-                xy = c("A", 10), x = anova_warn, borders = "none")
+                xy = c("A", 10), x = anova_warn,
+                borders = "none", colNames = FALSE)
       addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
                style = createStyle(fontColour  = "#C00000"),
-               rows = (10 - 1 + nrow(anova_warn)), cols = 1,
+               rows = (10 - 1 + nrow(anova_warn)), cols = 1:2,
                stack = FALSE, gridExpand = TRUE)
     }
 
@@ -889,11 +898,12 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "ANOVA, Block Adjusted", cols = 1,
                  widths = max(nchar(anovaba$Source)) + 5)
     if (!is.null(anova_warn)) {
-      writeData(wb, sheet = "ANOVA, Treatment Adjusted",
-                xy = c("A", 11), x = anova_warn, borders = "none")
-      addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+      writeData(wb, sheet = "ANOVA, Block Adjusted",
+                xy = c("A", 11), x = anova_warn,
+                borders = "none", colNames = FALSE)
+      addStyle(wb,  sheet = "ANOVA, Block Adjusted",
                style = createStyle(fontColour  = "#C00000"),
-               rows = (11 - 1 + nrow(anova_warn)), cols = 1,
+               rows = (11 - 1 + nrow(anova_warn)), cols = 1:2,
                stack = FALSE, gridExpand = TRUE)
     }
 
