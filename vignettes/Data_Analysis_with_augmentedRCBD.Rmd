@@ -31,8 +31,6 @@ header-includes:
 - \newcommand{\blandscape}{\begin{landscape}}
 - \newcommand{\elandscape}{\end{landscape}}
 - \renewcommand\thesection{\arabic{section}}
-- \setmonofont[Scale=MatchLowercase]{FreeMonoBold.otf}
-- \setmonofont[Scale=0.9]{FreeMonoBold.otf}
 link-citations: yes
 csl: frontiers.csl
 resource_files:
