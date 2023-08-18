@@ -66,6 +66,422 @@ keywords:
 - augmented-design
 - augmented-rcbd
 - r
+references:
+- type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  url: https://www.R-project.org/
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2023'
+  institution:
+    name: R Foundation for Statistical Computing
+  version: '>= 3.0.1'
+- type: software
+  title: cli
+  abstract: 'cli: Helpers for Developing Command Line Interfaces'
+  notes: Imports
+  url: https://cli.r-lib.org
+  repository: https://CRAN.R-project.org/package=cli
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+    email: csardi.gabor@gmail.com
+  year: '2023'
+- type: software
+  title: dplyr
+  abstract: 'dplyr: A Grammar of Data Manipulation'
+  notes: Imports
+  url: https://dplyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=dplyr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: François
+    given-names: Romain
+    orcid: https://orcid.org/0000-0002-2444-4226
+  - family-names: Henry
+    given-names: Lionel
+  - family-names: Müller
+    given-names: Kirill
+    orcid: https://orcid.org/0000-0002-1416-3412
+  - family-names: Vaughan
+    given-names: Davis
+    email: davis@posit.co
+    orcid: https://orcid.org/0000-0003-4777-038X
+  year: '2023'
+- type: software
+  title: emmeans
+  abstract: 'emmeans: Estimated Marginal Means, aka Least-Squares Means'
+  notes: Imports
+  url: https://github.com/rvlenth/emmeans
+  repository: https://CRAN.R-project.org/package=emmeans
+  authors:
+  - family-names: Lenth
+    given-names: Russell V.
+    email: russell-lenth@uiowa.edu
+  year: '2023'
+- type: software
+  title: flextable
+  abstract: 'flextable: Functions for Tabular Reporting'
+  notes: Imports
+  url: https://ardata-fr.github.io/flextable-book/
+  repository: https://CRAN.R-project.org/package=flextable
+  authors:
+  - family-names: Gohel
+    given-names: David
+    email: david.gohel@ardata.fr
+  - family-names: Skintzos
+    given-names: Panagiotis
+    email: panagiotis.skintzos@ardata.fr
+  year: '2023'
+- type: software
+  title: ggplot2
+  abstract: 'ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics'
+  notes: Imports
+  url: https://ggplot2.tidyverse.org
+  repository: https://CRAN.R-project.org/package=ggplot2
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: Chang
+    given-names: Winston
+    orcid: https://orcid.org/0000-0002-1576-2126
+  - family-names: Henry
+    given-names: Lionel
+  - family-names: Pedersen
+    given-names: Thomas Lin
+    email: thomas.pedersen@posit.co
+    orcid: https://orcid.org/0000-0002-5147-4711
+  - family-names: Takahashi
+    given-names: Kohske
+  - family-names: Wilke
+    given-names: Claus
+    orcid: https://orcid.org/0000-0002-7470-9261
+  - family-names: Woo
+    given-names: Kara
+    orcid: https://orcid.org/0000-0002-5125-4188
+  - family-names: Yutani
+    given-names: Hiroaki
+    orcid: https://orcid.org/0000-0002-3385-7233
+  - family-names: Dunnington
+    given-names: Dewey
+    orcid: https://orcid.org/0000-0002-9415-4582
+  year: '2023'
+- type: software
+  title: grDevices
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2023'
+  institution:
+    name: R Foundation for Statistical Computing
+- type: software
+  title: mathjaxr
+  abstract: 'mathjaxr: Using ''Mathjax'' in Rd Files'
+  notes: Imports
+  url: https://github.com/wviechtb/mathjaxr
+  repository: https://CRAN.R-project.org/package=mathjaxr
+  authors:
+  - family-names: Viechtbauer
+    given-names: Wolfgang
+    email: wvb@wvbauer.com
+    orcid: https://orcid.org/0000-0003-3463-4063
+  year: '2023'
+- type: software
+  title: methods
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2023'
+  institution:
+    name: R Foundation for Statistical Computing
+- type: software
+  title: moments
+  abstract: 'moments: Moments, Cumulants, Skewness, Kurtosis and Related Tests'
+  notes: Imports
+  url: https://www.r-project.org
+  repository: https://CRAN.R-project.org/package=moments
+  authors:
+  - family-names: Komsta
+    given-names: Lukasz
+    email: lukasz.komsta@umlub.pl
+  - family-names: Novomestky
+    given-names: Frederick
+    email: fnovomes@poly.edu
+  year: '2023'
+- type: software
+  title: multcomp
+  abstract: 'multcomp: Simultaneous Inference in General Parametric Models'
+  notes: Imports
+  url: http://multcomp.R-forge.R-project.org
+  repository: https://CRAN.R-project.org/package=multcomp
+  authors:
+  - family-names: Hothorn
+    given-names: Torsten
+    email: Torsten.Hothorn@R-project.org
+    orcid: https://orcid.org/0000-0001-8301-0471
+  - family-names: Bretz
+    given-names: Frank
+  - family-names: Westfall
+    given-names: Peter
+  year: '2023'
+- type: software
+  title: multcompView
+  abstract: 'multcompView: Visualizations of Paired Comparisons'
+  notes: Imports
+  repository: https://CRAN.R-project.org/package=multcompView
+  authors:
+  - family-names: Graves
+    given-names: Spencer
+  - family-names: Piepho
+    given-names: Hans-Peter
+  - family-names: Dorai-Raj
+    given-names: Luciano Selzer with help from Sundar
+  year: '2023'
+- type: software
+  title: numform
+  abstract: 'numform: Tools to Format Numbers for Publication'
+  notes: Imports
+  url: https://github.com/trinker/numform
+  repository: https://CRAN.R-project.org/package=numform
+  authors:
+  - family-names: Rinker
+    given-names: Tyler
+    email: tyler.rinker@gmail.com
+  year: '2023'
+- type: software
+  title: officer
+  abstract: 'officer: Manipulation of Microsoft Word and PowerPoint Documents'
+  notes: Imports
+  url: https://ardata-fr.github.io/officeverse/
+  repository: https://CRAN.R-project.org/package=officer
+  authors:
+  - family-names: Gohel
+    given-names: David
+    email: david.gohel@ardata.fr
+  year: '2023'
+- type: software
+  title: openxlsx
+  abstract: 'openxlsx: Read, Write and Edit xlsx Files'
+  notes: Imports
+  url: https://ycphs.github.io/openxlsx/index.html
+  repository: https://CRAN.R-project.org/package=openxlsx
+  authors:
+  - family-names: Schauberger
+    given-names: Philipp
+    email: philipp@schauberger.co.at
+  - family-names: Walker
+    given-names: Alexander
+    email: Alexander.Walker1989@gmail.com
+  year: '2023'
+- type: software
+  title: Rdpack
+  abstract: 'Rdpack: Update and Manipulate Rd Documentation Objects'
+  notes: Imports
+  url: https://geobosh.github.io/Rdpack/
+  repository: https://CRAN.R-project.org/package=Rdpack
+  authors:
+  - family-names: Boshnakov
+    given-names: Georgi N.
+    email: georgi.boshnakov@manchester.ac.uk
+  year: '2023'
+- type: software
+  title: reshape2
+  abstract: 'reshape2: Flexibly Reshape Data: A Reboot of the Reshape Package'
+  notes: Imports
+  url: https://github.com/hadley/reshape
+  repository: https://CRAN.R-project.org/package=reshape2
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: h.wickham@gmail.com
+  year: '2023'
+- type: software
+  title: stats
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2023'
+  institution:
+    name: R Foundation for Statistical Computing
+- type: software
+  title: stringi
+  abstract: 'stringi: Fast and Portable Character String Processing Facilities'
+  notes: Imports
+  url: https://stringi.gagolewski.com/
+  repository: https://CRAN.R-project.org/package=stringi
+  authors:
+  - family-names: Gagolewski
+    given-names: Marek
+  - family-names: Tartanus
+    given-names: Bartek
+  - family-names: Unicode
+    given-names: others;
+  - name: Inc.
+  - name: others
+  year: '2023'
+- type: software
+  title: utils
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  location:
+    name: Vienna, Austria
+  year: '2023'
+  institution:
+    name: R Foundation for Statistical Computing
+- type: software
+  title: agricolae
+  abstract: 'agricolae: Statistical Procedures for Agricultural Research'
+  notes: Suggests
+  repository: https://CRAN.R-project.org/package=agricolae
+  authors:
+  - family-names: de Mendiburu
+    given-names: Felipe
+  year: '2023'
+- type: software
+  title: diagram
+  abstract: 'diagram: Functions for Visualising Simple Graphs (Networks), Plotting
+    Flow Diagrams'
+  notes: Suggests
+  repository: https://CRAN.R-project.org/package=diagram
+  authors:
+  - family-names: Soetaert
+    given-names: Karline
+    email: karline.soetaert@nioz.nl
+  year: '2023'
+- type: software
+  title: httr
+  abstract: 'httr: Tools for Working with URLs and HTTP'
+  notes: Suggests
+  url: https://httr.r-lib.org/
+  repository: https://CRAN.R-project.org/package=httr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2023'
+- type: software
+  title: knitr
+  abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
+  notes: Suggests
+  url: https://yihui.org/knitr/
+  repository: https://CRAN.R-project.org/package=knitr
+  authors:
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+    orcid: https://orcid.org/0000-0003-0645-5666
+  year: '2023'
+- type: software
+  title: pander
+  abstract: 'pander: An R ''Pandoc'' Writer'
+  notes: Suggests
+  url: https://rapporter.github.io/pander/
+  repository: https://CRAN.R-project.org/package=pander
+  authors:
+  - family-names: Daróczi
+    given-names: Gergely
+    email: daroczig@rapporter.net
+    orcid: https://orcid.org/0000-0003-3149-8537
+  - family-names: Tsegelskyi
+    given-names: Roman
+    email: roman.tsegelskyi@gmail.com
+  year: '2023'
+- type: software
+  title: RCurl
+  abstract: 'RCurl: General Network (HTTP/FTP/...) Client Interface for R'
+  notes: Suggests
+  repository: https://CRAN.R-project.org/package=RCurl
+  authors:
+  - family-names: Temple Lang
+    given-names: Duncan
+    email: duncan@r-project.org
+    orcid: https://orcid.org/0000-0003-0159-1546
+  year: '2023'
+- type: software
+  title: rmarkdown
+  abstract: 'rmarkdown: Dynamic Documents for R'
+  notes: Suggests
+  url: https://pkgs.rstudio.com/rmarkdown/
+  repository: https://CRAN.R-project.org/package=rmarkdown
+  authors:
+  - family-names: Allaire
+    given-names: JJ
+    email: jj@posit.co
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+    orcid: https://orcid.org/0000-0003-0645-5666
+  - family-names: Dervieux
+    given-names: Christophe
+    email: cderv@posit.co
+    orcid: https://orcid.org/0000-0003-4474-2498
+  - family-names: McPherson
+    given-names: Jonathan
+    email: jonathan@posit.co
+  - family-names: Luraschi
+    given-names: Javier
+  - family-names: Ushey
+    given-names: Kevin
+    email: kevin@posit.co
+  - family-names: Atkins
+    given-names: Aron
+    email: aron@posit.co
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Cheng
+    given-names: Joe
+    email: joe@posit.co
+  - family-names: Chang
+    given-names: Winston
+    email: winston@posit.co
+  - family-names: Iannone
+    given-names: Richard
+    email: rich@posit.co
+    orcid: https://orcid.org/0000-0003-3925-190X
+  year: '2023'
+- type: software
+  title: testthat
+  abstract: 'testthat: Unit Testing for R'
+  notes: Suggests
+  url: https://testthat.r-lib.org
+  repository: https://CRAN.R-project.org/package=testthat
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2023'
+- type: software
+  title: XML
+  abstract: 'XML: Tools for Parsing and Generating XML Within R and S-Plus'
+  notes: Suggests
+  url: https://www.omegahat.net/RSXML/
+  repository: https://CRAN.R-project.org/package=XML
+  authors:
+  - family-names: Temple Lang
+    given-names: Duncan
+    email: duncan@r-project.org
+    orcid: https://orcid.org/0000-0003-0159-1546
+  year: '2023'
 identifiers:
 - type: url
   value: https://aravind-j.github.io/augmentedRCBD/
