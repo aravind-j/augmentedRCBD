@@ -3,6 +3,12 @@
 ## UPDATED FUNCTIONS:
 * `report.augmentedRCBD.bulk` - Fixed report creation when anova warnings are present.
 
+## VIGNETTE:
+* Relaxed requirements (use default fonts) for vignette so that package passes 'R CMD check' on Windows.
+
+## OTHER NOTES:
+* Fixed `inst/CITATION`.
+
 # augmentedRCBD  0.1.6
 
 ## UPDATED FUNCTIONS:

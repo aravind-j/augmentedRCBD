@@ -10,7 +10,7 @@ license:
 - GPL-2.0-only
 - GPL-3.0-only
 title: 'augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs'
-version: 0.1.6
+version: 0.1.7
 abstract: Functions for analysis of data generated from experiments in augmented randomised
   complete block design according to Federer, W.T. (1961) <doi:10.2307/2527837>. Computes
   analysis of variance, adjusted means, descriptive statistics, genetic variability
@@ -23,6 +23,7 @@ authors:
 - family-names: Mukesh Sankar
   given-names: S.
   email: mukeshsankar@gmail.com
+  orcid: https://orcid.org/0000-0001-5459-392X
 - family-names: Wankhede
   given-names: Dhammaprakash Pandhari
   email: d.wankhede@icar.gov.in
@@ -30,6 +31,7 @@ authors:
 - family-names: Kaur
   given-names: Vikender
   email: vikender.kaur@icar.gov.in
+  orcid: https://orcid.org/0000-0001-9698-7329
 preferred-citation:
   type: manual
   title: 'augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs'
@@ -41,6 +43,7 @@ preferred-citation:
   - family-names: Mukesh Sankar
     given-names: S.
     email: mukeshsankar@gmail.com
+    orcid: https://orcid.org/0000-0001-5459-392X
   - family-names: Wankhede
     given-names: Dhammaprakash Pandhari
     email: d.wankhede@icar.gov.in
@@ -48,15 +51,11 @@ preferred-citation:
   - family-names: Kaur
     given-names: Vikender
     email: vikender.kaur@icar.gov.in
-  year: '2023'
-  notes:
-  - R package version 0.1.6
-  - https://aravind-j.github.io/augmentedRCBD/
-  - https://cran.r-project.org/package=augmentedRCBD
+    orcid: https://orcid.org/0000-0001-9698-7329
+  notes: R package version 0.1.7 https://aravind-j.github.io/augmentedRCBD/ https://cran.r-project.org/package=augmentedRCBD
 repository: https://CRAN.R-project.org/package=augmentedRCBD
 repository-code: https://github.com/aravind-j/augmentedRCBD
 url: https://CRAN.R-project.org/package=augmentedRCBD
-date-released: '2023-02-11'
 contact:
 - family-names: Aravind
   given-names: J.

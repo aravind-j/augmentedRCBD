@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/aravind-j/augmentedRCBD",
   "issueTracker": "https://github.com/aravind-j/augmentedRCBD/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2023-04-28 r84338 ucrt)",
+  "runtimePlatform": "R Under development (unstable) (2023-08-09 r84924 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -33,7 +33,8 @@
       "@type": "Person",
       "givenName": "S.",
       "familyName": "Mukesh Sankar",
-      "email": "mukeshsankar@gmail.com"
+      "email": "mukeshsankar@gmail.com",
+      "@id": "https://orcid.org/0000-0001-5459-392X"
     },
     {
       "@type": "Person",
@@ -46,7 +47,8 @@
       "@type": "Person",
       "givenName": "Vikender",
       "familyName": "Kaur",
-      "email": "vikender.kaur@icar.gov.in"
+      "email": "vikender.kaur@icar.gov.in",
+      "@id": "https://orcid.org/0000-0001-9698-7329"
     }
   ],
   "copyrightHolder": [
@@ -383,11 +385,10 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1659.643KB",
+  "fileSize": "1671.634KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
-      "datePublished": "2023",
       "author": [
         {
           "@type": "Person",
@@ -416,7 +417,7 @@
         }
       ],
       "name": "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
-      "description": ["R package version 0.1.6", "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD"]
+      "description": "R package version 0.1.7 https://aravind-j.github.io/augmentedRCBD/ https://cran.r-project.org/package=augmentedRCBD"
     }
   ],
   "readme": "https://github.com/aravind-j/augmentedRCBD/blob/master/README.md",
