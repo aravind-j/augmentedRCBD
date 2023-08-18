@@ -1,6 +1,6 @@
 Package: augmentedRCBD
 Title: Analysis of Augmented Randomised Complete Block Designs
-Version: 0.1.7
+Version: 0.1.7.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
            email = "j.aravind@icar.gov.in",

@@ -3,12 +3,6 @@ output: rmarkdown::github_document
 always_allow_html: true
 ---
 
-```{r, results='asis', echo=FALSE}
-glue::glue('<script type="application/ld+json">
-      {glue::glue_collapse(readLines("inst/schemaorg.json"), sep = "\n")}
-    </script>')
-```
-
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
