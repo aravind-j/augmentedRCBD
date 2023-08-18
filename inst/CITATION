@@ -29,5 +29,5 @@ bibentry(header = hd,
            year, ").  augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs. ",
            vers, ", ", "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD",
            ".", sep=""),
-         note = {c(paste(vers), "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD")},
+         note = paste(vers, "https://aravind-j.github.io/augmentedRCBD/", "https://cran.r-project.org/package=augmentedRCBD"),
          footer = ft)
