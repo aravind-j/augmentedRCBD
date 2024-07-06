@@ -783,6 +783,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     colnames(anovata_sig) <- gsub("_sig", "", colnames(anovata_sig))
     colnames(anovata) <- gsub("_Mean.Sq", "", colnames(anovata))
     anovata <- anovata[, c("Source", "Df", traits)]
+    colnames(anovata)[colnames(anovata) == "Df"] <- "Degrees of freedom"
 
     addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
     writeData(wb, sheet = "ANOVA, Treatment Adjusted",
@@ -850,6 +851,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     colnames(anovaba_sig) <- gsub("_sig", "", colnames(anovaba_sig))
     colnames(anovaba) <- gsub("_Mean.Sq", "", colnames(anovaba))
     anovaba <- anovaba[, c("Source", "Df", traits)]
+    colnames(anovaba)[colnames(anovaba) == "Df"] <- "Degrees of freedom"
 
     addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
     writeData(wb, sheet = "ANOVA, Block Adjusted",

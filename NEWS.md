@@ -1,7 +1,7 @@
 # augmentedRCBD  0.1.7
 
 ## UPDATED FUNCTIONS:
-* `report.augmentedRCBD.bulk` - Fixed report creation when anova warnings are present.
+* `report.augmentedRCBD.bulk` - Fixed report creation when anova warnings are present. Fixed issue with use of "DF" as a trait name because of duplication with "Df" or "Degrees of freedom" column name.
 
 ## VIGNETTE:
 * Relaxed requirements (use default fonts) for vignette so that package passes 'R CMD check' on Windows.
