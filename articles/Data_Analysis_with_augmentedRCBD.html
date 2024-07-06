@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -118,7 +118,7 @@ J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D.
 P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 data-toc-skip class="date">2023-08-20</h4>
+            <h4 data-toc-skip class="date">2024-07-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/vignettes/Data_Analysis_with_augmentedRCBD.Rmd" class="external-link"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="hidden name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -163,10 +163,10 @@ Genetic Resources, New Delhi.
 statistical programming language</a> as an add-on (or ‘package’ in the
 <code>R</code> <em>lingua franca</em>). It performs the analysis of data
 generated from experiments in augmented randomised complete block design
-according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956" role="doc-biblioref">1956a</a>, <a href="#ref-federer_augmented_1956-1" role="doc-biblioref">1956b</a>, <a href="#ref-federer_augmented_1961" role="doc-biblioref">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>. It also computes analysis of
-variance, adjusted means, descriptive statistics, genetic variability
-statistics etc. and includes options for data visualization and report
-generation.</p>
+according to Federer, W.T. <span class="citation">(<a href="#ref-federer_augmented_1956">1956a</a>, <a href="#ref-federer_augmented_1956-1">1956b</a>, <a href="#ref-federer_augmented_1961">1961</a>; <a href="#ref-federerModelConsiderationsVariance1976">1976</a>)</span>. It
+also computes analysis of variance, adjusted means, descriptive
+statistics, genetic variability statistics etc. and includes options for
+data visualization and report generation.</p>
 <p>This tutorial aims to educate the users in utilising this package for
 performing such analysis. Utilising <code>augmentedRCBD</code> for data
 analysis requires a basic knowledge of <code>R</code> programming
@@ -187,7 +187,8 @@ Linux, Windows or MacOS), very flexible, comprehensive with robust
 interfaces for all the popular programming languages as well as
 databases. It is strengthened by its diverse library of add-on packages
 extending its ability as well as the incredible community support. It is
-one of the most popular tools being used in academia today <span class="citation">(<a href="#ref-tippmann_programming_2015" role="doc-biblioref">Tippmann, 2015</a>)</span>.</p>
+one of the most popular tools being used in academia today <span class="citation">(<a href="#ref-tippmann_programming_2015">Tippmann,
+2015</a>)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="getting-started">3 Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
@@ -786,7 +787,7 @@ are taken by the function and the type of output object returned
 <p>Packages in <code>R</code> are collections of <code>R</code>
 functions, data, and compiled code in a well-defined format. They are
 add-ons which extend the functionality of <code>R</code> and at present,
-there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">19758</a>
+there are <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html" class="external-link">21021</a>
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).</p>
 <p>Valid packages from CRAN can be installed by using the
@@ -1722,7 +1723,7 @@ Method : lsd
   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-  treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+  treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -2066,7 +2067,7 @@ Method : lsd
   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-  treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+  treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -2399,7 +2400,7 @@ Method : lsd
   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-  treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+  treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -2734,7 +2735,7 @@ Method : lsd
   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-  treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+  treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -2926,11 +2927,10 @@ Method : lsd
 </h3>
 <p>The descriptive statistics such as count, mean, standard error,
 minimum, maximum, skewness ( with p-value from D’Agostino test of
-skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970" role="doc-biblioref">1970</a>)</span>)) and kurtosis (with p-value from
-Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and
-Glynn (<a href="#ref-anscombe_distribution_1983" role="doc-biblioref">1983</a>)</span>)) for the adjusted means from the
-results in an object of class <code>augmentedRCBD</code> can be computed
-as follows.</p>
+skewness (<span class="citation">D’Agostino (<a href="#ref-dagostino_transformation_1970">1970</a>)</span>)) and
+kurtosis (with p-value from Anscombe-Glynn test of kurtosis (<span class="citation">Anscombe and Glynn (<a href="#ref-anscombe_distribution_1983">1983</a>)</span>)) for the
+adjusted means from the results in an object of class
+<code>augmentedRCBD</code> can be computed as follows.</p>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Descriptive statistics for variable y1</span></span>
 <span><span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
@@ -3009,14 +3009,16 @@ follows.</p>
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png" width="700"></p>
 <div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
 <span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-2.png" width="700"></p>
@@ -3027,14 +3029,16 @@ follows.</p>
 <span></span>
 <span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-1.png" width="700"></p>
 <div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
 <span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-2.png" width="700"></p>
@@ -3044,7 +3048,8 @@ follows.</p>
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
 <span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span>
 <span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-1.png" width="700"></p>
@@ -3052,7 +3057,8 @@ follows.</p>
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
 <span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,</span>
 <span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-2.png" width="700"></p>
@@ -3062,16 +3068,16 @@ follows.</p>
 </h3>
 <p>The genetic variability statistics such as mean, phenotypic,
 genotypic and environmental variation (<span class="citation">Federer
-and Searle (<a href="#ref-federerModelConsiderationsVariance1976" role="doc-biblioref">1976</a>)</span>), phenotypic, genotypic and
-environmental coefficient of variation (<span class="citation">Burton
-(<a href="#ref-burton_quantitative_1951" role="doc-biblioref">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952" role="doc-biblioref">1952</a>)</span>), category of phenotypic and
-genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973" role="doc-biblioref">1973</a>)</span>, broad-sense heritability
-(<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940" role="doc-biblioref">1940</a>)</span>),
-<em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966" role="doc-biblioref">1966</a>)</span>, Genetic advance (GA), genetic
-advance as per cent of mean (GAM) and GAM category according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955" role="doc-biblioref">1955</a>)</span> are computed from an object of
-class <code>augmentedRCBD</code> as follows. Genetic variability
-analysis needs to be performed only if the sum of squares of “Treatment:
-Test” are significant.</p>
+and Searle (<a href="#ref-federerModelConsiderationsVariance1976">1976</a>)</span>),
+phenotypic, genotypic and environmental coefficient of variation (<span class="citation">Burton (<a href="#ref-burton_quantitative_1951">1951</a>)</span>, <span class="citation">Burton (<a href="#ref-burton_qualitative_1952">1952</a>)</span>), category of
+phenotypic and genotypic coefficient of variation according to <span class="citation">Sivasubramaniam and Madhavamenon (<a href="#ref-sivasubramaniam_genotypic_1973">1973</a>)</span>, broad-sense
+heritability (<em>H<sup>2</sup></em>) (<span class="citation">Lush (<a href="#ref-lush_intra-sire_1940">1940</a>)</span>),
+<em>H<sup>2</sup></em> category according to <span class="citation">Robinson (<a href="#ref-robinson_quantitative_1966">1966</a>)</span>, Genetic advance
+(GA), genetic advance as per cent of mean (GAM) and GAM category
+according to <span class="citation">Johnson et al. (<a href="#ref-johnson_estimates_1955">1955</a>)</span> are computed from an
+object of class <code>augmentedRCBD</code> as follows. Genetic
+variability analysis needs to be performed only if the sum of squares of
+“Treatment: Test” are significant.</p>
 <div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Genetic variability statistics for variable y1</span></span>
 <span><span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
@@ -3163,8 +3169,7 @@ $GAM
 $`GAM category`
 [1] "High"</code></pre>
 <p>Negative estimates of variance components if computed are not
-abnormal. For information on how to deal with these, refer <span class="citation">Robinson et al. (<a href="#ref-robinson_genetic_1955" role="doc-biblioref">1955</a>)</span> and <span class="citation">Dudley
-and Moll (<a href="#ref-dudley_interpretation_1969" role="doc-biblioref">1969</a>)</span>.</p>
+abnormal. For information on how to deal with these, refer <span class="citation">Robinson et al. (<a href="#ref-robinson_genetic_1955">1955</a>)</span> and <span class="citation">Dudley and Moll (<a href="#ref-dudley_interpretation_1969">1969</a>)</span>.</p>
 </div>
 <div class="section level3">
 <h3 id="report-augmentedrcbd">7.5 <code>report.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd"></a>
@@ -3370,9 +3375,11 @@ Warning Messages
 
 [Frequency Distribution]
 &lt;y1&gt;
-Removed 2 rows containing missing values (`geom_bar()`).
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).
 &lt;y2&gt;
-Removed 2 rows containing missing values (`geom_bar()`).
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).
 
 
 [GVA]
@@ -3507,9 +3514,11 @@ Warning Messages
 
 [Frequency Distribution]
 &lt;y1&gt;
-Removed 2 rows containing missing values (`geom_bar()`).
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).
 &lt;y2&gt;
-Removed 2 rows containing missing values (`geom_bar()`).
+Removed 2 rows containing missing values or values outside the scale range
+(`geom_bar()`).
 
 
 [GVA]
@@ -3590,13 +3599,13 @@ citing the package.</code></pre>
 </h2>
 <div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.3.1 (2023-06-16)
-Platform: x86_64-apple-darwin20 (64-bit)
-Running under: macOS Monterey 12.6.7
+<pre><code>R version 4.4.1 (2024-06-14)
+Platform: aarch64-apple-darwin20
+Running under: macOS Sonoma 14.5
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRblas.0.dylib 
-LAPACK: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -3608,43 +3617,43 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] diagram_1.6.5            shape_1.4.6              augmentedRCBD_0.1.7.9000
+[1] diagram_1.6.5            shape_1.4.6.1            augmentedRCBD_0.1.7.9000
 
 loaded via a namespace (and not attached):
-  [1] tidyselect_1.2.0        farver_2.1.1            dplyr_1.1.2            
-  [4] bitops_1.0-7            RCurl_1.98-1.12         fastmap_1.1.1          
+  [1] tidyselect_1.2.1        farver_2.1.2            dplyr_1.1.4            
+  [4] bitops_1.0-7            RCurl_1.98-1.14         fastmap_1.2.0          
   [7] TH.data_1.1-2           fontquiver_0.2.1        mathjaxr_1.6-0         
- [10] promises_1.2.1          XML_3.99-0.14           digest_0.6.33          
- [13] estimability_1.4.1      mime_0.12               lifecycle_1.0.3        
- [16] multcompView_0.1-9      ellipsis_0.3.2          gfonts_0.2.0           
- [19] survival_3.5-5          magrittr_2.0.3          compiler_4.3.1         
- [22] rlang_1.1.1             sass_0.4.7              tools_4.3.1            
- [25] utf8_1.2.3              yaml_2.3.7              data.table_1.14.8      
- [28] knitr_1.43              labeling_0.4.2          askpass_1.1            
- [31] curl_5.0.2              plyr_1.8.8              xml2_1.3.5             
+ [10] promises_1.3.0          XML_3.99-0.17           digest_0.6.36          
+ [13] estimability_1.5.1      mime_0.12               lifecycle_1.0.4        
+ [16] multcompView_0.1-10     gfonts_0.2.0            survival_3.6-4         
+ [19] magrittr_2.0.3          compiler_4.4.1          rlang_1.1.4            
+ [22] sass_0.4.9              tools_4.4.1             utf8_1.2.4             
+ [25] yaml_2.3.9              data.table_1.15.4       knitr_1.47             
+ [28] labeling_0.4.3          askpass_1.2.0           htmlwidgets_1.6.4      
+ [31] curl_5.2.1              plyr_1.8.9              xml2_1.3.6             
  [34] multcomp_1.4-25         numform_0.7.0           httpcode_0.3.0         
- [37] withr_2.5.0             purrr_1.0.2             desc_1.4.2             
- [40] grid_4.3.1              fansi_1.0.4             gdtools_0.3.3          
- [43] xtable_1.8-4            colorspace_2.1-0        ggplot2_3.4.3          
- [46] emmeans_1.8.8           scales_1.2.1            MASS_7.3-60            
- [49] crul_1.4.0              cli_3.6.1               mvtnorm_1.2-2          
- [52] rmarkdown_2.24          crayon_1.5.2            ragg_1.2.5             
+ [37] withr_3.0.0             purrr_1.0.2             desc_1.4.3             
+ [40] grid_4.4.1              fansi_1.0.6             gdtools_0.3.7          
+ [43] xtable_1.8-4            colorspace_2.1-0        ggplot2_3.5.1          
+ [46] emmeans_1.10.3          scales_1.3.0            MASS_7.3-60.2          
+ [49] crul_1.4.2              cli_3.6.3               mvtnorm_1.2-5          
+ [52] rmarkdown_2.27          crayon_1.5.3            ragg_1.3.2             
  [55] generics_0.1.3          httr_1.4.7              reshape2_1.4.4         
- [58] cachem_1.0.8            stringr_1.5.0           splines_4.3.1          
- [61] vctrs_0.6.3             Matrix_1.5-4.1          sandwich_3.0-2         
- [64] jsonlite_1.8.7          fontBitstreamVera_0.1.1 systemfonts_1.0.4      
- [67] jquerylib_0.1.4         glue_1.6.2              pkgdown_2.0.7          
- [70] codetools_0.2-19        stringi_1.7.12          flextable_0.9.2        
- [73] gtable_0.3.3            later_1.3.1             munsell_0.5.0          
- [76] tibble_3.2.1            pillar_1.9.0            htmltools_0.5.6        
- [79] openssl_2.1.0           R6_2.5.1                textshaping_0.3.6      
- [82] Rdpack_2.4              rprojroot_2.0.3         evaluate_0.21          
- [85] shiny_1.7.5             lattice_0.21-8          highr_0.10             
- [88] rbibutils_2.2.14        moments_0.14.1          openxlsx_4.2.5.2       
- [91] memoise_2.0.1           fontLiberation_0.1.0    httpuv_1.6.11          
- [94] bslib_0.5.1             Rcpp_1.0.11             zip_2.3.0              
- [97] uuid_1.1-1              officer_0.6.2           xfun_0.40              
-[100] fs_1.6.3                zoo_1.8-12              pkgconfig_2.0.3        </code></pre>
+ [58] cachem_1.1.0            stringr_1.5.1           splines_4.4.1          
+ [61] vctrs_0.6.5             Matrix_1.7-0            sandwich_3.1-0         
+ [64] jsonlite_1.8.8          fontBitstreamVera_0.1.1 systemfonts_1.1.0      
+ [67] jquerylib_0.1.4         glue_1.7.0              pkgdown_2.0.9          
+ [70] codetools_0.2-20        stringi_1.8.4           flextable_0.9.6        
+ [73] gtable_0.3.5            later_1.3.2             munsell_0.5.1          
+ [76] tibble_3.2.1            pillar_1.9.0            htmltools_0.5.8.1      
+ [79] openssl_2.2.0           R6_2.5.1                textshaping_0.4.0      
+ [82] Rdpack_2.6              evaluate_0.24.0         shiny_1.8.1.1          
+ [85] lattice_0.22-6          highr_0.11              rbibutils_2.2.16       
+ [88] moments_0.14.1          openxlsx_4.2.5.2        memoise_2.0.1          
+ [91] fontLiberation_0.1.0    httpuv_1.6.15           bslib_0.7.0            
+ [94] Rcpp_1.0.12             zip_2.3.1               uuid_1.2-0             
+ [97] officer_0.6.6           xfun_0.45               fs_1.6.4               
+[100] zoo_1.8-12              pkgconfig_2.0.3        </code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -3749,7 +3758,7 @@ Tippmann, S. (2015). Programming tools: <span>Adventures</span> with
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
