@@ -12,7 +12,7 @@ openxlsx package."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
 
   gtag('config', 'UA-116716530-2');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,35 +34,35 @@ openxlsx package."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
     Home
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
     <span class="fa fa-code"></span>
-     
+
     Reference
   </a>
 </li>
 <li>
   <a href="../articles/Data_Analysis_with_augmentedRCBD.html">
     <span class="far fa-file"></span>
-     
+
     Tutorial
   </a>
 </li>
 <li>
   <a href="../news/index.html">
     <span class="far fa-newspaper"></span>
-     
+
     News
   </a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">
     <span class="fab fa-github-alt"></span>
-     
+
     Github
   </a>
 </li>
@@ -70,18 +70,18 @@ openxlsx package."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off"></div>
       </form>
-      
+
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate MS Word or Excel Report from <code>augmentedRCBD</code> Output</h1>
-    <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/R/report.augmentedRCBD.R" class="external-link"><code>R/report.augmentedRCBD.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/R/report.augmentedRCBD.R" class="external-link"><code>R/report.augmentedRCBD.R</code></a></small>
     <div class="hidden name"><code>report.augmentedRCBD.Rd</code></div>
     </div>
 
@@ -104,20 +104,22 @@ openxlsx package."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>aug</dt>
+
+
+<dl><dt id="arg-aug">aug<a class="anchor" aria-label="anchor" href="#arg-aug"></a></dt>
 <dd><p>An object of class <code>augmentedRCBD</code>.</p></dd>
 
 
-<dt>target</dt>
+<dt id="arg-target">target<a class="anchor" aria-label="anchor" href="#arg-target"></a></dt>
 <dd><p>The path to the report file to be created.</p></dd>
 
 
-<dt>file.type</dt>
+<dt id="arg-file-type">file.type<a class="anchor" aria-label="anchor" href="#arg-file-type"></a></dt>
 <dd><p>The file type of the report. Either <code>"word"</code> for MS
 Word report file or <code>"excel"</code> for MS Excel report file.</p></dd>
 
 
-<dt>k</dt>
+<dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
 <dd><p>The standardized selection differential or selection intensity
  required for computation of Genetic advance. Default is 2.063 for 5%
  selection proportion (see <strong>Details</strong> in
@@ -125,7 +127,7 @@ Word report file or <code>"excel"</code> for MS Excel report file.</p></dd>
 <code>gva = FALSE</code>.</p></dd>
 
 
-<dt>check.col</dt>
+<dt id="arg-check-col">check.col<a class="anchor" aria-label="anchor" href="#arg-check-col"></a></dt>
 <dd><p>The colour(s) to be used to highlight check values in the
 plot as a character vector. Must be valid colour values in R (named
 colours, hexadecimal representation, index of colours [<code>1:8</code>] in
@@ -178,14 +180,14 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 <span class="r-in"><span>                     check.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"darkcyan"</span>,</span></span>
 <span class="r-in"><span>                                   <span class="st">"forestgreen"</span>, <span class="st">"purple"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/h9/l1shxhdd69nct08ylzq0n6q00000gn/T//RtmpC3m6v6/augmentedRCBD output.docx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/zn/hj183dg15s713b47j2wlhwzw0000gn/T//RtmpWtMOsG/augmentedRCBD output.docx</span>
 <span class="r-in"><span><span class="fu">report.augmentedRCBD</span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out</span>,</span></span>
 <span class="r-in"><span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                        <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                     file.type <span class="op">=</span> <span class="st">"excel"</span>,</span></span>
 <span class="r-in"><span>                     check.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"darkcyan"</span>,</span></span>
 <span class="r-in"><span>                                   <span class="st">"forestgreen"</span>, <span class="st">"purple"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/h9/l1shxhdd69nct08ylzq0n6q00000gn/T//RtmpC3m6v6/augmentedRCBD output.xlsx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/zn/hj183dg15s713b47j2wlhwzw0000gn/T//RtmpWtMOsG/augmentedRCBD output.xlsx</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -202,16 +204,16 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
-    
-    
+
+
     apiKey: 'bdafb7ea4490644e670f470ee3ef537f',
     indexName: 'augmentedrcbd',
     inputSelector: 'input#search-input.form-control',

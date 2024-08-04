@@ -12,7 +12,7 @@ treatments/genotypes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
 
   gtag('config', 'UA-116716530-2');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,35 +34,35 @@ treatments/genotypes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
       <ul class="nav navbar-nav"><li>
   <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
-     
+
     Home
   </a>
 </li>
 <li>
   <a href="../reference/index.html">
     <span class="fa fa-code"></span>
-     
+
     Reference
   </a>
 </li>
 <li>
   <a href="../articles/Data_Analysis_with_augmentedRCBD.html">
     <span class="far fa-file"></span>
-     
+
     Tutorial
   </a>
 </li>
 <li>
   <a href="../news/index.html">
     <span class="far fa-newspaper"></span>
-     
+
     News
   </a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/aravind-j/augmentedRCBD" class="external-link">
     <span class="fab fa-github-alt"></span>
-     
+
     Github
   </a>
 </li>
@@ -70,18 +70,18 @@ treatments/genotypes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off"></div>
       </form>
-      
+
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analysis of Augmented Randomised Complete Block Design</h1>
-    <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/HEAD/R/augmentedRCBD.R" class="external-link"><code>R/augmentedRCBD.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/R/augmentedRCBD.R" class="external-link"><code>R/augmentedRCBD.R</code></a></small>
     <div class="hidden name"><code>augmentedRCBD.Rd</code></div>
     </div>
 
@@ -109,25 +109,27 @@ treatments/genotypes.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>block</dt>
+
+
+<dl><dt id="arg-block">block<a class="anchor" aria-label="anchor" href="#arg-block"></a></dt>
 <dd><p>Vector of blocks (as a factor).</p></dd>
 
 
-<dt>treatment</dt>
+<dt id="arg-treatment">treatment<a class="anchor" aria-label="anchor" href="#arg-treatment"></a></dt>
 <dd><p>Vector of treatments/genotypes (as a factor).</p></dd>
 
 
-<dt>y</dt>
+<dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
 <dd><p>Numeric vector of response variable (Trait).</p></dd>
 
 
-<dt>checks</dt>
+<dt id="arg-checks">checks<a class="anchor" aria-label="anchor" href="#arg-checks"></a></dt>
 <dd><p>Character vector of the checks present in <code>treatment</code>
 levels. If not specified, checks are inferred from the data on the basis of
 number of replications of treatments/genotypes.</p></dd>
 
 
-<dt>method.comp</dt>
+<dt id="arg-method-comp">method.comp<a class="anchor" aria-label="anchor" href="#arg-method-comp"></a></dt>
 <dd><p>Method for comparison of treatments (<code>"lsd"</code> for least
 significant difference or <code>"tukey"</code> for Tukey's honest significant
 difference). If <code>"none"</code>, no comparisons will be made, the ANOVA output
@@ -136,36 +138,34 @@ directly from treatment and block effects instead of using
 <code><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html" class="external-link">emmeans</a></code>.</p></dd>
 
 
-<dt>alpha</dt>
+<dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
 <dd><p>Type I error probability (Significance level) to be used for
 multiple comparisons.</p></dd>
 
 
-<dt>group</dt>
+<dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
 <dd><p>If <code>TRUE</code>, genotypes will be grouped according to
 <code>"method.comp"</code>. Default is <code>TRUE</code>.</p></dd>
 
 
-<dt>console</dt>
+<dt id="arg-console">console<a class="anchor" aria-label="anchor" href="#arg-console"></a></dt>
 <dd><p>If <code>TRUE</code>, output will be printed to console. Default is
 <code>TRUE</code>. Default is <code>TRUE</code>.</p></dd>
 
 
-<dt>simplify</dt>
+<dt id="arg-simplify">simplify<a class="anchor" aria-label="anchor" href="#arg-simplify"></a></dt>
 <dd><p>If <code>TRUE</code>, ANOVA output will be given as a data frame
 instead of a <code>summary.aov</code> object. Default is <code>TRUE</code>.</p></dd>
 
 
-<dt>truncate.means</dt>
+<dt id="arg-truncate-means">truncate.means<a class="anchor" aria-label="anchor" href="#arg-truncate-means"></a></dt>
 <dd><p>If <code>TRUE</code>, the negative adjusted means will be
 truncated to zero. Default is <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A list of class <code>augmentedRCBD</code> containing the following
+    <p>A list of class <code>augmentedRCBD</code> containing the following
  components:</p>
 <dl><dt><code>Details</code></dt>
 <dd><p>Details of the augmented design used.</p></dd>
@@ -220,7 +220,7 @@ al., (2008).</p>
     </div>
     <div id="note">
     <h2>Note</h2>
-    
+
 <ul><li><p>Data should preferably be balanced i.e. all the check
  genotypes should be present in all the blocks. If not, a warning is issued.</p></li>
 <li><p>There should not be any missing values.</p></li>
@@ -235,13 +235,13 @@ al., (2008).</p>
     <h2>References</h2>
     <p>Federer WT (1956).
 “Augmented (or Hoonuiaku) designs.”
-<em>The Hawaiian Planters' Record</em>, <b>LV(2)</b>, 191--208.</p>
+<em>The Hawaiian Planters' Record</em>, <b>LV(2)</b>, 191–208.</p>
 <p>Federer WT (1956).
 “Augmented (or Hoonuiaku) Designs.”
 Technical Report BU-74-M, Cornell University, New York.</p>
 <p>Federer WT (1961).
 “Augmented designs with one-way elimination of heterogeneity.”
-<em>Biometrics</em>, <b>17</b>(3), 447--473.</p>
+<em>Biometrics</em>, <b>17</b>(3), 447–473.</p>
 <p>Searle SR (1965).
 “Computing Formulae for Analyzing Augmented Randomized Complete Block Designs.”
 Technical Report BU-207-M, Cornell University, New York.</p>
@@ -915,7 +915,7 @@ R package version 1.2-8.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         11          86.50 5.61  6    72.77   100.23    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          7          93.50 5.61  6    79.77   107.23     2</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># Error in case checks not replicated across all blocks</span></span></span>
 <span class="r-in"><span><span class="co"># Check 1 and 4 not replicated in all 3 blocks</span></span></span>
 <span class="r-in"><span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">14</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">13</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span></span>
@@ -925,7 +925,7 @@ R package version 1.2-8.</p>
 <span class="r-in"><span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span></span>
 <span class="r-in"><span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                      checks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Warning in case test treatments are replicated</span></span></span>
 <span class="r-in"><span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span></span>
@@ -1273,16 +1273,16 @@ R package version 1.2-8.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
-    
-    
+
+
     apiKey: 'bdafb7ea4490644e670f470ee3ef537f',
     indexName: 'augmentedrcbd',
     inputSelector: 'input#search-input.form-control',
