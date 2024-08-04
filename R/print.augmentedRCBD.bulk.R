@@ -188,14 +188,16 @@ print.augmentedRCBD.bulk <- function(x, ...){
       gwhltv <- rep("", length(new_trait))
 
       if (any(grepl(gwstring1, x$warnings$GVA))) {
-        gwhlt1 <- names(sapply(x$warnings$GVA,
-                               function(gvaw) any(grepl(gwstring1, gvaw))))
+        gwhlt1_match <- sapply(x$warnings$GVA,
+                               function(gvaw) any(grepl(gwstring1, gvaw)))
+        gwhlt1 <- names(gwhlt1_match[gwhlt1_match])
         gwhltv[which(new_trait %in% gwhlt1)] <-
           paste( gwhltv[which(new_trait %in% gwhlt1)], "\u2020", sep = "")
       }
       if (any(grepl(gwstring2, x$warnings$GVA))) {
-        gwhlt2 <- names(sapply(x$warnings$GVA,
-                               function(gvaw) any(grepl(gwstring2, gvaw))))
+        gwhlt2_match <- sapply(x$warnings$GVA,
+                               function(gvaw) any(grepl(gwstring2, gvaw)))
+        gwhlt2 <- names(gwhlt2_match[gwhlt2_match])
         gwhltv[which(new_trait %in% gwhlt2)] <-
           paste( gwhltv[which(new_trait %in% gwhlt2)], "\u2021", sep = "")
       }
