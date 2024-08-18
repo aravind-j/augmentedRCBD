@@ -69,6 +69,6 @@ VignetteBuilder:
 RdMacros: 
     mathjaxr,
     Rdpack
-Copyright: 2015-2023, ICAR-NBPGR
+Copyright: 2015-2024, ICAR-NBPGR
 Encoding: UTF-8
 RoxygenNote: 7.3.2
