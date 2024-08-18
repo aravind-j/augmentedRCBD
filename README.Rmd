@@ -38,7 +38,7 @@ devtools::load_all(".")
 [![minimal R version](https://img.shields.io/badge/R>%3D-3.0.2-6666ff.svg?logo=R)](https://cran.r-project.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version-last-release/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
-[![Dependencies](https://tinyverse.netlify.com/badge/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
+[![Dependencies](https://tinyverse.netlify.app/status/augmentedRCBD)](https://cran.r-project.org/package=augmentedRCBD)
 [![rstudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/augmentedRCBD?color=green)](https://CRAN.R-project.org/package=augmentedRCBD)
 ```{r, results='asis', echo=FALSE}
 dver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("augmentedRCBD")) != "",
@@ -149,23 +149,35 @@ osdf$`CRAN check` <- paste("[![CRAN check - ", osdf$Flavour, "]",
 
 
 ```{r, echo = FALSE, results='asis'}
-cat("[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)", "\n")
+cat("\n",
+    "[![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)](https://cran.r-project.org/web/checks/check_results_EvaluateCore.html)", "\n")
 
-knitr::kable(osdf[osdf$OS == "Linux", c(2, 3)], format = "simple", 
-             col.names = c("", ""), 
-             row.names = FALSE)
+# knitr::kable(osdf[osdf$OS == "Linux", c(2, 3)], format = "simple", 
+#              col.names = c("", ""), 
+#              row.names = FALSE)
 
-cat("[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)", "\n")
+pander::pandoc.table(osdf[osdf$OS == "Linux", c(2, 3)], split.tables = Inf,
+                     row.names = FALSE, justify = "ll", style = "grid")
 
-knitr::kable(osdf[osdf$OS == "Windows", c(2, 3)], format = "simple", 
-             col.names = c("", ""),
-             row.names = FALSE)
+cat("\n",
+    "[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://cran.r-project.org/web/checks/check_results_EvaluateCore.html)", "\n")
 
-cat("[![MacOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://cran.r-project.org/web/checks/check_results_germinationmetrics.html)", "\n")
+# knitr::kable(osdf[osdf$OS == "Windows", c(2, 3)], format = "simple",
+#              col.names = c("", ""),
+#              row.names = FALSE)
 
-knitr::kable(osdf[osdf$OS == "macOS", c(2, 3)], format = "simple", 
-             col.names = c("", ""),
-             row.names = FALSE)
+pander::pandoc.table(osdf[osdf$OS == "Windows", c(2, 3)], split.tables = Inf,
+                     row.names = FALSE, justify = "ll", style = "grid")
+
+cat("\n",
+    "[![MacOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://cran.r-project.org/web/checks/check_results_EvaluateCore.html)", "\n")
+
+# knitr::kable(osdf[osdf$OS == "macOS", c(2, 3)], format = "simple",
+#              col.names = c("", ""),
+#              row.names = FALSE)
+
+pander::pandoc.table(osdf[osdf$OS == "macOS", c(2, 3)], split.tables = Inf,
+                     row.names = FALSE, justify = "ll", style = "grid")
 
 cat("\n")
 ```
