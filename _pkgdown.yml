@@ -1,36 +1,49 @@
 template:
-  params:
+  bootstrap: 5
+  math-rendering: mathjax
+  light-switch: true
+  bslib:
     bootswatch: united
+    primary: "#fac090" # (translucent) hover colour in the navbar and sidebar
+    pkgdown-navbar-bg: "#984807" # Background colur of navbar
+    navbar-light-color: "#f7f8f8" # Navbar text colour of items
+    navbar-light-hover-color: "#231F20" # Navbar text colour of items on hover
+    navbar-light-brand-color: "#f7f8f8" # Navbar package name text colour
+    navbar-light-brand-hover-color: "#f7f8f8" # Navbar package name text colour on hover
+    link-color: "#984807" # Colour of links
+  params:
     ganalytics: UA-116716530-2
-    docsearch:
-      api_key: bdafb7ea4490644e670f470ee3ef537f
-      index_name: augmentedrcbd
 
-development:
-  mode: unreleased
+deploy:
+  install_metadata: true
 
 url: https://aravind-j.github.io/augmentedRCBD/
 
 navbar:
-  title: augmentedRCBD
-  type: default
-  left:
-    - icon: fa-home fa-lg
+  structure:
+    left:  [home, reference, tutorial, news]
+    right: [search, github, lightswitch]
+  components:
+    home:
+      icon: fa-home fa-lg
       text: Home
       href: index.html
-    - icon: fa-code
+    reference:
+      icon: fa-code
       text: Reference
       href: reference/index.html
-    - icon: far fa-file
+    tutorial:
+      icon: far fa-file
       text: Tutorial
       href: articles/Data_Analysis_with_augmentedRCBD.html
-    - icon: far fa-newspaper
+    news:
+      icon: far fa-newspaper
       text: News
       href: news/index.html
-  right:
-    - icon: fab fa-github-alt
+    github:
+      icon: fab fa-github-alt
       text: Github
-      href: https://github.com/aravind-j/augmentedRCBD
+      href: https://github.com/aravind-j/rpcss
 
 reference:
     - title: Core anlaysis function
@@ -53,3 +66,4 @@ reference:
       contents:
          - '`report.augmentedRCBD`'
          - '`report.augmentedRCBD.bulk`'
+
