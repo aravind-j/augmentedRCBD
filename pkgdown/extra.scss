@@ -1,7 +1,14 @@
+
+/*
+Undeline navbar text on hover
+*/
 .navbar-nav a:hover {
   text-decoration: underline;
 }
 
+/*
+Change Version number badge on navbar
+*/
 .text-muted {
     color: #984807 !important;
     background-color: #f7f8f8;
