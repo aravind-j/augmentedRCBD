@@ -134,8 +134,10 @@
 #' @importFrom grDevices nclass.Sturges
 #' @importFrom stats na.omit
 #' @importFrom cli ansi_strip
+#' @importFrom tidyr pivot_wider
 #' @export
 augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
+                               check.inference = c("overall", "traitwise"),
                                alpha = 0.05, describe = TRUE,
                                freqdist = TRUE, gva = TRUE, k = 2.063,
                                check.col = "red", console = TRUE) {
@@ -169,11 +171,21 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                sep = ""))
   }
   # check for missing values
+  missdat <- NULL
   missvcols <- unlist(lapply(data[, traits], function(x) TRUE %in% is.na(x)))
+  missvcols <- missvcols[missvcols]
   if (TRUE %in% missvcols) {
-    stop(paste('The following column(s) in "data" have missing values:\n',
-               paste(names(missvcols[missvcols]), collapse = ", ")))
+    missdat <- lapply(names(missvcols == TRUE), function(x) {
+      as.character(data[is.na(data[, x]), treatment])
+    })
+    names(missdat) <- names(missvcols == TRUE)
+    missdat <- lapply(seq_along(missdat), function(i) {
+      paste('The following "treatment(s)" in "data" have missing values:\n',
+            paste(missdat[[i]], collapse = ", "), "\n", sep = "")
+    })
+    names(missdat) <- names(missvcols == TRUE)
   }
+
   # check if trait columns are of type numeric/integer
   inttraitcols <- unlist(lapply(data[, traits],
                                 function(x) FALSE %in% (is.vector(x, mode = "integer") | is.vector(x, mode = "numeric"))))
@@ -194,6 +206,11 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   # convert to factor
   data[, block] <- as.factor(as.character(data[, block]))
   data[, treatment] <- as.factor(as.character(data[, treatment]))
+
+  check.inference <- match.arg(check.inference)
+  if ((!missing(checks) && !is.null(checks))) { # if checks are specified
+    check.inference <- NULL
+  }
 
   # Fix treatment order so that checks are in the beginning
   if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
@@ -218,63 +235,126 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                  nblocks, ').', sep = ""))
     }
 
-    tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
-    if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-      warning("Test treatments are replicated.")
+    # tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
+    # if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
+    #   warning("Test treatments are replicated.")
+    # }
+
+  } else { # i.e. "checks" is not specified
+
+    if (!is.null(check.inference) & check.inference == "overall") {
+        treatmentorder <- data.frame(table(treatment = data[, treatment],
+                                           block = data[, block]))
+        treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+        treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                          value.var = "Freq")
+        treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                              select = -c(treatment)))
+        treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+        treatmentorder <- treatmentorder[with(treatmentorder,
+                                              order(-Freq, treatment)), ]
+        nblocks <- length(levels(data[, block]))
+        rownames(treatmentorder) <- NULL
+
+        # check if the checks can be inferred.
+        # i.e. if any treatments are present in all the blocks
+        if (!(nblocks %in% treatmentorder$Freq)) {
+          print(treatmentorder)
+          stop(paste("Checks cannot be inferred as none of the treatments are",
+                     "replicated across all the blocks (",
+                     nblocks, ").", sep = ""))
+        }
+
+        checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
+        tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
+
+        # tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
+        # if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
+        #   warning("Test treatments are replicated.")
+        # }
     }
 
-  } else {# i.e. "checks" is not specified
-    treatmentorder <- data.frame(table(treatment = data[, treatment],
-                                       block = data[, block]))
-    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
-                                      value.var = "Freq")
-    treatmentorder$Freq <- rowSums(subset(treatmentorder,
-                                          select = -c(treatment)))
-    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
-    treatmentorder <- treatmentorder[with(treatmentorder,
-                                          order(-Freq, treatment)), ]
-    nblocks <- length(levels(data[, block]))
-    rownames(treatmentorder) <- NULL
+    if (!is.null(check.inference) & check.inference == "traitwise") {
 
-    # check if the checks can be inferred.
-    # i.e. if any treatments are present in all the blocks
-    if (!(nblocks %in% treatmentorder$Freq)) {
-      print(treatmentorder)
-      stop(paste("Checks cannot be inferred as none of the treatments are",
-                 "replicated across all the blocks (",
-                 nblocks, ").", sep = ""))
-    }
+      checks_list <- lapply(traits, function(x) {
+        treatmentorder <-
+          data.frame(table(treatment = data[!is.na(data[, x]), treatment],
+                           block = data[!is.na(data[, x]), block]))
+        treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+        treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                          value.var = "Freq")
+        treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                              select = -c(treatment)))
+        treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+        treatmentorder <- treatmentorder[with(treatmentorder,
+                                              order(-Freq, treatment)), ]
+        nblocks <- length(levels(data[, block]))
+        rownames(treatmentorder) <- NULL
 
-    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
-    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
+        infr <- nblocks %in% treatmentorder$Freq
+        if (infr) {
+          checks <-
+            as.character(treatmentorder[treatmentorder$Freq == nblocks,
+                                        ]$treatment)
+        } else {
+          checks = NULL
+        }
 
-    tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
-    if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-      warning("Test treatments are replicated.")
+        return(list(infr = infr, checks = checks, nblocks = nblocks))
+      })
+
+      names(checks_list) <- traits
+
+     if (any(!(unlist(lapply(checks_list, function(x) x$infr))))) {
+       nblocks <- unique(unlist(lapply(checks_list, function(x) x$nblocks)))
+       stop(paste("Checks cannot be inferred for the following trait(s) ",
+                  "as none of the treatments are ",
+                  "replicated across all the blocks (",
+                  paste(nblocks, collapse = "-"), ").\n",
+                  paste(names(unlist(lapply(checks_list,
+                                            function(x) x$infr)) == FALSE),
+                        collapse = "\n"),
+                  sep = ""))
+     }
+
+      checks <- unname(unique(unlist(lapply(checks_list,
+                                            function(x) x$checks))))
     }
   }
 
   if (length(check.col) != 1) {
-   if (length(check.col) != length(checks)) {
-     stop('"checks" and "check.col" are of unequal lengths.')
-   }
- }
+    if (length(check.col) != length(checks)) {
+      stop('"checks" and "check.col" are of unequal lengths.')
+    }
+  }
+
+  check.inference_cond <- !is.null(check.inference) &
+    check.inference == "traitwise"
 
   output <- vector("list", length(traits))
   names(output) <- traits
 
   warn <- vector("list", length(traits))
   names(warn) <- traits
+
   for (i in seq_along(traits)) {
 
     withCallingHandlers({
-      output[[i]] <- augmentedRCBD(block = data[, block],
-                                   treatment = data[, treatment],
-                                   y = data[, traits[i]], checks = checks,
-                                   method.comp = "none", alpha = alpha,
-                                   group = FALSE, console = FALSE,
-                                   simplify = TRUE)
+      output[[i]] <-
+        augmentedRCBD(block = droplevels(data[!is.na(data[, traits[i]]),
+                                              block]),
+                      treatment = droplevels(data[!is.na(data[, traits[i]]),
+                                                  treatment]),
+                      y = data[!is.na(data[, traits[i]]),
+                               traits[i]],
+                      checks = if (check.inference_cond) {
+                        NULL
+                      } else {
+                        checks
+                        },
+                      method.comp = "none", alpha = alpha,
+                      group = FALSE, console = FALSE,
+                      simplify = TRUE)
     }, warning = function(w) {
       warn[[i]] <<- append(warn[[i]], cli::ansi_strip(conditionMessage(w)))
       invokeRestart("muffleWarning")
@@ -287,8 +367,14 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
   # Details
   Details <- output[[1]]$Details
-  Details <- append(Details, list(`Number of Traits` = length(traits),
-                                  Traits = traits))
+  Details <- lapply(output, function(x) {
+    x <- x$Details
+    x$`Check treatments` <- paste(x$`Check treatments`, collapse = ", ")
+    data.frame(x, check.names = F)
+  })
+  Details <- bind_rows(Details, .id = "Trait")
+  # Details <- append(Details, list(`Number of Traits` = length(traits),
+  #                                 Traits = traits))
 
   # ANOVA table
   anovata <- lapply(output, function(x) x$`ANOVA, Treatment Adjusted`)
@@ -325,48 +411,70 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovata$sig[is.na(anovata$sig)] <- ""
   anovaba$sig[is.na(anovaba$sig)] <- ""
 
-  anovataout <- merge.data.frame(dcast(anovata, Source + Df ~ Trait,
-                                       value.var = "Mean.Sq"),
-                                 dcast(anovata, Source + Df ~ Trait,
-                                       value.var = "sig"),
-                                 by = c("Source", "Df"),
-                                 suffixes = c("_Mean.Sq", "_sig"))
-  anovata_p <- dcast(anovata, Source + Df ~ Trait,
-                     value.var = "Pr..F.")
-  colnames(anovata_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
-  anovataout <- merge.data.frame(anovataout, anovata_p,
-                                 by = c("Source", "Df"))
-  rm(anovata, anovata_p)
+  # anovataout <- merge.data.frame(dcast(anovata, Source + Df ~ Trait,
+  #                                      value.var = "Mean.Sq"),
+  #                                dcast(anovata, Source + Df ~ Trait,
+  #                                      value.var = "sig"),
+  #                                by = c("Source", "Df"),
+  #                                suffixes = c("_Mean.Sq", "_sig"))
+  # anovata_p <- dcast(anovata, Source + Df ~ Trait,
+  #                    value.var = "Pr..F.")
+  # colnames(anovata_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
+  # anovataout <- merge.data.frame(anovataout, anovata_p,
+  #                                by = c("Source", "Df"))
+  # rm(anovata, anovata_p)
 
-  anovabaout <- merge.data.frame(dcast(anovaba, Source + Df ~ Trait,
-                                       value.var = "Mean.Sq"),
-                                 dcast(anovaba, Source + Df ~ Trait,
-                                       value.var = "sig"),
-                                 by = c("Source", "Df"),
-                                 suffixes = c("_Mean.Sq", "_sig"))
+  colnames(anovata)[colnames(anovata) == "Pr..F."] <- "Pr(>F)"
 
-  anovaba_p <- dcast(anovaba, Source + Df ~ Trait,
-                     value.var = "Pr..F.")
-  colnames(anovaba_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
-  anovabaout <- merge.data.frame(anovabaout, anovaba_p,
-                                 by = c("Source", "Df"))
-  rm(anovaba, anovaba_p)
+  anovataout <-
+    tidyr::pivot_wider(anovata, id_cols = "Source",
+                       values_from = c("Df", "Mean.Sq", "sig", "Pr(>F)"),
+                       names_from = "Trait", names_sort = FALSE,
+                       names_vary = "slowest",
+                       names_glue = "{Trait}_{.value}")
+  anovataout <- as.data.frame(anovataout)
+  rm(anovata)
 
-  trtcols <- paste(rep(Details$Traits, each = 3),
-                   rep(c("_Mean.Sq", "_Pr(>F)", "_sig"),
-                       Details$`Number of Traits`), sep = "")
+  # anovabaout <- merge.data.frame(dcast(anovaba, Source + Df ~ Trait,
+  #                                      value.var = "Mean.Sq"),
+  #                                dcast(anovaba, Source + Df ~ Trait,
+  #                                      value.var = "sig"),
+  #                                by = c("Source", "Df"),
+  #                                suffixes = c("_Mean.Sq", "_sig"))
+  #
+  # anovaba_p <- dcast(anovaba, Source + Df ~ Trait,
+  #                    value.var = "Pr..F.")
+  # colnames(anovaba_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
+  # anovabaout <- merge.data.frame(anovabaout, anovaba_p,
+  #                                by = c("Source", "Df"))
+  # rm(anovaba, anovaba_p)
 
-  anovataout <- anovataout[, c("Source", "Df", trtcols)]
-  anovabaout <- anovabaout[, c("Source", "Df", trtcols)]
+  colnames(anovaba)[colnames(anovaba) == "Pr..F."] <- "Pr(>F)"
 
-  anovataout$sl <- c(1, 5, 2, 3, 4)
-  anovataout <- dplyr::arrange(anovataout, sl)
+  anovabaout <-
+    tidyr::pivot_wider(anovaba, id_cols = "Source",
+                       values_from = c("Df", "Mean.Sq", "sig", "Pr(>F)"),
+                       names_from = "Trait", names_sort = FALSE,
+                       names_vary = "slowest",
+                       names_glue = "{Trait}_{.value}")
+  anovabaout <- as.data.frame(anovabaout)
+  rm(anovaba)
 
-  anovabaout$sl <- c(5, 6, 1, 2, 4, 3)
-  anovabaout <- dplyr::arrange(anovabaout, sl)
+  # trtcols <- paste(rep(Details$Traits, each = 3),
+  #                  rep(c("_Mean.Sq", "_Pr(>F)", "_sig"),
+  #                      Details$`Number of Traits`), sep = "")
+  #
+  # anovataout <- anovataout[, c("Source", "Df", trtcols)]
+  # anovabaout <- anovabaout[, c("Source", "Df", trtcols)]
 
-  anovataout$sl <- NULL
-  anovabaout$sl <- NULL
+  # anovataout$sl <- c(1, 5, 2, 3, 4)
+  # anovataout <- dplyr::arrange(anovataout, sl)
+  #
+  # anovabaout$sl <- c(5, 6, 1, 2, 4, 3)
+  # anovabaout <- dplyr::arrange(anovabaout, sl)
+  #
+  # anovataout$sl <- NULL
+  # anovabaout$sl <- NULL
 
   # Adjusted means
   adjmeans <- lapply(output, function(x) x$Means)
@@ -431,11 +539,11 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     descout <- dplyr::bind_rows(descout)
 
     descout$Skewness_sig <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
-                                        ifelse(descout$Skewness.p.value. <= 0.05,
-                                               "*", "ns"))
+                                   ifelse(descout$Skewness.p.value. <= 0.05,
+                                          "*", "ns"))
     descout$Kurtosis_sig <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
-                                        ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                               "*", "ns"))
+                                   ifelse(descout$Kurtosis.p.value. <= 0.05,
+                                          "*", "ns"))
 
     colnames(descout) <- c("Trait", "Count", "Mean", "Std.Error",
                            "Std.Deviation", "Min", "Max", "Skewness",
@@ -548,7 +656,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                                        na.rm = TRUE)) + 10,
                                         by = 10)) +
         geom_rect(data = gvacat2, aes(xmin = xmin, ymin = ymin,
-                                      xmax = xmax, ymax = ymax, fill = Category),
+                                      xmax = xmax, ymax = ymax,
+                                      fill = Category),
                   alpha = 0.5, inherit.aes = FALSE) +
         scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
         ylab("Broad sense heritability") +
@@ -612,7 +721,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
   k <- ifelse(gva, k, NULL)
 
-  wrnlist <- list(Model = warn[which(!sapply(warn , is.null))],
+  wrnlist <- list(`Missing values` = missdat,
+                  Model = warn[which(!sapply(warn , is.null))],
                   `Freq. dist` = fqwarn[which(!sapply(fqwarn , is.null))],
                   GVA = gvawarn[which(!sapply(gvawarn , is.null))])
 
@@ -641,8 +751,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
 round.conditional <- function(x, digits = 2){
   x <- ifelse(round(x, digits) != 0,
-         as.character(round(x, digits)),
-         as.character(signif(x, digits)))
+              as.character(round(x, digits)),
+              as.character(signif(x, digits)))
 
   x <- numform::f_num(x, pad.char = "",
                       digits = digits,

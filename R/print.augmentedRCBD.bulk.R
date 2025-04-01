@@ -34,40 +34,44 @@ print.augmentedRCBD.bulk <- function(x, ...){
 
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
-  wstring1 <- "Test treatments are replicated"
+  wstring1 <- "test treatment(s) are replicated"
   wstring2 <- "Negative adjusted means were generated for the following"
 
   cat("\nAugmented Design Details\n")
   cat("========================\n")
   Details <- x$Details
-  b <- Details$`Number of blocks`
-  ntr <- Details$`Number of treatments`
+  # b <- Details$`Number of blocks`
+  # ntr <- Details$`Number of treatments`
   checks <- Details$`Check treatments`
-  ltests <- Details$`Number of test treatments`
-  ntraits <- Details$`Number of Traits`
-  traits <- Details$Traits
-
-  Details <- t(data.frame(`Number of blocks` = b, `Number of treatments` = ntr,
-                          `Number of check treatments` = length(checks),
-                          `Number of test treatments` = ltests,
-                          `Check treatments` =  paste(checks, collapse = ", "),
-                          `Number of traits` = ntraits,
-                          Traits = paste(traits, collapse = ", ")))
-  rownames(Details) <- gsub("\\.", " ", rownames(Details))
-  colnames(Details) <- c("")
+  # ltests <- Details$`Number of test treatments`
+  # ntraits <- Details$`Number of Traits`
+  # traits <- Details$Traits
+  #
+  # Details <- t(data.frame(`Number of blocks` = b, `Number of treatments` = ntr,
+  #                         `Number of check treatments` = length(checks),
+  #                         `Number of test treatments` = ltests,
+  #                         `Check treatments` =  paste(checks, collapse = ", "),
+  #                         `Number of traits` = ntraits,
+  #                         Traits = paste(traits, collapse = ", ")))
+  # rownames(Details) <- gsub("\\.", " ", rownames(Details))
+  # colnames(Details) <- c("")
   print(Details)
-  cat("\n")
-  if (any(grepl(wstring1, unlist(x$warnings)))) {
-    dups <- x$Means[!(x$Means$Treatment %in% checks), ]$Treatment
-    dups <- dups[duplicated(dups)]
-    dups <- x$Means[x$Means$Treatment %in% dups, c("Treatment", "Block")]
-    rownames(dups) <- NULL
-    warning("Following test treatments are replicated.", call. = FALSE,
-            immediate. = TRUE)
-    print(dups, row.names = FALSE)
+  if (!is.null(x$warnings$`Missing values`)) {
+    warn_wlist(x$warnings$`Missing values`)
   }
+  cat("\n")
+  # if (any(grepl(wstring1, unlist(x$warnings), fixed = TRUE))) {
+  #   dups <- x$Means[!(x$Means$Treatment %in% checks), ]$Treatment
+  #   dups <- dups[duplicated(dups)]
+  #   dups <- x$Means[x$Means$Treatment %in% dups, c("Treatment", "Block")]
+  #   rownames(dups) <- NULL
+  #   warning("Following test treatments are replicated.", call. = FALSE,
+  #           immediate. = TRUE)
+  #   print(dups, row.names = FALSE)
+  # }
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
+  traits <- Details$Trait
   dcols <- setdiff(colnames(x$`ANOVA, Treatment Adjusted`),
                    paste(traits, "_Pr(>F)", sep = ""))
   x$`ANOVA, Treatment Adjusted` <- x$`ANOVA, Treatment Adjusted`[, dcols]
@@ -87,6 +91,8 @@ print.augmentedRCBD.bulk <- function(x, ...){
            function(sig) ifelse(sig == "ns", "\u207f\u02e2", sig))
   colnames(x$`ANOVA, Treatment Adjusted`) <-
     gsub("(^.+)(_sig$)", "", colnames(x$`ANOVA, Treatment Adjusted`))
+  colnames(x$`ANOVA, Treatment Adjusted`) <-
+    gsub("(^.+)(_)(Df$)", "\\3", colnames(x$`ANOVA, Treatment Adjusted`))
   colnames(x$`ANOVA, Treatment Adjusted`) <-
     gsub("_Mean.Sq", "", colnames(x$`ANOVA, Treatment Adjusted`))
   cat(paste(rep(" ", max(nchar(x$`ANOVA, Treatment Adjusted`$Source)) +
@@ -121,6 +127,8 @@ print.augmentedRCBD.bulk <- function(x, ...){
            function(sig) ifelse(sig == "ns", "\u207f\u02e2", sig))
   colnames(x$`ANOVA, Block Adjusted`) <-
     gsub("(^.+)(_sig$)", "", colnames(x$`ANOVA, Block Adjusted`))
+  colnames(x$`ANOVA, Block Adjusted`) <-
+    gsub("(^.+)(_)(Df$)", "\\3", colnames(x$`ANOVA, Block Adjusted`))
   colnames(x$`ANOVA, Block Adjusted`) <-
     gsub("_Mean.Sq", "", colnames(x$`ANOVA, Block Adjusted`))
   cat(paste(rep(" ", max(nchar(x$`ANOVA, Block Adjusted`$Source)) +
@@ -228,6 +236,10 @@ print.augmentedRCBD.bulk <- function(x, ...){
   }
   cat("\n\nWarning Messages\n")
   cat("================\n")
+  if (!is.null(x$warnings$`Missing values`)) {
+    cat("\n\n[Missing values]\n")
+    print_wlist(x$warnings$`Missing values`)
+  }
   if (!is.null(x$warnings$Model)) {
     cat("\n\n[Model]\n")
     print_wlist(x$warnings$Model)
@@ -244,7 +256,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("===============\n")
   x$Means[, traits] <- lapply(x$Means[, traits, drop = FALSE],
                               round.conditional, digits = round.digits)
-  print(x$Means, row.names = FALSE)
+  print(x$Means, row.names = FALSE, max = 200)
   if (any(grepl(wstring2, x$warnings))) {
     warn_wlist(x$warnings$Model[grepl(wstring2, x$warnings$Model)])
   }
@@ -265,7 +277,7 @@ print_wlist <- function(wlist) {
   invisible(sapply(seq_along(wlist), function(i) {
     cat("<", names(wlist)[i], ">", sep = "")
     cat("\n")
-    cat(wlist[[i]])
+    cat(wlist[[i]], sep = "\n")
     cat("\n")
   }, simplify = TRUE, USE.NAMES = FALSE))
 }

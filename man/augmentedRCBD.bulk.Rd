@@ -11,6 +11,7 @@ augmentedRCBD.bulk(
   treatment,
   traits,
   checks = NULL,
+  check.inference = c("overall", "traitwise"),
   alpha = 0.05,
   describe = TRUE,
   freqdist = TRUE,

@@ -3,6 +3,7 @@
 ## UPDATED FUNCTIONS:
 * `report.augmentedRCBD.bulk` - Fixed issue with use of "DF" as a trait name because of duplication with "Df" or "Degrees of freedom" column name. Fixed warning messages for GVA.
 * `print.augmentedRCBD.bulk` - Fixed warning messages for GVA.
+* `augmentedRCBD.bulk`, `print.augmentedRCBD.bulk`, `report.augmentedRCBD.bulk` - Updated to handle unequal number of treatments (checks and tests) among traits.
 
 # augmentedRCBD  0.1.7
 
