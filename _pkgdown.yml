@@ -43,7 +43,7 @@ navbar:
     github:
       icon: fab fa-github-alt
       text: Github
-      href: https://github.com/aravind-j/rpcss
+      href: https://github.com/aravind-j/augmentedRCBD
 
 reference:
     - title: Core anlaysis function
