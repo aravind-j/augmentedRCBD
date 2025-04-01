@@ -237,8 +237,11 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     }
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
-    if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
-      warning("Test treatments are replicated.")
+    test_counts <- table(droplevels(treatment[treatment %in% tests]))
+    if (!all(test_counts == 1)) {
+      rep_tests <- names(test_counts[test_counts > 1])
+      warning(paste("The following test treatment(s) are replicated."),
+              '\n', paste(rep_tests, collapse = ", "))
     }
 
     nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
@@ -274,8 +277,11 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
 
     tests <- levels(treatment)[!(levels(treatment) %in% checks)]
-    if (!all(table(droplevels(treatment[treatment %in% tests])) == 1)) {
-      warning("Test treatments are replicated.")
+    test_counts <- table(droplevels(treatment[treatment %in% tests]))
+    if (!all(test_counts == 1)) {
+      rep_tests <- names(test_counts[test_counts > 1])
+      warning(paste("The following test treatment(s) are replicated."),
+              '\n', paste(rep_tests, collapse = ", "))
     }
   }
 
