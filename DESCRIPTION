@@ -53,6 +53,7 @@ Imports:
     reshape2,
     stats,
     stringi,
+    tidyr,
     utils
 Suggests:
     agricolae,
