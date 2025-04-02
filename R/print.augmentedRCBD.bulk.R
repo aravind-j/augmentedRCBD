@@ -37,38 +37,67 @@ print.augmentedRCBD.bulk <- function(x, ...){
   wstring1 <- "test treatment(s) are replicated"
   wstring2 <- "Negative adjusted means were generated for the following"
 
+  if (!is.null(x$warnings$`Missing values`)) {
+    misswarn_list <-  x$warnings$`Missing values`
+  }
+
+  if (any(grepl(wstring1, x$warnings$Model, fixed = TRUE))) {
+    modwarn1_list <-
+      lapply(x$warnings$Model, function(modwarn) {
+        modwarn[grepl(wstring1, modwarn, fixed = TRUE)]
+      })
+    modwarn1_list <- modwarn1_list[lapply(modwarn1_list, length) > 0]
+    modwarn1_list <- lapply(modwarn1_list, function(x) {
+      gsub(pattern = "test treatment(s) are replicated.",
+           replacement = "test treatment(s) are replicated:",
+           x = x, fixed = T)
+    })
+  }
+
+  if (any(grepl(wstring2, x$warnings$Model, fixed = TRUE))) {
+    modwarn2_list <-
+      lapply(x$warnings$Model, function(modwarn) {
+        modwarn[grepl(wstring2, modwarn, fixed = TRUE)]
+      })
+    modwarn2_list <- modwarn2_list[lapply(modwarn2_list, length) > 0]
+    modwarn2_list <- lapply(modwarn2_list, function(x) {
+      gsub(pattern = "following treatment(s)",
+           replacement = "following treatment(s):",
+           x = x, fixed = T)
+    })
+  }
+
+  if (exists("misswarn_list") & !exists("modwarn1_list")) {
+    detwarn_list <- misswarn_list
+  }
+
+  if (!exists("misswarn_list") & exists("modwarn1_list")) {
+    detwarn_list <- modwarn1_list
+  }
+
+  if (exists("misswarn_list") & exists("modwarn1_list")) {
+    detwarn_list <- c(misswarn_list, modwarn1_list)
+    detwarn_list <- tapply(detwarn_list, names(detwarn_list),
+                           function(x) unlist(x, FALSE, FALSE))
+  }
+
+  # Details ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\nAugmented Design Details\n")
   cat("========================\n")
   Details <- x$Details
-  # b <- Details$`Number of blocks`
-  # ntr <- Details$`Number of treatments`
-  checks <- Details$`Check treatments`
-  # ltests <- Details$`Number of test treatments`
-  # ntraits <- Details$`Number of Traits`
-  # traits <- Details$Traits
-  #
-  # Details <- t(data.frame(`Number of blocks` = b, `Number of treatments` = ntr,
-  #                         `Number of check treatments` = length(checks),
-  #                         `Number of test treatments` = ltests,
-  #                         `Check treatments` =  paste(checks, collapse = ", "),
-  #                         `Number of traits` = ntraits,
-  #                         Traits = paste(traits, collapse = ", ")))
-  # rownames(Details) <- gsub("\\.", " ", rownames(Details))
-  # colnames(Details) <- c("")
+
+  # checks <- Details$`Check treatments`
+
   print(Details)
-  if (!is.null(x$warnings$`Missing values`)) {
-    warn_wlist(x$warnings$`Missing values`)
+  if (exists("detwarn_list")) {
+    warn_wlist(detwarn_list)
   }
+
   cat("\n")
-  # if (any(grepl(wstring1, unlist(x$warnings), fixed = TRUE))) {
-  #   dups <- x$Means[!(x$Means$Treatment %in% checks), ]$Treatment
-  #   dups <- dups[duplicated(dups)]
-  #   dups <- x$Means[x$Means$Treatment %in% dups, c("Treatment", "Block")]
-  #   rownames(dups) <- NULL
-  #   warning("Following test treatments are replicated.", call. = FALSE,
-  #           immediate. = TRUE)
-  #   print(dups, row.names = FALSE)
-  # }
+
+  # ANOVA, Treatment Adjusted ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\nANOVA, Treatment Adjusted\n")
   cat("=========================\n")
   traits <- Details$Trait
@@ -100,12 +129,9 @@ print.augmentedRCBD.bulk <- function(x, ...){
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Treatment Adjusted`, row.names = FALSE)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
-  if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
-                 x$warnings$Model))) {
-    warn_wlist(x$warnings$Model[!grepl(paste(c(wstring1, wstring2),
-                                             collapse = "|"),
-                                       x$warnings$Model)])
-  }
+
+  # ANOVA, Block Adjusted ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\nANOVA, Block Adjusted\n")
   cat("=====================\n")
   dcols <- setdiff(colnames(x$`ANOVA, Block Adjusted`),
@@ -136,33 +162,42 @@ print.augmentedRCBD.bulk <- function(x, ...){
             collapse = ""), "Mean.Sq\n")
   print(x$`ANOVA, Block Adjusted`, row.names = FALSE)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
-  if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
-                 x$warnings$Model))) {
-    warn_wlist(x$warnings$Model[!grepl(paste(c(wstring1, wstring2),
-                                             collapse = "|"),
-                                       x$warnings$Model)])
-  }
+
+  # Coefficient of Variation ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
   x$CV$CV <- round.conditional(x$CV$CV, digits = round.digits)
   print(x$CV, row.names = FALSE)
+
+  # Overall Adjusted Mean ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n\nOverall Adjusted Mean\n")
   cat("=====================\n")
   x$`Overall adjusted mean`$Overall.adjusted.mean <-
     round.conditional(x$`Overall adjusted mean`$Overall.adjusted.mean,
                       digits = round.digits)
   print(x$`Overall adjusted mean`, row.names = FALSE)
+
+  # Standard Errors ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n\nStandard Errors\n")
   cat("===============\n")
   x$`Std. Errors`[, traits] <- lapply(x$`Std. Errors`[, traits, drop = FALSE],
                                       round.conditional, digits = round.digits)
   print(x$`Std. Errors`, row.names = FALSE)
+
+  # Critical Difference ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n\nCritical Difference\n")
   cat("===================\n")
   cat(paste("alpha =", x$alpha, "\n"))
   x$CD[, traits] <- lapply(x$CD[, traits, drop = FALSE],
                            round.conditional, digits = round.digits)
   print(x$CD, row.names = FALSE)
+
+  # Descriptive Statistics ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n\nDescriptive Statistics\n")
   cat("======================\n")
   desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
@@ -179,6 +214,9 @@ print.augmentedRCBD.bulk <- function(x, ...){
                "Kurtosis", "Kurtosis_sig")
   print(x$`Descriptive statistics`[, descols], row.names = FALSE)
   cat("\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01\n")
+
+  # Genetic Variability Analysis ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n\nGenetic Variability Analysis\n")
   cat("============================\n")
   gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
@@ -234,6 +272,9 @@ print.augmentedRCBD.bulk <- function(x, ...){
   } else {
     print(x$`Genetic variability analysis`, row.names = FALSE)
   }
+
+  # Warning Message ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n\nWarning Messages\n")
   cat("================\n")
   if (!is.null(x$warnings$`Missing values`)) {
@@ -252,24 +293,28 @@ print.augmentedRCBD.bulk <- function(x, ...){
     cat("\n\n[GVA]\n")
     print_wlist(x$warnings$GVA)
   }
+
+  # Treatment Mean ----
+  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\nTreatment Means\n")
   cat("===============\n")
   x$Means[, traits] <- lapply(x$Means[, traits, drop = FALSE],
                               round.conditional, digits = round.digits)
   print(x$Means, row.names = FALSE, max = 200)
-  if (any(grepl(wstring2, x$warnings))) {
-    warn_wlist(x$warnings$Model[grepl(wstring2, x$warnings$Model)])
+  if (exists("modwarn2_list")) {
+    warn_wlist(modwarn2_list)
   }
+
 }
 
 
 warn_wlist <- function(wlist) {
   invisible(sapply(seq_along(wlist), function(i) {
     cat("\n")
-    warning(strwrap(prefix = "\n", initial = "",
-                    x = c(paste("<", names(wlist)[i], ">", sep = ""),
-                          trimws(unlist(strsplit(wlist[[i]], "\n"))))),
+    warning(paste("<", names(wlist)[i], ">", sep = ""),
             call. = FALSE, immediate. = TRUE)
+    message(strwrap(prefix = "\n", initial = "",
+                    x = c(trimws(unlist(strsplit(wlist[[i]], "\n"))))))
   }, simplify = TRUE, USE.NAMES = FALSE))
 }
 
