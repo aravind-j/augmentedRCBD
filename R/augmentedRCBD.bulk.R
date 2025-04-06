@@ -38,8 +38,14 @@
 #' @param traits Name of columns specifying the multiple traits/characters as a
 #'   character vector.
 #' @param checks Character vector of the checks present in \code{treatment}
-#'   levels. If not specified, checks are inferred from the data on the basis of
+#'   levels. It can also be a named list with the character vector of checks for
+#'   each trait in \code{traits} column. The list names should be same as trait
+#'   names. If not specified, checks are inferred from the data on the basis of
 #'   number of replications of treatments/genotypes.
+#' @param check.inference The method for inference of checks if \code{checks} is
+#'   not specified. Either \code{"overall"} to infer checks on the basis of all
+#'   the trait data or \code{"traitwise"} to infer checks on the basis of each
+#'   trait separately.
 #' @param alpha Type I error probability (Significance level) to be used for
 #'   multiple comparisons.
 #' @param describe If \code{TRUE}, descriptive statistics will be computed.
@@ -57,8 +63,8 @@
 #' @param k The standardized selection differential or selection intensity
 #'   required for computation of Genetic advance. Default is 2.063 for 5\%
 #'   selection proportion (see \strong{Details} in
-#'  \code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if
-#'  \code{gva = FALSE}.
+#'   \code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if \code{gva =
+#'   FALSE}.
 #'
 #' @return A list of class \code{augmentedRCBD.bulk} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used and
@@ -214,31 +220,96 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
   # Fix treatment order so that checks are in the beginning
   if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
-    #if (!is.null(checks)) {
-    treatmentorder <- data.frame(table(treatment = data[, treatment],
-                                       block = data[, block]))
-    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
-                                      value.var = "Freq")
-    treatmentorder$Freq <- rowSums(subset(treatmentorder,
-                                          select = -c(treatment)))
-    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
 
-    nblocks <- length(levels(data[, block]))
-    rownames(treatmentorder) <- NULL
+    checks_cond1 <- !is.list(checks) & is.character(checks) # &
+     # all(checks %in% data[, treatment])
 
+    checks_cond2 <- is.list(checks) &
+      all(unlist(lapply(checks, is.character))) & #
+      # (all(names(checks) %in% traits) & all(traits %in% names(checks))) &
+      # all(lapply(seq_along(checks), function(i) {
+      #   all(checks[[i]] %in%
+      #         na.omit(data[, c(treatment, names(checks)[i])])[, treatment])
+      # }))
 
-    # check if "checks" are present in all the blocks
-    if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
-      print(treatmentorder)
-      stop(paste('"checks" are not replicated across all the blocks (',
-                 nblocks, ').', sep = ""))
+    if (!(checks_cond1 | checks_cond2)) {
+      stop('"checks" if specified should be either\n',
+      '1) a character vector of check names present in "treatment" or\n',
+      '2) a named list with the character vector of checks for each trait ',
+      'with the list names same as the trait names.')
     }
 
-    # tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
-    # if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-    #   warning("Test treatments are replicated.")
-    # }
+    # check if "checks" are present in all the blocks
+
+    if (!is.list(checks)) { # Checks as character vector
+
+      treatmentorder <- data.frame(table(treatment = data[, treatment],
+                                         block = data[, block]))
+      treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+      treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                        value.var = "Freq")
+      treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                            select = -c(treatment)))
+      treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+
+      nblocks <- length(levels(data[, block]))
+      rownames(treatmentorder) <- NULL
+
+      if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
+        print(treatmentorder)
+        stop(paste('"checks" are not replicated across all the blocks (',
+                   nblocks, ').', sep = ""))
+      }
+
+      # tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
+      # if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
+      #   warning("Test treatments are replicated.")
+      # }
+    } else { # Checks as a list
+
+      checks_list_test <- lapply(seq_along(checks), function(i) {
+
+        dtf <- na.omit(data[, c(treatment, block, names(checks)[i])])
+        dtf[, treatment] <- droplevels(dtf[, treatment])
+        dtf[, block] <- droplevels(dtf[, block])
+        treatmentorder <- data.frame(table(treatment = dtf[, treatment],
+                                           block = dtf[, block]))
+        treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+        treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                          value.var = "Freq")
+        treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                              select = -c(treatment)))
+        treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+
+        nblocks <- length(levels(data[, block]))
+        rownames(treatmentorder) <- NULL
+
+        if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
+          msg <- paste('"checks" are not replicated across all the blocks (',
+                       nblocks, ').', sep = "")
+        } else {
+          msg <- ""
+        }
+
+        return(msg)
+
+      })
+
+      names(checks_list_test) <- names(checks)
+
+      checks_list_test_ind <- unlist(lapply(checks_list_test,
+                                            function(x) x!= ""))
+
+      if (any(checks_list_test_ind)) {
+        stp1 <- names(which(checks_list_test_ind))
+        stp1 <- paste("<", stp1, ">", sep = "")
+        stp2 <- unlist(checks_list_test)[which(checks_list_test_ind)]
+
+        stop(paste(c(rbind(stp1, stp2)), collapse = "\n"))
+
+      }
+    }
+
 
   } else { # i.e. "checks" is not specified
 
@@ -317,19 +388,28 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                   sep = ""))
      }
 
-      checks <- unname(unique(unlist(lapply(checks_list,
-                                            function(x) x$checks))))
+      checks <- lapply(checks_list,
+                              function(x) x$checks)
+      names(checks) <- names(checks_list)
     }
   }
 
   if (length(check.col) != 1) {
-    if (length(check.col) != length(checks)) {
-      stop('"checks" and "check.col" are of unequal lengths.')
+    if (!(length(check.col) >= length(unique(unlist(checks))))) {
+      stop('The number of colours specified in "check.col" is ',
+           'less that the number of check.')
     }
   }
 
-  check.inference_cond <- !is.null(check.inference) &
-    check.inference == "traitwise"
+  # check.inference_cond <- !is.null(check.inference) &
+  #   check.inference == "traitwise"
+
+  if (!is.list(checks)) {
+    checks <- lapply(seq_along(traits), function(i) {
+      checks
+    })
+    names(checks) <- traits
+  }
 
   output <- vector("list", length(traits))
   names(output) <- traits
@@ -347,11 +427,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                                                   treatment]),
                       y = data[!is.na(data[, traits[i]]),
                                traits[i]],
-                      checks = if (check.inference_cond) {
-                        NULL
-                      } else {
-                        checks
-                        },
+                      checks = checks[[traits[i]]],
                       method.comp = "none", alpha = alpha,
                       group = FALSE, console = FALSE,
                       simplify = TRUE)
@@ -485,11 +561,16 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   adjmeans <- reshape2::dcast(adjmeans, Treatment + Block ~ Trait,
                               value.var = "Adjusted Means",
                               fun.aggregate = mean)
+
   # Check statistics
-  checkstat <- lapply(output,
-                      function(x) x$Means[x$Means$Treatment %in% checks,
+  checkstat <- lapply(seq_along(traits),
+                      function(i) {
+                        x <- output[[traits[i]]]
+                        x$Means[x$Means$Treatment %in% checks[[traits[i]]],
                                           c("Treatment", "r", "Means",
-                                            "SE", "Min", "Max")])
+                                            "SE", "Min", "Max")]
+                        })
+  names(checkstat) <- traits
 
   # CV
   cvout <- lapply(output, function(x) x$CV)
@@ -697,6 +778,17 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                    `Genetic advance over mean` = gvaplot_gamg)
 
   # Freq Dist
+  checks_cmbn <- unique(unlist(checks))
+
+  check.col_df <- data.frame(checks_cmbn,
+                             check.col = check.col[seq_along(checks_cmbn)])
+
+  check.col_list <- lapply(seq_along(traits), function(i) {
+    ind <- check.col_df$checks_cmbn %in% checks[[traits[i]]]
+    check.col_df[ind, "check.col"]
+  })
+  names(check.col_list) <- traits
+
   fqout <- NULL
   fqwarn <- NULL
   if (freqdist == TRUE) {
@@ -708,9 +800,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     for (i in seq_along(traits)) {
 
       withCallingHandlers({
-        fqout[[i]] <- freqdist.augmentedRCBD(output[[traits[i]]],
-                                             xlab = traits[i],
-                                             check.col = check.col)
+        fqout[[i]] <-
+          freqdist.augmentedRCBD(output[[traits[i]]],
+                                 xlab = traits[i],
+                                 check.col = check.col_list[[traits[i]]])
       }, warning = function(w) {
         fqwarn[[i]] <<- append(fqwarn[[i]],
                                cli::ansi_strip(conditionMessage(w)))
