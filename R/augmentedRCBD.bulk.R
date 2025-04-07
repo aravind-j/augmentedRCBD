@@ -261,10 +261,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                    nblocks, ').', sep = ""))
       }
 
-      # tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
-      # if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-      #   warning("Test treatments are replicated.")
-      # }
     } else { # Checks as a list
 
       checks_list_test <- lapply(seq_along(checks), function(i) {
@@ -306,7 +302,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
         stp2 <- unlist(checks_list_test)[which(checks_list_test_ind)]
 
         stop(paste(c(rbind(stp1, stp2)), collapse = "\n"))
-
       }
     }
 
@@ -338,11 +333,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
         checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
         tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
-
-        # tests <- levels(data[, treatment])[!(levels(data[, treatment]) %in% checks)]
-        # if (!all(table(droplevels(data[, treatment][data[, treatment] %in% tests])) == 1)) {
-        #   warning("Test treatments are replicated.")
-        # }
     }
 
     if (!is.null(check.inference) & check.inference == "traitwise") {
@@ -378,18 +368,18 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
      if (any(!(unlist(lapply(checks_list, function(x) x$infr))))) {
        nblocks <- unique(unlist(lapply(checks_list, function(x) x$nblocks)))
+       tnames <- !unlist(lapply(checks_list,
+                               function(x) x$infr))
        stop(paste("Checks cannot be inferred for the following trait(s) ",
                   "as none of the treatments are ",
                   "replicated across all the blocks (",
                   paste(nblocks, collapse = "-"), ").\n",
-                  paste(names(unlist(lapply(checks_list,
-                                            function(x) x$infr)) == FALSE),
+                  paste(names(tnames[tnames]),
                         collapse = "\n"),
                   sep = ""))
      }
 
-      checks <- lapply(checks_list,
-                              function(x) x$checks)
+      checks <- lapply(checks_list, function(x) x$checks)
       names(checks) <- names(checks_list)
     }
   }
@@ -449,8 +439,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     data.frame(x, check.names = F)
   })
   Details <- bind_rows(Details, .id = "Trait")
-  # Details <- append(Details, list(`Number of Traits` = length(traits),
-  #                                 Traits = traits))
 
   # ANOVA table
   anovata <- lapply(output, function(x) x$`ANOVA, Treatment Adjusted`)
@@ -487,19 +475,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovata$sig[is.na(anovata$sig)] <- ""
   anovaba$sig[is.na(anovaba$sig)] <- ""
 
-  # anovataout <- merge.data.frame(dcast(anovata, Source + Df ~ Trait,
-  #                                      value.var = "Mean.Sq"),
-  #                                dcast(anovata, Source + Df ~ Trait,
-  #                                      value.var = "sig"),
-  #                                by = c("Source", "Df"),
-  #                                suffixes = c("_Mean.Sq", "_sig"))
-  # anovata_p <- dcast(anovata, Source + Df ~ Trait,
-  #                    value.var = "Pr..F.")
-  # colnames(anovata_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
-  # anovataout <- merge.data.frame(anovataout, anovata_p,
-  #                                by = c("Source", "Df"))
-  # rm(anovata, anovata_p)
-
   colnames(anovata)[colnames(anovata) == "Pr..F."] <- "Pr(>F)"
 
   anovataout <-
@@ -511,20 +486,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   anovataout <- as.data.frame(anovataout)
   rm(anovata)
 
-  # anovabaout <- merge.data.frame(dcast(anovaba, Source + Df ~ Trait,
-  #                                      value.var = "Mean.Sq"),
-  #                                dcast(anovaba, Source + Df ~ Trait,
-  #                                      value.var = "sig"),
-  #                                by = c("Source", "Df"),
-  #                                suffixes = c("_Mean.Sq", "_sig"))
-  #
-  # anovaba_p <- dcast(anovaba, Source + Df ~ Trait,
-  #                    value.var = "Pr..F.")
-  # colnames(anovaba_p) <- c("Source", "Df", paste(traits, "_Pr(>F)", sep = ""))
-  # anovabaout <- merge.data.frame(anovabaout, anovaba_p,
-  #                                by = c("Source", "Df"))
-  # rm(anovaba, anovaba_p)
-
   colnames(anovaba)[colnames(anovaba) == "Pr..F."] <- "Pr(>F)"
 
   anovabaout <-
@@ -535,22 +496,6 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                        names_glue = "{Trait}_{.value}")
   anovabaout <- as.data.frame(anovabaout)
   rm(anovaba)
-
-  # trtcols <- paste(rep(Details$Traits, each = 3),
-  #                  rep(c("_Mean.Sq", "_Pr(>F)", "_sig"),
-  #                      Details$`Number of Traits`), sep = "")
-  #
-  # anovataout <- anovataout[, c("Source", "Df", trtcols)]
-  # anovabaout <- anovabaout[, c("Source", "Df", trtcols)]
-
-  # anovataout$sl <- c(1, 5, 2, 3, 4)
-  # anovataout <- dplyr::arrange(anovataout, sl)
-  #
-  # anovabaout$sl <- c(5, 6, 1, 2, 4, 3)
-  # anovabaout <- dplyr::arrange(anovabaout, sl)
-  #
-  # anovataout$sl <- NULL
-  # anovabaout$sl <- NULL
 
   # Adjusted means
   adjmeans <- lapply(output, function(x) x$Means)

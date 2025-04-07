@@ -35,8 +35,15 @@ string.}
 character vector.}
 
 \item{checks}{Character vector of the checks present in \code{treatment}
-levels. If not specified, checks are inferred from the data on the basis of
+levels. It can also be a named list with the character vector of checks for
+each trait in \code{traits} column. The list names should be same as trait
+names. If not specified, checks are inferred from the data on the basis of
 number of replications of treatments/genotypes.}
+
+\item{check.inference}{The method for inference of checks if \code{checks} is
+not specified. Either \code{"overall"} to infer checks on the basis of all
+the trait data or \code{"traitwise"} to infer checks on the basis of each
+trait separately.}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
 multiple comparisons.}
@@ -51,10 +58,10 @@ is \code{TRUE}.}
 is \code{TRUE}.}
 
 \item{k}{The standardized selection differential or selection intensity
- required for computation of Genetic advance. Default is 2.063 for 5\%
- selection proportion (see \strong{Details} in
-\code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if
-\code{gva = FALSE}.}
+required for computation of Genetic advance. Default is 2.063 for 5\%
+selection proportion (see \strong{Details} in
+\code{\link[augmentedRCBD]{gva.augmentedRCBD}}). Ignored if \code{gva =
+FALSE}.}
 
 \item{check.col}{The colour(s) to be used to highlight check values in the
 plot as a character vector. Must be valid colour values in R (named
