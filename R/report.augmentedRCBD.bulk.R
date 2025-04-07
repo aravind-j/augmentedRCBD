@@ -93,16 +93,65 @@
 report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                       file.type = c("word", "excel")){
 
+  # Checks ----
   if (!is(aug.bulk, "augmentedRCBD.bulk")) {
     stop('"aug.bulk" is not of class "augmentedRCBD.bulk".')
   }
 
   file.type <- match.arg(file.type)
 
+  # Settings ----
   round.digits <- getOption("augmentedRCBD.round.digits", default = 2)
 
-  wstring1 <- "Test treatments are replicated"
+  # Prepare warnings ----
+  wstring1 <- "test treatment(s) are replicated"
   wstring2 <- "Negative adjusted means were generated for the following"
+
+  if (!is.null(aug.bulk$warnings$`Missing values`)) {
+    misswarn_list <-  aug.bulk$warnings$`Missing values`
+  }
+
+  if (any(grepl(wstring1, aug.bulk$warnings$Model, fixed = TRUE))) {
+    modwarn1_list <-
+      lapply(aug.bulk$warnings$Model, function(modwarn) {
+        modwarn[grepl(wstring1, modwarn, fixed = TRUE)]
+      })
+    modwarn1_list <- modwarn1_list[lapply(modwarn1_list, length) > 0]
+    modwarn1_list <- lapply(modwarn1_list, function(x) {
+      gsub(pattern = "test treatment(s) are replicated.",
+           replacement = "test treatment(s) are replicated:",
+           x = x, fixed = T)
+    })
+  }
+
+  if (any(grepl(wstring2, aug.bulk$warnings$Model, fixed = TRUE))) {
+    modwarn2_list <-
+      lapply(aug.bulk$warnings$Model, function(modwarn) {
+        modwarn[grepl(wstring2, modwarn, fixed = TRUE)]
+      })
+    modwarn2_list <- modwarn2_list[lapply(modwarn2_list, length) > 0]
+    modwarn2_list <- lapply(modwarn2_list, function(x) {
+      gsub(pattern = "following treatment(s)",
+           replacement = "following treatment(s):",
+           x = x, fixed = T)
+    })
+  }
+
+  if (exists("misswarn_list") & !exists("modwarn1_list")) {
+    detwarn_list <- misswarn_list
+  }
+
+  if (!exists("misswarn_list") & exists("modwarn1_list")) {
+    detwarn_list <- modwarn1_list
+  }
+
+  if (exists("misswarn_list") & exists("modwarn1_list")) {
+    detwarn_list <- c(misswarn_list, modwarn1_list)
+    detwarn_list <- tapply(detwarn_list, names(detwarn_list),
+                           function(x) unlist(x, FALSE, FALSE))
+  }
+
+  # WORD ----
 
   if (file.type == "word") {
     if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
@@ -118,113 +167,146 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                               style = "Title")
     augreport <- body_add_toc(augreport, level = 2)
 
-    traits <- aug.bulk$Details$Traits
-    ntraits <- aug.bulk$Details$`Number of Traits`
+    traits <- aug.bulk$Details$Trait
+    ntraits <- length(traits)
 
-    # Details
+    ## Details ----
     augreport <- body_add_par(augreport, value = "Details", style = "heading 1")
 
-    Details <- t(data.frame(`Number of blocks` = aug.bulk$Details$`Number of blocks`,
-                            `Number of treatments` = aug.bulk$Details$`Number of treatments`,
-                            `Number of check treatments` = aug.bulk$Details$`Number of check treatments`,
-                            `Number of test treatments` = aug.bulk$Details$`Number of test treatments`,
-                            `Check treatments` =  paste(aug.bulk$Details$`Check treatments`, collapse = ", "),
-                            `Number of Traits` = aug.bulk$Details$`Number of Traits`,
-                            `Traits` = paste(aug.bulk$Details$Traits, collapse = ", ")))
-    Details <- data.frame(Details)
-    Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
-    colnames(Details) <- c("Item", "Details")
+    Details <- aug.bulk$Details
 
-    checks <- aug.bulk$Details$`Check treatments`
-
-    Details <- regulartable(data = data.frame(Details))
-    Details <- autofit(Details)
+    # Details <- regulartable(data = data.frame(Details))
+    Details <- regulartable(data = Details)
+    Details <- bold(Details, part = "header")
+    Details <- set_table_properties(Details, layout = "autofit")
     augreport <- body_add_flextable(augreport, Details)
-    if (any(grepl(wstring1, unlist(aug.bulk$warnings)))) {
-      dups <- aug.bulk$Means[!(aug.bulk$Means$Treatment %in% checks), ]$Treatment
-      dups <- dups[duplicated(dups)]
-      dups <- aug.bulk$Means[aug.bulk$Means$Treatment %in% dups, c("Treatment", "Block")]
-      rownames(dups) <- NULL
-      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
-      augreport <- body_add_par(augreport,
-                                value = "Following test treatments are replicated.",
-                                style = "Warning")
-      augreport <- body_add_flextable(augreport,
-                                      theme_alafoli(autofit(regulartable(dups))))
+
+    if (exists("detwarn_list")) {
+      for (i in seq_along(detwarn_list)) {
+        augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+        augreport <- body_add_par(augreport,
+                                  value = names(detwarn_list[i]),
+                                  style = "Warning")
+        wlist <- wlist2blist(wlist = unname(unlist(lapply(detwarn_list[i],
+                                                          strsplit, "\\n"))),
+                             fp_p = fp_par(padding.bottom = 2,
+                                           word_style = "Warning"))
+        augreport <- body_add_blocks(augreport, blocks = wlist)
+        rm(wlist)
+      }
     }
 
     merge_mss_sig <- function(i) {
       paste(round.conditional(anovatable[, paste(traits[i], "_Mean.Sq",
-                                              sep = "")],
+                                                 sep = "")],
                               digits = round.digits),
             stringi::stri_pad_right(anovatable[, paste(traits[i], "_sig",
-                                                    sep = "")], 3))
+                                                       sep = "")], 3))
     }
 
     anova_warn <- NULL
-    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
-                   unlist(aug.bulk$warnings$Model)))) {
-      # anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
-      #                                                    aug.bulk$warnings$Model)],
-      #                      function(x) trimws(unlist(strsplit(x, "\n"))))
-      anova_warn <-
-        lapply(aug.bulk$warnings$Model[!grepl(paste(c(wstring1, wstring2),
-                                                    collapse = "|"),
-                                              unlist(aug.bulk$warnings$Model))],
-               function(x) trimws(unlist(strsplit(x, "\n"))))
+    if (!is.null(aug.bulk$warnings$Model)) {
+      wstring_ind <- lapply(aug.bulk$warnings$Model, function(x) {
+        grepl(wstring1, x, fixed = TRUE) | grepl(wstring2, x, fixed = TRUE)
+      })
+      if (any(!(unlist(wstring_ind)))) {
+        anova_warn <-
+          lapply(seq_along(aug.bulk$warnings$Model), function(i) {
+            aug.bulk$warnings$Model[[i]][-which(wstring_ind[[i]])]
+          })
+        names(anova_warn) <- names(aug.bulk$warnings$Model)
+        anova_warn <- anova_warn[lapply(anova_warn, length) > 0]
       }
+    }
 
-    # ANOVA, TA
+    traits_list <- split(traits, ceiling(seq_along(traits) / min(3, ntraits)))
+
+    ## ANOVA, TA ----
     augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
                               style = "heading 1")
+
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
     anovata <- anovata[, setdiff(colnames(anovata),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    # colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
     anovata[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
-    # mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
-    #                                                       sep = ""),
-    #                                        colnames(anovata))))
-    mcols <- lapply(traits,
-                    function(x) {c(which(colnames(anovata) ==
-                                           paste(x, "_Mean.Sq",
-                                                 sep = "")),
-                                   which(colnames(anovata) ==
-                                           paste(x, "_sig",
-                                                 sep = "")))})
-    names(mcols) <- traits
-    colnames(anovata) <- gsub("_Mean.Sq", "", colnames(anovata))
-    nsindex <- lapply(mcols, function(x) which(anovata[, x[2]] == "ns"))
-    anovata <- flextable(anovata)
-    for(i in 1:ntraits) {
-      if (!is.null(nsindex[[traits[[i]]]])) {
-        anovata <- compose(anovata, part = "body", i = nsindex[[traits[[i]]]],
-                           j = mcols[[traits[[i]]]][2],
-                           value = as_paragraph(as_sup("ns")))
-      }
-      anovata <- merge_at(anovata, 1, mcols[[traits[i]]], "header")
-    }
-    anovata <- bold(anovata, part = "header")
-    anovata <- add_header_row(anovata,
-                   colwidths = c(1, 1, ntraits * 2),
-                   values = c("Source", "Df", "Mean.Sq"))
-    anovata <- merge_at(anovata, 1:2, 1, "header")
-    anovata <- merge_at(anovata, 1:2, 2, "header")
-    anovata <- align(anovata, j = 2, align = "right", part = "all")
-    anovata <- align(anovata, j = 3:(2 + (ntraits * 2)), align = "center",
-                     part = "header")
-    anovata <- align(anovata, j = unlist(lapply(mcols, function(x) x[1])),
-          align = "right", part = "body")
-    anovata <-  align(anovata, j = unlist(lapply(mcols, function(x) x[2])),
-          align = "left", part = "body")
-    anovata <- autofit(anovata)
-    augreport <- body_add_flextable(augreport, anovata)
 
-    augreport <- body_add_fpar(augreport,
-                               value = fpar(ftext("ns", suppar),
-                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    anovata_list <- vector(mode = "list", length = length(traits_list))
+
+    for (k in seq_along(traits_list)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+
+      tgrid <- expand.grid(c("_Df", "_Mean.Sq", "_sig"), traits_list[[k]])
+      tind <- paste(tgrid$Var2, tgrid$Var1, sep = "")
+      anovata_list[[k]] <- anovata[, c("Source", tind)]
+      mcols <- lapply(traits_list[[k]],
+                      function(x) {c(which(colnames(anovata_list[[k]]) ==
+                                             paste(x, "_Df",
+                                                   sep = "")),
+                                     which(colnames(anovata_list[[k]]) ==
+                                             paste(x, "_Mean.Sq",
+                                                   sep = "")),
+                                     which(colnames(anovata_list[[k]]) ==
+                                             paste(x, "_sig",
+                                                   sep = "")))})
+      names(mcols) <- traits_list[[k]]
+
+      anovata_hdr <- colnames(anovata_list[[k]])
+      for (i in seq_along(traits_list[[k]])) {
+        anovata_hdr <- gsub(paste(traits_list[[k]][i], "_", sep = ""),
+                            "", anovata_hdr, fixed = TRUE)
+      }
+
+      anovata_hdr[anovata_hdr == "sig"] <- ""
+      nsindex <- lapply(mcols, function(x) {
+        which(anovata_list[[k]][, x[3]] == "ns")
+      })
+      anovata_list[[k]] <- flextable(anovata_list[[k]])
+      anovata_list[[k]] <- add_header_row(anovata_list[[k]],
+                                          values = anovata_hdr)
+      anovata_list[[k]] <- add_header_row(anovata_list[[k]],
+                                          values = c("Source",
+                                                     rep(traits_list[[k]],
+                                                         each = 3)))
+      anovata_list[[k]] <- delete_rows(anovata_list[[k]], i = 3, part="header")
+      for(i in seq_along(traits_list[[k]])) {
+        if (!is.null(nsindex[[traits_list[[k]][[i]]]])) {
+          anovata_list[[k]] <- compose(anovata_list[[k]], part = "body",
+                                       i = nsindex[[traits_list[[k]][[i]]]],
+                                       j = mcols[[traits_list[[k]][[i]]]][3],
+                                       value = as_paragraph(as_sup("ns")))
+        }
+        anovata_list[[k]] <- merge_at(anovata_list[[k]], 1,
+                                      mcols[[traits_list[[k]][i]]], "header")
+      }
+      anovata_list[[k]] <- bold(anovata_list[[k]], part = "header")
+      anovata_list[[k]] <- merge_at(anovata_list[[k]], 1:2, 1, "header")
+
+      anovata_list[[k]] <- align(anovata_list[[k]],
+                                 j = 2:(1 + (length(traits_list[[k]]) * 3)),
+                                 align = "center",
+                                 part = "header")
+      anovata_list[[k]] <- align(anovata_list[[k]],
+                                 j = unlist(lapply(mcols, function(x) x[1])),
+                                 align = "right", part = "body")
+      anovata_list[[k]] <- align(anovata_list[[k]],
+                                 j = unlist(lapply(mcols, function(x) x[2])),
+                                 align = "right", part = "body")
+      anovata_list[[k]] <-  align(anovata_list[[k]],
+                                  j = unlist(lapply(mcols, function(x) x[3])),
+                                  align = "left", part = "body")
+      anovata_list[[k]] <- set_table_properties(anovata_list[[k]],
+                                                 layout = "autofit")
+      augreport <- body_add_flextable(augreport, anovata_list[[k]])
+
+      rm(mcols, tgrid, tind, anovata_hdr, nsindex)
+    }
+
+    augreport <-
+      body_add_fpar(augreport,
+                    value = fpar(ftext("ns", suppar),
+                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     if (!is.null(anova_warn)) {
       for (i in seq_along(anova_warn)) {
         augreport <- body_add_par(augreport,
@@ -236,57 +318,93 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
     }
 
-    # ANOVA, BA
+    ## ANOVA, BA ----
     augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
                               style = "heading 1")
-    anovaba <- aug.bulk$`ANOVA, Block Adjusted`
+
+
+    anovaba <- aug.bulk$`ANOVA, Treatment Adjusted`
     anovaba <- anovaba[, setdiff(colnames(anovaba),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    # colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
     anovaba[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
              round.conditional, digits = round.digits)
-    # mcols <- lapply(traits, function(x) which(grepl(paste("(^", x, "_)(.+$)",
-    #                                                       sep = ""),
-    #                                                 colnames(anovaba))))
-    mcols <- lapply(traits,
-                    function(x) {c(which(colnames(anovaba) ==
-                                           paste(x, "_Mean.Sq",
-                                                 sep = "")),
-                                   which(colnames(anovaba) ==
-                                           paste(x, "_sig",
-                                                 sep = "")))})
-    names(mcols) <- traits
-    colnames(anovaba) <- gsub("_Mean.Sq", "", colnames(anovaba))
-    nsindex <- lapply(mcols, function(x) which(anovaba[, x[2]] == "ns"))
-    anovaba <- flextable(anovaba)
-    for(i in 1:ntraits) {
-      if (!is.null(nsindex[[traits[[i]]]])) {
-        anovaba <- compose(anovaba, part = "body", i = nsindex[[traits[[i]]]],
-                           j = mcols[[traits[[i]]]][2],
-                           value = as_paragraph(as_sup("ns")))
-      }
-      anovaba <- merge_at(anovaba, 1, mcols[[traits[i]]], "header")
-    }
-    anovaba <- bold(anovaba, part = "header")
-    anovaba <- add_header_row(anovaba,
-                              colwidths = c(1, 1, ntraits * 2),
-                              values = c("Source", "Df", "Mean.Sq"))
-    anovaba <- merge_at(anovaba, 1:2, 1, "header")
-    anovaba <- merge_at(anovaba, 1:2, 2, "header")
-    anovaba <- align(anovaba, j = 2, align = "right", part = "all")
-    anovaba <- align(anovaba, j = 3:(2 + (ntraits * 2)), align = "center",
-                     part = "header")
-    anovaba <- align(anovaba, j = unlist(lapply(mcols, function(x) x[1])),
-                     align = "right", part = "body")
-    anovaba <-  align(anovaba, j = unlist(lapply(mcols, function(x) x[2])),
-                      align = "left", part = "body")
-    anovaba <- autofit(anovaba)
-    augreport <- body_add_flextable(augreport, anovaba)
 
-    augreport <- body_add_fpar(augreport,
-                               value = fpar(ftext("ns", suppar),
-                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    anovaba_list <- vector(mode = "list", length = length(traits_list))
+
+    for (k in seq_along(traits_list)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+
+      tgrid <- expand.grid(c("_Df", "_Mean.Sq", "_sig"), traits_list[[k]])
+      tind <- paste(tgrid$Var2, tgrid$Var1, sep = "")
+      anovaba_list[[k]] <- anovaba[, c("Source", tind)]
+      mcols <- lapply(traits_list[[k]],
+                      function(x) {c(which(colnames(anovaba_list[[k]]) ==
+                                             paste(x, "_Df",
+                                                   sep = "")),
+                                     which(colnames(anovaba_list[[k]]) ==
+                                             paste(x, "_Mean.Sq",
+                                                   sep = "")),
+                                     which(colnames(anovaba_list[[k]]) ==
+                                             paste(x, "_sig",
+                                                   sep = "")))})
+      names(mcols) <- traits_list[[k]]
+
+      anovaba_hdr <- colnames(anovaba_list[[k]])
+      for (i in seq_along(traits_list[[k]])) {
+        anovaba_hdr <- gsub(paste(traits_list[[k]][i], "_", sep = ""),
+                            "", anovaba_hdr, fixed = TRUE)
+      }
+
+      anovaba_hdr[anovaba_hdr == "sig"] <- ""
+      nsindex <- lapply(mcols, function(x) {
+        which(anovaba_list[[k]][, x[3]] == "ns")
+      })
+      anovaba_list[[k]] <- flextable(anovaba_list[[k]])
+      anovaba_list[[k]] <- add_header_row(anovaba_list[[k]],
+                                          values = anovaba_hdr)
+      anovaba_list[[k]] <- add_header_row(anovaba_list[[k]],
+                                          values = c("Source",
+                                                     rep(traits_list[[k]],
+                                                         each = 3)))
+      anovaba_list[[k]] <- delete_rows(anovaba_list[[k]], i = 3, part="header")
+      for(i in seq_along(traits_list[[k]])) {
+        if (!is.null(nsindex[[traits_list[[k]][[i]]]])) {
+          anovaba_list[[k]] <- compose(anovaba_list[[k]], part = "body",
+                                       i = nsindex[[traits_list[[k]][[i]]]],
+                                       j = mcols[[traits_list[[k]][[i]]]][3],
+                                       value = as_paragraph(as_sup("ns")))
+        }
+        anovaba_list[[k]] <- merge_at(anovaba_list[[k]], 1,
+                                      mcols[[traits_list[[k]][i]]], "header")
+      }
+      anovaba_list[[k]] <- bold(anovaba_list[[k]], part = "header")
+      anovaba_list[[k]] <- merge_at(anovaba_list[[k]], 1:2, 1, "header")
+
+      anovaba_list[[k]] <- align(anovaba_list[[k]],
+                                 j = 2:(1 + (length(traits_list[[k]]) * 3)),
+                                 align = "center",
+                                 part = "header")
+      anovaba_list[[k]] <- align(anovaba_list[[k]],
+                                 j = unlist(lapply(mcols, function(x) x[1])),
+                                 align = "right", part = "body")
+      anovaba_list[[k]] <- align(anovaba_list[[k]],
+                                 j = unlist(lapply(mcols, function(x) x[2])),
+                                 align = "right", part = "body")
+      anovaba_list[[k]] <-  align(anovaba_list[[k]],
+                                  j = unlist(lapply(mcols, function(x) x[3])),
+                                  align = "left", part = "body")
+      anovaba_list[[k]] <- set_table_properties(anovaba_list[[k]],
+                                                 layout = "autofit")
+      augreport <- body_add_flextable(augreport, anovaba_list[[k]])
+
+      rm(mcols, tgrid, tind, anovaba_hdr, nsindex)
+    }
+
+    augreport <-
+      body_add_fpar(augreport,
+                    value = fpar(ftext("ns", suppar),
+                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     if (!is.null(anova_warn)) {
       for (i in seq_along(anova_warn)) {
         augreport <- body_add_par(augreport,
@@ -298,56 +416,82 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
     }
 
-    # Std. error
+    rm(traits_list)
+    traits_list <- split(traits, ceiling(seq_along(traits) / min(6, ntraits)))
+
+    ## Std. error ----
     augreport <- body_add_par(augreport, value = "Standard Errors",
                               style = "heading 1")
     SE <- aug.bulk$`Std. Errors`
-    # colnames(SE) <- make.names(colnames(SE), unique = TRUE)
     SE[, traits] <- lapply(SE[, traits, drop = FALSE],
-           round.conditional, digits = round.digits)
-    SE <- autofit(flextable(SE))
-    SE <- bold(SE, part = "header")
-    SE <- align(SE, j = 2:(ntraits + 1), align = "right", part = "all")
-    augreport <- body_add_flextable(augreport, SE)
+                           round.conditional, digits = round.digits)
 
-    # CD
+    SE_list <- vector(mode = "list", length = length(traits_list))
+    for (k in seq_along(traits_list)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+
+      SE_list[[k]] <- flextable(SE[, c("Comparison", traits_list[[k]])])
+      SE_list[[k]] <- bold(SE_list[[k]], part = "header")
+      SE_list[[k]] <- align(SE_list[[k]], j = 2:(length(traits_list[[k]]) + 1),
+                            align = "right", part = "all")
+      SE_list[[k]] <- set_table_properties(SE_list[[k]],
+                                           layout = "autofit")
+
+      augreport <- body_add_flextable(augreport, SE_list[[k]])
+    }
+
+    ## CD ----
     augreport <- body_add_par(augreport,
                               value = paste("Critical Difference (",
                                             aug.bulk$alpha * 100, "%)",
                                             sep = ""),
                               style = "heading 1")
     CD <- aug.bulk$CD
-    # colnames(CD) <- make.names(colnames(CD), unique = TRUE)
     CD[, traits] <- lapply(CD[, traits, drop = FALSE],
-                 round.conditional, digits = round.digits)
-    CD <- autofit(flextable(CD))
-    CD <- bold(CD, part = "header")
-    CD <- align(CD, j = 2:(ntraits + 1), align = "right", part = "all")
-    augreport <- body_add_flextable(augreport, CD)
+                           round.conditional, digits = round.digits)
 
-    # CV
+    CD_list <- vector(mode = "list", length = length(traits_list))
+    for (k in seq_along(traits_list)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+
+      CD_list[[k]] <- flextable(CD[, c("Comparison", traits_list[[k]])])
+      CD_list[[k]] <- bold(CD_list[[k]], part = "header")
+      CD_list[[k]] <- align(CD_list[[k]], j = 2:(length(traits_list[[k]]) + 1),
+                            align = "right", part = "all")
+      CD_list[[k]] <- set_table_properties(CD_list[[k]],
+                                           layout = "autofit")
+
+      augreport <- body_add_flextable(augreport, CD_list[[k]])
+    }
+
+    ## CV ----
     augreport <- body_add_par(augreport, value = "Coefficient of Variance",
                               style = "heading 1")
     CV <- aug.bulk$CV
     CV$CV <- round.conditional(CV$CV, digits = round.digits)
-    CV <- autofit(flextable(CV))
+
+    CV <- flextable(CV)
     CV <- bold(CV, part = "header")
     CV <- align(CV, j = 2, align = "right", part = "all")
+    CV <- set_table_properties(CV, layout = "autofit")
+
     augreport <- body_add_flextable(augreport, CV)
 
-    # Overall adj. mean
+    ## Overall adj. mean ----
     augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
                               style = "heading 1")
     oadjmean <- aug.bulk$`Overall adjusted mean`
     oadjmean$Overall.adjusted.mean <-
       round.conditional(oadjmean$Overall.adjusted.mean,
                         digits = round.digits)
-    oadjmean <- autofit(flextable(oadjmean))
+    oadjmean <- flextable(oadjmean)
     oadjmean <- bold(oadjmean, part = "header")
     oadjmean <- align(oadjmean, j = 2, align = "right", part = "all")
+    oadjmean <- set_table_properties(oadjmean, layout = "autofit")
+
     augreport <- body_add_flextable(augreport, oadjmean)
 
-    # Check statistics
+    ## Check statistics ----
     augreport <- body_add_par(augreport, value = "Check Statistics",
                               style = "heading 1")
     for (i in seq_along(aug.bulk$`Check statistics`)) {
@@ -358,13 +502,15 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       chkout[, c("Means", "SE", "Min", "Max")] <-
         lapply(chkout[, c("Means", "SE", "Min", "Max")], round.conditional,
                digits = round.digits)
-      chkout <- autofit(flextable(chkout))
+      chkout <- flextable(chkout)
       chkout <- bold(chkout, part = "header")
       chkout <- align(chkout, j = 3:6, align = "right", part = "all")
+      chkout <- set_table_properties(chkout, layout = "autofit")
+
       augreport <- body_add_flextable(augreport, chkout)
     }
 
-    # Descriptive statistics
+    ## Descriptive statistics ----
     if (!is.null(aug.bulk$`Descriptive statistics`)){
       augreport <- body_add_par(augreport, value = "Descriptive Statistics",
                                 style = "heading 1")
@@ -392,25 +538,27 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       descout <- align(descout, j = 2:7, align = "right", part = "all")
       descout <- align(descout, j = c(8, 10), align = "right", part = "body")
       descout <- align(descout, j = c(8, 10), align = "center", part = "header")
-      descout <- autofit(descout)
+      descout <- set_table_properties(descout, layout = "autofit")
+
       augreport <- body_add_flextable(augreport, descout)
 
-      augreport <- body_add_fpar(augreport,
-                                 value = fpar(ftext("ns", suppar),
-                                              ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+      augreport <-
+        body_add_fpar(augreport,
+                      value = fpar(ftext("ns", suppar),
+                                   ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     }
 
-    # Frequency distribution
+    ## Frequency distribution ----
     if (!is.null(aug.bulk$`Frequency distribution`)) {
       augreport <- body_add_par(augreport, value = "Frequency Distribution",
                                 style = "heading 1")
 
-      for (i in 1:aug.bulk$Details$`Number of Traits`) {
-        augreport <- body_add_par(augreport, value = aug.bulk$Details$Traits[i],
+      for (i in seq_along(traits)) {
+        augreport <- body_add_par(augreport, value = traits[i],
                                   style = "heading 2")
         src <- tempfile(fileext = ".png")
         png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-        plot(aug.bulk$`Frequency distribution`[[aug.bulk$Details$Traits[i]]])
+        plot(aug.bulk$`Frequency distribution`[[traits[i]]])
         dev.off()
         augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
         rm(src)
@@ -424,7 +572,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
     }
 
-    # GVA
+    ## GVA ----
     if (!is.null(aug.bulk$`Genetic variability analysis`)) {
       augreport <- body_add_par(augreport,
                                 value = "Genetic Variability Analysis",
@@ -474,7 +622,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       GVA <- bold(GVA, part = "header")
       GVA <- align(GVA, j = c(2:6, 8, 10:11, 13:14),
                    align = "right", part = "all")
-      GVA <- autofit(GVA)
+      GVA <- set_table_properties(GVA, layout = "autofit")
+
       augreport <- body_add_flextable(augreport, GVA)
 
       if (!is.null(aug.bulk$warnings$GVA)) {
@@ -497,7 +646,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
     }
 
-    # GVA plots
+    ## GVA plots ----
     if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
 
       augreport <- body_add_par(augreport,
@@ -543,11 +692,10 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
     }
 
-    # Adjusted Means
+    ## Adjusted Means ----
     augreport <- body_add_par(augreport, value = "Adjusted Means",
                               style = "heading 1")
     adj.means <- aug.bulk$Means
-    # colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
     adj.means[, traits] <- sapply(adj.means[, traits], round.conditional,
                                   digits = round.digits)
     if (any(grepl(wstring2, aug.bulk$warnings))) {
@@ -575,21 +723,47 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                   sep = "\u00A0"))
 
     }
-    adj.means <- flextable(adj.means)
-    adj.means <- bold(adj.means, part = "header")
-    adj.means <- align(adj.means, j = 3:(length(traits) + 2),
-                 align = "right", part = "all")
-    adj.means <- autofit(adj.means)
-    augreport <- body_add_flextable(augreport, adj.means)
+
+    adj.means_list <- vector(mode = "list", length = length(traits_list))
+    for (k in seq_along(traits_list)) {
+      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+
+      adj.means_list[[k]] <- flextable(adj.means[, c("Treatment", "Block",
+                                                     traits_list[[k]])])
+      adj.means_list[[k]] <- bold(adj.means_list[[k]], part = "header")
+      adj.means_list[[k]] <- align(adj.means_list[[k]],
+                                   j = 2:(length(traits_list[[k]]) + 1),
+                                   align = "right", part = "all")
+      adj.means_list[[k]] <- set_table_properties(adj.means_list[[k]],
+                                                  layout = "autofit")
+
+      augreport <- body_add_flextable(augreport, adj.means_list[[k]])
+    }
+
 
     if (any(grepl(wstring2, aug.bulk$warnings))) {
       augreport <- body_add_par(augreport, value = neg_msg, style = "Normal")
     }
 
-    # Warnings
+    ## Warnings ----
     if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
       augreport <- body_add_par(augreport, value = "Warnings",
                                 style = "heading 1")
+
+      if (!is.null(aug.bulk$warnings$`Missing values`)) {
+        augreport <- body_add_par(augreport, value = "Missing Values",
+                                  style = "heading 2")
+        for (i in seq_along(aug.bulk$warnings$`Missing values`)) {
+          augreport <- body_add_par(augreport,
+                                    value = names(aug.bulk$warnings$`Missing values`)[i],
+                                    style = "heading 4")
+          wlist <- wlist2blist(aug.bulk$warnings$`Missing values`[[i]],
+                               fp_p = fp_par(padding.bottom = 2,
+                                             word_style = "Code"))
+          augreport <- body_add_blocks(augreport, blocks = wlist)
+          rm(wlist)
+        }
+      }
 
       if (!is.null(aug.bulk$warnings$Model)) {
         augreport <- body_add_par(augreport, value = "Model",
@@ -601,7 +775,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           wlist <- wlist2blist(aug.bulk$warnings$Model[[i]],
                                fp_p = fp_par(padding.bottom = 2,
                                              word_style = "Code"))
-           augreport <- body_add_blocks(augreport, blocks = wlist)
+          augreport <- body_add_blocks(augreport, blocks = wlist)
           rm(wlist)
         }
       }
@@ -650,6 +824,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
   }
 
+  # EXCEL ----
+
   if (file.type == "excel") {
     if (!grepl(x = target, pattern = "\\.(xlsx)$", ignore.case = TRUE)) {
       stop(target, " should have '.xlsx' extension.")
@@ -674,7 +850,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     nchecks <- aug.bulk$Details$`Number of check treatments`
     ntreats <- aug.bulk$Details$`Number of treatments`
 
-    # Index
+    ## Index ----
     index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
                "Standard Errors", "Critical Difference",
                "Coefficient of Variation", "Overall Adjusted Mean",
@@ -721,19 +897,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
               startCol = "B", startRow = 25, borders = "none")
     setColWidths(wb, sheet = "Index", cols = 2, widths = 5)
 
-    # Details
-    Details <- t(data.frame(`Number of blocks` = aug.bulk$Details$`Number of blocks`,
-                            `Number of treatments` = aug.bulk$Details$`Number of treatments`,
-                            `Number of check treatments` = aug.bulk$Details$`Number of check treatments`,
-                            `Number of test treatments` = aug.bulk$Details$`Number of test treatments`,
-                            `Check treatments` =  paste(aug.bulk$Details$`Check treatments`, collapse = ", "),
-                            `Number of Traits` = aug.bulk$Details$`Number of Traits`,
-                            `Traits` = paste(aug.bulk$Details$Traits, collapse = ", ")))
-    Details <- data.frame(Details)
-    Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
-    colnames(Details) <- c("Item", "Details")
+    traits <- aug.bulk$Details$Trait
+    ntraits <- length(traits)
 
-    checks <- aug.bulk$Details$`Check treatments`
+    ## Details ----
+    Details <- aug.bulk$Details
 
     addWorksheet(wb, sheetName = "Details", gridLines = FALSE)
     writeDataTable(wb, sheet = "Details", x = Details,
@@ -741,180 +909,251 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
     setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
-    if (any(grepl(wstring1, unlist(aug.bulk$warnings)))) {
-      dups <- aug.bulk$Means[!(aug.bulk$Means$Treatment %in% checks), ]$Treatment
-      dups <- dups[duplicated(dups)]
-      dups <- aug.bulk$Means[aug.bulk$Means$Treatment %in% dups, c("Treatment", "Block")]
-      rownames(dups) <- NULL
-      writeData(wb, sheet = "Details", xy = c("A", 10),
-                x = "Following test treatments are replicated.",
-                borders = "none")
-      addStyle(wb,  sheet = "Details",
-               style = createStyle(fontColour  = "#C00000"),
-               rows = 10, cols = 1, stack = FALSE, gridExpand = TRUE)
-      writeDataTable(wb, sheet = "Details", x = dups, xy = c("A", 12),
-                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
-                     tableStyle = "TableStyleLight1", withFilter = FALSE,
-                     bandedRows = FALSE)
-    }
+
     setColWidths(wb, sheet = "Details", cols = 1,
-                 widths = max(nchar(Details$Item)) + 5)
+                 widths = max(nchar(Details$Trait)) + 5)
+
+    if (exists("detwarn_list")) {
+      warn <- lapply(seq_along(detwarn_list), function(i) {
+        c(paste("<", names(detwarn_list)[[i]], ">", sep = ""),
+          detwarn_list[[i]], "")
+      })
+      warn <- unlist(warn)
+
+      row1 <- nrow(Details) + 3
+      writeData(wb, sheet = "Details", x = warn,
+                startCol = "A", startRow = row1,
+                borders = "none", colNames = FALSE)
+      addStyle(wb,  sheet = "Details",
+               style = createStyle(fontColour  = "#C00000", wrapText = FALSE,
+                                   halign = "left", valign = "top"),
+               rows = row1 + seq_along(warn) - 1, cols = 1,
+               stack = FALSE, gridExpand = TRUE)
+
+      for (i in row1 + seq_along(warn) - 1) {
+        mergeCells(wb = wb, sheet = "Details", cols = 1:6, rows = i)
+      }
+    }
 
     anova_warn <- NULL
-    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
-                   unlist(aug.bulk$warnings$Model)))) {
-      # anova_warn <- lapply(aug.bulk$warnings$Model[grepl(wstring2,
-      #                                                    aug.bulk$warnings$Model)],
-      #                      function(x) trimws(unlist(strsplit(x, "\n"))))
-      anova_warn <-
-        lapply(aug.bulk$warnings$Model[!grepl(paste(c(wstring1, wstring2),
-                                                    collapse = "|"),
-                                              unlist(aug.bulk$warnings$Model))],
-               function(x) trimws(unlist(strsplit(x, "\n"))))
-      anova_warn <- stack(anova_warn)
-      anova_warn <- anova_warn[, 2:1]
+    if (!is.null(aug.bulk$warnings$Model)) {
+      wstring_ind <- lapply(aug.bulk$warnings$Model, function(x) {
+        grepl(wstring1, x, fixed = TRUE) | grepl(wstring2, x, fixed = TRUE)
+      })
+      if (any(!(unlist(wstring_ind)))) {
+        anova_warn <-
+          lapply(seq_along(aug.bulk$warnings$Model), function(i) {
+            aug.bulk$warnings$Model[[i]][-which(wstring_ind[[i]])]
+          })
+        names(anova_warn) <- names(aug.bulk$warnings$Model)
+        anova_warn <- anova_warn[lapply(anova_warn, length) > 0]
+
+        anova_warn <- lapply(seq_along(anova_warn), function(i) {
+          c(paste("<", names(anova_warn)[[i]], ">", sep = ""),
+            anova_warn[[i]], "")
+        })
+        anova_warn <- unlist(anova_warn)
+      }
     }
 
-    # ANOVA, TA
+    ## ANOVA, TA ----
     anovata <- aug.bulk$`ANOVA, Treatment Adjusted`
     anovata <- anovata[, setdiff(colnames(anovata),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    # colnames(anovata) <- make.names(colnames(anovata), unique = TRUE)
-    anovata_sig <- anovata[, c("Source", "Df",
+    anovata_sig <- anovata[, c("Source",
                                paste(traits, "_sig", sep = ""))]
     colnames(anovata_sig) <- gsub("_sig", "", colnames(anovata_sig))
-    colnames(anovata) <- gsub("_Mean.Sq", "", colnames(anovata))
-    anovata <- anovata[, c("Source", "Df", traits)]
-    colnames(anovata)[colnames(anovata) == "Df"] <- "Degrees of freedom"
+    anovata_msq <- anovata[, c("Source",
+                               paste(traits, "_Mean.Sq", sep = ""))]
+    colnames(anovata_msq) <- gsub("_Mean.Sq", "", colnames(anovata_msq))
+    anovata_df <- anovata[, c("Source",
+                               paste(traits, "_Df", sep = ""))]
+    colnames(anovata_df) <- gsub("_Df", "", colnames(anovata_df))
+
 
     addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
-    writeData(wb, sheet = "ANOVA, Treatment Adjusted",
-              x = "Mean.Sq", startCol = 3, startRow = 1, headerStyle = hs,
-              borders = "columns")
+
+    strtcol = 2
+
     writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted",
-                   x = anovata, startRow = 2,
+                   x = data.frame(Source = anovata_df[, "Source"]),
+                   startRow = 2, startCol = 1,
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
-    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
-             style = createStyle(numFmt = "0"),
-             rows = 3:7, cols = 2, stack = FALSE, gridExpand = TRUE)
-    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
-             style = createStyle(halign = "right"),
-             rows = 2, cols = 2:(ntraits + 2), stack = TRUE, gridExpand = TRUE)
-    for(j in seq_along(traits)) {
+
+    for (k in seq_along(traits)) {
+      writeData(wb, sheet = "ANOVA, Treatment Adjusted",
+                x = traits[k], startCol = strtcol, startRow = 1)
+      addStyle(wb, sheet = "ANOVA, Treatment Adjusted",
+               cols = strtcol, rows = 1,
+               style = createStyle(textDecoration = "bold", halign = "center",
+                                   valign = "bottom", wrapText = TRUE))
+      mergeCells(wb, sheet = "ANOVA, Treatment Adjusted",
+                 cols = c(strtcol, strtcol + 1), rows = 1)
+      writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted",
+                     x = data.frame(Df = anovata_df[, traits[k]]),
+                     startRow = 2, startCol = strtcol,
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+      writeDataTable(wb, sheet = "ANOVA, Treatment Adjusted",
+                     x = data.frame(Mean.Sq = anovata_msq[, traits[k]]),
+                     startRow = 2, startCol = strtcol + 1,
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+      addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+               style = createStyle(numFmt = "0"),
+               rows = 3:7, cols = strtcol + 1,
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
+               style = createStyle(halign = "right"),
+               rows = 2, cols = c(strtcol, strtcol + 1),
+               stack = TRUE, gridExpand = TRUE)
       for (i in 1:4) {
-          col <- which(colnames(anovata) == traits[j])
-          if (anovata_sig[i, col] == "*") {
-            addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = ssstyle,
-                     rows = i + 2, cols = col, stack = FALSE)
-          }
-          if (anovata_sig[i, col] == "**") {
-            addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = dsstyle,
-                     rows = i + 2, cols = col, stack = FALSE)
-          }
-          if (anovata_sig[i, col] == "ns") {
-            addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = nsstyle,
-                     rows = i + 2, cols = col, stack = FALSE)
-          }
+        col <- which(colnames(anovata_sig) == traits[k])
+        if (anovata_sig[i, col] == "*") {
+          addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = ssstyle,
+                   rows = i + 2, cols = strtcol + 1, stack = FALSE)
+        }
+        if (anovata_sig[i, col] == "**") {
+          addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = dsstyle,
+                   rows = i + 2, cols = strtcol + 1, stack = FALSE)
+        }
+        if (anovata_sig[i, col] == "ns") {
+          addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = nsstyle,
+                   rows = i + 2, cols = strtcol + 1, stack = FALSE)
+        }
       }
+      addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = padstyle,
+               rows = 7, cols = strtcol + 1, stack = FALSE)
+      strtcol <- strtcol + 2
     }
-    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted", style = padstyle,
-             rows = 7, cols = 3:(ntraits + 2), stack = FALSE)
+    rm(strtcol)
+    setRowHeights(wb, sheet = "ANOVA, Treatment Adjusted",
+                  rows = 1, heights = 50)
     setColWidths(wb, sheet = "ANOVA, Treatment Adjusted",
-                 cols = 1:ncol(anovata), widths = "auto")
-    addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
-             style = createStyle(halign = "center", textDecoration = "bold"),
-             rows = 1, cols = 3, stack = FALSE, gridExpand = TRUE)
-    mergeCells(wb, sheet = "ANOVA, Treatment Adjusted",
-               cols = 3:(ntraits + 2), rows = 1)
+                 cols = 1:1 + (ntraits * 2), widths = "auto")
     writeData(wb, sheet = "ANOVA, Treatment Adjusted", xy = c("A", 8),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
     setColWidths(wb, sheet = "ANOVA, Treatment Adjusted", cols = 1,
                  widths = max(nchar(anovata$Source)) + 5)
+
     if (!is.null(anova_warn)) {
-      writeData(wb, sheet = "ANOVA, Treatment Adjusted",
-                xy = c("A", 10), x = anova_warn,
+      row1 <- 10
+      writeData(wb, sheet = "ANOVA, Treatment Adjusted", x = anova_warn,
+                startCol = "A", startRow = row1,
                 borders = "none", colNames = FALSE)
       addStyle(wb,  sheet = "ANOVA, Treatment Adjusted",
-               style = createStyle(fontColour  = "#C00000"),
-               rows = (10 - 1 + nrow(anova_warn)), cols = 1:2,
+               style = createStyle(fontColour  = "#C00000", wrapText = FALSE,
+                                   halign = "left", valign = "top"),
+               rows = row1 + seq_along(anova_warn) - 1, cols = 1,
                stack = FALSE, gridExpand = TRUE)
     }
 
-    # ANOVA, BA
+
+    ## ANOVA, BA ----
     anovaba <- aug.bulk$`ANOVA, Block Adjusted`
     anovaba <- anovaba[, setdiff(colnames(anovaba),
                                  paste(traits, "Pr(>F)", sep = "_"))]
-    # colnames(anovaba) <- make.names(colnames(anovaba), unique = TRUE)
-    anovaba_sig <- anovaba[, c("Source", "Df",
+    anovaba_sig <- anovaba[, c("Source",
                                paste(traits, "_sig", sep = ""))]
     colnames(anovaba_sig) <- gsub("_sig", "", colnames(anovaba_sig))
-    colnames(anovaba) <- gsub("_Mean.Sq", "", colnames(anovaba))
-    anovaba <- anovaba[, c("Source", "Df", traits)]
-    colnames(anovaba)[colnames(anovaba) == "Df"] <- "Degrees of freedom"
+    anovaba_msq <- anovaba[, c("Source",
+                               paste(traits, "_Mean.Sq", sep = ""))]
+    colnames(anovaba_msq) <- gsub("_Mean.Sq", "", colnames(anovaba_msq))
+    anovaba_df <- anovaba[, c("Source",
+                              paste(traits, "_Df", sep = ""))]
+    colnames(anovaba_df) <- gsub("_Df", "", colnames(anovaba_df))
+
 
     addWorksheet(wb, sheetName = "ANOVA, Block Adjusted", gridLines = FALSE)
-    writeData(wb, sheet = "ANOVA, Block Adjusted",
-              x = "Mean.Sq", startCol = 3, startRow = 1, headerStyle = hs,
-              borders = "columns")
+
+    strtcol = 2
+
     writeDataTable(wb, sheet = "ANOVA, Block Adjusted",
-                   x = anovaba, startRow = 2,
+                   x = data.frame(Source = anovaba_df[, "Source"]),
+                   startRow = 2, startCol = 1,
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
-    addStyle(wb,  sheet = "ANOVA, Block Adjusted",
-             style = createStyle(numFmt = "0"),
-             rows = 3:8, cols = 2, stack = FALSE, gridExpand = TRUE)
-    addStyle(wb,  sheet = "ANOVA, Block Adjusted",
-             style = createStyle(halign = "right"),
-             rows = 2, cols = 2:(ntraits + 2), stack = TRUE, gridExpand = TRUE)
-    for(j in seq_along(traits)) {
-      for (i in 1:5) {
-        col <- which(colnames(anovaba) == traits[j])
+
+    for (k in seq_along(traits)) {
+      writeData(wb, sheet = "ANOVA, Block Adjusted",
+                x = traits[k], startCol = strtcol, startRow = 1)
+      addStyle(wb, sheet = "ANOVA, Block Adjusted",
+               cols = strtcol, rows = 1,
+               style = createStyle(textDecoration = "bold", halign = "center",
+                                   valign = "bottom", wrapText = TRUE))
+      mergeCells(wb, sheet = "ANOVA, Block Adjusted",
+                 cols = c(strtcol, strtcol + 1), rows = 1)
+      writeDataTable(wb, sheet = "ANOVA, Block Adjusted",
+                     x = data.frame(Df = anovaba_df[, traits[k]]),
+                     startRow = 2, startCol = strtcol,
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+      writeDataTable(wb, sheet = "ANOVA, Block Adjusted",
+                     x = data.frame(Mean.Sq = anovaba_msq[, traits[k]]),
+                     startRow = 2, startCol = strtcol + 1,
+                     colNames = TRUE, rowNames = FALSE, headerStyle = hs,
+                     tableStyle = "TableStyleLight1", withFilter = FALSE,
+                     bandedRows = FALSE)
+      addStyle(wb,  sheet = "ANOVA, Block Adjusted",
+               style = createStyle(numFmt = "0"),
+               rows = 3:7, cols = strtcol + 1,
+               stack = FALSE, gridExpand = TRUE)
+      addStyle(wb,  sheet = "ANOVA, Block Adjusted",
+               style = createStyle(halign = "right"),
+               rows = 2, cols = c(strtcol, strtcol + 1),
+               stack = TRUE, gridExpand = TRUE)
+      for (i in 1:4) {
+        col <- which(colnames(anovaba_sig) == traits[k])
         if (anovaba_sig[i, col] == "*") {
           addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = ssstyle,
-                   rows = i + 2, cols = col, stack = FALSE)
+                   rows = i + 2, cols = strtcol + 1, stack = FALSE)
         }
         if (anovaba_sig[i, col] == "**") {
           addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = dsstyle,
-                   rows = i + 2, cols = col, stack = FALSE)
+                   rows = i + 2, cols = strtcol + 1, stack = FALSE)
         }
         if (anovaba_sig[i, col] == "ns") {
           addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = nsstyle,
-                   rows = i + 2, cols = col, stack = FALSE)
+                   rows = i + 2, cols = strtcol + 1, stack = FALSE)
         }
       }
+      addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = padstyle,
+               rows = 7, cols = strtcol + 1, stack = FALSE)
+      strtcol <- strtcol + 2
     }
-    addStyle(wb,  sheet = "ANOVA, Block Adjusted", style = padstyle,
-             rows = 8, cols = 3:(ntraits + 2), stack = FALSE)
+    rm(strtcol)
+    setRowHeights(wb, sheet = "ANOVA, Block Adjusted",
+                  rows = 1, heights = 50)
     setColWidths(wb, sheet = "ANOVA, Block Adjusted",
-                 cols = 1:ncol(anovaba), widths = "auto")
-    addStyle(wb,  sheet = "ANOVA, Block Adjusted",
-             style = createStyle(halign = "center", textDecoration = "bold"),
-             rows = 1, cols = 3, stack = FALSE, gridExpand = TRUE)
-    mergeCells(wb, sheet = "ANOVA, Block Adjusted",
-               cols = 3:(ntraits + 2), rows = 1)
-    writeData(wb, sheet = "ANOVA, Block Adjusted", xy = c("A", 9),
+                 cols = 1:1 + (ntraits * 2), widths = "auto")
+    writeData(wb, sheet = "ANOVA, Block Adjusted", xy = c("A", 8),
               x = "\u207f\u02e2 P > 0.05; * P <= 0.05; ** P <= 0.01",
               borders = "none")
     setColWidths(wb, sheet = "ANOVA, Block Adjusted", cols = 1,
                  widths = max(nchar(anovaba$Source)) + 5)
+
     if (!is.null(anova_warn)) {
-      writeData(wb, sheet = "ANOVA, Block Adjusted",
-                xy = c("A", 11), x = anova_warn,
+      row1 <- 10
+      writeData(wb, sheet = "ANOVA, Block Adjusted", x = anova_warn,
+                startCol = "A", startRow = row1,
                 borders = "none", colNames = FALSE)
       addStyle(wb,  sheet = "ANOVA, Block Adjusted",
-               style = createStyle(fontColour  = "#C00000"),
-               rows = (11 - 1 + nrow(anova_warn)), cols = 1:2,
+               style = createStyle(fontColour  = "#C00000", wrapText = FALSE,
+                                   halign = "left", valign = "top"),
+               rows = row1 + seq_along(anova_warn) - 1, cols = 1,
                stack = FALSE, gridExpand = TRUE)
     }
 
-    # Std. Error
+    ## Std. Error ----
     SE <- aug.bulk$`Std. Errors`
     SE[, traits] <- sapply(SE[, traits], as.numeric)
-    # colnames(SE) <- make.names(colnames(SE), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Standard Errors", gridLines = FALSE)
     writeDataTable(wb, sheet = "Standard Errors", x = SE,
@@ -930,10 +1169,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "Standard Errors",
                  cols = 1:ncol(SE), widths = "auto")
 
-    # CD
+    ## CD ----
     CD <- aug.bulk$CD
     CD[, traits] <- sapply(CD[, traits], as.numeric)
-    # colnames(CD) <- make.names(colnames(CD), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Critical Difference", gridLines = FALSE)
     writeDataTable(wb, sheet = "Critical Difference", x = CD,
@@ -949,10 +1187,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "Critical Difference",
                  cols = 1:ncol(CD), widths = "auto")
 
-    # CV
+    ## CV ----
     CV <- aug.bulk$CV
     CV$CV <- as.numeric(CV$CV)
-    # colnames(CV) <- make.names(colnames(CV), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Coefficient of Variance", gridLines = FALSE)
     writeDataTable(wb, sheet = "Coefficient of Variance", x = CV,
@@ -968,10 +1205,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "Coefficient of Variance",
                  cols = 1:ncol(CV), widths = "auto")
 
-    # Overall adj. mean
+    ## Overall adj. mean ----
     oadjmean <- aug.bulk$`Overall adjusted mean`
     oadjmean$Overall.adjusted.mean <- as.numeric(oadjmean$Overall.adjusted.mean)
-    # colnames(oadjmean) <- make.names(colnames(oadjmean), unique = TRUE)
 
     addWorksheet(wb, sheetName = "Overall Adjusted Mean", gridLines = FALSE)
     writeDataTable(wb, sheet = "Overall Adjusted Mean", x = oadjmean,
@@ -988,13 +1224,17 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                  cols = 1:ncol(oadjmean), widths = "auto")
 
 
-    # Check statistics
+    ## Check statistics ----
     addWorksheet(wb, sheetName = "Check Statistics", gridLines = FALSE)
-    indexdf <- data.frame(i = sort(rep(1:ntraits, nchecks+3)),
-                          rows  = rep(1:(nchecks+3), ntraits))
+    indexdf <- lapply(seq_along(aug.bulk$`Check statistics`), function(i) {
+      data.frame(i = rep(i, times = nrow(aug.bulk$`Check statistics`[[i]]) + 3),
+                 rows = 1:(nrow(aug.bulk$`Check statistics`[[i]]) + 3))
+    })
+    indexdf <- bind_rows(indexdf)
     indexdf$index <- seq_along(indexdf$i)
 
     for (i in seq_along(aug.bulk$`Check statistics`)) {
+      nchecks <- nrow(aug.bulk$`Check statistics`[[i]])
       row1 <- indexdf[indexdf$i == i & indexdf$rows == 1, ]$index
       writeData(wb, sheet = "Check Statistics",
                 x = names(aug.bulk$`Check statistics`)[i],
@@ -1021,12 +1261,14 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     setColWidths(wb, sheet = "Check Statistics",
                  cols = 5:6,
                  widths = max(unlist(lapply(aug.bulk$`Check statistics`,
-                                            function(chkst) max(nchar(chkst$Max),
-                                                                nchar(chkst$Max),
-                                                                3)))) + 5)
+                                            function(chkst) {
+                                              max(nchar(chkst$Max),
+                                                  nchar(chkst$Max),
+                                                  3)
+                                            }))) + 5)
     rm(indexdf)
 
-    # Descriptive statistics
+    ## Descriptive statistics ----
     if (!is.null(aug.bulk$`Descriptive statistics`)){
       descout <- aug.bulk$`Descriptive statistics`
       descout <- descout[, setdiff(colnames(descout),
@@ -1087,7 +1329,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    widths = max(nchar(descout$Trait)) + 5)
     }
 
-    # Frequency distribution
+    ## Frequency distribution -----
     if (!is.null(aug.bulk$`Frequency distribution`)) {
       addWorksheet(wb, sheetName = "Frequency Distribution", gridLines = FALSE)
       indexdf <- data.frame(i = sort(rep(1:ntraits, 25)),
@@ -1111,7 +1353,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                     startCol = "J", startRow = row1 + 1, borders = "none")
           addStyle(wb,  sheet = "Frequency Distribution",
                    style = createStyle(fontColour  = "#C00000"),
-                   rows = row1 + length(aug.bulk$warnings$`Freq. dist`[[traits[i]]]),
+                   rows = row1 +
+                     length(aug.bulk$warnings$`Freq. dist`[[traits[i]]]),
                    cols = 10, stack = FALSE, gridExpand = TRUE)
         }
         rm(row1)
@@ -1121,7 +1364,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       rm(indexdf)
     }
 
-    # GVA
+    ## GVA ----
     if (!is.null(aug.bulk$`Genetic variability analysis`)) {
       GVA <- aug.bulk$`Genetic variability analysis`
 
@@ -1150,10 +1393,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           gwhltv <- stringi::stri_pad_right(gwhltv, width = max(nchar(gwhltv)),
                                             pad = "\u00A0")
 
-          new_trait <- paste(stringi::stri_pad_right(GVA$Trait,
-                                                     width = max(nchar(GVA$Trait)),
-                                                     pad = "\u00A0"),
-                             gwhltv)
+          new_trait <-
+            paste(stringi::stri_pad_right(GVA$Trait,
+                                          width = max(nchar(GVA$Trait)),
+                                          pad = "\u00A0"),
+                  gwhltv)
           GVA$Trait <- new_trait
         }
       }
@@ -1204,7 +1448,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     }
 
-    # GVA plots
+    ## GVA plots ----
     if (any(unlist(lapply(aug.bulk$`GVA plots`, function(x) !is.null(x))))) {
 
       addWorksheet(wb, sheetName = "GVA Plots", gridLines = FALSE)
@@ -1246,7 +1490,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                style = createStyle(textDecoration = "bold"))
     }
 
-    # Adjusted Means
+    ## Adjusted Means ----
     adj.means <- aug.bulk$Means
     # colnames(adj.means) <- make.names(colnames(adj.means), unique = TRUE)
 
@@ -1300,13 +1544,27 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       setColWidths(wb, sheet = "Adjusted Means",
                    cols = 1, widths = max(nchar(adj.means$Treatment), 9) + 5)
 
-     }
+    }
 
-    # Warnings
+    ## Warnings -----
     if (!all( unlist(lapply(aug.bulk$warnings, is.null)))) {
       addWorksheet(wb, sheetName = "Warnings", gridLines = FALSE)
 
       row1 <- 1
+
+      if (!is.null(aug.bulk$warnings$`Missing values`)) {
+        misswarn <- stack(aug.bulk$warnings$`Missing values`)
+        misswarn <- misswarn[, 2:1]
+        writeData(wb, sheet = "Warnings", x = "Missing Values",
+                  startCol = "A", startRow = row1, borders = "none")
+        writeData(wb, sheet = "Warnings",
+                  x = misswarn, startCol = "A", startRow = row1 + 1,
+                  borders = "none", colNames = FALSE)
+        addStyle(wb,  sheet = "Warnings",
+                 style = createStyle(textDecoration = "bold"),
+                 rows = row1, cols = 1, stack = FALSE, gridExpand = TRUE)
+        row1 <- row1 + 2 + nrow(misswarn)
+      }
 
       if (!is.null(aug.bulk$warnings$Model)) {
         warn <- stack(aug.bulk$warnings$Model)
@@ -1350,6 +1608,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
     }
 
+    setColWidths(wb, sheet = "Warnings",
+                 cols = 1, widths = max(nchar(traits)) + 5)
+
     saveWorkbook(wb = wb, file = target, overwrite = TRUE)
 
   }
@@ -1361,7 +1622,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
 wlist2blist <- function(wlist, fp_p = fp_par()) {
   outlist <- lapply(wlist, function(wtext) fpar(ftext(wtext),
-                                                fp_p = fp_par()))
+                                                fp_p = fp_p))
   attributes(outlist) <- list(class = c("block_list", "block"))
   return(outlist)
 }
