@@ -126,7 +126,7 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
   if (highlight.check) {
     G1 <- G1 +
       geom_vline(xintercept = aug$Means[aug$Means$Treatment %in% checks, ]$`Adjusted Means`,
-                 size = 1, colour = check.col)
+                 linewidth = 1, colour = check.col)
 
     dat2 <- aug$Means[aug$Means$Treatment %in% checks, ]
     dat2$lower <- dat2$`Adjusted Means` - dat2$SE

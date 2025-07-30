@@ -96,7 +96,7 @@ print.augmentedRCBD <- function(x, ...){
   cat("===============\n")
   x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
     lapply(x$Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
-           round.conditional, digits = round.digits)
+           conditional_round, digits = round.digits)
   print(x$Means, row.names = FALSE)
   cat("\n")
   if (any(grepl(wstring2, x$warnings))) {
@@ -109,10 +109,10 @@ print.augmentedRCBD <- function(x, ...){
     cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
     x$Comparisons[, c("estimate", "SE")] <-
       lapply(x$Comparisons[, c("estimate", "SE")],
-             round.conditional, digits = round.digits)
+             conditional_round, digits = round.digits)
     x$Comparisons[, c("t.ratio", "p.value")] <-
       lapply(x$Comparisons[, c("t.ratio", "p.value")],
-             round.conditional, digits = max(round.digits, 3))
+             conditional_round, digits = max(round.digits, 3))
     print(x$Comparisons, row.names = FALSE)
   }
   if (!is.null(x$Groups)) {
@@ -121,7 +121,7 @@ print.augmentedRCBD <- function(x, ...){
     cat(paste("\nMethod : ", x$`Comparison method`, "\n\n", sep = ""))
     x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
       lapply(x$Groups[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],
-             round.conditional, digits = round.digits)
+             conditional_round, digits = round.digits)
     print(x$Groups, row.names = FALSE)
   }
 }

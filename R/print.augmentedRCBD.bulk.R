@@ -110,7 +110,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
     sapply(x$`ANOVA, Treatment Adjusted`[, paste(traits,
                                                  "_Mean.Sq",
                                                  sep = "")],
-           round.conditional, digits = round.digits)
+           conditional_round, digits = round.digits)
   x$`ANOVA, Treatment Adjusted`[, paste(traits,
                                         "_sig",
                                         sep = "")] <-
@@ -143,7 +143,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
     sapply(x$`ANOVA, Block Adjusted`[, paste(traits,
                                              "_Mean.Sq",
                                              sep = "")],
-           round.conditional, digits = round.digits)
+           conditional_round, digits = round.digits)
   x$`ANOVA, Block Adjusted`[, paste(traits,
                                     "_sig",
                                     sep = "")] <-
@@ -167,7 +167,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\nCoefficient of Variation\n")
   cat("========================\n")
-  x$CV$CV <- round.conditional(x$CV$CV, digits = round.digits)
+  x$CV$CV <- conditional_round(x$CV$CV, digits = round.digits)
   print(x$CV, row.names = FALSE)
 
   # Overall Adjusted Mean ----
@@ -175,7 +175,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("\n\nOverall Adjusted Mean\n")
   cat("=====================\n")
   x$`Overall adjusted mean`$Overall.adjusted.mean <-
-    round.conditional(x$`Overall adjusted mean`$Overall.adjusted.mean,
+    conditional_round(x$`Overall adjusted mean`$Overall.adjusted.mean,
                       digits = round.digits)
   print(x$`Overall adjusted mean`, row.names = FALSE)
 
@@ -184,7 +184,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("\n\nStandard Errors\n")
   cat("===============\n")
   x$`Std. Errors`[, traits] <- lapply(x$`Std. Errors`[, traits, drop = FALSE],
-                                      round.conditional, digits = round.digits)
+                                      conditional_round, digits = round.digits)
   print(x$`Std. Errors`, row.names = FALSE)
 
   # Critical Difference ----
@@ -193,7 +193,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("===================\n")
   cat(paste("alpha =", x$alpha, "\n"))
   x$CD[, traits] <- lapply(x$CD[, traits, drop = FALSE],
-                           round.conditional, digits = round.digits)
+                           conditional_round, digits = round.digits)
   print(x$CD, row.names = FALSE)
 
   # Descriptive Statistics ----
@@ -204,7 +204,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
             "Max", "Skewness", "Kurtosis")
   x$`Descriptive statistics`[, desc] <-
     apply(x$`Descriptive statistics`[, desc], MARGIN = 2,
-          FUN = round.conditional)
+          FUN = conditional_round)
   x$`Descriptive statistics`[, c("Kurtosis_sig", "Skewness_sig")] <-
     apply(x$`Descriptive statistics`[, c("Kurtosis_sig", "Skewness_sig")],
           MARGIN = 2, FUN = function(sig) ifelse(sig == "ns",
@@ -222,7 +222,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   gvap <- c("Mean", "PV", "GV", "EV", "GCV", "PCV",  "ECV", "hBS", "GA", "GAM")
   x$`Genetic variability analysis`[, gvap] <-
     apply(x$`Genetic variability analysis`[, gvap], MARGIN = 2,
-          FUN = round.conditional)
+          FUN = conditional_round)
   cat(paste("k =", x$k, "\n"))
   if (!is.null(x$warnings$GVA)) {
     gwstring1 <- "may not be appropriate for this trait"
@@ -299,7 +299,7 @@ print.augmentedRCBD.bulk <- function(x, ...){
   cat("\nTreatment Means\n")
   cat("===============\n")
   x$Means[, traits] <- lapply(x$Means[, traits, drop = FALSE],
-                              round.conditional, digits = round.digits)
+                              conditional_round, digits = round.digits)
   print(x$Means, row.names = FALSE, max = 200)
   if (exists("modwarn2_list")) {
     warn_wlist(modwarn2_list)

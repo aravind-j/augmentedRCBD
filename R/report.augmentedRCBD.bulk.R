@@ -197,7 +197,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     }
 
     merge_mss_sig <- function(i) {
-      paste(round.conditional(anovatable[, paste(traits[i], "_Mean.Sq",
+      paste(conditional_round(anovatable[, paste(traits[i], "_Mean.Sq",
                                                  sep = "")],
                               digits = round.digits),
             stringi::stri_pad_right(anovatable[, paste(traits[i], "_sig",
@@ -230,7 +230,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                  paste(traits, "Pr(>F)", sep = "_"))]
     anovata[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovata[, paste(traits, "_Mean.Sq", sep = "")],
-             round.conditional, digits = round.digits)
+             conditional_round, digits = round.digits)
 
     anovata_list <- vector(mode = "list", length = length(traits_list))
 
@@ -328,7 +328,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                  paste(traits, "Pr(>F)", sep = "_"))]
     anovaba[, paste(traits, "_Mean.Sq", sep = "")] <-
       sapply(anovaba[, paste(traits, "_Mean.Sq", sep = "")],
-             round.conditional, digits = round.digits)
+             conditional_round, digits = round.digits)
 
     anovaba_list <- vector(mode = "list", length = length(traits_list))
 
@@ -424,7 +424,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                               style = "heading 1")
     SE <- aug.bulk$`Std. Errors`
     SE[, traits] <- lapply(SE[, traits, drop = FALSE],
-                           round.conditional, digits = round.digits)
+                           conditional_round, digits = round.digits)
 
     SE_list <- vector(mode = "list", length = length(traits_list))
     for (k in seq_along(traits_list)) {
@@ -448,7 +448,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                               style = "heading 1")
     CD <- aug.bulk$CD
     CD[, traits] <- lapply(CD[, traits, drop = FALSE],
-                           round.conditional, digits = round.digits)
+                           conditional_round, digits = round.digits)
 
     CD_list <- vector(mode = "list", length = length(traits_list))
     for (k in seq_along(traits_list)) {
@@ -468,7 +468,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "Coefficient of Variance",
                               style = "heading 1")
     CV <- aug.bulk$CV
-    CV$CV <- round.conditional(CV$CV, digits = round.digits)
+    CV$CV <- conditional_round(CV$CV, digits = round.digits)
 
     CV <- flextable(CV)
     CV <- bold(CV, part = "header")
@@ -482,7 +482,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                               style = "heading 1")
     oadjmean <- aug.bulk$`Overall adjusted mean`
     oadjmean$Overall.adjusted.mean <-
-      round.conditional(oadjmean$Overall.adjusted.mean,
+      conditional_round(oadjmean$Overall.adjusted.mean,
                         digits = round.digits)
     oadjmean <- flextable(oadjmean)
     oadjmean <- bold(oadjmean, part = "header")
@@ -500,7 +500,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                 style = "heading 2")
       chkout <- aug.bulk$`Check statistics`[[i]]
       chkout[, c("Means", "SE", "Min", "Max")] <-
-        lapply(chkout[, c("Means", "SE", "Min", "Max")], round.conditional,
+        lapply(chkout[, c("Means", "SE", "Min", "Max")], conditional_round,
                digits = round.digits)
       chkout <- flextable(chkout)
       chkout <- bold(chkout, part = "header")
@@ -519,7 +519,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                    c("Skewness_Pr(>F)", "Kurtosis_Pr(>F)"))]
       descols <- c("Mean", "Std.Error", "Std.Deviation", "Min",
                    "Max", "Skewness", "Kurtosis")
-      descout[, descols] <- lapply(descout[, descols], round.conditional,
+      descout[, descols] <- lapply(descout[, descols], conditional_round,
                                    digits = round.digits)
       nsindex1 <- which(descout[, 9] == "ns")
       nsindex2 <- which(descout[, 11] == "ns")
@@ -580,7 +580,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       GVA <- aug.bulk$`Genetic variability analysis`
       gvacols <- c("Mean", "PV", "GV", "EV", "GCV","PCV","ECV",
                    "hBS","GA", "GAM")
-      GVA[, gvacols] <- lapply(GVA[, gvacols], round.conditional,
+      GVA[, gvacols] <- lapply(GVA[, gvacols], conditional_round,
                                digits = round.digits)
 
       if (!is.null(aug.bulk$warnings$GVA)) {
@@ -696,7 +696,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     augreport <- body_add_par(augreport, value = "Adjusted Means",
                               style = "heading 1")
     adj.means <- aug.bulk$Means
-    adj.means[, traits] <- sapply(adj.means[, traits], round.conditional,
+    adj.means[, traits] <- sapply(adj.means[, traits], conditional_round,
                                   digits = round.digits)
     if (any(grepl(wstring2, aug.bulk$warnings))) {
 

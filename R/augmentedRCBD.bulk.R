@@ -645,7 +645,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                    inherit.aes = F) +
       geom_segment(data = gvaplot_2, aes(x = Trait, xend = Trait,
                                          y = min, yend = max),
-                   inherit.aes = F, size = 2, colour = "gray70") +
+                   inherit.aes = F, linewidth = 2, colour = "gray70") +
       geom_point(aes(y = value)) +
       scale_color_manual("Type", values = c("red", "blue")) +
       scale_y_continuous(breaks = seq(0,
@@ -787,7 +787,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
 }
 
-round.conditional <- function(x, digits = 2){
+conditional_round <- function(x, digits = 2){
   x <- ifelse(round(x, digits) != 0,
               as.character(round(x, digits)),
               as.character(signif(x, digits)))

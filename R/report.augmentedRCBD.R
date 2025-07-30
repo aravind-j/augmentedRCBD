@@ -192,10 +192,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                            "F value", "Pr(>F)", " ")
     anovata$Df <- as.character(anovata$Df)
     anovata[, c("Sum Sq", "Mean Sq")] <-
-      lapply(anovata[, c("Sum Sq", "Mean Sq")], round.conditional,
+      lapply(anovata[, c("Sum Sq", "Mean Sq")], conditional_round,
              digits = round.digits)
     anovata[, c("F value", "Pr(>F)")] <-
-      lapply(anovata[, c("F value", "Pr(>F)")], round.conditional,
+      lapply(anovata[, c("F value", "Pr(>F)")], conditional_round,
              digits = max(round.digits, 3))
     nsindex <- which(anovata[, 7] == "ns")
     anovata <- autofit(regulartable(anovata))
@@ -231,10 +231,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                            "F value", "Pr(>F)", " ")
     anovaba$Df <- as.character(anovaba$Df)
     anovaba[, c("Sum Sq", "Mean Sq")] <-
-      lapply(anovaba[, c("Sum Sq", "Mean Sq")], round.conditional,
+      lapply(anovaba[, c("Sum Sq", "Mean Sq")], conditional_round,
              digits = round.digits)
     anovaba[, c("F value", "Pr(>F)")] <-
-      lapply(anovaba[, c("F value", "Pr(>F)")], round.conditional,
+      lapply(anovaba[, c("F value", "Pr(>F)")], conditional_round,
              digits = max(round.digits, 3))
     nsindex <- which(anovaba[, 7] == "ns")
     anovaba <- autofit(regulartable(anovaba))
@@ -261,7 +261,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                               style = "heading 1")
     se <- aug$`Std. Errors`
     se <- cbind(Comparison = row.names(se), se)
-    se <- dplyr::mutate_if(se, is.numeric, round.conditional,
+    se <- dplyr::mutate_if(se, is.numeric, conditional_round,
                            digits = round.digits)
     se <- autofit(regulartable(se))
     se <- align(se, j = 2:3, align = "right", part = "all")
@@ -272,7 +272,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
                               style = "heading 1")
     augreport <- body_add_par(augreport,
-                              value = as.character(round.conditional(aug$`Overall adjusted mean`,
+                              value = as.character(conditional_round(aug$`Overall adjusted mean`,
                                                                      digits = round.digits)),
                               style = "Normal")
 
@@ -280,7 +280,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     augreport <- body_add_par(augreport, value = "Coefficient of Variation",
                               style = "heading 1")
     augreport <- body_add_par(augreport,
-                              value = as.character(round.conditional(aug$CV,
+                              value = as.character(conditional_round(aug$CV,
                                                                      digits = round.digits)),
                               style = "Normal")
 
@@ -289,7 +289,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     Means <- aug$Means
     Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
       lapply(Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
-             round.conditional, digits = round.digits)
+             conditional_round, digits = round.digits)
     if (any(grepl(wstring2, aug$warnings))) {
       wstring2_mod <- trimws(unlist(strsplit(aug$warnings[grepl(wstring2,
                                                                 aug$warnings)],
@@ -355,7 +355,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
               "Max", "Skewness.statistic.", "Kurtosis.statistic.")
     descout[, desc] <- apply(descout[, desc], MARGIN = 2,
-                             FUN = round.conditional, digits = round.digits)
+                             FUN = conditional_round, digits = round.digits)
     colnames(descout) <- c("Count", "Mean", "Std.Error", "Std.Deviation",
                            "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
                            "Kurtosis_sig")
@@ -396,7 +396,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       invokeRestart("muffleWarning")
     })
     gvaout <- data.frame(gvaout)
-    gvaout <- dplyr::mutate_if(gvaout, is.numeric, round.conditional,
+    gvaout <- dplyr::mutate_if(gvaout, is.numeric, conditional_round,
                                digits = round.digits)
     gvaout <- data.frame(t(gvaout))
     gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
@@ -431,10 +431,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       cmp <- aug$Comparisons
       cmp[, c("estimate", "SE")] <-
         lapply(cmp[, c("estimate", "SE")],
-               round.conditional, digits = round.digits)
+               conditional_round, digits = round.digits)
       cmp[, c("t.ratio", "p.value")] <-
         lapply(cmp[, c("t.ratio", "p.value")],
-               round.conditional, digits = max(round.digits, 3))
+               conditional_round, digits = max(round.digits, 3))
       cmp <- autofit(regulartable(cmp))
       cmp <- align(cmp, j = 2:6, align = "right", part = "all")
       cmp <- bold(cmp, part = "header")
@@ -456,7 +456,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       gps <- aug$Groups
       gps[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
         lapply(gps[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],
-               round.conditional, digits = round.digits)
+               conditional_round, digits = round.digits)
       gps <- autofit(regulartable(gps))
       gps <- align(gps, j = 2:5, align = "right", part = "all")
       gps <- bold(gps, part = "header")
