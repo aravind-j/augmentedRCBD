@@ -169,9 +169,9 @@
 #'
 augmentedRCBD <- function(block, treatment, y, checks = NULL,
                           method.comp = c("lsd", "tukey", "none"),
-                          alpha=0.05, group=TRUE, console = TRUE,
+                          alpha = 0.05, group = TRUE, console = TRUE,
                           simplify = FALSE, truncate.means = TRUE) {
-  # Checks
+  # Checks ----
   # block
   if (!is.factor(block)) {
     stop('"block" should be of class "factor".')
@@ -215,7 +215,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
   withCallingHandlers({
 
-  # Fix treatment order so that checks are in the beginning
+  # Fix treatment order so that checks are in the beginning ----
   if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
     #if (!is.null(checks)) {
     treatmentorder <- data.frame(table(treatment, block))
@@ -285,16 +285,16 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     }
   }
 
-
+  # Basic details ----
   r <- unique(table(treatment))
   b <- nlevels(block) # no. of blocks
   ntr <- nlevels(treatment)  # no. of treatments
 
-  blockwisechecks <- as.data.frame.matrix(table(treatment, block))
-  blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
-                           blockwisechecks)
-  blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
-  rownames(blockwisechecks) <- NULL
+  # blockwisechecks <- as.data.frame.matrix(table(treatment, block))
+  # blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
+  #                          blockwisechecks)
+  # blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
+  # rownames(blockwisechecks) <- NULL
 
   Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
                   `Number of check treatments` = length(checks),
@@ -307,7 +307,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   tb$block <- NULL
   tb <- unique(tb)
 
-  # Get means table
+  # Get means table ----
   Means <- tapply(y, treatment, function(x) mean(x, na.rm = TRUE))
   mi <- tapply(y, treatment, function(x) min(x, na.rm = TRUE))
   ma <- tapply(y, treatment, function(x) max(x, na.rm = TRUE))
@@ -319,7 +319,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
   Means <- merge(Means, tb, by.x = "Treatment", by.y = "treatment")
   Means <- Means[c("Treatment", "Block", "Means", "SE", "r", "Min", "Max")]
 
-    # ANOVA 1 - `ANOVA, Treatment Adjusted`
+    # ANOVA 1 - `ANOVA, Treatment Adjusted` ----
     # Get helmert contrasts for Type III SS
     options(contrasts = c("contr.helmert", "contr.poly"))
     augmented.aov <- aov(y ~ block + treatment)
@@ -331,7 +331,12 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                   split = list(treatment = list(Check = 1:df.check,
                                                 `Test and Test vs. Check` = (df.check + 1):df.treatment)))
 
-    # Calculate adjusted treatment effects
+    rownames(A1[[1]])[1] <- "Block (ignoring Treatments)         "
+    rownames(A1[[1]])[2] <- "Treatment (eliminating Blocks)      "
+    rownames(A1[[1]])[3] <- "  Treatment: Check                  "
+    rownames(A1[[1]])[4] <- "  Treatment: Test and Test vs. Check"
+
+    # Calculate adjusted treatment effects ----
     options(contrasts = c("contr.sum", "contr.poly"))
     augmented3.aov <- aov(y ~ block + treatment)
     co <- coef(augmented3.aov)
@@ -347,7 +352,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     effects.block <- c(co.block, -sum(co.block))
     names(effects.block) <- levels(block)
 
-    # ANOVA 2 - `ANOVA, Block Adjusted`
+    # ANOVA 2 - `ANOVA, Block Adjusted` ----
     # Get contrast matrix for differentiating between check and test treatments
     contr.augmented <- function(n1, n2){
       m1 <- contr.helmert(n1)
@@ -365,18 +370,13 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                                                 Test = (df.check + 1):(df.treatment - 1),
                                                 `Test vs. check` = df.treatment)))
 
-    rownames(A1[[1]])[1] <- "Block (ignoring Treatments)         "
-    rownames(A1[[1]])[2] <- "Treatment (eliminating Blocks)      "
-    rownames(A1[[1]])[3] <- "  Treatment: Check                  "
-    rownames(A1[[1]])[4] <- "  Treatment: Test and Test vs. Check"
-
     rownames(A2[[1]])[1] <- "Treatment (ignoring Blocks)   "
     rownames(A2[[1]])[2] <- "  Treatment: Check            "
     rownames(A2[[1]])[3] <- "  Treatment: Test             "
     rownames(A2[[1]])[4] <- "  Treatment: Test vs. Check   "
     rownames(A2[[1]])[5] <- "Block (eliminating Treatments)"
 
-    # Adjusted means
+    # Adjusted means ----
     if (method.comp == "none") {
       mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
       mean.adj1$Treatment <- rownames(mean.adj1)
