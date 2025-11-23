@@ -215,109 +215,109 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
   withCallingHandlers({
 
-  # Fix treatment order so that checks are in the beginning ----
-  if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
-    #if (!is.null(checks)) {
-    treatmentorder <- data.frame(table(treatment, block))
-    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
-                                      value.var = "Freq")
-    treatmentorder$Freq <- rowSums(subset(treatmentorder,
-                                          select = -c(treatment)))
-    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+    # Fix treatment order so that checks are in the beginning ----
+    if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
+      #if (!is.null(checks)) {
+      treatmentorder <- data.frame(table(treatment, block))
+      treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+      treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                        value.var = "Freq")
+      treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                            select = -c(treatment)))
+      treatmentorder <- treatmentorder[, c("treatment", "Freq")]
 
-    nblocks <- length(levels(block))
-    rownames(treatmentorder) <- NULL
+      nblocks <- length(levels(block))
+      rownames(treatmentorder) <- NULL
 
-    # check if "checks" are present in all the blocks
-    if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
-      print(treatmentorder)
-      stop(paste('"checks" are not replicated across all the blocks (',
-                 nblocks, ').', sep = ""))
+      # check if "checks" are present in all the blocks
+      if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
+        print(treatmentorder)
+        stop(paste('"checks" are not replicated across all the blocks (',
+                   nblocks, ').', sep = ""))
+      }
+
+      tests <- levels(treatment)[!(levels(treatment) %in% checks)]
+      test_counts <- table(droplevels(treatment[treatment %in% tests]))
+      if (!all(test_counts == 1)) {
+        rep_tests <- names(test_counts[test_counts > 1])
+        warning(paste("The following test treatment(s) are replicated."),
+                '\n', paste(rep_tests, collapse = ", "))
+      }
+
+      nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
+                   tests)
+      treatment <- factor(treatment, levels = nworder)
+
+    } else {# i.e. "checks" is not specified
+      treatmentorder <- data.frame(table(treatment, block))
+      treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+      treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                        value.var = "Freq")
+      treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                            select = -c(treatment)))
+      treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+      treatmentorder <- treatmentorder[with(treatmentorder,
+                                            order(-Freq, treatment)), ]
+      nworder <- treatmentorder$treatment
+      treatment <- factor(treatment, levels = treatmentorder$treatment)
+
+      nblocks <- length(levels(block))
+      rownames(treatmentorder) <- NULL
+
+      # check if the checks can be inferred.
+      # i.e. if any treatments are present in all the blocks
+      if (!(nblocks %in% treatmentorder$Freq)) {
+        print(treatmentorder)
+        stop(paste("Checks cannot be inferred as none of the treatments are",
+                   "replicated across all the blocks (",
+                   nblocks, ").", sep = ""))
+      }
+
+      checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
+      tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
+
+      tests <- levels(treatment)[!(levels(treatment) %in% checks)]
+      test_counts <- table(droplevels(treatment[treatment %in% tests]))
+      if (!all(test_counts == 1)) {
+        rep_tests <- names(test_counts[test_counts > 1])
+        warning(paste("The following test treatment(s) are replicated."),
+                '\n', paste(rep_tests, collapse = ", "))
+      }
     }
 
-    tests <- levels(treatment)[!(levels(treatment) %in% checks)]
-    test_counts <- table(droplevels(treatment[treatment %in% tests]))
-    if (!all(test_counts == 1)) {
-      rep_tests <- names(test_counts[test_counts > 1])
-      warning(paste("The following test treatment(s) are replicated."),
-              '\n', paste(rep_tests, collapse = ", "))
-    }
+    # Basic details ----
+    r <- unique(table(treatment))
+    b <- nlevels(block) # no. of blocks
+    ntr <- nlevels(treatment)  # no. of treatments
 
-    nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
-                 tests)
-    treatment <- factor(treatment, levels = nworder)
+    # blockwisechecks <- as.data.frame.matrix(table(treatment, block))
+    # blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
+    #                          blockwisechecks)
+    # blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
+    # rownames(blockwisechecks) <- NULL
 
-  } else {# i.e. "checks" is not specified
-    treatmentorder <- data.frame(table(treatment, block))
-    treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-    treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
-                                      value.var = "Freq")
-    treatmentorder$Freq <- rowSums(subset(treatmentorder,
-                                          select = -c(treatment)))
-    treatmentorder <- treatmentorder[, c("treatment", "Freq")]
-    treatmentorder <- treatmentorder[with(treatmentorder,
-                                          order(-Freq, treatment)), ]
-    nworder <- treatmentorder$treatment
-    treatment <- factor(treatment, levels = treatmentorder$treatment)
+    Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
+                    `Number of check treatments` = length(checks),
+                    `Number of test treatments` = length(tests),
+                    `Check treatments` =  checks)
 
-    nblocks <- length(levels(block))
-    rownames(treatmentorder) <- NULL
+    tb <- data.frame(treatment, block)
+    tb$block <- as.character(tb$block)
+    tb$Block <- ifelse(tb$treatment %in% checks, "", tb$block)
+    tb$block <- NULL
+    tb <- unique(tb)
 
-    # check if the checks can be inferred.
-    # i.e. if any treatments are present in all the blocks
-    if (!(nblocks %in% treatmentorder$Freq)) {
-      print(treatmentorder)
-      stop(paste("Checks cannot be inferred as none of the treatments are",
-                 "replicated across all the blocks (",
-                 nblocks, ").", sep = ""))
-    }
-
-    checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
-    tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
-
-    tests <- levels(treatment)[!(levels(treatment) %in% checks)]
-    test_counts <- table(droplevels(treatment[treatment %in% tests]))
-    if (!all(test_counts == 1)) {
-      rep_tests <- names(test_counts[test_counts > 1])
-      warning(paste("The following test treatment(s) are replicated."),
-              '\n', paste(rep_tests, collapse = ", "))
-    }
-  }
-
-  # Basic details ----
-  r <- unique(table(treatment))
-  b <- nlevels(block) # no. of blocks
-  ntr <- nlevels(treatment)  # no. of treatments
-
-  # blockwisechecks <- as.data.frame.matrix(table(treatment, block))
-  # blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
-  #                          blockwisechecks)
-  # blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
-  # rownames(blockwisechecks) <- NULL
-
-  Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
-                  `Number of check treatments` = length(checks),
-                  `Number of test treatments` = length(tests),
-                  `Check treatments` =  checks)
-
-  tb <- data.frame(treatment, block)
-  tb$block <- as.character(tb$block)
-  tb$Block <- ifelse(tb$treatment %in% checks, "", tb$block)
-  tb$block <- NULL
-  tb <- unique(tb)
-
-  # Get means table ----
-  Means <- tapply(y, treatment, function(x) mean(x, na.rm = TRUE))
-  mi <- tapply(y, treatment, function(x) min(x, na.rm = TRUE))
-  ma <- tapply(y, treatment, function(x) max(x, na.rm = TRUE))
-  n.rep <- tapply(y, treatment, function(x) length(na.omit(x)))
-  sds <- tapply(y, treatment, function(x) sd(x, na.rm = TRUE))
-  std.err <- sds / sqrt(n.rep)
-  Means <- data.frame(Treatment = names(Means), Means, SE = std.err, r = n.rep,
-                      Min = mi, Max = ma)
-  Means <- merge(Means, tb, by.x = "Treatment", by.y = "treatment")
-  Means <- Means[c("Treatment", "Block", "Means", "SE", "r", "Min", "Max")]
+    # Get means table ----
+    Means <- tapply(y, treatment, function(x) mean(x, na.rm = TRUE))
+    mi <- tapply(y, treatment, function(x) min(x, na.rm = TRUE))
+    ma <- tapply(y, treatment, function(x) max(x, na.rm = TRUE))
+    n.rep <- tapply(y, treatment, function(x) length(na.omit(x)))
+    sds <- tapply(y, treatment, function(x) sd(x, na.rm = TRUE))
+    std.err <- sds / sqrt(n.rep)
+    Means <- data.frame(Treatment = names(Means), Means, SE = std.err,
+                        r = n.rep, Min = mi, Max = ma)
+    Means <- merge(Means, tb, by.x = "Treatment", by.y = "treatment")
+    Means <- Means[c("Treatment", "Block", "Means", "SE", "r", "Min", "Max")]
 
     # ANOVA 1 - `ANOVA, Treatment Adjusted` ----
     # Get helmert contrasts for Type III SS
@@ -336,7 +336,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     rownames(A1[[1]])[3] <- "  Treatment: Check                  "
     rownames(A1[[1]])[4] <- "  Treatment: Test and Test vs. Check"
 
-    # Calculate adjusted treatment effects ----
+    # Calculate adjusted treatment and block effects ----
     options(contrasts = c("contr.sum", "contr.poly"))
     augmented3.aov <- aov(y ~ block + treatment)
     co <- coef(augmented3.aov)
@@ -347,7 +347,6 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     `Overall adjusted mean` <- co[1]
     names(`Overall adjusted mean`) <- NULL
 
-    # Calculate adjusted block effects
     co.block <- co[augmented3.aov$assign == 1]
     effects.block <- c(co.block, -sum(co.block))
     names(effects.block) <- levels(block)
