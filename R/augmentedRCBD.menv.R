@@ -113,13 +113,19 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     # tb <- unique(tb)
 
     # Get means table ----
-    Means <- tapply(y, interaction(treatment, sep = "_"), function(x) mean(x, na.rm = TRUE))
-    mi <- tapply(y, interaction(treatment, sep = "_"), function(x) min(x, na.rm = TRUE))
-    ma <- tapply(y, interaction(treatment, sep = "_"), function(x) max(x, na.rm = TRUE))
-    n.rep <- tapply(y, interaction(treatment, sep = "_"), function(x) length(na.omit(x)))
-    sds <- tapply(y, interaction(treatment, sep = "_"), function(x) sd(x, na.rm = TRUE))
+    Means <- tapply(y, interaction(treatment, sep = "_"),
+                    function(x) mean(x, na.rm = TRUE))
+    mi <- tapply(y, interaction(treatment, sep = "_"),
+                 function(x) min(x, na.rm = TRUE))
+    ma <- tapply(y, interaction(treatment, sep = "_"),
+                 function(x) max(x, na.rm = TRUE))
+    n.rep <- tapply(y, interaction(treatment, sep = "_"),
+                    function(x) length(na.omit(x)))
+    sds <- tapply(y, interaction(treatment, sep = "_"),
+                  function(x) sd(x, na.rm = TRUE))
     std.err <- sds / sqrt(n.rep)
-    Means <- data.frame(treatment = names(Means), Means, SE = std.err, r = n.rep,
+    Means <- data.frame(treatment = names(Means), Means,
+                        SE = std.err, r = n.rep,
                         Min = mi, Max = ma)
 
     Means <- Means[c("treatment", "Means", "SE", "r", "Min", "Max")]
@@ -155,20 +161,42 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     rownames(A1[[1]])[7] <- "  Interaction: Check \u00D7 Environment                       "
     rownames(A1[[1]])[8] <- "  Interaction: Test and Test vs. Check \u00D7 Environment     "
 
-    # Calculate adjusted treatment effects ----
+    # Calculate adjusted env, treatment and block effects ----
     options(contrasts = c("contr.sum", "contr.poly"))
     augmented3.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
 
-    effects.env <- emm_adj_effects(augmented3.env.aov, "env",
-                                   nuisance = c("env:block2",
-                                                "env:treatment"))
+    ## Compute reference grid ----
+    # This is memory intensive. As the number of treatment levels increases,
+    # the grid size can also explode to out-of-memory size.
+
+    refgrid <-
+      emmeans::ref_grid(object = augmented3.env.aov,
+                        nesting = "block2 %in% env")
+
+    # emm_suppress_msgs <- c(
+    #   "A nesting structure was detected in the fitted model",
+    #   "Results may be misleading due to involvement in interactions"
+    # )
+    #
+    # refgrid <-
+    #   withCallingHandlers(
+    #     emmeans::ref_grid(object = augmented3.env.aov),
+    #
+    #     message = function(m) {
+    #       msg_text <- conditionMessage(m)
+    #
+    #       if (any(vapply(emm_suppress_msgs, grepl, logical(1), msg_text))) {
+    #         invokeRestart("muffleMessage")
+    #       } else {
+    #         invokeRestart("muffleMessage")
+    #       }
+    #     }
+    #   )
+
+    effects.env <- emm_adj_effects(refgrid, "env")
     effects.treatment <-
-      emm_adj_effects(augmented3.env.aov, "treatment",
-                      nuisance = c("env:block2",
-                                   "env:treatment")) # averaged over env
-    effects.block <- emm_adj_effects(augmented3.env.aov, "block2",
-                                     nuisance = c("env:block2",
-                                                  "env:treatment"))
+      emm_adj_effects(refgrid, "treatment") # averaged over env
+    effects.block <- emm_adj_effects(refgrid, "block2")
 
     `Overall adjusted mean` <- attributes(effects.treatment)$overall
 
@@ -183,14 +211,13 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     }
 
     contrasts(treatment) <- contr.augmented(df.check + 1,
-                                      df.treatment - df.check)
+                                            df.treatment - df.check)
 
     augmented2.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
     A2 <- summary(augmented2.env.aov,
                   split = list(treatment = list(Check = 1:df.check,
-                                          Test = (df.check + 1):(df.treatment - 1),
-                                          `Test vs. check` = df.treatment)))
-
+                                                Test = (df.check + 1):(df.treatment - 1),
+                                                `Test vs. check` = df.treatment)))
 
     rownames(A2[[1]])[1] <- "Environment                                              "
     rownames(A2[[1]])[2] <- "Treatment (ignoring Blocks)                              "
@@ -217,25 +244,9 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     #                      "Min", "Max", "Adjusted Means")
 
     ## With emmeans ----
-    emm_suppress_msgs <- c(
-      "A nesting structure was detected in the fitted model",
-      "Results may be misleading due to involvement in interactions"
-    )
+    LSMeans <- emmeans::emmeans(object = refgrid,
+                                specs = "treatment")
 
-    LSMeans <- withCallingHandlers(
-      emmeans::emmeans(object = augmented3.env.aov, specs = "treatment",
-                       nuisance = c("env:block2", "env:treatment")),
-
-      message = function(m) {
-        msg_text <- conditionMessage(m)
-
-        if (any(vapply(emm_suppress_msgs, grepl, logical(1), msg_text))) {
-          invokeRestart("muffleMessage")
-        } else {
-          invokeRestart("muffleMessage")
-        }
-      }
-    )
     LSMeans2 <- summary(LSMeans)[, c("treatment", "emmean")]
     colnames(LSMeans2) <- c("treatment", "Adjusted Means")
 
@@ -303,7 +314,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     }
 
     rm(augmented.env.aov, augmented2.env.aov,
-       augmented3.env.aov, augmented3.env.anova)
+       augmented3.env.aov, augmented3.env.anova, refgrid)
 
     # Truncate negative adjusted means
     if (any(Means$`Adjusted Means` < 0)){
@@ -352,7 +363,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
 
 }
 
-emm_adj_effects <- function(mod, fct, ...) {
+emm_adj_effects <- function(grid, fct, ...) {
 
   # Vector of message patterns to suppress
   suppress_patterns <- c(
@@ -362,7 +373,7 @@ emm_adj_effects <- function(mod, fct, ...) {
 
   # Use withCallingHandlers so muffleMessage restart is available
   emm <- withCallingHandlers(
-    emmeans::emmeans(object = mod, specs = fct, ...),
+    emmeans::emmeans(object = grid, specs = fct, ...),
 
     message = function(m) {
       msg_text <- conditionMessage(m)
