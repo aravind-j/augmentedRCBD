@@ -1,0 +1,160 @@
+# Changelog
+
+## augmentedRCBD 0.1.8
+
+### UPDATED FUNCTIONS:
+
+- `report.augmentedRCBD.bulk` - Fixed issue with use of “DF” as a trait
+  name because of duplication with “Df” or “Degrees of freedom” column
+  name. Fixed warning messages for GVA.
+- `print.augmentedRCBD.bulk` - Fixed warning messages for GVA.
+- `augmentedRCBD.bulk`, `print.augmentedRCBD.bulk`,
+  `report.augmentedRCBD.bulk` - Updated to handle unequal number of
+  treatments (checks and tests) among traits.
+- `augmentedRCBD.bulk` - Replaced depreceated `ggplot2` arguments.
+
+## augmentedRCBD 0.1.7
+
+CRAN release: 2023-08-18
+
+### UPDATED FUNCTIONS:
+
+- `report.augmentedRCBD.bulk` - Fixed report creation when anova
+  warnings are present.
+
+### VIGNETTE:
+
+- Relaxed requirements (use default fonts) for vignette so that package
+  passes ‘R CMD check’ on Windows.
+
+### OTHER NOTES:
+
+- Fixed `inst/CITATION`.
+- Converted `round.conditional` to `conditional_round` to avoid
+  exporting as S3 method.
+
+## augmentedRCBD 0.1.6
+
+CRAN release: 2023-05-28
+
+### UPDATED FUNCTIONS:
+
+- `augmentedRCBD` - Fixed ignoring of `group = TRUE` when
+  `truncate.means` is `TRUE`. Added warnings to output.
+- `augmentedRCBD.bulk` - Fixed issue with using only a single trait.
+  Converted rounded outputs to raw ones. Added `k` argument.
+- `report.augmentedRCBD` - Added missing headers in word file. Added
+  excel report. Added global option for rounding. Added `k` and
+  `check.col` arguments.
+- `report.augmentedRCBD.bulk` - Fixed issue
+  ([\#11](https://github.com/aravind-j/augmentedRCBD/issues/11)) with
+  `cli` colour being captured in warning message output leading to error
+  in creation of word file. Added excel report. Added global option for
+  rounding. Fixed issue
+  ([\#14](https://github.com/aravind-j/augmentedRCBD/issues/14)) with
+  same warning in multiple traits generating error(s).
+- `print.augmentedRCBD.bulk`- Fixed issue
+  ([\#14](https://github.com/aravind-j/augmentedRCBD/issues/14)) with
+  same warning in multiple traits generating error(s).
+
+### VIGNETTE:
+
+- Fixed fetching CRAN page for version history to fail gracefully when
+  access is down.
+
+### OTHER NOTES:
+
+- Updated suggests with packages required for vignette.
+
+## augmentedRCBD 0.1.5
+
+CRAN release: 2021-06-12
+
+### OTHER NOTES:
+
+- Converted all equations in Rd files to `MathJax`using `mathjaxr`.
+- Fixed ‘LazyData’ is specified without a ‘data’ directory (as there is
+  no `/data` folder).
+
+## augmentedRCBD 0.1.4
+
+CRAN release: 2021-02-17
+
+### UPDATED FUNCTIONS:
+
+- `report.augmentedRCBD.bulk` - Fixed same value being shown for SE and
+  CD (Thanks to <muralib5002@gmail.com>).
+
+### VIGNETTE:
+
+- Removed cairo dependency.
+
+## augmentedRCBD 0.1.3
+
+CRAN release: 2020-07-27
+
+### UPDATED FUNCTIONS:
+
+- `augmentedRCBD.bulk` & `report.augmentedRCBD.bulk` - Added check
+  statistics in output.
+
+### VIGNETTE:
+
+- Reverted to using system certificates instead of RCurl ones for
+  fetching and displaying version history as suggested by Prof. Brian
+  Ripley (<ripley@stats.ox.ac.uk>).
+
+## augmentedRCBD 0.1.2
+
+CRAN release: 2020-03-19
+
+### UPDATED FUNCTIONS:
+
+- `augmentedRCBD` - Added features to handle negative adjusted means;
+  Fixed bug in computation of Tukey HSD and SE (Thanks to
+  <ahmad@cau.edu.cn>).
+- `report.augmentedRCBD` - Fixed missing row names in the table of
+  ‘Standard Errors and Critical Differences’.
+- `gva.augmentedRCBD` - Added features to handle negative GV and/or hBS.
+- `augmentedRCBD.bulk` - Added features to handle negative adjusted
+  means, GV and/or hBS.
+- `report.augmentedRCBD.bulk` - Added features to handle negative
+  adjusted means, GV and/or hBS.
+- `freqdist.augmentedRCBD` - Fixed compatability issues with updated
+  implementation of `unit` function/class in `grid` package.
+
+### OTHER NOTES:
+
+- Added reference for expected value of mean square being used in
+  `gva.augmentedRCBD`.
+- Added further details for selection intensity in `gva.augmentedRCBD`.
+
+## augmentedRCBD 0.1.1
+
+CRAN release: 2019-07-21
+
+### UPDATED FUNCTIONS:
+
+- `report.augmentedRCBD.bulk` - Fixed issue with non syntactically valid
+  column names.
+- `augmentedRCBD` - Changed `emmeans::cld` to
+  [`multcomp::cld`](https://rdrr.io/pkg/multcomp/man/cld.html) to
+  account for the changes in `emmeans` 1.3.5.
+
+### VIGNETTE:
+
+- Added vignette “Data Analysis with augmentedRCBD”.
+
+### OTHER NOTES:
+
+- Fixed return/value in `gva.augmentedRCBD` documentation.
+
+## augmentedRCBD 0.1.0
+
+CRAN release: 2018-07-10
+
+- First release
+
+## augmentedRCBD 0.0.0.9000
+
+- Pre-release
