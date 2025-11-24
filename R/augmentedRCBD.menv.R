@@ -6,6 +6,8 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                                alpha = 0.05, group = TRUE, console = TRUE,
                                simplify = FALSE, truncate.means = TRUE) {
 
+  aug.debug <- getOption("augmentedRCBD.debug", default = FALSE)
+
   # Checks ----
 
   # block
@@ -138,11 +140,19 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     # block_env <- factor(paste0(env, block))
     block2 <- interaction(env, block, drop = TRUE, sep = "_")
 
+    if (aug.debug) {
+      message("Starting Treatment Adjusted ANOVA")
+    }
+
     # augmented.env.aov <- aov(y ~ env + treatment + env/block - block + env:treatment)
     # augmented.env.aov <- aov(y ~ env + treatment + env:block + env:treatment)
     # augmented.env.aov <- aov(y ~ env + treatment + block_env + env:treatment) # (with implicit nesting of block within env)
     # augmented.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment) # [\u2713]
     augmented.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
+
+    if (aug.debug) {
+      message("Completed Treatment Adjusted ANOVA")
+    }
 
     df.check <- length(checks) - 1
     df.treatment <- nlevels(treatment) - 1
@@ -163,15 +173,32 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
 
     # Calculate adjusted env, treatment and block effects ----
     options(contrasts = c("contr.sum", "contr.poly"))
+
+    if (aug.debug) {
+      message("Starting ANOVA for adjusted effects")
+    }
+
     augmented3.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
+
+    if (aug.debug) {
+      message("Completed ANOVA for adjusted effects")
+    }
 
     ## Compute reference grid ----
     # This is memory intensive. As the number of treatment levels increases,
     # the grid size can also explode to out-of-memory size.
 
+    if (aug.debug) {
+      message("Starting ref_grid creation")
+    }
+
     refgrid <-
       emmeans::ref_grid(object = augmented3.env.aov,
                         nesting = "block2 %in% env")
+
+    if (aug.debug) {
+      message("Completed ref_grid creation")
+    }
 
     # emm_suppress_msgs <- c(
     #   "A nesting structure was detected in the fitted model",
@@ -213,7 +240,16 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     contrasts(treatment) <- contr.augmented(df.check + 1,
                                             df.treatment - df.check)
 
+    if (aug.debug) {
+      message("Starting Treatment Adjusted ANOVA")
+    }
+
     augmented2.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
+
+    if (aug.debug) {
+      message("Completed Treatment Adjusted ANOVA")
+    }
+
     A2 <- summary(augmented2.env.aov,
                   split = list(treatment = list(Check = 1:df.check,
                                                 Test = (df.check + 1):(df.treatment - 1),
