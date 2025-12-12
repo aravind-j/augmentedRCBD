@@ -202,5 +202,11 @@ cit <- citation("augmentedRCBD")
 #                                      paste("\\(", yr, "\\)", sep = ""),
 #                                      attr(cit[[1]],"textVersion"))
 # class(cit) <- oc
+if (is.null(cit[1]$year)) {
+  cit[1]$year <- format(Sys.Date(), "%Y")
+  cit$textVersion <- gsub("()", 
+                          paste("(", format(Sys.Date(), "%Y"), ")", sep =""), 
+                          cit$textVersion, fixed = TRUE)
+}
 cit
 ```
