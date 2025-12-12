@@ -105,12 +105,12 @@ Where \\\overline{x}\\ is the mean.
 The estimates of \\PCV\\ and \\GCV\\ are categorised according to
 Sivasubramanian and Madhavamenon (1978) as follows:
 
-|                 |              |
-|-----------------|--------------|
-| ***CV* (%)**    | **Category** |
-| x \\            | Low          |
-| 10 \\\le\\ x \\ | Medium       |
-| \\\ge\\ 20      | High         |
+|                          |              |
+|--------------------------|--------------|
+| ***CV* (%)**             | **Category** |
+| x \\ \< \\ 10            | Low          |
+| 10 \\\le\\ x \\ \< \\ 20 | Medium       |
+| \\\ge\\ 20               | High         |
 
 The broad-sense heritability (\\H^{2}\\) is calculated according to
 method of Lush (1940) as follows:
@@ -120,12 +120,12 @@ method of Lush (1940) as follows:
 The estimates of broad-sense heritability (\\H^{2}\\) are categorised
 according to Robinson (1966) as follows:
 
-|                 |              |
-|-----------------|--------------|
-| **\\H^{2}\\**   | **Category** |
-| x \\            | Low          |
-| 30 \\\le\\ x \\ | Medium       |
-| \\\ge\\ 60      | High         |
+|                          |              |
+|--------------------------|--------------|
+| **\\H^{2}\\**            | **Category** |
+| x \\ \< \\ 30            | Low          |
+| 30 \\\le\\ x \\ \< \\ 60 | Medium       |
+| \\\ge\\ 60               | High         |
 
 Genetic advance (\\GA\\) is estimated and categorised according to
 Johnson et al., (1955) as follows:
@@ -282,12 +282,12 @@ categorised according to Johnson et al., (1955) as follows:
 
 \\GAM = \frac{GA}{\overline{x}} \times 100\\
 
-|                 |              |
-|-----------------|--------------|
-| ***GAM***       | **Category** |
-| x \\            | Low          |
-| 10 \\\le\\ x \\ | Medium       |
-| \\\ge\\ 20      | High         |
+|                          |              |
+|--------------------------|--------------|
+| ***GAM***                | **Category** |
+| x \\ \< \\ 10            | Low          |
+| 10 \\\le\\ x \\ \< \\ 20 | Medium       |
+| \\\ge\\ 20               | High         |
 
 ## Note
 

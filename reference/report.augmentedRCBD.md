@@ -98,13 +98,13 @@ report.augmentedRCBD(aug = out,
                      check.col = c("brown", "darkcyan",
                                    "forestgreen", "purple"))
 #> Warning: P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.
-#> File created at /var/folders/6c/pzd640_546q6_yfn24r65c_40000gn/T//RtmptIkJQZ/augmentedRCBD output.docx
+#> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpYgg6iT/augmentedRCBD output.docx
 report.augmentedRCBD(aug = out,
                      target = file.path(tempdir(),
                                         "augmentedRCBD output.xlsx"),
                      file.type = "excel",
                      check.col = c("brown", "darkcyan",
                                    "forestgreen", "purple"))
-#> File created at /var/folders/6c/pzd640_546q6_yfn24r65c_40000gn/T//RtmptIkJQZ/augmentedRCBD output.xlsx
+#> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpYgg6iT/augmentedRCBD output.xlsx
 # }
 ```

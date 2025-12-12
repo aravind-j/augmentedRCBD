@@ -30,7 +30,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2025--11--24-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2025--12--12-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website -
@@ -133,7 +133,7 @@ citation("augmentedRCBD")
 ``` R
 To cite the R package 'augmentedRCBD' in publications use:
 
-  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. ().
+  Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2025).
   augmentedRCBD: Analysis of Augmented Randomised Complete Block
   Designs. R package version 0.1.7.9000,
   https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
@@ -144,6 +144,7 @@ A BibTeX entry for LaTeX users is
     title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
     author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
     note = {R package version 0.1.7.9000 https://aravind-j.github.io/augmentedRCBD/ https://cran.r-project.org/package=augmentedRCBD},
+    year = {2025},
   }
 
 This free and open-source software implements academic research by the

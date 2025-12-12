@@ -5,9 +5,9 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Perform Genetic Variability Analysis on augmentedRCBD Output — gva.augmentedRCBD"><meta name="description" content="gva.augmentedRCBD performs genetic variability analysis on an object of
-class augmentedRCBD. "><meta property="og:description" content="gva.augmentedRCBD performs genetic variability analysis on an object of
-class augmentedRCBD. "><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-116716530-2"></script><script>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Perform Genetic Variability Analysis on augmentedRCBD Output — gva.augmentedRCBD"><meta name="description" content='gva.augmentedRCBD performs genetic variability analysis on an object of
+class augmentedRCBD. MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};'><meta property="og:description" content='gva.augmentedRCBD performs genetic variability analysis on an object of
+class augmentedRCBD. MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};'><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-116716530-2"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -57,7 +57,7 @@ class augmentedRCBD. "><!-- Global site tag (gtag.js) - Google Analytics --><scr
 
     <div class="ref-description section level2">
     <p><code>gva.augmentedRCBD</code> performs genetic variability analysis on an object of
-class <code>augmentedRCBD</code>. <script id="MathJax-script" async src="../../mathjaxr/doc/mathjax/es5/tex-chtml-full.js"></script></p>
+class <code>augmentedRCBD</code>. <script>MathJax = {output: {font: "mathjax-newcm", fontPath: "../../mathjaxr/doc/mathjax/font",}};</script><script defer src="../../mathjaxr/doc/mathjax/tex-chtml.js"></script></p>
     </div>
 
     <div class="section level2">
@@ -152,12 +152,14 @@ Federer and Searle (1976) as follows:</p>
 <p>Where <em></em>\(\overline{x}\) is the mean.</p>
 <p>The estimates of <em></em>\(PCV\) and <em></em>\(GCV\) are categorised according to
 Sivasubramanian and Madhavamenon (1978) as follows:</p>
-<table class="table table"><tr><td><strong><em>CV</em> (%)</strong></td><td><strong>Category</strong></td></tr><tr><td>x <em></em>\( </td><td>Low</td></tr><tr><td>10 <em></em>\(\le\) x <em></em>\( </td><td>Medium</td></tr><tr><td><em></em>\(\ge\) 20</td><td>High</td></tr></table><p>The broad-sense heritability (<em></em>\(H^{2}\)) is calculated according to
+<table class="table table"><tr><td><strong><em>CV</em> (%)</strong></td><td><strong>Category</strong></td></tr><tr><td>x <em></em>\( &lt;
+\) 10</td><td>Low</td></tr><tr><td>10 <em></em>\(\le\) x <em></em>\( &lt; \) 20</td><td>Medium</td></tr><tr><td><em></em>\(\ge\) 20</td><td>High</td></tr></table><p>The broad-sense heritability (<em></em>\(H^{2}\)) is calculated according to
 method of Lush (1940) as follows:</p>
 <p>\[H^{2} = \frac{\sigma^{2}_{g}}{\sigma^{2}_{p}}\]</p>
 <p>The estimates of broad-sense heritability (<em></em>\(H^{2}\)) are categorised
 according to Robinson (1966) as follows:</p>
-<table class="table table"><tr><td><strong><em></em>\(H^{2}\)</strong></td><td><strong>Category</strong></td></tr><tr><td>x <em></em>\( </td><td>Low</td></tr><tr><td>30 <em></em>\(\le\) x <em></em>\( </td><td>Medium</td></tr><tr><td><em></em>\(\ge\) 60</td><td>High</td></tr></table><p>Genetic advance (<em></em>\(GA\)) is estimated and categorised according to
+<table class="table table"><tr><td><strong><em></em>\(H^{2}\)</strong></td><td><strong>Category</strong></td></tr><tr><td>x <em></em>\( &lt;
+\) 30</td><td>Low</td></tr><tr><td>30 <em></em>\(\le\) x <em></em>\( &lt; \) 60</td><td>Medium</td></tr><tr><td><em></em>\(\ge\) 60</td><td>High</td></tr></table><p>Genetic advance (<em></em>\(GA\)) is estimated and categorised according to
 Johnson et al., (1955) as follows:</p>
 <p>\[GA = k \times \sigma_{g} \times \frac{H^{2}}{100}\]</p>
 <p>Where the constant <em></em>\(k\) is the standardized selection differential or
@@ -188,7 +190,7 @@ individuals from population mean and <strong>i</strong> is the selection intensi
 <p>Genetic advance as per cent of mean (<em></em>\(GAM\)) are estimated and
 categorised according to Johnson et al., (1955) as follows:</p>
 <p>\[GAM = \frac{GA}{\overline{x}} \times 100\]</p>
-<table class="table table"><tr><td><em><strong>GAM</strong></em></td><td><strong>Category</strong></td></tr><tr><td>x <em></em>\( </td><td>Low</td></tr><tr><td>10 <em></em>\(\le\) x <em></em>\( </td><td>Medium</td></tr><tr><td><em></em>\(\ge\) 20</td><td>High</td></tr></table></div>
+<table class="table table"><tr><td><em><strong>GAM</strong></em></td><td><strong>Category</strong></td></tr><tr><td>x <em></em>\( &lt; \) 10</td><td>Low</td></tr><tr><td>10 <em></em>\(\le\) x <em></em>\( &lt; \) 20</td><td>Medium</td></tr><tr><td><em></em>\(\ge\) 20</td><td>High</td></tr></table></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>Genetic variability analysis needs to be performed only if the sum of
