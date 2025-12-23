@@ -57,14 +57,16 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            console = FALSE)
 
 \donttest{
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.docx"),
-                          file.type = "word")
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.xlsx"),
-                          file.type = "excel")
+report.augmentedRCBD.bulk(
+  aug.bulk = bout,
+  target = file.path(tempdir(),
+                     "augmentedRCBD bulk output.docx"),
+  file.type = "word")
+report.augmentedRCBD.bulk(
+  aug.bulk = bout,
+  target = file.path(tempdir(),
+                     "augmentedRCBD bulk output.xlsx"),
+  file.type = "excel")
 }
 
 }

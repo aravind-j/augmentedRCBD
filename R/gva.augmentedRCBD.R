@@ -312,20 +312,27 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
   }
 
   if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
-    pval <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Treatment: Test", 6]
+    pval <-
+      aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source ==
+                                    "Treatment: Test", 6]
   } else {
     pval <- aug$`ANOVA, Block Adjusted`[[1]]$`Pr(>F)`["Test"]
   }
 
   if (pval > 0.05) {
     warning('P-value for "Treatment: Test" is > 0.05. ',
-            'Genetic variability analysis may not be appropriate for this trait.')
+            'Genetic variability analysis may ',
+            'not be appropriate for this trait.')
   }
 
   if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
-    PV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Treatment: Test", "Mean.Sq"]
+    PV <-
+      aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source ==
+                                    "Treatment: Test", "Mean.Sq"]
     PV <- unname(PV)
-    EV <- aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source == "Residuals", "Mean.Sq"]
+    EV <-
+      aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source ==
+                                    "Residuals", "Mean.Sq"]
     EV <- unname(EV)
 
   } else {
@@ -339,26 +346,31 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
   Mean <- mean(aug$Means$`Adjusted Means`)
   if (GV > 0) {
     GCV <- (sqrt(GV) / Mean) * 100 # Burton 1951 1952
-    GCV_category <- ifelse(GCV >= 20, "High", ifelse(GCV >= 10, "Medium", "Low"))
+    GCV_category <- ifelse(GCV >= 20, "High",
+                           ifelse(GCV >= 10, "Medium", "Low"))
     PCV <- (sqrt(PV) / Mean) * 100 # Burton 1951 1952
-    PCV_category <- ifelse(PCV >= 20, "High", ifelse(PCV >= 10, "Medium", "Low"))
+    PCV_category <- ifelse(PCV >= 20, "High",
+                           ifelse(PCV >= 10, "Medium", "Low"))
     ECV <- (sqrt(EV) / Mean) * 100 # Burton 1951 1952
     hBS <- (GV / PV) * 100 # Lush 1940
     if (hBS < 0) {
       hBS <- ifelse(hBS < 0, NA, hBS) # for negative hbs
       warning('"hBS" computed was negative. Truncated to zero.')
     }
-    hBS_categroy <- ifelse(hBS >= 60, "High", ifelse(hBS >= 30, "Medium", "Low")) # Robinson 1966
+    hBS_categroy <- ifelse(hBS >= 60, "High",
+                           ifelse(hBS >= 30, "Medium", "Low")) # Robinson 1966
     GA <- k * sqrt(PV) * (hBS / 100) # Johnson et al. 1955
     GAM <- (GA / Mean) * 100
-    GAM_category <-  ifelse(GAM >= 20, "High", ifelse(GAM >= 10, "Medium", "Low"))
+    GAM_category <-  ifelse(GAM >= 20, "High",
+                            ifelse(GAM >= 10, "Medium", "Low"))
 
   } else {
     GV <- NA
     GCV <- NA
     GCV_category <- NA
     PCV <- (sqrt(PV) / Mean) * 100 # Burton 1951 1952
-    PCV_category <- ifelse(PCV >= 20, "High", ifelse(PCV >= 10, "Medium", "Low"))
+    PCV_category <- ifelse(PCV >= 20, "High",
+                           ifelse(PCV >= 10, "Medium", "Low"))
     ECV <- (sqrt(EV) / Mean) * 100 # Burton 1951 1952
     hBS <- NA
     hBS_categroy <- NA
@@ -396,7 +408,11 @@ selection.intensity <- function(p, pop.size = 1000) {
   selection.intensity <- height.at.threshold / selection.proportion
 
   # corrected for finite pop size
-  selection.intensity.corr <- selection.intensity - (pop.size - (pop.size * selection.proportion)) / (2 * selection.proportion * pop.size * ((pop.size + 1) * selection.intensity))
+  selection.intensity.corr <-
+    selection.intensity -
+    (pop.size - (pop.size * selection.proportion)) /
+    (2 * selection.proportion * pop.size *
+       ((pop.size + 1) * selection.intensity))
 
   return(list(`Selection intensity` = selection.intensity,
               `Corrected selection intensity` = selection.intensity.corr))

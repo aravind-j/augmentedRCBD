@@ -131,7 +131,8 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
 
   if (highlight.check) {
     G1 <- G1 +
-      geom_vline(xintercept = aug$Means[aug$Means$Treatment %in% checks, ]$`Adjusted Means`,
+      geom_vline(xintercept = aug$Means[aug$Means$Treatment %in% checks,
+                                        ]$`Adjusted Means`,
                  linewidth = 1, colour = check.col)
 
     dat2 <- aug$Means[aug$Means$Treatment %in% checks, ]
@@ -145,7 +146,8 @@ freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
       labs(x = NULL, y = NULL) +
       scale_y_continuous(limits = c( (min(dat$dat, na.rm = TRUE)),
                                     (max(dat$dat, na.rm = TRUE)))) +
-      # geom_hline(yintercept = aug$Means[aug$Means$Treatment %in% checks,]$`Adjusted Means`,
+      # geom_hline(yintercept = aug$Means[aug$Means$Treatment %in% checks,
+      #                                   ]$`Adjusted Means`,
       #            colour = check.col) +
       coord_flip() +
       theme_bw() +

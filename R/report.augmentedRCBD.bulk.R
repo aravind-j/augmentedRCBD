@@ -77,14 +77,16 @@
 #'                            console = FALSE)
 #'
 #' \donttest{
-#' report.augmentedRCBD.bulk(aug.bulk = bout,
-#'                           target = file.path(tempdir(),
-#'                                              "augmentedRCBD bulk output.docx"),
-#'                           file.type = "word")
-#' report.augmentedRCBD.bulk(aug.bulk = bout,
-#'                           target = file.path(tempdir(),
-#'                                              "augmentedRCBD bulk output.xlsx"),
-#'                           file.type = "excel")
+#' report.augmentedRCBD.bulk(
+#'   aug.bulk = bout,
+#'   target = file.path(tempdir(),
+#'                      "augmentedRCBD bulk output.docx"),
+#'   file.type = "word")
+#' report.augmentedRCBD.bulk(
+#'   aug.bulk = bout,
+#'   target = file.path(tempdir(),
+#'                      "augmentedRCBD bulk output.xlsx"),
+#'   file.type = "excel")
 #' }
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
@@ -171,7 +173,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     ntraits <- length(traits)
 
     ## Details ----
-    augreport <- body_add_par(augreport, value = "Details", style = "heading 1")
+    augreport <- body_add_par(augreport, value = "Details",
+                              style = "heading 1")
 
     Details <- aug.bulk$Details
 
@@ -183,7 +186,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     if (exists("detwarn_list")) {
       for (i in seq_along(detwarn_list)) {
-        augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
+        augreport <- body_add_par(augreport, value = "\r\n",
+                                  style = "Normal")
         augreport <- body_add_par(augreport,
                                   value = names(detwarn_list[i]),
                                   style = "Warning")
@@ -297,7 +301,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                   j = unlist(lapply(mcols, function(x) x[3])),
                                   align = "left", part = "body")
       anovata_list[[k]] <- set_table_properties(anovata_list[[k]],
-                                                 layout = "autofit")
+                                                layout = "autofit")
       augreport <- body_add_flextable(augreport, anovata_list[[k]])
 
       rm(mcols, tgrid, tind, anovata_hdr, nsindex)
@@ -395,7 +399,7 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                   j = unlist(lapply(mcols, function(x) x[3])),
                                   align = "left", part = "body")
       anovaba_list[[k]] <- set_table_properties(anovaba_list[[k]],
-                                                 layout = "autofit")
+                                                layout = "autofit")
       augreport <- body_add_flextable(augreport, anovaba_list[[k]])
 
       rm(mcols, tgrid, tind, anovaba_hdr, nsindex)
@@ -535,17 +539,21 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       descout <- merge_at(descout, 1, 8:9, "header")
       descout <- merge_at(descout, 1, 10:11, "header")
       descout <- bold(descout, part = "header")
-      descout <- align(descout, j = 2:7, align = "right", part = "all")
-      descout <- align(descout, j = c(8, 10), align = "right", part = "body")
-      descout <- align(descout, j = c(8, 10), align = "center", part = "header")
+      descout <- align(descout, j = 2:7, align = "right",
+                       part = "all")
+      descout <- align(descout, j = c(8, 10), align = "right",
+                       part = "body")
+      descout <- align(descout, j = c(8, 10), align = "center",
+                       part = "header")
       descout <- set_table_properties(descout, layout = "autofit")
 
       augreport <- body_add_flextable(augreport, descout)
 
       augreport <-
         body_add_fpar(augreport,
-                      value = fpar(ftext("ns", suppar),
-                                   ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+                      value =
+                        fpar(ftext("ns", suppar),
+                             ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     }
 
     ## Frequency distribution ----
@@ -609,10 +617,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
           gwhltv <- stringi::stri_pad_right(gwhltv, width = max(nchar(gwhltv)),
                                             pad = "\u00A0")
 
-          new_trait <- paste(stringi::stri_pad_right(GVA$Trait,
-                                                     width = max(nchar(GVA$Trait)),
-                                                     pad = "\u00A0"),
-                             gwhltv)
+          new_trait <-
+            paste(stringi::stri_pad_right(GVA$Trait,
+                                          width = max(nchar(GVA$Trait)),
+                                          pad = "\u00A0"),
+                  gwhltv)
           GVA$Trait <- new_trait
         }
 
@@ -630,17 +639,23 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         if (any(grepl(gwstring1, aug.bulk$warnings$GVA))) {
           augreport <-
             body_add_par(augreport,
-                         value = paste(c("\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
-                                         "Genetic variability analysis may not be appropriate for this trait."),
-                                       collapse = ""),
+                         value =
+                           paste(c("\u2020 P-value for \"Treatment: Test\" is ",
+                                   "> 0.05. ",
+                                   "Genetic variability analysis may not be ",
+                                   "appropriate for this trait."),
+                                 collapse = ""),
                          style = "Warning")
         }
         if (any(grepl(gwstring2, aug.bulk$warnings$GVA))) {
           augreport <-
             body_add_par(augreport,
-                         value = paste(c("\u2021 Negative GV detected. ",
-                                         "GCV, GCV category, hBS, hBS category, GA, GAM and GAM category could not be computed."),
-                                       collapse = ""),
+                         value =
+                           paste(c("\u2021 Negative GV detected. ",
+                                   "GCV, GCV category, hBS, hBS category, ",
+                                   "GA, GAM and GAM category ",
+                                   "could not be computed."),
+                                 collapse = ""),
                          style = "Warning")
         }
       }
@@ -654,9 +669,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                 style = "heading 1")
 
       if (!is.null(aug.bulk$`GVA plots`$`Phenotypic and Genotypic CV`)) {
-        augreport <- body_add_par(augreport,
-                                  value = "Phenotypic and Genotypic Coefficient of Variability",
-                                  style = "heading 2")
+        augreport <-
+          body_add_par(augreport,
+                       value = paste("Phenotypic and Genotypic",
+                                     "Coefficient of Variability"),
+                       style = "heading 2")
 
         src <- tempfile(fileext = ".png")
         png(filename = src, width = 6, height = 4, units = 'in', res = 300)
@@ -667,8 +684,9 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
       }
 
       if (!is.null(aug.bulk$`GVA plots`$`Broad sense heritability`)) {
-        augreport <- body_add_par(augreport, value = "Broad Sense Heritability",
-                                  style = "heading 2")
+        augreport <-
+          body_add_par(augreport, value = "Broad Sense Heritability",
+                       style = "heading 2")
 
         src <- tempfile(fileext = ".png")
         png(filename = src, width = 6, height = 4, units = 'in', res = 300)
@@ -754,9 +772,10 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         augreport <- body_add_par(augreport, value = "Missing Values",
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$`Missing values`)) {
-          augreport <- body_add_par(augreport,
-                                    value = names(aug.bulk$warnings$`Missing values`)[i],
-                                    style = "heading 4")
+          augreport <-
+            body_add_par(augreport,
+                         value = names(aug.bulk$warnings$`Missing values`)[i],
+                         style = "heading 4")
           wlist <- wlist2blist(aug.bulk$warnings$`Missing values`[[i]],
                                fp_p = fp_par(padding.bottom = 2,
                                              word_style = "Code"))
@@ -785,9 +804,10 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                   value = "Frequency Distribution",
                                   style = "heading 2")
         for (i in seq_along(aug.bulk$warnings$`Freq. dist`)) {
-          augreport <- body_add_par(augreport,
-                                    value = names(aug.bulk$warnings$`Freq. dist`)[i],
-                                    style = "heading 4")
+          augreport <-
+            body_add_par(augreport,
+                         value = names(aug.bulk$warnings$`Freq. dist`)[i],
+                         style = "heading 4")
           wlist <- wlist2blist(aug.bulk$warnings$`Freq. dist`[[i]],
                                fp_p = fp_par(padding.bottom = 2,
                                              word_style = "Code"))
@@ -851,7 +871,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
     ntreats <- aug.bulk$Details$`Number of treatments`
 
     ## Index ----
-    index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
+    index <- c("Details", "ANOVA, Treatment Adjusted",
+               "ANOVA, Block Adjusted",
                "Standard Errors", "Critical Difference",
                "Coefficient of Variation", "Overall Adjusted Mean",
                "Check Statistics")
@@ -908,7 +929,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                    colNames = TRUE, rowNames = FALSE, headerStyle = hs,
                    tableStyle = "TableStyleLight1", withFilter = FALSE,
                    bandedRows = FALSE)
-    setColWidths(wb, sheet = "Details", cols = 1:ncol(Details), widths = "auto")
+    setColWidths(wb, sheet = "Details", cols = 1:ncol(Details),
+                 widths = "auto")
 
     setColWidths(wb, sheet = "Details", cols = 1,
                  widths = max(nchar(Details$Trait)) + 5)
@@ -967,11 +989,12 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
                                paste(traits, "_Mean.Sq", sep = ""))]
     colnames(anovata_msq) <- gsub("_Mean.Sq", "", colnames(anovata_msq))
     anovata_df <- anovata[, c("Source",
-                               paste(traits, "_Df", sep = ""))]
+                              paste(traits, "_Df", sep = ""))]
     colnames(anovata_df) <- gsub("_Df", "", colnames(anovata_df))
 
 
-    addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted", gridLines = FALSE)
+    addWorksheet(wb, sheetName = "ANOVA, Treatment Adjusted",
+                 gridLines = FALSE)
 
     strtcol = 2
 
@@ -1165,7 +1188,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
              gridExpand = TRUE)
     addStyle(wb,  sheet = "Standard Errors",
              style = createStyle(halign = "right"),
-             rows = 1, cols = 2:(ntraits + 1), stack = TRUE, gridExpand = TRUE)
+             rows = 1, cols = 2:(ntraits + 1), stack = TRUE,
+             gridExpand = TRUE)
     setColWidths(wb, sheet = "Standard Errors",
                  cols = 1:ncol(SE), widths = "auto")
 
@@ -1207,7 +1231,8 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
 
     ## Overall adj. mean ----
     oadjmean <- aug.bulk$`Overall adjusted mean`
-    oadjmean$Overall.adjusted.mean <- as.numeric(oadjmean$Overall.adjusted.mean)
+    oadjmean$Overall.adjusted.mean <-
+      as.numeric(oadjmean$Overall.adjusted.mean)
 
     addWorksheet(wb, sheetName = "Overall Adjusted Mean", gridLines = FALSE)
     writeDataTable(wb, sheet = "Overall Adjusted Mean", x = oadjmean,
@@ -1422,9 +1447,12 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         row1 <- nrow(GVA) + 2
         if (any(grepl(gwstring1, aug.bulk$warnings$GVA))) {
           writeData(wb, sheet = "Genetic Variability Analysis",
-                    x = paste(c("\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
-                                "Genetic variability analysis may not be appropriate for this trait."),
-                              collapse = ""),
+                    x =
+                      paste(c("\u2020 P-value for \"Treatment: Test\" is ",
+                              "> 0.05. ",
+                              "Genetic variability analysis may not be ",
+                              "appropriate for this trait."),
+                            collapse = ""),
                     startCol = "A", startRow = row1, borders = "none")
           addStyle(wb,  sheet = "Genetic Variability Analysis",
                    style = createStyle(fontColour  = "#C00000"),
@@ -1433,9 +1461,11 @@ report.augmentedRCBD.bulk <- function(aug.bulk, target,
         }
         if (any(grepl(gwstring2, aug.bulk$warnings$GVA))) {
           writeData(wb, sheet = "Genetic Variability Analysis",
-                    x = paste(c("\u2021 Negative GV detected. ",
-                                "GCV, GCV category, hBS, hBS category, GA, GAM and GAM category could not be computed."),
-                              collapse = ""),
+                    x =
+                      paste(c("\u2021 Negative GV detected. ",
+                              "GCV, GCV category, hBS, hBS category, GA, GAM ",
+                              "and GAM category could not be computed."),
+                            collapse = ""),
                     startCol = "A", startRow = row1, borders = "none")
           addStyle(wb,  sheet = "Genetic Variability Analysis",
                    style = createStyle(fontColour  = "#C00000"),

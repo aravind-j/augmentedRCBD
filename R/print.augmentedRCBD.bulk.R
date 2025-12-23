@@ -249,9 +249,11 @@ print.augmentedRCBD.bulk <- function(x, ...){
       }
       gwhltv <- stringi::stri_pad_right(gwhltv, width = max(nchar(gwhltv)))
 
-      new_trait <- paste(stringi::stri_pad_right(x$`Genetic variability analysis`$Trait,
-                                                 width = max(nchar(x$`Genetic variability analysis`$Trait))),
-                         gwhltv)
+      new_trait <-
+        paste(stringi::stri_pad_right(
+          x$`Genetic variability analysis`$Trait,
+          width = max(nchar(x$`Genetic variability analysis`$Trait))),
+          gwhltv)
       x$`Genetic variability analysis`$Trait <- new_trait
 
       print(x$`Genetic variability analysis`, row.names = FALSE)
@@ -259,13 +261,15 @@ print.augmentedRCBD.bulk <- function(x, ...){
 
       if (any(grepl(gwstring1, x$warnings$GVA))) {
         warning("\n\u2020 P-value for \"Treatment: Test\" is > 0.05. ",
-            "Genetic variability analysis may not be appropriate for this trait.\n",
-            call. = FALSE, immediate. = TRUE)
+                "Genetic variability analysis may not ",
+                "be appropriate for this trait.\n",
+                call. = FALSE, immediate. = TRUE)
       }
       if (any(grepl(gwstring1, x$warnings$GVA))) {
         warning("\n\u2021 Negative GV detected.",
-            "\n GCV, GCV category, hBS, hBS category, GA, GAM and\n GAM category could not be computed.",
-            call. = FALSE, immediate. = TRUE)
+                "\n GCV, GCV category, hBS, hBS category,",
+                "GA, GAM and\n GAM category could not be computed.",
+                call. = FALSE, immediate. = TRUE)
       }
     }
 

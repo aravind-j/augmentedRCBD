@@ -229,7 +229,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       rownames(treatmentorder) <- NULL
 
       # check if "checks" are present in all the blocks
-      if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
+      if (!(all(treatmentorder[treatmentorder$treatment %in% checks,
+      ]$Freq == nblocks))) {
         print(treatmentorder)
         stop(paste('"checks" are not replicated across all the blocks (',
                    nblocks, ').', sep = ""))
@@ -243,8 +244,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                 '\n', paste(rep_tests, collapse = ", "))
       }
 
-      nworder <- c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in% checks],
-                   tests)
+      nworder <-
+        c(levels(treatmentorder$treatment)[levels(treatmentorder$treatment) %in%
+                                             checks],
+          tests)
       treatment <- factor(treatment, levels = nworder)
 
     } else {# i.e. "checks" is not specified
@@ -272,8 +275,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                    nblocks, ").", sep = ""))
       }
 
-      checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
-      tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
+      checks <-
+        as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
+      tests <-
+        as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
 
       tests <- levels(treatment)[!(levels(treatment) %in% checks)]
       test_counts <- table(droplevels(treatment[treatment %in% tests]))
@@ -292,7 +297,8 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     # blockwisechecks <- as.data.frame.matrix(table(treatment, block))
     # blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
     #                          blockwisechecks)
-    # blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
+    # blockwisechecks <-
+    #   blockwisechecks[blockwisechecks$treatment %in% checks, ]
     # rownames(blockwisechecks) <- NULL
 
     Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
@@ -326,9 +332,15 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     df.check <- length(checks) - 1
     df.treatment <- length(levels(treatment)) - 1
 
-    A1 <- summary(augmented.aov,
-                  split = list(treatment = list(Check = 1:df.check,
-                                                `Test and Test vs. Check` = (df.check + 1):df.treatment)))
+    A1 <-
+      summary(augmented.aov,
+              split = list(
+                treatment = list(
+                  Check = 1:df.check,
+                  `Test and Test vs. Check` = (df.check + 1):df.treatment
+                )
+              )
+      )
 
     rownames(A1[[1]])[1] <- "Block (ignoring Treatments)         "
     rownames(A1[[1]])[2] <- "Treatment (eliminating Blocks)      "
@@ -363,10 +375,16 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     contrasts(treatment) <- contr.augmented(df.check + 1,
                                             df.treatment - df.check)
     augmented2.aov <- aov(y ~ treatment + block)
-    A2 <- summary(augmented2.aov,
-                  split = list(treatment = list(Check = 1:df.check,
-                                                Test = (df.check + 1):(df.treatment - 1),
-                                                `Test vs. check` = df.treatment)))
+    A2 <-
+      summary(augmented2.aov,
+              split = list(
+                treatment = list(
+                  Check = 1:df.check,
+                  Test = (df.check + 1):(df.treatment - 1),
+                  `Test vs. check` = df.treatment
+                )
+              )
+      )
 
     rownames(A2[[1]])[1] <- "Treatment (ignoring Blocks)   "
     rownames(A2[[1]])[2] <- "  Treatment: Check            "
@@ -376,9 +394,12 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     # Adjusted means ----
     if (method.comp == "none") {
-      mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
+      mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` +
+                                effects.treatment[1:(df.check + 1)])
       mean.adj1$Treatment <- rownames(mean.adj1)
-      mean.adj2 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
+      mean.adj2 <-
+        data.frame(mean.adj = `Overall adjusted mean` +
+                     effects.treatment[(df.check + 2):(df.treatment + 1)])
       mean.adj2$Treatment <- rownames(mean.adj2)
       mean.adj <- rbind(mean.adj1, mean.adj2)
 
@@ -441,10 +462,14 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
            "Two Test Treatments (Different Blocks)",
            "A Test Treatment and a Control Treatment")
 
-    SE.check <- sqrt(2 * MSE / r) #Two Control Treatments
-    SE.test1 <- sqrt(2 * MSE) #Two Augmented Treatments (Same Block)
-    SE.test2 <- sqrt(2 * MSE * (1 + (1 / c))) #Two Augmented Treatments(Different Blocks)
-    SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) + (1 / (r * c)))) #A Test Treatment and a Control Treatment
+    # Two Control Treatments
+    SE.check <- sqrt(2 * MSE / r)
+    # Two Augmented Treatments (Same Block)
+    SE.test1 <- sqrt(2 * MSE)
+    # Two Augmented Treatments(Different Blocks)
+    SE.test2 <- sqrt(2 * MSE * (1 + (1 / c)))
+    # A Test Treatment and a Control Treatment
+    SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) + (1 / (r * c))))
 
     SECD <- data.frame(`Std. Error of Diff.` =  c(SE.check, SE.test1,
                                                   SE.test2, SE.testcheck),
@@ -457,7 +482,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       q0 <- qtukey(p = 1 - alpha, nmeans = nlevels(treatment),
                    df = augmented3.aov$df.residual)
 
-      SECD$THSD <- c((q0 * SECD[1:3,]$`Std. Error of Diff.`)/sqrt(2), 0)
+      SECD$THSD <- c((q0 * SECD[1:3,]$`Std. Error of Diff.`) / sqrt(2), 0)
       hm <- 4/(1 + (1 / r) + (1 / c) + (1 / (r * c)))
       SECD[4,]$THSD <- q0 * sqrt(MSE/hm)
       colnames(SECD) <- c("Std. Error of Diff.",
@@ -472,8 +497,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       negadjmeans <- which(Means$`Adjusted Means` < 0)
       negadjmeanst <- as.character(Means$Treatment[negadjmeans])
 
-      negmsg <- paste('Negative adjusted means were generated for the following treatment(s)',
-                      '\n', paste(negadjmeanst, collapse = ", "))
+      negmsg <-
+        paste('Negative adjusted means were generated for the',
+              'following treatment(s)',
+              '\n', paste(negadjmeanst, collapse = ", "))
 
       if (truncate.means == TRUE) {
         Means$`Adjusted Means`[Means$`Adjusted Means` < 0] <- 0

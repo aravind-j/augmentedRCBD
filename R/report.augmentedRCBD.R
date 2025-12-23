@@ -145,12 +145,17 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     augreport <- body_add_par(augreport, value = "Details",
                               style = "heading 1")
 
-    Details <- t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
-                            `Number of treatments` = aug$Details$`Number of treatments`,
-                            `Number of check treatments` = aug$Details$`Number of check treatments`,
-                            `Number of test treatments` = aug$Details$`Number of test treatments`,
-                            `Check treatments` =  paste(aug$Details$`Check treatments`,
-                                                        collapse = ", ")))
+    Details <-
+      t(data.frame(`Number of blocks` =
+                     aug$Details$`Number of blocks`,
+                   `Number of treatments` =
+                     aug$Details$`Number of treatments`,
+                   `Number of check treatments` =
+                     aug$Details$`Number of check treatments`,
+                   `Number of test treatments` =
+                     aug$Details$`Number of test treatments`,
+                   `Check treatments` =  paste(aug$Details$`Check treatments`,
+                                               collapse = ", ")))
     Details <- data.frame(Details)
     Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
     colnames(Details) <- c("Item", "Details")
@@ -164,11 +169,13 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       dups <- aug$Means[aug$Means$Treatment %in% dups, c("Treatment", "Block")]
       rownames(dups) <- NULL
       augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
-      augreport <- body_add_par(augreport,
-                                value = "Following test treatments are replicated.",
-                                style = "Warning")
-      augreport <- body_add_flextable(augreport,
-                                      theme_alafoli(autofit(regulartable(dups))))
+      augreport <-
+        body_add_par(augreport,
+                     value = "Following test treatments are replicated.",
+                     style = "Warning")
+      augreport <-
+        body_add_flextable(augreport,
+                           theme_alafoli(autofit(regulartable(dups))))
     }
 
     anova_warn <- NULL
@@ -208,9 +215,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     anovata <- align(anovata, j = 2:6, align = "right", part = "all")
     anovata <- bold(anovata, part = "header")
     augreport <- body_add_flextable(augreport, anovata)
-    augreport <- body_add_fpar(augreport,
-                               value = fpar(ftext("ns", suppar),
-                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    augreport <-
+      body_add_fpar(augreport,
+                    value = fpar(ftext("ns", suppar),
+                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     if (!is.null(anova_warn)) {
       for (i in seq_along(anova_warn)) {
         augreport <- body_add_par(augreport, value = anova_warn[i],
@@ -247,9 +255,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     anovaba <- align(anovaba, j = 2:6, align = "right", part = "all")
     anovaba <- bold(anovaba, part = "header")
     augreport <- body_add_flextable(augreport, anovaba)
-    augreport <- body_add_fpar(augreport,
-                               value = fpar(ftext("ns", suppar),
-                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    augreport <-
+      body_add_fpar(augreport,
+                    value = fpar(ftext("ns", suppar),
+                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
     if (!is.null(anova_warn)) {
       for (i in seq_along(anova_warn)) {
         augreport <- body_add_par(augreport, value = anova_warn[i],
@@ -258,9 +267,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     }
 
     # Std. Errors
-    augreport <- body_add_par(augreport,
-                              value = "Standard Errors and Critical Differences",
-                              style = "heading 1")
+    augreport <-
+      body_add_par(augreport,
+                   value = "Standard Errors and Critical Differences",
+                   style = "heading 1")
     se <- aug$`Std. Errors`
     se <- cbind(Comparison = row.names(se), se)
     se <- dplyr::mutate_if(se, is.numeric, conditional_round,
@@ -273,18 +283,24 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     # Overall adjusted mean
     augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
                               style = "heading 1")
-    augreport <- body_add_par(augreport,
-                              value = as.character(conditional_round(aug$`Overall adjusted mean`,
-                                                                     digits = round.digits)),
-                              style = "Normal")
+    augreport <-
+      body_add_par(augreport,
+                   value = as.character(
+                     conditional_round(
+                       aug$`Overall adjusted mean`,
+                       digits = round.digits)),
+                   style = "Normal")
 
     # Coefficient of variation
     augreport <- body_add_par(augreport, value = "Coefficient of Variation",
                               style = "heading 1")
-    augreport <- body_add_par(augreport,
-                              value = as.character(conditional_round(aug$CV,
-                                                                     digits = round.digits)),
-                              style = "Normal")
+    augreport <-
+      body_add_par(augreport,
+                   value = as.character(
+                     conditional_round(
+                       aug$CV,
+                       digits = round.digits)),
+                   style = "Normal")
 
     # Means
     augreport <- body_add_par(augreport, value = "Means", style = "heading 1")
@@ -348,12 +364,14 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     augreport <- body_add_par(augreport, value = "Descriptive Statistics",
                               style = "heading 1")
     descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
-    descout$Skewness.p.value. <- ifelse(descout$Skewness.p.value. <= 0.01, "**",
-                                        ifelse(descout$Skewness.p.value. <= 0.05,
-                                               "*", "ns"))
-    descout$Kurtosis.p.value. <- ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
-                                        ifelse(descout$Kurtosis.p.value. <= 0.05,
-                                               "*", "ns"))
+    descout$Skewness.p.value. <-
+      ifelse(descout$Skewness.p.value. <= 0.01, "**",
+             ifelse(descout$Skewness.p.value. <= 0.05,
+                    "*", "ns"))
+    descout$Kurtosis.p.value. <-
+      ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
+             ifelse(descout$Kurtosis.p.value. <= 0.05,
+                    "*", "ns"))
     desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
               "Max", "Skewness.statistic.", "Kurtosis.statistic.")
     descout[, desc] <- apply(descout[, desc], MARGIN = 2,
@@ -382,9 +400,10 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     descout <- bold(descout, part = "header")
     augreport <- body_add_flextable(augreport, descout)
 
-    augreport <- body_add_fpar(augreport,
-                               value = fpar(ftext("ns", suppar),
-                                            ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
+    augreport <-
+      body_add_fpar(augreport,
+                    value = fpar(ftext("ns", suppar),
+                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
 
     # GVA
     augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
@@ -477,8 +496,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
         warn_mod <- trimws(unlist(strsplit(aug$warnings, "\n")))
         for (i in seq_along(warn_mod)) {
           augreport <- body_add_par(augreport,
-                                     value = warn_mod[i],
-                                     style = "Code")
+                                    value = warn_mod[i],
+                                    style = "Code")
         }
       }
 
@@ -527,7 +546,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
 
     hs <- createStyle(halign = "left", valign = "bottom")
 
-    num.base <- paste("0.", paste(rep(0, round.digits), collapse = ""), sep = "")
+    num.base <- paste("0.", paste(rep(0, round.digits), collapse = ""),
+                      sep = "")
     numstyle <- createStyle(numFmt = num.base)
     num.base.p <- paste("0.", paste(rep(0, max(round.digits, 3)),
                                     collapse = ""), sep = "")
@@ -539,10 +559,11 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     numstyle2 <- createStyle(numFmt = paste(num.base, '"\u00A0""\u00A0"'))
 
     # Index
-    index <- c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
-               "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
-               "Means", "Frequency Distribution", "Descriptive Statistics",
-               "Genetic Variability Analysis")
+    index <-
+      c("Details", "ANOVA, Treatment Adjusted", "ANOVA, Block Adjusted",
+        "SEs and CDs", "Overall Adjusted Mean", "Coefficient of Variation",
+        "Means", "Frequency Distribution", "Descriptive Statistics",
+        "Genetic Variability Analysis")
 
     if (!is.null(aug$Comparisons)) {
       index <- c(index, "Comparisons")
@@ -571,7 +592,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
               x = "https://CRAN.R-project.org/package=augmentedRCBD",
               startCol = "C", startRow = 6, borders = "none")
     writeDataTable(wb, sheet = "Index", x = index,
-                   startCol = "B", startRow = 9, colNames = TRUE, rowNames = FALSE,
+                   startCol = "B", startRow = 9, colNames = TRUE,
+                   rowNames = FALSE,
                    headerStyle = hs, tableStyle = "TableStyleLight1",
                    withFilter = FALSE, bandedRows = FALSE)
     addStyle(wb,  sheet = "Index", style = createStyle(halign = "right"),
@@ -584,12 +606,17 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     setColWidths(wb, sheet = "Index", cols = 2, widths = 5)
 
     # Details
-    Details <- t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
-                            `Number of treatments` = aug$Details$`Number of treatments`,
-                            `Number of check treatments` = aug$Details$`Number of check treatments`,
-                            `Number of test treatments` = aug$Details$`Number of test treatments`,
-                            `Check treatments` =  paste(aug$Details$`Check treatments`,
-                                                        collapse = ", ")))
+    Details <-
+      t(data.frame(`Number of blocks` = aug$Details$`Number of blocks`,
+                   `Number of treatments` =
+                     aug$Details$`Number of treatments`,
+                   `Number of check treatments` =
+                     aug$Details$`Number of check treatments`,
+                   `Number of test treatments` =
+                     aug$Details$`Number of test treatments`,
+                   `Check treatments` =
+                     paste(aug$Details$`Check treatments`,
+                           collapse = ", ")))
     Details <- data.frame(Details)
     Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
     colnames(Details) <- c("Item", "Details")
@@ -763,7 +790,7 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
                cols = 8, stack = FALSE, gridExpand = TRUE)
 
       neg_msg <- gsub(" were generated for the following treatment\\(s\\)", "",
-                            wstring2_mod[1])
+                      wstring2_mod[1])
       if (!is.na(wstring2_mod[3])) {
         neg_msg <- paste(neg_msg, " (",
                          stri_trans_totitle(gsub("They were ", "",
@@ -869,7 +896,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
     gvaout$x <- ifelse(is.na(gvaout$t.gvaout.), "", gvaout$x)
     colnames(gvaout) <- c("Statistic", "Value", " ")
 
-    stat_cat <- c("GCV.category", "PCV.category", "hBS.category", "GAM.category")
+    stat_cat <-
+      c("GCV.category", "PCV.category", "hBS.category", "GAM.category")
     gvaout_sub <- gvaout[gvaout$Statistic %in% stat_cat, ]
     gvaout[gvaout$Statistic %in% stat_cat, ]$Value <- "0"
     gvaout$Value <- as.numeric(gvaout$Value)
@@ -935,7 +963,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
       addStyle(wb,  sheet = "Comparisons", style = numstyle.p,
                rows = 3:(nrow(cmp) + 2), cols = c(5:6),
                stack = FALSE, gridExpand = TRUE)
-      addStyle(wb,  sheet = "Comparisons", style = createStyle(halign = "right"),
+      addStyle(wb,  sheet = "Comparisons",
+               style = createStyle(halign = "right"),
                rows = 2, cols = 2:6, stack = TRUE, gridExpand = TRUE)
       writeData(wb, sheet = "Comparisons", xy = c("A", nrow(cmp) + 3),
                 x = "* P \u2264 0.05; ** P \u2264 0.01", borders = "none")

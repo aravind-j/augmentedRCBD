@@ -172,7 +172,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   }
   # check if trait columns present in data
   if (FALSE %in% (traits %in% colnames(data))) {
-    stop(paste('The following column(s) specified as trait columns are not present in "data":\n',
+    stop(paste('The following column(s) specified as trait columns ',
+               'are not present in "data":\n',
                paste(traits[!(traits %in% colnames(data))], collapse = ", "),
                sep = ""))
   }
@@ -193,10 +194,15 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   }
 
   # check if trait columns are of type numeric/integer
-  inttraitcols <- unlist(lapply(data[, traits],
-                                function(x) FALSE %in% (is.vector(x, mode = "integer") | is.vector(x, mode = "numeric"))))
+  inttraitcols <-
+    unlist(lapply(data[, traits],
+                  function(x) {
+                    FALSE %in% (is.vector(x, mode = "integer") |
+                                  is.vector(x, mode = "numeric"))
+                  }))
   if (TRUE %in% inttraitcols) {
-    stop(paste('The following trait column(s) in "data" are not of type numeric:\n',
+    stop(paste('The following trait column(s) in "data" ',
+               'are not of type numeric:\n',
                paste(names(inttraitcols[inttraitcols]), collapse = ", ")))
   }
   # alpha
@@ -222,7 +228,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   if (!missing(checks) && !is.null(checks)) { # i.e. checks are specified
 
     checks_cond1 <- !is.list(checks) & is.character(checks) # &
-     # all(checks %in% data[, treatment])
+    # all(checks %in% data[, treatment])
 
     checks_cond2 <- is.list(checks) &
       all(unlist(lapply(checks, is.character))) & #
@@ -232,12 +238,12 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       #         na.omit(data[, c(treatment, names(checks)[i])])[, treatment])
       # }))
 
-    if (!(checks_cond1 | checks_cond2)) {
-      stop('"checks" if specified should be either\n',
-      '1) a character vector of check names present in "treatment" or\n',
-      '2) a named list with the character vector of checks for each trait ',
-      'with the list names same as the trait names.')
-    }
+      if (!(checks_cond1 | checks_cond2)) {
+        stop('"checks" if specified should be either\n',
+             '1) a character vector of check names present in "treatment" or\n',
+             '2) a named list with the character vector of checks ',
+             'for each trait with the list names same as the trait names.')
+      }
 
     # check if "checks" are present in all the blocks
 
@@ -255,7 +261,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       nblocks <- length(levels(data[, block]))
       rownames(treatmentorder) <- NULL
 
-      if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
+      if (!(all(treatmentorder[treatmentorder$treatment %in% checks,
+      ]$Freq == nblocks))) {
         print(treatmentorder)
         stop(paste('"checks" are not replicated across all the blocks (',
                    nblocks, ').', sep = ""))
@@ -280,7 +287,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
         nblocks <- length(levels(data[, block]))
         rownames(treatmentorder) <- NULL
 
-        if (!(all(treatmentorder[treatmentorder$treatment %in% checks, ]$Freq == nblocks))) {
+        if (!(all(treatmentorder[treatmentorder$treatment %in% checks,
+        ]$Freq == nblocks))) {
           msg <- paste('"checks" are not replicated across all the blocks (',
                        nblocks, ').', sep = "")
         } else {
@@ -309,30 +317,34 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
   } else { # i.e. "checks" is not specified
 
     if (!is.null(check.inference) & check.inference == "overall") {
-        treatmentorder <- data.frame(table(treatment = data[, treatment],
-                                           block = data[, block]))
-        treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
-        treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
-                                          value.var = "Freq")
-        treatmentorder$Freq <- rowSums(subset(treatmentorder,
-                                              select = -c(treatment)))
-        treatmentorder <- treatmentorder[, c("treatment", "Freq")]
-        treatmentorder <- treatmentorder[with(treatmentorder,
-                                              order(-Freq, treatment)), ]
-        nblocks <- length(levels(data[, block]))
-        rownames(treatmentorder) <- NULL
+      treatmentorder <- data.frame(table(treatment = data[, treatment],
+                                         block = data[, block]))
+      treatmentorder[treatmentorder$Freq != 0, ]$Freq <- 1
+      treatmentorder <- reshape2::dcast(treatmentorder, treatment ~ block,
+                                        value.var = "Freq")
+      treatmentorder$Freq <- rowSums(subset(treatmentorder,
+                                            select = -c(treatment)))
+      treatmentorder <- treatmentorder[, c("treatment", "Freq")]
+      treatmentorder <- treatmentorder[with(treatmentorder,
+                                            order(-Freq, treatment)), ]
+      nblocks <- length(levels(data[, block]))
+      rownames(treatmentorder) <- NULL
 
-        # check if the checks can be inferred.
-        # i.e. if any treatments are present in all the blocks
-        if (!(nblocks %in% treatmentorder$Freq)) {
-          print(treatmentorder)
-          stop(paste("Checks cannot be inferred as none of the treatments are",
-                     "replicated across all the blocks (",
-                     nblocks, ").", sep = ""))
-        }
+      # check if the checks can be inferred.
+      # i.e. if any treatments are present in all the blocks
+      if (!(nblocks %in% treatmentorder$Freq)) {
+        print(treatmentorder)
+        stop(paste("Checks cannot be inferred as none of the treatments are",
+                   "replicated across all the blocks (",
+                   nblocks, ").", sep = ""))
+      }
 
-        checks <- as.character(treatmentorder[treatmentorder$Freq == nblocks, ]$treatment)
-        tests <- as.character(treatmentorder[treatmentorder$Freq != nblocks, ]$treatment)
+      checks <-
+        as.character(treatmentorder[treatmentorder$Freq == nblocks,
+        ]$treatment)
+      tests <-
+        as.character(treatmentorder[treatmentorder$Freq != nblocks,
+        ]$treatment)
     }
 
     if (!is.null(check.inference) & check.inference == "traitwise") {
@@ -356,7 +368,7 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
         if (infr) {
           checks <-
             as.character(treatmentorder[treatmentorder$Freq == nblocks,
-                                        ]$treatment)
+            ]$treatment)
         } else {
           checks = NULL
         }
@@ -366,18 +378,18 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
 
       names(checks_list) <- traits
 
-     if (any(!(unlist(lapply(checks_list, function(x) x$infr))))) {
-       nblocks <- unique(unlist(lapply(checks_list, function(x) x$nblocks)))
-       tnames <- !unlist(lapply(checks_list,
-                               function(x) x$infr))
-       stop(paste("Checks cannot be inferred for the following trait(s) ",
-                  "as none of the treatments are ",
-                  "replicated across all the blocks (",
-                  paste(nblocks, collapse = "-"), ").\n",
-                  paste(names(tnames[tnames]),
-                        collapse = "\n"),
-                  sep = ""))
-     }
+      if (any(!(unlist(lapply(checks_list, function(x) x$infr))))) {
+        nblocks <- unique(unlist(lapply(checks_list, function(x) x$nblocks)))
+        tnames <- !unlist(lapply(checks_list,
+                                 function(x) x$infr))
+        stop(paste("Checks cannot be inferred for the following trait(s) ",
+                   "as none of the treatments are ",
+                   "replicated across all the blocks (",
+                   paste(nblocks, collapse = "-"), ").\n",
+                   paste(names(tnames[tnames]),
+                         collapse = "\n"),
+                   sep = ""))
+      }
 
       checks <- lapply(checks_list, function(x) x$checks)
       names(checks) <- names(checks_list)
@@ -512,9 +524,9 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
                       function(i) {
                         x <- output[[traits[i]]]
                         x$Means[x$Means$Treatment %in% checks[[traits[i]]],
-                                          c("Treatment", "r", "Means",
-                                            "SE", "Min", "Max")]
-                        })
+                                c("Treatment", "r", "Means",
+                                  "SE", "Min", "Max")]
+                      })
   names(checkstat) <- traits
 
   # CV
@@ -618,9 +630,10 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
     gvaplot <- gvaout
 
     # GVA plot
-    themecustom <- theme(axis.text.x = element_text(color = "black", angle = 45,
-                                                    hjust = 1),
-                         axis.text.y = element_text(color = "black"))
+    themecustom <-
+      theme(axis.text.x = element_text(color = "black", angle = 45,
+                                       hjust = 1),
+            axis.text.y = element_text(color = "black"))
     # PCV GCV
     gvaplot_cv <- reshape2::melt(gvaplot, id.vars = c("Trait"),
                                  measure.vars = c("PCV", "GCV"))
@@ -674,8 +687,8 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       gvaplot_hbsg <- ggplot(gvaplot_hbs, aes(x = Trait, colour = variable,
                                               group = variable)) +
         geom_hline(yintercept = c(30, 60), color = "black", linetype = 3) +
-        geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait, y = -Inf,
-                                             yend = value),
+        geom_segment(data = gvaplot_hbs, aes(x = Trait, xend = Trait,
+                                             y = -Inf, yend = value),
                      colour = "black") +
         geom_point(aes(y = value), colour = "black") +
         scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "hBS"],
@@ -700,15 +713,16 @@ augmentedRCBD.bulk <- function(data, block, treatment, traits, checks = NULL,
       gvaplot_gamg <- ggplot(gvaplot_gam, aes(x = Trait, colour = variable,
                                               group = variable)) +
         geom_hline(yintercept = c(10, 20), color = "black", linetype = 3) +
-        geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait, y = -Inf,
-                                             yend = value),
+        geom_segment(data = gvaplot_gam, aes(x = Trait, xend = Trait,
+                                             y = -Inf, yend = value),
                      colour = "black") +
         geom_point(aes(y = value), colour = "black") +
         scale_y_continuous(breaks = seq(0, ceiling(max(gvaplot[, "GAM"],
                                                        na.rm = TRUE)) + 10,
                                         by = 10)) +
         geom_rect(data = gvacat, aes(xmin = xmin, ymin = ymin,
-                                     xmax = xmax, ymax = ymax, fill = Category),
+                                     xmax = xmax, ymax = ymax,
+                                     fill = Category),
                   alpha = 0.5, inherit.aes = FALSE) +
         scale_fill_manual(values = c("gray60", "gray30", "gray5")) +
         ylab("Genetic advance over mean") +
