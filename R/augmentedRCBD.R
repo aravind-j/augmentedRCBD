@@ -170,7 +170,11 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
                           method.comp = c("lsd", "tukey", "none"),
                           alpha = 0.05, group = TRUE, console = TRUE,
                           simplify = FALSE, truncate.means = TRUE) {
+
+  aug.debug <- getOption("augmentedRCBD.debug", default = FALSE)
+
   # Checks ----
+
   # block
   if (!is.factor(block)) {
     stop('"block" should be of class "factor".')
@@ -326,8 +330,17 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     # ANOVA 1 - `ANOVA, Treatment Adjusted` ----
     # Get helmert contrasts for Type III SS
+
+    if (aug.debug) {
+      message("Starting Treatment Adjusted ANOVA.")
+    }
+
     options(contrasts = c("contr.helmert", "contr.poly"))
     augmented.aov <- aov(y ~ block + treatment)
+
+    if (aug.debug) {
+      message("Completed Treatment Adjusted ANOVA.")
+    }
 
     df.check <- length(checks) - 1
     df.treatment <- length(levels(treatment)) - 1
@@ -349,7 +362,17 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     # Calculate adjusted treatment and block effects ----
     options(contrasts = c("contr.sum", "contr.poly"))
+
+    if (aug.debug) {
+      message("Starting ANOVA for adjusted effects.")
+    }
+
     augmented3.aov <- aov(y ~ block + treatment)
+
+    if (aug.debug) {
+      message("Completed ANOVA for adjusted effects.")
+    }
+
     co <- coef(augmented3.aov)
 
     co.treatment <- co[augmented3.aov$assign == 2]
@@ -374,7 +397,17 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     contrasts(treatment) <- contr.augmented(df.check + 1,
                                             df.treatment - df.check)
+
+    if (aug.debug) {
+      message("Starting Treatment Adjusted ANOVA.")
+    }
+
     augmented2.aov <- aov(y ~ treatment + block)
+
+    if (aug.debug) {
+      message("Completed Treatment Adjusted ANOVA.")
+    }
+
     A2 <-
       summary(augmented2.aov,
               split = list(
@@ -432,6 +465,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
     Comparison <- NULL
     Groups <- NULL
 
+    if (aug.debug) {
+      message("Starting Comparison and Grouping.")
+    }
+
     if (group == TRUE) {
       if (method.comp == "lsd") adjust <- "none"
       if (method.comp == "tukey") adjust <- "tukey"
@@ -446,6 +483,10 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       colnames(Groups) <- c("Treatment", "Adjusted Means", "SE", "df",
                             "lower.CL", "upper.CL", "Group")
 
+    }
+
+    if (aug.debug) {
+      message("completeed Comparison and Grouping.")
     }
 
     # Compute SE and CD for various comparisons ----
