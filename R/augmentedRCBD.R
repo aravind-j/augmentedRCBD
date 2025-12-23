@@ -86,14 +86,7 @@
 #' @importFrom multcomp cld
 #' @importFrom emmeans emmeans
 #' @importFrom reshape2 dcast
-#' @importFrom stats anova
-#' @importFrom stats aov
-#' @importFrom stats contr.helmert
-#' @importFrom stats coef
-#' @importFrom stats na.omit
-#' @importFrom stats qt
-#' @importFrom stats qtukey
-#' @importFrom stats sd
+#' @importFrom stats anova aov contr.helmert coef na.omit qt qtukey sd
 #' @importFrom stats contrasts<-
 #' @importFrom graphics pairs
 #' @importFrom Rdpack reprompt
