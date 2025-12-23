@@ -51,15 +51,19 @@
 #'  y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311,
 #'          250, 240, 268, 287, 226, 395, 450)
 #'  data <- data.frame(blk, trt, y1, y2)
+#'
 #'  # Convert block and treatment to factors
 #'  data$blk <- as.factor(data$blk)
 #'  data$trt <- as.factor(data$trt)
+#'
 #'  # Results for variable y1
-#'  out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-#'                        alpha = 0.05, group = TRUE, console = TRUE)
+#'  out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
+#'                        method.comp = "lsd", alpha = 0.05, group = TRUE,
+#'                        console = TRUE)
 #'  # Results for variable y2
-#'  out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
-#'                       alpha = 0.05, group = TRUE, console = TRUE)
+#'  out2 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y2,
+#'                        method.comp = "lsd", alpha = 0.05, group = TRUE,
+#'                        console = TRUE)
 #'
 #'  # Frequency distribution plots
 #'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
@@ -82,6 +86,7 @@
 #'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
 #'                                  highlight.check = FALSE)
 #'  plot(freq2)
+#'
 freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
                                    check.col = "red") {
 
