@@ -64,14 +64,15 @@ A list of class \code{augmentedRCBD} containing the following
   between various combinations along with critical difference and tukey's
   honest significant difference (when \code{method.comp = "tukey"}) at
   \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
-  \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
-  data frame of pairwise comparisons of treatments. This is computed only if
-  argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
-  with compact letter display of pairwise comparisons of treatments. Means
-  with at least one letter common are not significantly different
-  statistically. This is computed only if argument \code{group} is
-  \code{TRUE} } \item{\code{warning}}{A vector of warning messages (if any)
-  captured during model fitting. }
+  \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparison
+  method}}{The method for comparison of treatments.}
+  \item{\code{Comparisons}}{A data frame of pairwise comparisons of
+  treatments. This is computed only if argument \code{group} is \code{TRUE}}
+  \item{\code{Groups}}{A data frame with compact letter display of pairwise
+  comparisons of treatments. Means with at least one letter common are not
+  significantly different statistically. This is computed only if argument
+  \code{group} is \code{TRUE} } \item{\code{warning}}{A vector of warning
+  messages (if any) captured during model fitting. }
 }
 \description{
 \code{augmentedRCBD} is a function for analysis of variance of an augmented

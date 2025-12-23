@@ -72,14 +72,15 @@
 #'   between various combinations along with critical difference and tukey's
 #'   honest significant difference (when \code{method.comp = "tukey"}) at
 #'   \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
-#'   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
-#'   data frame of pairwise comparisons of treatments. This is computed only if
-#'   argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
-#'   with compact letter display of pairwise comparisons of treatments. Means
-#'   with at least one letter common are not significantly different
-#'   statistically. This is computed only if argument \code{group} is
-#'   \code{TRUE} } \item{\code{warning}}{A vector of warning messages (if any)
-#'   captured during model fitting. }
+#'   \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparison
+#'   method}}{The method for comparison of treatments.}
+#'   \item{\code{Comparisons}}{A data frame of pairwise comparisons of
+#'   treatments. This is computed only if argument \code{group} is \code{TRUE}}
+#'   \item{\code{Groups}}{A data frame with compact letter display of pairwise
+#'   comparisons of treatments. Means with at least one letter common are not
+#'   significantly different statistically. This is computed only if argument
+#'   \code{group} is \code{TRUE} } \item{\code{warning}}{A vector of warning
+#'   messages (if any) captured during model fitting. }
 #'
 #' @import multcompView
 #' @importFrom multcomp cld
@@ -408,7 +409,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
       rownames(A2) <- NULL
     }
 
-    # Grouping of treatments
+    # Grouping of treatments ----
     Comparison <- NULL
     Groups <- NULL
 
@@ -428,7 +429,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     }
 
-    # Compute SE and CD for various comparisons
+    # Compute SE and CD for various comparisons ----
     augmented3.anova <- anova(augmented3.aov)
     MSE <- augmented3.anova[[3]][3]
 
@@ -468,7 +469,7 @@ augmentedRCBD <- function(block, treatment, y, checks = NULL,
 
     rm(augmented.aov, augmented2.aov, augmented3.aov, augmented3.anova)
 
-    # Truncate negative adjusted means
+    # Truncate negative adjusted means ----
     if (any(Means$`Adjusted Means` < 0)){
       negadjmeans <- which(Means$`Adjusted Means` < 0)
       negadjmeanst <- as.character(Means$Treatment[negadjmeans])
