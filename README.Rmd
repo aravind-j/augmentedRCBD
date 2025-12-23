@@ -24,7 +24,7 @@ devtools::load_all(".")
 
 ```
 
-###### Version : [`r getNamespaceVersion("augmentedRCBD")`](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-`r  format(Sys.Date(), "%Y")`: [ICAR-NBPGR](http://www.nbpgr.ernet.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
+###### Version : [`r getNamespaceVersion("augmentedRCBD")`](https://aravind-j.github.io/augmentedRCBD/articles/Data_Analysis_with_augmentedRCBD.html#install); Copyright (C) 2015-`r  format(Sys.Date(), "%Y")`: [ICAR-NBPGR](https://nbpgr.org.in/); License: [GPL-2|GPL-3](https://www.r-project.org/Licenses/)
 
 ##### *Aravind, J.^1^, Mukesh Sankar, S.^2^, Wankhede, D. P.^3^, and Kaur, V.^4^*
 

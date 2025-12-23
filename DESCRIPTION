@@ -3,24 +3,24 @@ Title: Analysis of Augmented Randomised Complete Block Designs
 Version: 0.1.7.9000
 Authors@R: c(
     person(given = "J.", family = "Aravind",
-           email = "j.aravind@icar.gov.in",
+           email = "j.aravind@icar.org.in",
            role = c("aut", "cre"),
 		       comment = c(ORCID = "0000-0002-4791-442X")),
 	  person(given = "S.", family = "Mukesh Sankar", 
-           email = "mukeshsankar@gmail.com",
+           email = "mukesh.s@icar.org.in",
 		       role = "aut",
 		       comment = c(ORCID = "0000-0001-5459-392X")),
     person(given = c("Dhammaprakash", "Pandhari"), family = "Wankhede", 
-           email = "d.wankhede@icar.gov.in",
+           email = "d.wankhede@icar.org.in",
 		       role = "aut",
 		       comment = c(ORCID = "0000-0001-6384-8664")),
     person(given = "Vikender", family = "Kaur",
-           email = "vikender.kaur@icar.gov.in",
+           email = "vikender.kaur@icar.org.in",
 		       role = "aut",
 		       comment = c(ORCID = "0000-0001-9698-7329")),
     person("ICAR-NBGPR",
            role = c("cph"),
-		       comment = c(url = "www.nbpgr.ernet.in")))
+		       comment = c(url = "https://nbpgr.org.in/")))
 Description: Functions for analysis of data generated from experiments in
     augmented randomised complete block design according to Federer, W.T.
     (1961) <doi:10.2307/2527837>. Computes analysis of variance, adjusted
