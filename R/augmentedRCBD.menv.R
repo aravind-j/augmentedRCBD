@@ -1,6 +1,55 @@
+### This file is part of 'augmentedRCBD' package for R.
+
+### Copyright (C) 2015-2024, ICAR-NBPGR.
+#
+# augmentedRCBD is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# augmentedRCBD is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  https://www.r-project.org/Licenses/
 
 
+#' Combined Analysis of Augmented Randomised Complete Block Design in Multiple
+#' Environments
+#'
+#' \code{augmentedRCBD.menv} is an extension of \code{augmentedRCBD} for the
+#' combined/pooled analysis of data from augmented randomised complete block
+#' design across multiple environments (locations and/or seasons).
+#'
+#' @inheritParams augmentedRCBD
+#' @param env Vector of environments (as a factor).
+#'
+#' @returns A list of class \code{augmentedRCBD.menv} containing the following
+#'   components:  \item{\code{Details}}{Details of the augmented design used.}
+#'  \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
+#'  "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
+#'  Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
+#'  with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
+#'  class \code{summary.aov} for ANOVA table with block adjusted.}
+#'   \item{\code{Block effects}}{A vector of block effects.}
+#'   \item{\code{Treatment effects}}{A vector of treatment effects.}
+#'  \item{\code{Std. Errors}}{A data frame of standard error of difference
+#'  between various combinations along with critical difference and tukey's
+#'  honest significant difference (when \code{method.comp = "tukey"}) at
+#'  \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
+#'  \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A data
+#'  frame of pairwise comparisons of treatments. This is computed only if
+#'  argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame with
+#'  compact letter display of pairwise comparisons of treatments. Means with at
+#'  least one letter common are not significantly different statistically. This
+#'  is computed only if argument \code{group} is \code{TRUE} }
+#'  \item{\code{warning}}{A vector of warning messages (if any) captured during
+#'  model fitting. }
 #' @export
+#'
+#' @examples
 augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                                method.comp = c("lsd", "tukey", "none"),
                                alpha = 0.05, group = TRUE, console = TRUE,
