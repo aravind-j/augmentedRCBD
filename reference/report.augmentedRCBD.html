@@ -137,16 +137,174 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 <span class="r-in"><span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">92</span>, <span class="fl">79</span>, <span class="fl">87</span>, <span class="fl">81</span>, <span class="fl">96</span>, <span class="fl">89</span>, <span class="fl">82</span>, <span class="fl">79</span>, <span class="fl">81</span>, <span class="fl">81</span>, <span class="fl">91</span>, <span class="fl">79</span>, <span class="fl">78</span>, <span class="fl">83</span>, <span class="fl">77</span>, <span class="fl">78</span>, <span class="fl">78</span>,</span></span>
 <span class="r-in"><span>        <span class="fl">70</span>, <span class="fl">75</span>, <span class="fl">74</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>, <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>        <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Convert block and treatment to factors</span></span></span>
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Results for variable y1 (checks inferred)</span></span></span>
-<span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span></span>
-<span class="r-in"><span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Results for variable y1 (checks inferred)</span></span></span>
+<span class="r-in"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span>block <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">blk</span>, treatment <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y1</span>,</span></span>
+<span class="r-in"><span>                     method.comp <span class="op">=</span> <span class="st">"lsd"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                     console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of blocks           "3"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of treatments       "12"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of check treatments "4"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of test treatments  "8"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Check treatments           "1, 2, 3, 4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ANOVA, Treatment Adjusted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      Df Sum Sq Mean Sq F value Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Block (ignoring Treatments)           2  360.1  180.04   6.675 0.0298 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Treatment (eliminating Blocks)       11  285.1   25.92   0.961 0.5499  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Treatment: Check                    3   52.9   17.64   0.654 0.6092  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Treatment: Test and Test vs. Check  8  232.2   29.02   1.076 0.4779  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals                             6  161.8   26.97                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ANOVA, Block Adjusted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> =====================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                Df Sum Sq Mean Sq F value Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Treatment (ignoring Blocks)    11  575.7   52.33   1.940  0.215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Treatment: Check              3   52.9   17.64   0.654  0.609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Treatment: Test               7  505.9   72.27   2.679  0.125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Treatment: Test vs. Check     1   16.9   16.87   0.626  0.459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Block (eliminating Treatments)  2   69.5   34.75   1.288  0.342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals                       6  161.8   26.97               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficient of Variation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6.372367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Overall Adjusted Mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> =====================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81.0625</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Standard Errors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ===============</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                          Std. Error of Diff.  CD (5%)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control Treatment Means                             4.240458 10.37603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Two Test Treatments (Same Block)                    7.344688 17.97180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Two Test Treatments (Different Blocks)              8.211611 20.09309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A Test Treatment and a Control Treatment            6.704752 16.40594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Treatment Means</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ===============</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Treatment Block Means   SE r   Min   Max Adjusted Means</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          1       84.67 3.84 3 79.00 92.00          84.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         10     3 74.00 &lt;NA&gt; 1 74.00 74.00          77.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         11     1 89.00 &lt;NA&gt; 1 89.00 89.00          86.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         12     1 82.00 &lt;NA&gt; 1 82.00 82.00          79.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          2       79.00 1.15 3 77.00 81.00          79.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          3       82.00 2.65 3 78.00 87.00          82.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          4       83.33 3.93 3 78.00 91.00          83.33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          5     2 79.00 &lt;NA&gt; 1 79.00 79.00          78.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          6     3 75.00 &lt;NA&gt; 1 75.00 75.00          78.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          7     1 96.00 &lt;NA&gt; 1 96.00 96.00          93.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          8     3 70.00 &lt;NA&gt; 1 70.00 70.00          73.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          9     2 78.00 &lt;NA&gt; 1 78.00 78.00          77.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Comparisons</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ===========</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Method : lsd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   contrast estimate   SE df t.ratio p.value sig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment2     5.67 4.24  6   1.336   0.230    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment3     2.67 4.24  6   0.629   0.553    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment4     1.33 4.24  6   0.314   0.764    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment5     6.42 6.36  6   1.009   0.352    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment6     6.42 6.36  6   1.009   0.352    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment7    -8.83 6.36  6  -1.389   0.214    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment8    11.42 6.36  6   1.795   0.123    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment1 - treatment9     7.42 6.36  6   1.166   0.288    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment1 - treatment10     7.42 6.36  6   1.166   0.288    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment1 - treatment11    -1.83 6.36  6  -0.288   0.783    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment1 - treatment12     5.17 6.36  6   0.812   0.448    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment3    -3.00 4.24  6  -0.707   0.506    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment4    -4.33 4.24  6  -1.022   0.346    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment5     0.75 6.36  6   0.118   0.910    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment6     0.75 6.36  6   0.118   0.910    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment7   -14.50 6.36  6  -2.280   0.063    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment8     5.75 6.36  6   0.904   0.401    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment2 - treatment9     1.75 6.36  6   0.275   0.792    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment2 - treatment10     1.75 6.36  6   0.275   0.792    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment2 - treatment11    -7.50 6.36  6  -1.179   0.283    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment2 - treatment12    -0.50 6.36  6  -0.079   0.940    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment3 - treatment4    -1.33 4.24  6  -0.314   0.764    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment3 - treatment5     3.75 6.36  6   0.590   0.577    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment3 - treatment6     3.75 6.36  6   0.590   0.577    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment3 - treatment7   -11.50 6.36  6  -1.808   0.121    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment3 - treatment8     8.75 6.36  6   1.376   0.218    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment3 - treatment9     4.75 6.36  6   0.747   0.483    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment3 - treatment10     4.75 6.36  6   0.747   0.483    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment3 - treatment11    -4.50 6.36  6  -0.707   0.506    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment3 - treatment12     2.50 6.36  6   0.393   0.708    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment4 - treatment5     5.08 6.36  6   0.799   0.455    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment4 - treatment6     5.08 6.36  6   0.799   0.455    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment4 - treatment7   -10.17 6.36  6  -1.598   0.161    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment4 - treatment8    10.08 6.36  6   1.585   0.164    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment4 - treatment9     6.08 6.36  6   0.956   0.376    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment4 - treatment10     6.08 6.36  6   0.956   0.376    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment4 - treatment11    -3.17 6.36  6  -0.498   0.636    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment4 - treatment12     3.83 6.36  6   0.603   0.569    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment5 - treatment6     0.00 8.21  6   0.000   1.000    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment5 - treatment7   -15.25 8.21  6  -1.857   0.113    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment5 - treatment8     5.00 8.21  6   0.609   0.565    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment5 - treatment9     1.00 7.34  6   0.136   0.896    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment5 - treatment10     1.00 8.21  6   0.122   0.907    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment5 - treatment11    -8.25 8.21  6  -1.005   0.354    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment5 - treatment12    -1.25 8.21  6  -0.152   0.884    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment6 - treatment7   -15.25 8.21  6  -1.857   0.113    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment6 - treatment8     5.00 7.34  6   0.681   0.521    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment6 - treatment9     1.00 8.21  6   0.122   0.907    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment6 - treatment10     1.00 7.34  6   0.136   0.896    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment6 - treatment11    -8.25 8.21  6  -1.005   0.354    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment6 - treatment12    -1.25 8.21  6  -0.152   0.884    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment7 - treatment8    20.25 8.21  6   2.466   0.049   *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment7 - treatment9    16.25 8.21  6   1.979   0.095    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment7 - treatment10    16.25 8.21  6   1.979   0.095    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment7 - treatment11     7.00 7.34  6   0.953   0.377    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment7 - treatment12    14.00 7.34  6   1.906   0.105    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment8 - treatment9    -4.00 8.21  6  -0.487   0.643    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment9 - treatment10     0.00 8.21  6   0.000   1.000    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  treatment10 - treatment12    -2.25 8.21  6  -0.274   0.793    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  treatment11 - treatment12     7.00 7.34  6   0.953   0.377    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Treatment Groups</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Method : lsd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Treatment Adjusted Means   SE df lower.CL upper.CL Group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          8          73.25 5.61  6    59.52    86.98    1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          9          77.25 5.61  6    63.52    90.98    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         10          77.25 5.61  6    63.52    90.98    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          5          78.25 5.61  6    64.52    91.98    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          6          78.25 5.61  6    64.52    91.98    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          2          79.00 3.00  6    71.66    86.34    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         12          79.50 5.61  6    65.77    93.23    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          3          82.00 3.00  6    74.66    89.34    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          4          83.33 3.00  6    76.00    90.67    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          1          84.67 3.00  6    77.33    92.00    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         11          86.50 5.61  6    72.77   100.23    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          7          93.50 5.61  6    79.77   107.23     2</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate reports</span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">report.augmentedRCBD</span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out</span>,</span></span>
 <span class="r-in"><span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
@@ -155,14 +313,14 @@ default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="extern
 <span class="r-in"><span>                     check.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"darkcyan"</span>,</span></span>
 <span class="r-in"><span>                                   <span class="st">"forestgreen"</span>, <span class="st">"purple"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpYgg6iT/augmentedRCBD output.docx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpfdS0kK/augmentedRCBD output.docx</span>
 <span class="r-in"><span><span class="fu">report.augmentedRCBD</span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out</span>,</span></span>
 <span class="r-in"><span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                        <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                     file.type <span class="op">=</span> <span class="st">"excel"</span>,</span></span>
 <span class="r-in"><span>                     check.col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brown"</span>, <span class="st">"darkcyan"</span>,</span></span>
 <span class="r-in"><span>                                   <span class="st">"forestgreen"</span>, <span class="st">"purple"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpYgg6iT/augmentedRCBD output.xlsx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpfdS0kK/augmentedRCBD output.xlsx</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

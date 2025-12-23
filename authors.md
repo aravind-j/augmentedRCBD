@@ -14,7 +14,7 @@
 - **Vikender Kaur**. Author. [](https://orcid.org/0000-0001-9698-7329)
 
 - **ICAR-NBGPR**. Copyright holder.  
-  www.nbpgr.ernet.in
+  https://nbpgr.org.in/
 
 ## Citation
 

@@ -6,10 +6,12 @@
     }
   };
 </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot Frequency Distribution from augmentedRCBD Output — freqdist.augmentedRCBD"><meta name="description" content="freqdist.augmentedRCBD plots frequency distribution from an object of
-class augmentedRCBD along with the corresponding normal curve and check
-means with standard errors (if specified by argument highlight.check)."><meta property="og:description" content="freqdist.augmentedRCBD plots frequency distribution from an object of
-class augmentedRCBD along with the corresponding normal curve and check
-means with standard errors (if specified by argument highlight.check)."><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-116716530-2"></script><script>
+class augmentedRCBD along with the corresponding normal curve and
+check means with standard errors (if specified by argument
+highlight.check)."><meta property="og:description" content="freqdist.augmentedRCBD plots frequency distribution from an object of
+class augmentedRCBD along with the corresponding normal curve and
+check means with standard errors (if specified by argument
+highlight.check)."><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-116716530-2"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -59,8 +61,9 @@ means with standard errors (if specified by argument highlight.check)."><!-- Glo
 
     <div class="ref-description section level2">
     <p><code>freqdist.augmentedRCBD</code> plots frequency distribution from an object of
-class <code>augmentedRCBD</code> along with the corresponding normal curve and check
-means with standard errors (if specified by argument <code>highlight.check</code>).</p>
+class <code>augmentedRCBD</code> along with the corresponding normal curve and
+check means with standard errors (if specified by argument
+<code>highlight.check</code>).</p>
     </div>
 
     <div class="section level2">
@@ -81,15 +84,15 @@ means with standard errors (if specified by argument <code>highlight.check</code
 
 
 <dt id="arg-highlight-check">highlight.check<a class="anchor" aria-label="anchor" href="#arg-highlight-check"></a></dt>
-<dd><p>If <code>TRUE</code>, the check means and standard errors are
-also plotted. Default is <code>TRUE</code>.</p></dd>
+<dd><p>If <code>TRUE</code>, the check means and standard errors
+are also plotted. Default is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-check-col">check.col<a class="anchor" aria-label="anchor" href="#arg-check-col"></a></dt>
 <dd><p>The colour(s) to be used to highlight check values in the
-plot as a character vector. Must be valid colour values in R (named colours,
-hexadecimal representation, index of colours [<code>1:8</code>] in default R
-<code><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette()</a></code> etc.).</p></dd>
+plot as a character vector. Must be valid colour values in R (named
+colours, hexadecimal representation, index of colours [<code>1:8</code>] in
+default R <code><a href="https://rdrr.io/r/grDevices/palette.html" class="external-link">palette()</a></code> etc.).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -103,20 +106,23 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example data</span></span></span>
-<span class="r-in"><span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">92</span>, <span class="fl">79</span>, <span class="fl">87</span>, <span class="fl">81</span>, <span class="fl">96</span>, <span class="fl">89</span>, <span class="fl">82</span>, <span class="fl">79</span>, <span class="fl">81</span>, <span class="fl">81</span>, <span class="fl">91</span>, <span class="fl">79</span>, <span class="fl">78</span>, <span class="fl">83</span>, <span class="fl">77</span>, <span class="fl">78</span>, <span class="fl">78</span>,</span></span>
-<span class="r-in"><span>        <span class="fl">70</span>, <span class="fl">75</span>, <span class="fl">74</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>, <span class="fl">250</span>,</span></span>
-<span class="r-in"><span>        <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Convert block and treatment to factors</span></span></span>
-<span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Results for variable y1</span></span></span>
-<span class="r-in"><span><span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y1</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span></span>
-<span class="r-in"><span>                      alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> <span class="co"># Example data</span></span></span>
+<span class="r-in"><span> <span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">7</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">y1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">92</span>, <span class="fl">79</span>, <span class="fl">87</span>, <span class="fl">81</span>, <span class="fl">96</span>, <span class="fl">89</span>, <span class="fl">82</span>, <span class="fl">79</span>, <span class="fl">81</span>, <span class="fl">81</span>, <span class="fl">91</span>, <span class="fl">79</span>, <span class="fl">78</span>, <span class="fl">83</span>, <span class="fl">77</span>, <span class="fl">78</span>, <span class="fl">78</span>,</span></span>
+<span class="r-in"><span>         <span class="fl">70</span>, <span class="fl">75</span>, <span class="fl">74</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">y2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">258</span>, <span class="fl">224</span>, <span class="fl">238</span>, <span class="fl">278</span>, <span class="fl">347</span>, <span class="fl">300</span>, <span class="fl">289</span>, <span class="fl">260</span>, <span class="fl">220</span>, <span class="fl">237</span>, <span class="fl">227</span>, <span class="fl">281</span>, <span class="fl">311</span>,</span></span>
+<span class="r-in"><span>         <span class="fl">250</span>, <span class="fl">240</span>, <span class="fl">268</span>, <span class="fl">287</span>, <span class="fl">226</span>, <span class="fl">395</span>, <span class="fl">450</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">blk</span>, <span class="va">trt</span>, <span class="va">y1</span>, <span class="va">y2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="co"># Convert block and treatment to factors</span></span></span>
+<span class="r-in"><span> <span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span> <span class="co"># Results for variable y1</span></span></span>
+<span class="r-in"><span> <span class="va">out1</span> <span class="op">&lt;-</span> <span class="fu"><a href="augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span>block <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">blk</span>, treatment <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y1</span>,</span></span>
+<span class="r-in"><span>                       method.comp <span class="op">=</span> <span class="st">"lsd"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                       console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
@@ -273,9 +279,10 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 <span class="r-out co"><span class="r-pr">#&gt;</span>          1          84.67 3.00  6    77.33    92.00    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         11          86.50 5.61  6    72.77   100.23    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          7          93.50 5.61  6    79.77   107.23     2</span>
-<span class="r-in"><span><span class="co"># Results for variable y2</span></span></span>
-<span class="r-in"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span>, <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, <span class="va">data</span><span class="op">$</span><span class="va">y2</span>, method.comp <span class="op">=</span> <span class="st">"lsd"</span>,</span></span>
-<span class="r-in"><span>                     alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co"># Results for variable y2</span></span></span>
+<span class="r-in"><span> <span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu"><a href="augmentedRCBD.html">augmentedRCBD</a></span><span class="op">(</span>block <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">blk</span>, treatment <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">trt</span>, y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y2</span>,</span></span>
+<span class="r-in"><span>                       method.comp <span class="op">=</span> <span class="st">"lsd"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, group <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                       console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
@@ -435,46 +442,47 @@ hexadecimal representation, index of colours [<code>1:8</code>] in default R
 <span class="r-out co"><span class="r-pr">#&gt;</span>          6         382.67 18.27  6   337.95   427.38       67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         10         437.67 18.27  6   392.95   482.38        7</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Frequency distribution plots</span></span></span>
-<span class="r-in"><span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co"># Frequency distribution plots</span></span></span>
+<span class="r-in"><span> <span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_bar()`).</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gtable" "gTree"  "grob"   "gDesc" </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="freqdist.augmentedRCBD-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_bar()`).</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="freqdist.augmentedRCBD-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Change check colours</span></span></span>
-<span class="r-in"><span><span class="va">colset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co"># Change check colours</span></span></span>
+<span class="r-in"><span> <span class="va">colset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_bar()`).</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="freqdist.augmentedRCBD-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_bar()`).</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="freqdist.augmentedRCBD-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Without checks highlighted</span></span></span>
-<span class="r-in"><span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span></span>
-<span class="r-in"><span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="co"># Without checks highlighted</span></span></span>
+<span class="r-in"><span> <span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span></span>
+<span class="r-in"><span>                                 highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_bar()`).</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="freqdist.augmentedRCBD-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,</span></span>
-<span class="r-in"><span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu">freqdist.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,</span></span>
+<span class="r-in"><span>                                 highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale range</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_bar()`).</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">freq2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="freqdist.augmentedRCBD-6.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

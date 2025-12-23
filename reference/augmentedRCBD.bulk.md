@@ -308,7 +308,7 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
 #> † P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.
 #> Warning: 
 #> ‡ Negative GV detected.
-#>  GCV, GCV category, hBS, hBS category, GA, GAM and
+#>  GCV, GCV category, hBS, hBS category,GA, GAM and
 #>  GAM category could not be computed.
 #> 
 #> 

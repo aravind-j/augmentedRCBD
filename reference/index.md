@@ -1,9 +1,12 @@
 # Package index
 
-## Core anlaysis function
+## Core anlaysis functions
 
 - [`augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.md)
   : Analysis of Augmented Randomised Complete Block Design
+- [`augmentedRCBD.menv()`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.menv.md)
+  : Combined Analysis of Augmented Randomised Complete Block Design in
+  Multiple Environments
 
 ## Supplementary functions
 

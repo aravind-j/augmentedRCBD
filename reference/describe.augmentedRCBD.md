@@ -97,20 +97,23 @@ Anscombe FJ, Glynn WJ (1983). “Distribution of the kurtosis statistic
 ## Examples
 
 ``` r
-# Example data
-blk <- c(rep(1,7),rep(2,6),rep(3,7))
-trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
-y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
-        70, 75, 74)
-y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
-        240, 268, 287, 226, 395, 450)
-data <- data.frame(blk, trt, y1, y2)
-# Convert block and treatment to factors
-data$blk <- as.factor(data$blk)
-data$trt <- as.factor(data$trt)
-# Results for variable y1
-out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE)
+ # Example data
+ blk <- c(rep(1,7),rep(2,6),rep(3,7))
+ trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+ y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+         70, 75, 74)
+ y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311,
+         250, 240, 268, 287, 226, 395, 450)
+ data <- data.frame(blk, trt, y1, y2)
+
+ # Convert block and treatment to factors
+ data$blk <- as.factor(data$blk)
+ data$trt <- as.factor(data$trt)
+
+ # Results for variable y1
+ out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
+                       method.comp = "lsd", alpha = 0.05, group = TRUE,
+                       console = TRUE)
 #> 
 #> Augmented Design Details
 #> ========================
@@ -267,9 +270,10 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 #>          1          84.67 3.00  6    77.33    92.00    12
 #>         11          86.50 5.61  6    72.77   100.23    12
 #>          7          93.50 5.61  6    79.77   107.23     2
-# Results for variable y2
-out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
-                     alpha = 0.05, group = TRUE, console = TRUE)
+ # Results for variable y2
+ out2 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y2,
+                       method.comp = "lsd", alpha = 0.05, group = TRUE,
+                       console = TRUE)
 #> 
 #> Augmented Design Details
 #> ========================

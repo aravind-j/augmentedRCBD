@@ -78,15 +78,17 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
 #> ANOVA for y2 computed (2/2)
 
 # \donttest{
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.docx"),
-                          file.type = "word")
-#> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpYgg6iT/augmentedRCBD bulk output.docx
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.xlsx"),
-                          file.type = "excel")
+report.augmentedRCBD.bulk(
+  aug.bulk = bout,
+  target = file.path(tempdir(),
+                     "augmentedRCBD bulk output.docx"),
+  file.type = "word")
+#> File created at /var/folders/bp/kmfmhnl95kx1c8x321z7twbw0000gn/T//RtmpfdS0kK/augmentedRCBD bulk output.docx
+report.augmentedRCBD.bulk(
+  aug.bulk = bout,
+  target = file.path(tempdir(),
+                     "augmentedRCBD bulk output.xlsx"),
+  file.type = "excel")
 #> Error in insertImage(wb = wb, sheet = sheet, file = fileName, width = width,     height = height, startRow = startRow, startCol = startCol,     units = units, dpi = dpi): File does not exist.
 # }
 ```

@@ -900,7 +900,7 @@ help(ls)
 Packages in `R` are collections of `R` functions, data, and compiled
 code in a well-defined format. They are add-ons which extend the
 functionality of `R` and at present, there are
-[23057](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+[23058](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).
 
@@ -3132,7 +3132,7 @@ bout <- augmentedRCBD.bulk(data = data, block = "blk",
 
     Warning: 
     ‡ Negative GV detected.
-     GCV, GCV category, hBS, hBS category, GA, GAM and
+     GCV, GCV category, hBS, hBS category,GA, GAM and
      GAM category could not be computed.
 
 
@@ -3274,7 +3274,7 @@ print(bout)
 
     Warning: 
     ‡ Negative GV detected.
-     GCV, GCV category, hBS, hBS category, GA, GAM and
+     GCV, GCV category, hBS, hBS category,GA, GAM and
      GAM category could not be computed.
 
 
@@ -3406,29 +3406,29 @@ sessionInfo()
     [13] estimability_1.5.1      lifecycle_1.0.4         multcompView_0.1-10    
     [16] survival_3.8-3          magrittr_2.0.4          compiler_4.5.2         
     [19] rlang_1.1.6             sass_0.4.10             tools_4.5.2            
-    [22] yaml_2.3.12             data.table_1.17.8       knitr_1.50             
+    [22] yaml_2.3.12             data.table_1.17.8       knitr_1.51             
     [25] labeling_0.4.3          askpass_1.2.1           htmlwidgets_1.6.4      
     [28] curl_7.0.0              plyr_1.8.9              xml2_1.5.1             
     [31] RColorBrewer_1.1-3      multcomp_1.4-29         numform_0.7.0          
     [34] withr_3.0.2             purrr_1.2.0             desc_1.4.3             
     [37] grid_4.5.2              gdtools_0.4.4           xtable_1.8-4           
-    [40] ggplot2_4.0.1           emmeans_2.0.0           scales_1.4.0           
+    [40] ggplot2_4.0.1           emmeans_2.0.1           scales_1.4.0           
     [43] MASS_7.3-65             cli_3.6.5               mvtnorm_1.3-3          
     [46] rmarkdown_2.30          ragg_1.5.0              generics_0.1.4         
-    [49] httr_1.4.7              reshape2_1.4.5          cachem_1.1.0           
-    [52] stringr_1.6.0           splines_4.5.2           vctrs_0.6.5            
-    [55] Matrix_1.7-4            sandwich_3.1-1          jsonlite_2.0.0         
-    [58] fontBitstreamVera_0.1.1 systemfonts_1.3.1       tidyr_1.3.1            
-    [61] jquerylib_0.1.4         glue_1.8.0              pkgdown_2.2.0.9000     
-    [64] codetools_0.2-20        stringi_1.8.7           flextable_0.9.10       
-    [67] gtable_0.3.6            tibble_3.3.0            pillar_1.11.1          
-    [70] htmltools_0.5.9         openssl_2.3.4           R6_2.6.1               
-    [73] textshaping_1.0.4       Rdpack_2.6.4            evaluate_1.0.5         
-    [76] lattice_0.22-7          rbibutils_2.4           moments_0.14.1         
-    [79] openxlsx_4.2.8.1        fontLiberation_0.1.0    bslib_0.9.0            
-    [82] Rcpp_1.1.0              zip_2.3.3               uuid_1.2-1             
-    [85] officer_0.7.2           xfun_0.54               fs_1.6.6               
-    [88] zoo_1.8-14              pkgconfig_2.0.3        
+    [49] otel_0.2.0              httr_1.4.7              reshape2_1.4.5         
+    [52] cachem_1.1.0            stringr_1.6.0           splines_4.5.2          
+    [55] vctrs_0.6.5             Matrix_1.7-4            sandwich_3.1-1         
+    [58] jsonlite_2.0.0          fontBitstreamVera_0.1.1 systemfonts_1.3.1      
+    [61] tidyr_1.3.2             jquerylib_0.1.4         glue_1.8.0             
+    [64] pkgdown_2.2.0.9000      codetools_0.2-20        stringi_1.8.7          
+    [67] flextable_0.9.10        gtable_0.3.6            tibble_3.3.0           
+    [70] pillar_1.11.1           htmltools_0.5.9         openssl_2.3.4          
+    [73] R6_2.6.1                textshaping_1.0.4       Rdpack_2.6.4           
+    [76] evaluate_1.0.5          lattice_0.22-7          rbibutils_2.4          
+    [79] moments_0.14.1          openxlsx_4.2.8.1        fontLiberation_0.1.0   
+    [82] bslib_0.9.0             Rcpp_1.1.0              zip_2.3.3              
+    [85] uuid_1.2-1              officer_0.7.2           xfun_0.55              
+    [88] fs_1.6.6                zoo_1.8-15              pkgconfig_2.0.3        
 
 ## References
 
