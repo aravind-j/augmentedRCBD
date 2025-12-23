@@ -15,16 +15,19 @@
 #  A copy of the GNU General Public License is available at
 #  https://www.r-project.org/Licenses/
 
-
 #' Combined Analysis of Augmented Randomised Complete Block Design in Multiple
 #' Environments
 #'
 #' \code{augmentedRCBD.menv} is an extension of \code{augmentedRCBD} for the
 #' combined/pooled analysis of data from augmented randomised complete block
-#' design across multiple environments (locations and/or seasons).
+#' design across multiple environments (locations and/or seasons) under the
+#' following two scenarios. \describe{ \item{\emph{Scenario 1}}{Test treatments
+#' replicated across environments.} \item{\emph{Scenario 1}}{Test treatments
+#' are not replicated across environments.} }
 #'
 #' @inheritParams augmentedRCBD
 #' @param env Vector of environments (as a factor).
+#' @param scenario Either \code{1} or \code{2} (see \strong{Description above}).
 #'
 #' @returns A list of class \code{augmentedRCBD.menv} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used.}
@@ -51,10 +54,88 @@
 #' @export
 #'
 #' @examples
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Scenario 1: Test treatments are replicated across all environments
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Example data
+#' blk1 <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,
+#'           4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6,
+#'           7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9)
+#' trt1 <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10,
+#'           1, 2, 3, 4, 8, 11, 5, 1, 2, 3, 4, 12, 9, 1, 2, 3, 4, 7, 6, 10,
+#'           1, 2, 3, 4, 7, 9, 12, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 8, 11, 10)
+#' y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77,
+#'         78, 78, 70, 75, 74, 90, 80, 85, 78, 95, 86, 81, 78, 78, 76, 88,
+#'         76, 79, 80, 76, 75, 74, 77, 75, 72, 91, 81, 86, 80, 94, 87, 83,
+#'         78, 79, 77, 90, 74, 76, 82, 83, 86, 76, 73, 74, 69)
+#' env1 <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#'           1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+#'           2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+#'           3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)
+#' data1 <- data.frame(env1, blk1, trt1, y1)
+#' chks1 <- c(1, 2, 3, 4)
+#'
+#' # Convert block, treatment and environment to factors
+#' data1$blk1 <- as.factor(data1$blk1)
+#' data1$trt1 <- as.factor(data1$trt1)
+#' data1$env1 <- as.factor(data1$env1)
+#'
+#' # Contingency tables of factors
+#' table(data1$env1, data1$trt1)
+#' table(data1$env1, data1$blk1)
+#' table(data1$blk1, data1$trt1)
+#'
+#' # Results
+#' out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
+#'                            env = data1$env1, y = data1$y1, checks = chks1,
+#'                            scenario = 2, method.comp = "lsd", alpha = 0.05,
+#'                            group = TRUE, console = TRUE)
+#'
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' # Test treatments are not replicated across all environments
+#' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' # Example data
+#' blk2 <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,
+#'           4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6,
+#'           7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9)
+#' trt2 <- c(1, 2, 3, 4, 7, 10, 11, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 12,
+#'           1, 2, 3, 4, 16, 19, 13, 1, 2, 3, 4, 20, 17, 1, 2, 3, 4, 15, 14, 18,
+#'           1, 2, 3, 4, 22, 25, 27, 1, 2, 3, 4, 21, 23, 1, 2, 3, 4, 24, 26, 28)
+#' y2 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77,
+#'         78, 78, 70, 75, 74, 90, 80, 85, 78, 95, 86, 81, 78, 78, 76, 88,
+#'         76, 79, 80, 76, 75, 74, 77, 75, 72, 91, 81, 86, 80, 94, 87, 83,
+#'         78, 79, 77, 90, 74, 76, 82, 83, 86, 76, 73, 74, 69)
+#' env2 <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#'           1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+#'           2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+#'           3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)
+#' data2 <- data.frame(env2, blk2, trt2, y2)
+#' chks2 <- c(1, 2, 3, 4)
+#'
+#' # Convert block, treatment and environment to factors
+#' data2$blk2 <- as.factor(data2$blk2)
+#' data2$trt2 <- as.factor(data2$trt2)
+#' data2$env2 <- as.factor(data2$env2)
+#'
+#' # Contingency tables of factors
+#' table(data2$env2, data2$trt2)
+#' table(data2$env2, data2$blk2)
+#' table(data2$blk2, data2$trt2)
+#'
+#' # Results
+#' out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
+#'                            env = data2$env2, y = data2$y2, checks = chks2,
+#'                            scenario = 2, method.comp = "lsd", alpha = 0.05,
+#'                            group = TRUE, console = TRUE)
+#'
 augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                                method.comp = c("lsd", "tukey", "none"),
-                               alpha = 0.05, group = TRUE, console = TRUE,
-                               simplify = FALSE, truncate.means = TRUE) {
+                               scenario = c(1, 2),  alpha = 0.05, group = TRUE,
+                               console = TRUE, simplify = FALSE,
+                               truncate.means = TRUE) {
 
   aug.debug <- getOption("augmentedRCBD.debug", default = FALSE)
 
@@ -73,10 +154,12 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     stop('"env" should be of class "factor".')
   }
   # y
-  if (!(is.vector(y, mode = "integer") | is.vector(y, mode = "numeric"))) {
+  if (!(is.vector(y, mode = "integer") |
+        is.vector(y, mode = "numeric"))) {
     stop('"y" should be a vector of class "numeric" or "integer".')
   }
-  if (!(length(y) == length(treatment) && length(treatment) == length(block))) {
+  if (!(length(y) == length(treatment) &&
+        length(treatment) == length(block))) {
     stop('"block", "treatment" and "y" are of unequal lengths.')
   }
   if (TRUE %in% is.na(y)) { # check for missing values
@@ -94,7 +177,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
 
   # [TO DO]
   # -  Remove check inference
-  # - Check for data balance scenarion 1 and 2
+  # - Check for data balance scenario 1 and 2
 
   if (!missing(checks) && !is.null(checks)) {
     #if (!is.null(checks)) {
@@ -149,7 +232,8 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     # blockwisechecks <- as.data.frame.matrix(table(treatment, block))
     # blockwisechecks <- cbind(treatment = rownames(blockwisechecks),
     #                          blockwisechecks)
-    # blockwisechecks <- blockwisechecks[blockwisechecks$treatment %in% checks, ]
+    # blockwisechecks <-
+    #   blockwisechecks[blockwisechecks$treatment %in% checks, ]
     # rownames(blockwisechecks) <- NULL
 
     Details <- list(`Number of blocks` = b, `Number of treatments` = ntr,
@@ -191,17 +275,23 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     block2 <- interaction(env, block, drop = TRUE, sep = "_")
 
     if (aug.debug) {
-      message("Starting Treatment Adjusted ANOVA")
+      message("Starting Treatment Adjusted ANOVA.")
     }
 
-    # augmented.env.aov <- aov(y ~ env + treatment + env/block - block + env:treatment)
-    # augmented.env.aov <- aov(y ~ env + treatment + env:block + env:treatment)
-    # augmented.env.aov <- aov(y ~ env + treatment + block_env + env:treatment) # (with implicit nesting of block within env)
-    # augmented.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment) # [\u2713]
-    augmented.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
+    # augmented.env.aov <-
+    #   aov(y ~ env + treatment + env/block - block + env:treatment)
+    # augmented.env.aov <-
+    #   aov(y ~ env + treatment + env:block + env:treatment)
+    # # (with implicit nesting of block within env)
+    # augmented.env.aov <-
+    #   aov(y ~ env + treatment + block_env + env:treatment)
+    # augmented.env.aov <-
+    #   aov(y ~ env + treatment + env:block2 + env:treatment) # [\u2713]
+    augmented.env.aov <-
+      aov(y ~ env + treatment + env:block2 + env:treatment)
 
     if (aug.debug) {
-      message("Completed Treatment Adjusted ANOVA")
+      message("Completed Treatment Adjusted ANOVA.")
     }
 
     df.check <- length(checks) - 1
@@ -212,26 +302,45 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                     Check = 1:df.check,
                     `Test and Test vs. Check` = (df.check + 1):df.treatment)))
 
-    rownames(A1[[1]])[1] <- "Environment                                              "
-    rownames(A1[[1]])[2] <- "Treatment (eliminating Blocks)                           "
-    rownames(A1[[1]])[3] <- "  Treatment: Check                                       "
-    rownames(A1[[1]])[4] <- "  Treatment: Test and Test vs. Check                     "
-    rownames(A1[[1]])[5] <- "Block (within Environment, ignoring Treatments)          "
-    rownames(A1[[1]])[6] <- "Environment \u00D7 Treatment interaction                      "
-    rownames(A1[[1]])[7] <- "  Interaction: Check \u00D7 Environment                       "
-    rownames(A1[[1]])[8] <- "  Interaction: Test and Test vs. Check \u00D7 Environment     "
+    rownames(A1[[1]])[1] <-
+      "Environment                                              "
+    rownames(A1[[1]])[2] <-
+      "Treatment (eliminating Blocks)                           "
+    rownames(A1[[1]])[3] <-
+      "  Treatment: Check                                       "
+    rownames(A1[[1]])[4] <-
+      "  Treatment: Test and Test vs. Check                     "
+    rownames(A1[[1]])[5] <-
+      "Block (within Environment, ignoring Treatments)          "
+    rownames(A1[[1]])[6] <-
+      "Environment \u00D7 Treatment interaction                      "
+    rownames(A1[[1]])[7] <-
+      "  Interaction: Check \u00D7 Environment                       "
+    rownames(A1[[1]])[8] <-
+      "  Interaction: Test and Test vs. Check \u00D7 Environment     "
+
+    if (scenario == 2 & aug.debug == FALSE) {
+      A1[[1]] <- A1[[1]][-(7:8), ]
+    }
 
     # Calculate adjusted env, treatment and block effects ----
     options(contrasts = c("contr.sum", "contr.poly"))
 
     if (aug.debug) {
-      message("Starting ANOVA for adjusted effects")
+      message("Starting ANOVA for adjusted effects.")
     }
 
-    augmented3.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
+    if (scenario == 1) {
+      augmented3.env.aov <-
+        aov(y ~ env + treatment + env:block2 + env:treatment)
+    }
+
+    if (scenario == 2) {
+      augmented3.env.aov <- aov(y ~ env + treatment + block2)
+    }
 
     if (aug.debug) {
-      message("Completed ANOVA for adjusted effects")
+      message("Completed ANOVA for adjusted effects.")
     }
 
     ## Compute reference grid ----
@@ -239,7 +348,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     # the grid size can also explode to out-of-memory size.
 
     if (aug.debug) {
-      message("Starting ref_grid creation")
+      message("Starting ref_grid creation.")
     }
 
     refgrid <-
@@ -247,7 +356,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                         nesting = "block2 %in% env")
 
     if (aug.debug) {
-      message("Completed ref_grid creation")
+      message("Completed ref_grid creation.")
     }
 
     # emm_suppress_msgs <- c(
@@ -291,37 +400,58 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                                             df.treatment - df.check)
 
     if (aug.debug) {
-      message("Starting Treatment Adjusted ANOVA")
+      message("Starting Treatment Adjusted ANOVA.")
     }
 
     augmented2.env.aov <- aov(y ~ env + treatment + env:block2 + env:treatment)
 
     if (aug.debug) {
-      message("Completed Treatment Adjusted ANOVA")
+      message("Completed Treatment Adjusted ANOVA.")
     }
 
     A2 <- summary(augmented2.env.aov,
-                  split = list(treatment = list(Check = 1:df.check,
-                                                Test = (df.check + 1):(df.treatment - 1),
-                                                `Test vs. check` = df.treatment)))
+                  split = list(
+                    treatment = list(
+                      Check = 1:df.check,
+                      Test = (df.check + 1):(df.treatment - 1),
+                      `Test vs. check` = df.treatment)
+                  ))
 
-    rownames(A2[[1]])[1] <- "Environment                                              "
-    rownames(A2[[1]])[2] <- "Treatment (ignoring Blocks)                              "
-    rownames(A2[[1]])[3] <- "  Treatment: Check                                       "
-    rownames(A2[[1]])[4] <- "  Treatment: Test                                        "
-    rownames(A2[[1]])[5] <- "  Treatment: Test vs. Check                              "
-    rownames(A2[[1]])[6] <- "Block (within Environment, eliminating Treatments)       "
-    rownames(A2[[1]])[7] <- "Environment \u00D7 Treatment interaction                      "
-    rownames(A2[[1]])[8] <- "  Interaction: Check \u00D7 Environment                       "
-    rownames(A2[[1]])[9] <- "  Interaction: Test \u00D7 Environment                        "
-    rownames(A2[[1]])[10] <- "  Interaction: Test vs. Check \u00D7 Environment              "
+    rownames(A2[[1]])[1] <-
+      "Environment                                              "
+    rownames(A2[[1]])[2] <-
+      "Treatment (ignoring Blocks)                              "
+    rownames(A2[[1]])[3] <-
+      "  Treatment: Check                                       "
+    rownames(A2[[1]])[4] <-
+      "  Treatment: Test                                        "
+    rownames(A2[[1]])[5] <-
+      "  Treatment: Test vs. Check                              "
+    rownames(A2[[1]])[6] <-
+      "Block (within Environment, eliminating Treatments)       "
+    rownames(A2[[1]])[7] <-
+      "Environment \u00D7 Treatment interaction                      "
+    rownames(A2[[1]])[8] <-
+      "  Interaction: Check \u00D7 Environment                       "
+    rownames(A2[[1]])[9] <-
+      "  Interaction: Test \u00D7 Environment                        "
+    rownames(A2[[1]])[10] <-
+      "  Interaction: Test vs. Check \u00D7 Environment              "
+
+    if (scenario == 2 & aug.debug == FALSE) {
+      A2[[1]] <- A2[[1]][-(8:10), ]
+    }
 
     # Adjusted means ----
 
-    ## Manual ----
-    # mean.adj1 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[1:(df.check + 1)])
+    # # Manual ----
+    # mean.adj1 <-
+    #   data.frame(mean.adj = `Overall adjusted mean` +
+    #                effects.treatment[1:(df.check + 1)])
     # mean.adj1$treatment <- rownames(mean.adj1)
-    # mean.adj2 <- data.frame(mean.adj = `Overall adjusted mean` + effects.treatment[(df.check + 2):(df.treatment + 1)])
+    # mean.adj2 <-
+    #   data.frame(mean.adj = `Overall adjusted mean` +
+    #                effects.treatment[(df.check + 2):(df.treatment + 1)])
     # mean.adj2$treatment <- rownames(mean.adj2)
     # mean.adj <- rbind(mean.adj1, mean.adj2)
     #
@@ -375,10 +505,14 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
            "Two Test Treatments (Different Blocks)",
            "A Test Treatment and a Control Treatment")
 
-    SE.check <- sqrt(2 * MSE / (r * l)) #Two Control Treatments (averaged over environments)
-    SE.test1 <- sqrt(2 * MSE / l) #Two Augmented Treatments (Same Block) (averaged over environments)
-    SE.test2 <- sqrt(2 * MSE * (1 + (1 / c)) / l) #Two Augmented Treatments(Different Blocks) (averaged over environments)
-    SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) + (1 / (r * c))) / l) #A Test Treatment and a Control Treatment (averaged over environments)
+    # Two Control Treatments (averaged over environments)
+    SE.check <- sqrt(2 * MSE / (r * l))
+    # Two Augmented Treatments (Same Block) (averaged over environments)
+    SE.test1 <- sqrt(2 * MSE / l)
+    # Two Augmented Treatments(Different Blocks) (averaged over environments)
+    SE.test2 <- sqrt(2 * MSE * (1 + (1 / c)) / l)
+    # A Test Treatment and a Control Treatment (averaged over environments)
+    SE.testcheck <- sqrt(MSE * (1 + (1 / r) + (1 / c) + (1 / (r * c))) / l)
 
     SECD <- data.frame(`Std. Error of Diff.` =  c(SE.check, SE.test1,
                                                   SE.test2, SE.testcheck),
@@ -391,7 +525,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
       q0 <- qtukey(p = 1 - alpha, nmeans = nlevels(treatment),
                    df = augmented3.env.aov$df.residual)
 
-      SECD$THSD <- c((q0 * SECD[1:3,]$`Std. Error of Diff.`)/sqrt(2), 0)
+      SECD$THSD <- c((q0 * SECD[1:3,]$`Std. Error of Diff.`) / sqrt(2), 0)
       hm <- 4/(1 + (1 / r) + (1 / c) + (1 / (r * c)))
       SECD[4,]$THSD <- q0 * sqrt(MSE/hm)
       colnames(SECD) <- c("Std. Error of Diff.",
@@ -402,13 +536,15 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     rm(augmented.env.aov, augmented2.env.aov,
        augmented3.env.aov, augmented3.env.anova, refgrid)
 
-    # Truncate negative adjusted means
-    if (any(Means$`Adjusted Means` < 0)){
+    # Truncate negative adjusted means ----
+    if (any(Means$`Adjusted Means` < 0)) {
       negadjmeans <- which(Means$`Adjusted Means` < 0)
       negadjmeanst <- as.character(Means$Treatment[negadjmeans])
 
-      negmsg <- paste('Negative adjusted means were generated for the following treatment(s)',
-                      '\n', paste(negadjmeanst, collapse = ", "))
+      negmsg <-
+        paste('Negative adjusted means were generated for the',
+              'following treatment(s)',
+              '\n', paste(negadjmeanst, collapse = ", "))
 
       if (truncate.means == TRUE) {
         Means$`Adjusted Means`[Means$`Adjusted Means` < 0] <- 0

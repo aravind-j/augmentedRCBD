@@ -12,6 +12,7 @@ augmentedRCBD.menv(
   y,
   checks = NULL,
   method.comp = c("lsd", "tukey", "none"),
+  scenario = c(1, 2),
   alpha = 0.05,
   group = TRUE,
   console = TRUE,
@@ -38,6 +39,8 @@ significant difference). If \code{"none"}, no comparisons will be made, the
 ANOVA output will be given as a data frame and the adjusted means will be
 computed directly from treatment and block effects instead of using
 \code{\link[emmeans]{emmeans}}.}
+
+\item{scenario}{Either \code{1} or \code{2} (see \strong{Description above}).}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
 multiple comparisons.}
@@ -81,5 +84,87 @@ A list of class \code{augmentedRCBD.menv} containing the following
 \description{
 \code{augmentedRCBD.menv} is an extension of \code{augmentedRCBD} for the
 combined/pooled analysis of data from augmented randomised complete block
-design across multiple environments (locations and/or seasons).
+design across multiple environments (locations and/or seasons) under the
+following two scenarios. \describe{ \item{\emph{Scenario 1}}{Test treatments
+replicated across environments.} \item{\emph{Scenario 1}}{Test treatments
+are not replicated across environments.} }
+}
+\examples{
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Scenario 1: Test treatments are replicated across all environments
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Example data
+blk1 <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,
+          4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6,
+          7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9)
+trt1 <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10,
+          1, 2, 3, 4, 8, 11, 5, 1, 2, 3, 4, 12, 9, 1, 2, 3, 4, 7, 6, 10,
+          1, 2, 3, 4, 7, 9, 12, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 8, 11, 10)
+y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77,
+        78, 78, 70, 75, 74, 90, 80, 85, 78, 95, 86, 81, 78, 78, 76, 88,
+        76, 79, 80, 76, 75, 74, 77, 75, 72, 91, 81, 86, 80, 94, 87, 83,
+        78, 79, 77, 90, 74, 76, 82, 83, 86, 76, 73, 74, 69)
+env1 <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+          3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)
+data1 <- data.frame(env1, blk1, trt1, y1)
+chks1 <- c(1, 2, 3, 4)
+
+# Convert block, treatment and environment to factors
+data1$blk1 <- as.factor(data1$blk1)
+data1$trt1 <- as.factor(data1$trt1)
+data1$env1 <- as.factor(data1$env1)
+
+# Contingency tables of factors
+table(data1$env1, data1$trt1)
+table(data1$env1, data1$blk1)
+table(data1$blk1, data1$trt1)
+
+# Results
+out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
+                           env = data1$env1, y = data1$y1, checks = chks1,
+                           scenario = 2, method.comp = "lsd", alpha = 0.05,
+                           group = TRUE, console = TRUE)
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Test treatments are not replicated across all environments
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Example data
+blk2 <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,
+          4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6,
+          7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9)
+trt2 <- c(1, 2, 3, 4, 7, 10, 11, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 12,
+          1, 2, 3, 4, 16, 19, 13, 1, 2, 3, 4, 20, 17, 1, 2, 3, 4, 15, 14, 18,
+          1, 2, 3, 4, 22, 25, 27, 1, 2, 3, 4, 21, 23, 1, 2, 3, 4, 24, 26, 28)
+y2 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77,
+        78, 78, 70, 75, 74, 90, 80, 85, 78, 95, 86, 81, 78, 78, 76, 88,
+        76, 79, 80, 76, 75, 74, 77, 75, 72, 91, 81, 86, 80, 94, 87, 83,
+        78, 79, 77, 90, 74, 76, 82, 83, 86, 76, 73, 74, 69)
+env2 <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+          1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+          2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+          3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)
+data2 <- data.frame(env2, blk2, trt2, y2)
+chks2 <- c(1, 2, 3, 4)
+
+# Convert block, treatment and environment to factors
+data2$blk2 <- as.factor(data2$blk2)
+data2$trt2 <- as.factor(data2$trt2)
+data2$env2 <- as.factor(data2$env2)
+
+# Contingency tables of factors
+table(data2$env2, data2$trt2)
+table(data2$env2, data2$blk2)
+table(data2$blk2, data2$trt2)
+
+# Results
+out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
+                           env = data2$env2, y = data2$y2, checks = chks2,
+                           scenario = 2, method.comp = "lsd", alpha = 0.05,
+                           group = TRUE, console = TRUE)
+
 }
