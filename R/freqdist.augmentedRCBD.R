@@ -15,72 +15,73 @@
 #  A copy of the GNU General Public License is available at
 #  https://www.r-project.org/Licenses/
 
-#'Plot Frequency Distribution from \code{augmentedRCBD} Output
+#' Plot Frequency Distribution from \code{augmentedRCBD} Output
 #'
-#'\code{freqdist.augmentedRCBD} plots frequency distribution from an object of
-#'class \code{augmentedRCBD} along with the corresponding normal curve and check
-#'means with standard errors (if specified by argument \code{highlight.check}).
+#' \code{freqdist.augmentedRCBD} plots frequency distribution from an object of
+#' class \code{augmentedRCBD} along with the corresponding normal curve and
+#' check means with standard errors (if specified by argument
+#' \code{highlight.check}).
 #'
-#'@inheritParams describe.augmentedRCBD
-#'@param xlab The text for x axis label as a character string.
-#'@param highlight.check If \code{TRUE}, the check means and standard errors are
-#'  also plotted. Default is \code{TRUE}.
-#'@param check.col The colour(s) to be used to highlight check values in the
-#'  plot as a character vector. Must be valid colour values in R (named colours,
-#'  hexadecimal representation, index of colours [\code{1:8}] in default R
-#'  \code{palette()} etc.).
+#' @inheritParams describe.augmentedRCBD
+#' @param xlab The text for x axis label as a character string.
+#' @param highlight.check If \code{TRUE}, the check means and standard errors
+#'   are also plotted. Default is \code{TRUE}.
+#' @param check.col The colour(s) to be used to highlight check values in the
+#'   plot as a character vector. Must be valid colour values in R (named
+#'   colours, hexadecimal representation, index of colours [\code{1:8}] in
+#'   default R \code{palette()} etc.).
 #'
-#'@return The frequency distribution plot as a ggplot2 plot grob.
+#' @return The frequency distribution plot as a ggplot2 plot grob.
 #'
-#'@import ggplot2
-#'@importFrom methods is
-#'@importFrom stats dnorm
-#'@importFrom stats sd
-#'@importFrom utils getFromNamespace
+#' @import ggplot2
+#' @importFrom methods is
+#' @importFrom stats dnorm
+#' @importFrom stats sd
+#' @importFrom utils getFromNamespace
 #'
-#'@export
+#' @export
 #'
-#'@seealso \code{\link[augmentedRCBD]{augmentedRCBD}}
-#'@examples
-#' # Example data
-#' blk <- c(rep(1,7),rep(2,6),rep(3,7))
-#' trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
-#' y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
-#'         70, 75, 74)
-#' y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
-#'         240, 268, 287, 226, 395, 450)
-#' data <- data.frame(blk, trt, y1, y2)
-#' # Convert block and treatment to factors
-#' data$blk <- as.factor(data$blk)
-#' data$trt <- as.factor(data$trt)
-#' # Results for variable y1
-#' out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}}
+#' @examples
+#'  # Example data
+#'  blk <- c(rep(1,7),rep(2,6),rep(3,7))
+#'  trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+#'  y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+#'          70, 75, 74)
+#'  y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311,
+#'          250, 240, 268, 287, 226, 395, 450)
+#'  data <- data.frame(blk, trt, y1, y2)
+#'  # Convert block and treatment to factors
+#'  data$blk <- as.factor(data$blk)
+#'  data$trt <- as.factor(data$trt)
+#'  # Results for variable y1
+#'  out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+#'                        alpha = 0.05, group = TRUE, console = TRUE)
+#'  # Results for variable y2
+#'  out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
 #'                       alpha = 0.05, group = TRUE, console = TRUE)
-#' # Results for variable y2
-#' out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
-#'                      alpha = 0.05, group = TRUE, console = TRUE)
 #'
-#' # Frequency distribution plots
-#' freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
-#' class(freq1)
-#' plot(freq1)
-#' freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
-#' plot(freq2)
+#'  # Frequency distribution plots
+#'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
+#'  class(freq1)
+#'  plot(freq1)
+#'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
+#'  plot(freq2)
 #'
-#' # Change check colours
-#' colset <- c("red3", "green4", "purple3", "darkorange3")
-#' freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
-#' plot(freq1)
-#' freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
-#' plot(freq2)
+#'  # Change check colours
+#'  colset <- c("red3", "green4", "purple3", "darkorange3")
+#'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
+#'  plot(freq1)
+#'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
+#'  plot(freq2)
 #'
-#' # Without checks highlighted
-#' freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
-#'                                 highlight.check = FALSE)
-#' plot(freq1)
-#' freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
-#'                                 highlight.check = FALSE)
-#' plot(freq2)
+#'  # Without checks highlighted
+#'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
+#'                                  highlight.check = FALSE)
+#'  plot(freq1)
+#'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
+#'                                  highlight.check = FALSE)
+#'  plot(freq2)
 freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
                                    check.col = "red") {
 

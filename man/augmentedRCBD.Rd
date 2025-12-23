@@ -28,11 +28,11 @@ augmentedRCBD(
 levels. If not specified, checks are inferred from the data on the basis of
 number of replications of treatments/genotypes.}
 
-\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for least
-significant difference or \code{"tukey"} for Tukey's honest significant
-difference). If \code{"none"}, no comparisons will be made, the ANOVA output
-will be given as a data frame and the adjusted means will be computed
-directly from treatment and block effects instead of using
+\item{method.comp}{Method for comparison of treatments (\code{"lsd"} for
+least significant difference or \code{"tukey"} for Tukey's honest
+significant difference). If \code{"none"}, no comparisons will be made, the
+ANOVA output will be given as a data frame and the adjusted means will be
+computed directly from treatment and block effects instead of using
 \code{\link[emmeans]{emmeans}}.}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
@@ -52,26 +52,26 @@ truncated to zero. Default is \code{TRUE}.}
 }
 \value{
 A list of class \code{augmentedRCBD} containing the following
- components:  \item{\code{Details}}{Details of the augmented design used.}
- \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
- "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
- Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
- with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
- class \code{summary.aov} for ANOVA table with block adjusted.}
- \item{\code{Block effects}}{A vector of block effects.}
- \item{\code{Treatment effects}}{A vector of treatment effects.}
- \item{\code{Std. Errors}}{A data frame of standard error of difference
- between various combinations along with critical difference and tukey's
- honest significant difference (when \code{method.comp = "tukey"}) at
- \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
- \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A data
- frame of pairwise comparisons of treatments. This is computed only if
- argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame with
- compact letter display of pairwise comparisons of treatments. Means with at
- least one letter common are not significantly different statistically. This
- is computed only if argument \code{group} is \code{TRUE} }
- \item{\code{warning}}{A vector of warning messages (if any) captured during
- model fitting. }
+  components:  \item{\code{Details}}{Details of the augmented design used.}
+  \item{\code{Means}}{A data frame with the "Means", "Block", "SE", "Mix",
+  "Max" and "Adjusted Means" for each "Treatment".} \item{\code{ANOVA,
+  Treatment Adjusted}}{An object of class \code{summary.aov} for ANOVA table
+  with treatments adjusted.} \item{\code{ANOVA, Block Adjusted}}{An object of
+  class \code{summary.aov} for ANOVA table with block adjusted.}
+  \item{\code{Block effects}}{A vector of block effects.}
+  \item{\code{Treatment effects}}{A vector of treatment effects.}
+  \item{\code{Std. Errors}}{A data frame of standard error of difference
+  between various combinations along with critical difference and tukey's
+  honest significant difference (when \code{method.comp = "tukey"}) at
+  \code{alpha}.} \item{\code{Overall adjusted mean}}{Overall adjusted mean.}
+  \item{\code{CV}}{Coefficient of variation.} \item{\code{Comparisons}}{A
+  data frame of pairwise comparisons of treatments. This is computed only if
+  argument \code{group} is \code{TRUE}} \item{\code{Groups}}{A data frame
+  with compact letter display of pairwise comparisons of treatments. Means
+  with at least one letter common are not significantly different
+  statistically. This is computed only if argument \code{group} is
+  \code{TRUE} } \item{\code{warning}}{A vector of warning messages (if any)
+  captured during model fitting. }
 }
 \description{
 \code{augmentedRCBD} is a function for analysis of variance of an augmented
@@ -81,67 +81,19 @@ treatments/genotypes.
 }
 \details{
 This function borrows code from \code{DAU.test} function of \code{agricolae}
-package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur et
-al., (2008).
+package (de Mendiburu et al., 2016) as well as from Appendix VIII of Mathur
+et al., (2008).
 }
 \note{
 \itemize{ \item Data should preferably be balanced i.e. all the check
- genotypes should be present in all the blocks. If not, a warning is issued.
- \item  There should not be any missing values. \item The number of test
- genotypes can vary within a block. }
+  genotypes should be present in all the blocks. If not, a warning is issued.
+  \item  There should not be any missing values. \item The number of test
+  genotypes can vary within a block. }
 
- In case the large number of treatments or genotypes, it is advisable to
- avoid comparisons with the \code{group =  FALSE} argument as it will be
- memory and processor intensive. Further it is advised to simplify output
- with \code{simplify = TRUE} in order to reduce output object size.
-}
-\examples{
-# Example data
-blk <- c(rep(1,7),rep(2,6),rep(3,7))
-trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
-y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
-        70, 75, 74)
-y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311, 250,
-        240, 268, 287, 226, 395, 450)
-data <- data.frame(blk, trt, y1, y2)
-# Convert block and treatment to factors
-data$blk <- as.factor(data$blk)
-data$trt <- as.factor(data$trt)
-# Results for variable y1 (checks inferred)
-out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE)
-# Results for variable y2 (checks inferred)
-out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                     alpha = 0.05, group = TRUE, console = TRUE)
-
-# Results for variable y1 (checks specified)
-out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE,
-                      checks = c("1", "2", "3", "4"))
-# Results for variable y2 (checks specified)
-out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE,
-                      checks = c("1", "2", "3", "4"))
-
-\dontrun{
-# Error in case checks not replicated across all blocks
-# Check 1 and 4 not replicated in all 3 blocks
-trt <- c(1, 2, 3, 14, 7, 11, 12, 1, 2, 3, 4, 5, 9, 13, 2, 3, 4, 8, 6, 10)
-data$trt <- as.factor(trt)
-table(data$trt, data$blk)
-# Results for variable y1 (checks specified)
-out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE,
-                      checks = c("1", "2", "3", "4"))
-}
-
-# Warning in case test treatments are replicated
-out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE)
-out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
-                      alpha = 0.05, group = TRUE, console = TRUE,
-                      checks = c("2", "3"))
-
+  In case the large number of treatments or genotypes, it is advisable to
+  avoid comparisons with the \code{group =  FALSE} argument as it will be
+  memory and processor intensive. Further it is advised to simplify output
+  with \code{simplify = TRUE} in order to reduce output object size.
 }
 \references{
 \insertRef{federer_augmented_1956}{augmentedRCBD}
@@ -155,11 +107,58 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
 \insertRef{mathur_data_2008}{augmentedRCBD}
 
 \insertRef{de_mendiburu_agricolae_2015}{augmentedRCBD}
+
+ @examples
+ # Example data
+ blk <- c(rep(1,7),rep(2,6),rep(3,7))
+ trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
+ y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
+         70, 75, 74)
+ y2 <- c(258, 224, 238, 278, 347, 300, 289, 260, 220, 237, 227, 281, 311,
+         250, 240, 268, 287, 226, 395, 450)
+ data <- data.frame(blk, trt, y1, y2)
+ # Convert block and treatment to factors
+ data$blk <- as.factor(data$blk)
+ data$trt <- as.factor(data$trt)
+ # Results for variable y1 (checks inferred)
+ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                       alpha = 0.05, group = TRUE, console = TRUE)
+ # Results for variable y2 (checks inferred)
+ out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                      alpha = 0.05, group = TRUE, console = TRUE)
+
+ # Results for variable y1 (checks specified)
+ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                       alpha = 0.05, group = TRUE, console = TRUE,
+                       checks = c("1", "2", "3", "4"))
+ # Results for variable y2 (checks specified)
+ out2 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                       alpha = 0.05, group = TRUE, console = TRUE,
+                       checks = c("1", "2", "3", "4"))
+
+\dontrun{
+ # Error in case checks not replicated across all blocks
+ # Check 1 and 4 not replicated in all 3 blocks
+ trt <- c(1, 2, 3, 14, 7, 11, 12, 1, 2, 3, 4, 5, 9, 13, 2, 3, 4, 8, 6, 10)
+ data$trt <- as.factor(trt)
+ table(data$trt, data$blk)
+ # Results for variable y1 (checks specified)
+ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                       alpha = 0.05, group = TRUE, console = TRUE,
+                       checks = c("1", "2", "3", "4"))
+}
+
+ # Warning in case test treatments are replicated
+ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                       alpha = 0.05, group = TRUE, console = TRUE)
+ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
+                       alpha = 0.05, group = TRUE, console = TRUE,
+                       checks = c("2", "3"))
 }
 \seealso{
 \code{\link[agricolae]{DAU.test}},
- \href{https://www.rdocumentation.org/packages/easyanova/versions/5.0/topics/ea1}{\code{ea1}},
- \code{\link[emmeans]{emmeans}},
- \code{\link[emmeans:CLD.emmGrid]{cld.emmGrid}},
- \href{https://rdrr.io/rforge/plantbreeding/man/aug.rcb.html}{\code{aug.rcb}}
+  \href{https://www.rdocumentation.org/packages/easyanova/versions/5.0/topics/ea1}{\code{ea1}},
+  \code{\link[emmeans]{emmeans}},
+  \code{\link[emmeans:CLD.emmGrid]{cld.emmGrid}},
+  \href{https://rdrr.io/rforge/plantbreeding/man/aug.rcb.html}{\code{aug.rcb}}
 }

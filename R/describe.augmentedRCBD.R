@@ -53,7 +53,7 @@
 #' @importFrom stats sd
 #' @export
 #'
-#'@examples
+#' @examples
 #' # Example data
 #' blk <- c(rep(1,7),rep(2,6),rep(3,7))
 #' trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
