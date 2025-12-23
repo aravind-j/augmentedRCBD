@@ -46,9 +46,10 @@ navbar:
       href: https://github.com/aravind-j/augmentedRCBD
 
 reference:
-    - title: Core anlaysis function
+    - title: Core anlaysis functions
       contents:
          - '`augmentedRCBD`'
+         - '`augmentedRCBD.menv`'
 
     - title: Supplementary functions
       contents:
@@ -66,4 +67,3 @@ reference:
       contents:
          - '`report.augmentedRCBD`'
          - '`report.augmentedRCBD.bulk`'
-
