@@ -18,16 +18,40 @@
 #' Combined Analysis of Augmented Randomised Complete Block Design in Multiple
 #' Environments
 #'
-#' \code{augmentedRCBD.menv} is an extension of \code{augmentedRCBD} for the
-#' combined/pooled analysis of data from augmented randomised complete block
-#' design across multiple environments (locations and/or seasons) under the
-#' following two scenarios. \describe{ \item{\emph{Scenario 1}}{Test treatments
-#' replicated across environments.} \item{\emph{Scenario 1}}{Test treatments
-#' are not replicated across environments.} }
+#' \code{augmentedRCBD.menv} is an extension of
+#' \code{\link[augmentedRCBD]{augmentedRCBD}} designed for the combined/pooled
+#' analysis of data from augmented randomised complete block design across
+#' multiple environments such as locations and/or seasons.
+#' This function performs analysis under the following two scenarios. \describe{
+#' \item{\emph{Scenario 1}:}{Replicated test treatments across environments.}
+#' \item{\emph{Scenario 2}:}{Non-replicated test treatments across
+#' environments.} }
+#'
+#' The method of analysis is determined by whether the test treatments are
+#' replicated across different environments as indicated by the \code{scenario}
+#' argument. The design is balanced in terms of the checks being replicated
+#' across all the blocks and environments.
+#'
+#' \describe{ \item{Scenario \code{1}:}{The test treatments are replicated
+#' across all environments. Here the Treatment \u00D7 Environment interaction
+#' is fully estimable as it is balanced.}\item{Scenario \code{2}:}{The test
+#' treatments are replicated across all environments. Here the Treatment
+#' \u00D7 Environment interaction is only partially estimable as it is
+#' unbalanced..} }
+#'
+#' @note \itemize{ \item Data should preferably be balanced i.e. all the check
+#'   genotypes should be present in all the blocks. If not, a warning is issued.
+#'   \item There should not be any missing values. \item The number of test
+#'   genotypes can vary within a block. \item When a large number of treatments
+#'   or genotypes are involved, the analysis becomes memory intensive because
+#'   calculating adjusted means necessitates the creation of a reference grid
+#'   matrix by \code{emmeans}, which can grow exponentially in size }
 #'
 #' @inheritParams augmentedRCBD
 #' @param env Vector of environments (as a factor).
-#' @param scenario Either \code{1} or \code{2} (see \strong{Description above}).
+#' @param scenario Either \code{1} or \code{2} (see \strong{Details}).
+#'
+#' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}}
 #'
 #' @returns A list of class \code{augmentedRCBD.menv} containing the following
 #'   components:  \item{\code{Details}}{Details of the augmented design used.}
@@ -90,7 +114,7 @@
 #' # Results
 #' out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
 #'                            env = data1$env1, y = data1$y1, checks = chks1,
-#'                            scenario = 2, method.comp = "lsd", alpha = 0.05,
+#'                            scenario = 1, method.comp = "lsd", alpha = 0.05,
 #'                            group = TRUE, console = TRUE)
 #'
 #' #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,6 +198,9 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
                            several.ok = FALSE)
   if (method.comp == "none") group <- FALSE
   if (group == FALSE) method.comp <- "none"
+
+  # scenario
+  scenario <- match.arg(scenario, several.ok = FALSE)
 
   # [TO DO]
   # -  Remove check inference
@@ -484,8 +511,18 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     Groups <- NULL
 
     if (group == TRUE) {
-      Comparison <- data.frame(summary(pairs(LSMeans, adjust = "tukey")))
-      Groups <- data.frame(multcomp::cld(LSMeans, adjust = "tukey"))
+      if (method.comp == "lsd") adjust <- "none"
+      if (method.comp == "tukey") adjust <- "tukey"
+
+      Comparison <- data.frame(summary(pairs(LSMeans, adjust = adjust)))
+      Groups <- data.frame(multcomp::cld(LSMeans, adjust = adjust))
+
+      Comparison$sig <- ifelse(Comparison$p.value < 0.001, "***",
+                               ifelse(Comparison$p.value < 0.01, "**",
+                                      ifelse(Comparison$p.value < 0.05, "*",
+                                             "")))
+      colnames(Groups) <- c("Treatment", "Adjusted Means", "SE", "df",
+                            "lower.CL", "upper.CL", "Group")
     }
 
     ## Compute SE and CD for various comparisons ----

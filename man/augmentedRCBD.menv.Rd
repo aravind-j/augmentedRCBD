@@ -40,7 +40,7 @@ ANOVA output will be given as a data frame and the adjusted means will be
 computed directly from treatment and block effects instead of using
 \code{\link[emmeans]{emmeans}}.}
 
-\item{scenario}{Either \code{1} or \code{2} (see \strong{Description above}).}
+\item{scenario}{Either \code{1} or \code{2} (see \strong{Details}).}
 
 \item{alpha}{Type I error probability (Significance level) to be used for
 multiple comparisons.}
@@ -82,12 +82,36 @@ A list of class \code{augmentedRCBD.menv} containing the following
  messages (if any) captured during model fitting. }
 }
 \description{
-\code{augmentedRCBD.menv} is an extension of \code{augmentedRCBD} for the
-combined/pooled analysis of data from augmented randomised complete block
-design across multiple environments (locations and/or seasons) under the
-following two scenarios. \describe{ \item{\emph{Scenario 1}}{Test treatments
-replicated across environments.} \item{\emph{Scenario 1}}{Test treatments
-are not replicated across environments.} }
+\code{augmentedRCBD.menv} is an extension of
+\code{\link[augmentedRCBD]{augmentedRCBD}} designed for the combined/pooled
+analysis of data from augmented randomised complete block design across
+multiple environments such as locations and/or seasons.
+This function performs analysis under the following two scenarios. \describe{
+\item{\emph{Scenario 1}:}{Replicated test treatments across environments.}
+\item{\emph{Scenario 2}:}{Non-replicated test treatments across
+environments.} }
+}
+\details{
+The method of analysis is determined by whether the test treatments are
+replicated across different environments as indicated by the \code{scenario}
+argument. The design is balanced in terms of the checks being replicated
+across all the blocks and environments.
+
+\describe{ \item{Scenario \code{1}:}{The test treatments are replicated
+across all environments. Here the Treatment \u00D7 Environment interaction
+is fully estimable as it is balanced.}\item{Scenario \code{2}:}{The test
+treatments are replicated across all environments. Here the Treatment
+\u00D7 Environment interaction is only partially estimable as it is
+unbalanced..} }
+}
+\note{
+\itemize{ \item Data should preferably be balanced i.e. all the check
+  genotypes should be present in all the blocks. If not, a warning is issued.
+  \item There should not be any missing values. \item The number of test
+  genotypes can vary within a block. \item When a large number of treatments
+  or genotypes are involved, the analysis becomes memory intensive because
+  calculating adjusted means necessitates the creation of a reference grid
+  matrix by \code{emmeans}, which can grow exponentially in size }
 }
 \examples{
 
@@ -126,7 +150,7 @@ table(data1$blk1, data1$trt1)
 # Results
 out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
                            env = data1$env1, y = data1$y1, checks = chks1,
-                           scenario = 2, method.comp = "lsd", alpha = 0.05,
+                           scenario = 1, method.comp = "lsd", alpha = 0.05,
                            group = TRUE, console = TRUE)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -167,4 +191,7 @@ out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
                            scenario = 2, method.comp = "lsd", alpha = 0.05,
                            group = TRUE, console = TRUE)
 
+}
+\seealso{
+\code{\link[augmentedRCBD]{augmentedRCBD}}
 }
