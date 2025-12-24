@@ -33,10 +33,10 @@
 #' across all the blocks and environments.
 #'
 #' \describe{ \item{Scenario \code{1}:}{The test treatments are replicated
-#' across all environments. Here the Treatment \u00D7 Environment interaction
+#' across all environments. Here the Treatment \\u00D7 Environment interaction
 #' is fully estimable as it is balanced.}\item{Scenario \code{2}:}{The test
 #' treatments are replicated across all environments. Here the Treatment
-#' \u00D7 Environment interaction is only partially estimable as it is
+#' \\u00D7 Environment interaction is only partially estimable as it is
 #' unbalanced..} }
 #'
 #' @note \itemize{ \item Data should preferably be balanced i.e. all the check
@@ -50,6 +50,8 @@
 #' @inheritParams augmentedRCBD
 #' @param env Vector of environments (as a factor).
 #' @param scenario Either \code{1} or \code{2} (see \strong{Details}).
+#'
+#' @encoding UTF-8
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}}
 #'
@@ -200,7 +202,8 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
   if (group == FALSE) method.comp <- "none"
 
   # scenario
-  scenario <- match.arg(scenario, several.ok = FALSE)
+  scenario <- match.arg(as.character(scenario),
+                        choices = c("1", "2"), several.ok = FALSE)
 
   # [TO DO]
   # -  Remove check inference
