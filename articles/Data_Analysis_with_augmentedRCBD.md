@@ -900,7 +900,7 @@ help(ls)
 Packages in `R` are collections of `R` functions, data, and compiled
 code in a well-defined format. They are add-ons which extend the
 functionality of `R` and at present, there are
-[23058](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+[22956](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).
 
@@ -3406,7 +3406,7 @@ sessionInfo()
     [13] estimability_1.5.1      lifecycle_1.0.4         multcompView_0.1-10    
     [16] survival_3.8-3          magrittr_2.0.4          compiler_4.5.2         
     [19] rlang_1.1.6             sass_0.4.10             tools_4.5.2            
-    [22] yaml_2.3.12             data.table_1.17.8       knitr_1.51             
+    [22] yaml_2.3.12             data.table_1.18.0       knitr_1.51             
     [25] labeling_0.4.3          askpass_1.2.1           htmlwidgets_1.6.4      
     [28] curl_7.0.0              plyr_1.8.9              xml2_1.5.1             
     [31] RColorBrewer_1.1-3      multcomp_1.4-29         numform_0.7.0          

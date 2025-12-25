@@ -41,6 +41,11 @@
 
   Prints summary of `augmentedRCBD.bulk` object
 
+- [`print(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/print.augmentedRCBD.menv.md)
+  :
+
+  Prints summary of `augmentedRCBD.menv` object
+
 ## MS Word report generation
 
 - [`report.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.md)

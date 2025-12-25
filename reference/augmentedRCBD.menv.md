@@ -1,17 +1,19 @@
 # Combined Analysis of Augmented Randomised Complete Block Design in Multiple Environments
 
-`augmentedRCBD.menv` is an extension of `augmentedRCBD` for the
-combined/pooled analysis of data from augmented randomised complete
-block design across multiple environments (locations and/or seasons)
-under the following two scenarios.
+`augmentedRCBD.menv` is an extension of
+[`augmentedRCBD`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.md)
+designed for the combined/pooled analysis of data from augmented
+randomised complete block design across multiple environments such as
+locations and/or seasons. This function performs analysis under the
+following two scenarios.
 
-- *Scenario 1*:
+- *Scenario 1*::
 
-  Test treatments replicated across environments.
+  Replicated test treatments across environments.
 
-- *Scenario 1*:
+- *Scenario 2*::
 
-  Test treatments are not replicated across environments.
+  Non-replicated test treatments across environments.
 
 ## Usage
 
@@ -67,7 +69,7 @@ augmentedRCBD.menv(
 
 - scenario:
 
-  Either `1` or `2` (see **Description above**).
+  Either `1` or `2` (see **Details**).
 
 - alpha:
 
@@ -159,6 +161,43 @@ components:
 
   A vector of warning messages (if any) captured during model fitting.
 
+## Details
+
+The method of analysis is determined by whether the test treatments are
+replicated across different environments as indicated by the `scenario`
+argument. The design is balanced in terms of the checks being replicated
+across all the blocks and environments.
+
+- Scenario `1`::
+
+  The test treatments are replicated across all environments. Here the
+  Treatment \u00D7 Environment interaction is fully estimable as it is
+  balanced.
+
+- Scenario `2`::
+
+  The test treatments are replicated across all environments. Here the
+  Treatment \u00D7 Environment interaction is only partially estimable
+  as it is unbalanced..
+
+## Note
+
+- Data should preferably be balanced i.e. all the check genotypes should
+  be present in all the blocks. If not, a warning is issued.
+
+- There should not be any missing values.
+
+- The number of test genotypes can vary within a block.
+
+- When a large number of treatments or genotypes are involved, the
+  analysis becomes memory intensive because calculating adjusted means
+  necessitates the creation of a reference grid matrix by `emmeans`,
+  which can grow exponentially in size
+
+## See also
+
+[`augmentedRCBD`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.md)
+
 ## Examples
 
 ``` r
@@ -218,46 +257,23 @@ table(data1$blk1, data1$trt1)
 # Results
 out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
                            env = data1$env1, y = data1$y1, checks = chks1,
-                           scenario = 2, method.comp = "lsd", alpha = 0.05,
+                           scenario = 1, method.comp = "lsd", alpha = 0.05,
                            group = TRUE, console = TRUE)
-#> Note: adjust = "tukey" was changed to "sidak"
-#> because "tukey" is only appropriate for one set of pairwise comparisons
-#> Details :
-#> $`Number of blocks`
-#> [1] 9
+#> NOTE: Results may be misleading due to involvement in interactions
 #> 
-#> $`Number of treatments`
-#> [1] 12
-#> 
-#> $`Number of environments`
-#> [1] 3
-#> 
-#> $`Number of check treatments`
-#> [1] 4
-#> 
-#> $`Number of test treatments`
-#> [1] 8
-#> 
-#> $`Check treatments`
-#> [1] "1" "2" "3" "4"
+#> Augmented Design Details
+#> ========================
+#>                                        
+#> Number of blocks           "9"         
+#> Number of treatments       "12"        
+#> Number of environments     "3"         
+#> Number of check treatments "4"         
+#> Number of test treatments  "8"         
+#> Check treatments           "1, 2, 3, 4"
 #> 
 #> 
-#> Means :
-#>    treatment    Means        SE r Min Max Adjusted Means
-#> 1          1 83.66667 1.9220938 9  78  92       83.66667
-#> 2         10 71.66667 1.4529663 3  69  74       75.67979
-#> 3         11 83.00000 4.5825757 3  74  89       80.81989
-#> 4         12 80.33333 2.1858128 3  76  83       77.77646
-#> 5          2 79.33333 0.7264832 9  76  83       79.33333
-#> 6          3 81.22222 1.6139821 9  75  87       81.22222
-#> 7          4 81.77778 2.1001176 9  74  91       81.77778
-#> 8          5 78.00000 2.0816660 3  74  81       76.54375
-#> 9          6 75.33333 0.3333333 3  75  76       78.82917
-#> 10         7 89.00000 6.0277138 3  77  96       87.82774
-#> 11         8 79.33333 7.8810603 3  70  95       79.96513
-#> 12         9 81.33333 2.8480012 3  78  87       80.01761
-#> 
-#> ANOVA, Treatment Adjusted :
+#> ANOVA, Treatment Adjusted
+#> =========================
 #>                                                           Df Sum Sq Mean Sq
 #> Environment                                                2   24.7   12.35
 #> Treatment (eliminating Blocks)                            11  691.2   62.83
@@ -265,6 +281,8 @@ out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
 #>   Treatment: Test and Test vs. Check                       8  605.3   75.66
 #> Block (within Environment, ignoring Treatments)            6  672.5  112.08
 #> Environment × Treatment interaction                       22  398.7   18.12
+#>   Interaction: Check × Environment                         6   17.6    2.94
+#>   Interaction: Test and Test vs. Check × Environment      16  381.1   23.82
 #> Residuals                                                 18  546.5   30.36
 #>                                                           F value Pr(>F)  
 #> Environment                                                 0.407 0.6718  
@@ -273,11 +291,14 @@ out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
 #>   Treatment: Test and Test vs. Check                        2.492 0.0513 .
 #> Block (within Environment, ignoring Treatments)             3.692 0.0144 *
 #> Environment × Treatment interaction                         0.597 0.8753  
+#>   Interaction: Check × Environment                          0.097 0.9958  
+#>   Interaction: Test and Test vs. Check × Environment        0.785 0.6846  
 #> Residuals                                                                 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> ANOVA, Block Adjusted :
+#> ANOVA, Block Adjusted
+#> =====================
 #>                                                           Df Sum Sq Mean Sq
 #> Environment                                                2   24.7   12.35
 #> Treatment (ignoring Blocks)                               11  691.2   62.83
@@ -286,6 +307,9 @@ out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
 #>   Treatment: Test vs. Check                                1   44.1   44.10
 #> Block (within Environment, eliminating Treatments)         6  672.5  112.08
 #> Environment × Treatment interaction                       22  398.7   18.12
+#>   Interaction: Check × Environment                         6   17.6    2.94
+#>   Interaction: Test × Environment                         14  340.2   24.30
+#>   Interaction: Test vs. Check × Environment                2   40.9   20.47
 #> Residuals                                                 18  546.5   30.36
 #>                                                           F value Pr(>F)  
 #> Environment                                                 0.407 0.6718  
@@ -295,129 +319,137 @@ out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
 #>   Treatment: Test vs. Check                                 1.453 0.2437  
 #> Block (within Environment, eliminating Treatments)          3.692 0.0144 *
 #> Environment × Treatment interaction                         0.597 0.8753  
+#>   Interaction: Check × Environment                          0.097 0.9958  
+#>   Interaction: Test × Environment                           0.800 0.6596  
+#>   Interaction: Test vs. Check × Environment                 0.674 0.5219  
 #> Residuals                                                                 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Block effects :
-#>       1_1       1_2       1_3       2_4       2_5       2_6       3_7       3_8 
-#>  4.796558  1.073107 -3.639155  4.524462 -1.465678 -5.619529  4.339741 -1.228820 
-#>       3_9 
-#> -2.780686 
-#> attr(,"overall")
-#> [1] 80.28829
+#> Coefficient of Variation
+#> ========================
+#> 6.81942
 #> 
-#> Treatment effects :
-#>          1          2          3          4          5          6          7 
-#>  3.3783720 -0.9549613  0.9339275  1.4894831 -3.7445443 -1.4591269  7.5394484 
-#>          8          9         10         11         12 
-#> -0.3231683 -0.2706844 -4.6085047  0.5315940 -2.5118350 
-#> attr(,"overall")
-#> [1] 80.28829
+#> Overall Adjusted Mean
+#> =====================
+#> 80.31944
 #> 
-#> Std. Errors :
-#>                                          Std. Error of Diff. CD (5%)
-#> Control Treatment Means                                   NA      NA
-#> Two Test Treatments (Same Block)                          NA      NA
-#> Two Test Treatments (Different Blocks)                    NA      NA
-#> A Test Treatment and a Control Treatment                  NA      NA
+#> Standard Errors
+#> ===============
+#>                                          Std. Error of Diff.   CD (5%)
+#> Control Treatment Means                             1.499657  3.150662
+#> Two Test Treatments (Same Block)                    4.498971  9.451987
+#> Two Test Treatments (Different Blocks)              5.030003 10.567643
+#> A Test Treatment and a Control Treatment            3.749143  7.876656
 #> 
-#> Overall adjusted mean :
-#> [1] 80.28829
+#> Treatment Means
+#> ===============
+#>  treatment Means   SE r   Min   Max Adjusted Means
+#>          1 83.67 1.92 9 78.00 92.00          83.67
+#>         10 71.67 1.45 3 69.00 74.00          74.17
+#>         11 83.00 4.58 3 74.00 89.00          81.25
+#>         12 80.33 2.19 3 76.00 83.00          78.75
+#>          2 79.33 0.73 9 76.00 83.00          79.33
+#>          3 81.22 1.61 9 75.00 87.00          81.22
+#>          4 81.78 2.10 9 74.00 91.00          81.78
+#>          5 78.00 2.08 3 74.00 81.00          77.08
+#>          6 75.33 0.33 3 75.00 76.00          78.08
+#>          7 89.00 6.03 3 77.00 96.00          88.67
+#>          8 79.33 7.88 3 70.00 95.00          79.50
+#>          9 81.33 2.85 3 78.00 87.00          80.33
 #> 
-#> CV :
-#> [1] NA
 #> 
-#> Comparison method :
-#> [1] "lsd"
+#> Comparisons
+#> ===========
 #> 
-#> Comparisons :
-#>                     contrast     estimate       SE df     t.ratio   p.value
-#> 1    treatment1 - treatment2   4.33333333 2.291591 40  1.89097178 0.7575477
-#> 2    treatment1 - treatment3   2.44444444 2.291591 40  1.06670203 0.9945433
-#> 3    treatment1 - treatment4   1.88888889 2.291591 40  0.82426975 0.9994425
-#> 4    treatment1 - treatment5   7.12291632 3.390279 40  2.10098217 0.6249498
-#> 5    treatment1 - treatment6   4.83749891 3.390989 40  1.42657463 0.9509357
-#> 6    treatment1 - treatment7  -4.16107644 3.381748 40 -1.23045131 0.9829691
-#> 7    treatment1 - treatment8   3.70154025 3.391475 40  1.09142484 0.9934050
-#> 8    treatment1 - treatment9   3.64905642 3.401221 40  1.07286645 0.9942756
-#> 9   treatment1 - treatment10   7.98687666 3.391497 40  2.35497088 0.4575174
-#> 10  treatment1 - treatment11   2.84677800 3.381724 40  0.84181252 0.9993222
-#> 11  treatment1 - treatment12   5.89020702 3.400703 40  1.73205585 0.8427258
-#> 12   treatment2 - treatment3  -1.88888889 2.291591 40 -0.82426975 0.9994425
-#> 13   treatment2 - treatment4  -2.44444444 2.291591 40 -1.06670203 0.9945433
-#> 14   treatment2 - treatment5   2.78958299 3.390279 40  0.82281805 0.9994515
-#> 15   treatment2 - treatment6   0.50416558 3.390989 40  0.14867803 1.0000000
-#> 16   treatment2 - treatment7  -8.49440978 3.381748 40 -2.51183986 0.3620603
-#> 17   treatment2 - treatment8  -0.63179308 3.391475 40 -0.18628857 1.0000000
-#> 18   treatment2 - treatment9  -0.68427692 3.401221 40 -0.20118564 1.0000000
-#> 19  treatment2 - treatment10   3.65354333 3.391497 40  1.07726568 0.9940782
-#> 20  treatment2 - treatment11  -1.48655533 3.381724 40 -0.43958499 0.9999990
-#> 21  treatment2 - treatment12   1.55687368 3.400703 40  0.45780941 0.9999984
-#> 22   treatment3 - treatment4  -0.55555556 2.291591 40 -0.24243228 1.0000000
-#> 23   treatment3 - treatment5   4.67847188 3.390279 40  1.37996651 0.9608529
-#> 24   treatment3 - treatment6   2.39305447 3.390989 40  0.70570988 0.9998730
-#> 25   treatment3 - treatment7  -6.60552089 3.381748 40 -1.95328588 0.7199751
-#> 26   treatment3 - treatment8   1.25709581 3.391475 40  0.37066342 0.9999998
-#> 27   treatment3 - treatment9   1.20461197 3.401221 40  0.35417040 0.9999999
-#> 28  treatment3 - treatment10   5.54243222 3.391497 40  1.63421410 0.8858003
-#> 29  treatment3 - treatment11   0.40233356 3.381724 40  0.11897290 1.0000000
-#> 30  treatment3 - treatment12   3.44576257 3.400703 40  1.01325017 0.9964637
-#> 31   treatment4 - treatment5   5.23402743 3.390279 40  1.54383371 0.9185305
-#> 32   treatment4 - treatment6   2.94861002 3.390989 40  0.86954278 0.9990871
-#> 33   treatment4 - treatment7  -6.04996533 3.381748 40 -1.78900530 0.8142007
-#> 34   treatment4 - treatment8   1.81265136 3.391475 40  0.53447284 0.9999921
-#> 35   treatment4 - treatment9   1.76016753 3.401221 40  0.51751041 0.9999944
-#> 36  treatment4 - treatment10   6.09798777 3.391497 40  1.79802246 0.8094670
-#> 37  treatment4 - treatment11   0.95788911 3.381724 40  0.28325463 1.0000000
-#> 38  treatment4 - treatment12   4.00131813 3.400703 40  1.17661510 0.9879414
-#> 39   treatment5 - treatment6  -2.28541741 4.204286 40 -0.54359233 0.9999907
-#> 40   treatment5 - treatment7 -11.28399277 4.326977 40 -2.60782331 0.3092058
-#> 41   treatment5 - treatment8  -3.42137607 4.211950 40 -0.81230219 0.9995136
-#> 42   treatment5 - treatment9  -3.47385991 4.221229 40 -0.82294979 0.9994507
-#> 43  treatment5 - treatment10   0.86396034 4.321290 40  0.19993111 1.0000000
-#> 44  treatment5 - treatment11  -4.27613832 4.211436 40 -1.01536341 0.9964002
-#> 45  treatment5 - treatment12  -1.23270931 4.342940 40 -0.28384211 1.0000000
-#> 46   treatment6 - treatment7  -8.99857536 4.213051 40 -2.13588112 0.6017899
-#> 47   treatment6 - treatment8  -1.13595866 4.196834 40 -0.27067039 1.0000000
-#> 48   treatment6 - treatment9  -1.18844250 4.352471 40 -0.27305006 1.0000000
-#> 49  treatment6 - treatment10   3.14937775 4.085295 40  0.77090574 0.9997029
-#> 50  treatment6 - treatment11  -1.99072091 4.306653 40 -0.46224313 0.9999983
-#> 51  treatment6 - treatment12   1.05270810 4.351738 40  0.24190521 1.0000000
-#> 52   treatment7 - treatment8   7.86261670 4.315642 40  1.82188806 0.7966665
-#> 53   treatment7 - treatment9   7.81013286 4.205532 40  1.85710953 0.7770878
-#> 54  treatment7 - treatment10  12.14795310 4.206537 40  2.88787534 0.1840837
-#> 55  treatment7 - treatment11   7.00785445 4.197783 40  1.66941808 0.8711998
-#> 56  treatment7 - treatment12  10.05128346 4.086299 40  2.45975241 0.3926311
-#> 57   treatment8 - treatment9  -0.05248384 4.358937 40 -0.01204051 1.0000000
-#> 58  treatment8 - treatment10   4.28533641 4.078551 40  1.05070079 0.9951907
-#> 59  treatment8 - treatment11  -0.85476225 4.079409 40 -0.20953093 1.0000000
-#> 60  treatment8 - treatment12   2.18866676 4.351790 40  0.50293484 0.9999958
-#> 61  treatment9 - treatment10   4.33782024 4.359247 40  0.99508482 0.9969726
-#> 62  treatment9 - treatment11  -0.80227841 4.330793 40 -0.18524978 1.0000000
-#> 63  treatment9 - treatment12   2.24115060 4.085336 40  0.54858410 0.9999897
-#> 64 treatment10 - treatment11  -5.14009866 4.190835 40 -1.22650952 0.9833796
-#> 65 treatment10 - treatment12  -2.09666964 4.345792 40 -0.48245978 0.9999973
-#> 66 treatment11 - treatment12   3.04342901 4.220871 40  0.72104291 0.9998436
+#> Method : lsd
 #> 
-#> Groups :
-#>    treatment   emmean       SE df lower.CL upper.CL .group
-#> 10        10 75.67979 2.979355 40 66.65044 84.70914      1
-#> 5          5 76.54375 2.977969 40 67.51860 85.56890      1
-#> 12        12 77.77646 2.989830 40 68.71536 86.83756      1
-#> 6          6 78.82917 2.978777 40 69.80157 87.85677      1
-#> 2          2 79.33333 1.620399 40 74.42249 84.24418      1
-#> 8          8 79.96513 2.979330 40 70.93585 88.99440      1
-#> 9          9 80.01761 2.990420 40 70.95473 89.08049      1
-#> 11        11 80.81989 2.968226 40 71.82427 89.81551      1
-#> 3          3 81.22222 1.620399 40 76.31138 86.13307      1
-#> 4          4 81.77778 1.620399 40 76.86693 86.68862      1
-#> 1          1 83.66667 1.620399 40 78.75582 88.57751      1
-#> 7          7 87.82774 2.968253 40 78.83204 96.82345      1
+#>                   contrast estimate   SE df t.ratio p.value sig
+#>    treatment1 - treatment2     4.33 2.60 18   1.668   0.113    
+#>    treatment1 - treatment3     2.44 2.60 18   0.941   0.359    
+#>    treatment1 - treatment4     1.89 2.60 18   0.727   0.476    
+#>    treatment1 - treatment5     6.58 3.90 18   1.690   0.108    
+#>    treatment1 - treatment6     5.58 3.90 18   1.433   0.169    
+#>    treatment1 - treatment7    -5.00 3.90 18  -1.283   0.216    
+#>    treatment1 - treatment8     4.17 3.90 18   1.069   0.299    
+#>    treatment1 - treatment9     3.33 3.90 18   0.856   0.404    
+#>   treatment1 - treatment10     9.50 3.90 18   2.438   0.025   *
+#>   treatment1 - treatment11     2.42 3.90 18   0.620   0.543    
+#>   treatment1 - treatment12     4.92 3.90 18   1.262   0.223    
+#>    treatment2 - treatment3    -1.89 2.60 18  -0.727   0.476    
+#>    treatment2 - treatment4    -2.44 2.60 18  -0.941   0.359    
+#>    treatment2 - treatment5     2.25 3.90 18   0.577   0.571    
+#>    treatment2 - treatment6     1.25 3.90 18   0.321   0.752    
+#>    treatment2 - treatment7    -9.33 3.90 18  -2.395   0.028   *
+#>    treatment2 - treatment8    -0.17 3.90 18  -0.043   0.966    
+#>    treatment2 - treatment9    -1.00 3.90 18  -0.257   0.800    
+#>   treatment2 - treatment10     5.17 3.90 18   1.326   0.201    
+#>   treatment2 - treatment11    -1.92 3.90 18  -0.492   0.629    
+#>   treatment2 - treatment12     0.58 3.90 18   0.150   0.883    
+#>    treatment3 - treatment4    -0.56 2.60 18  -0.214   0.833    
+#>    treatment3 - treatment5     4.14 3.90 18   1.062   0.302    
+#>    treatment3 - treatment6     3.14 3.90 18   0.806   0.431    
+#>    treatment3 - treatment7    -7.44 3.90 18  -1.911   0.072    
+#>    treatment3 - treatment8     1.72 3.90 18   0.442   0.664    
+#>    treatment3 - treatment9     0.89 3.90 18   0.228   0.822    
+#>   treatment3 - treatment10     7.06 3.90 18   1.811   0.087    
+#>   treatment3 - treatment11    -0.03 3.90 18  -0.007   0.994    
+#>   treatment3 - treatment12     2.47 3.90 18   0.635   0.534    
+#>    treatment4 - treatment5     4.69 3.90 18   1.205   0.244    
+#>    treatment4 - treatment6     3.69 3.90 18   0.948   0.356    
+#>    treatment4 - treatment7    -6.89 3.90 18  -1.768   0.094    
+#>    treatment4 - treatment8     2.28 3.90 18   0.585   0.566    
+#>    treatment4 - treatment9     1.44 3.90 18   0.371   0.715    
+#>   treatment4 - treatment10     7.61 3.90 18   1.953   0.066    
+#>   treatment4 - treatment11     0.53 3.90 18   0.135   0.894    
+#>   treatment4 - treatment12     3.03 3.90 18   0.777   0.447    
+#>    treatment5 - treatment6    -1.00 4.86 18  -0.206   0.839    
+#>    treatment5 - treatment7   -11.58 5.03 18  -2.303   0.033   *
+#>    treatment5 - treatment8    -2.42 4.86 18  -0.497   0.625    
+#>    treatment5 - treatment9    -3.25 4.86 18  -0.669   0.512    
+#>   treatment5 - treatment10     2.92 5.03 18   0.580   0.569    
+#>   treatment5 - treatment11    -4.17 4.86 18  -0.857   0.402    
+#>   treatment5 - treatment12    -1.67 5.03 18  -0.331   0.744    
+#>    treatment6 - treatment7   -10.58 4.86 18  -2.178   0.043   *
+#>    treatment6 - treatment8    -1.42 4.86 18  -0.292   0.774    
+#>    treatment6 - treatment9    -2.25 5.03 18  -0.447   0.660    
+#>   treatment6 - treatment10     3.92 4.68 18   0.836   0.414    
+#>   treatment6 - treatment11    -3.17 5.03 18  -0.630   0.537    
+#>   treatment6 - treatment12    -0.67 5.03 18  -0.133   0.896    
+#>    treatment7 - treatment8     9.17 5.03 18   1.822   0.085    
+#>    treatment7 - treatment9     8.33 4.86 18   1.715   0.104    
+#>   treatment7 - treatment10    14.50 4.86 18   2.984   0.008  **
+#>   treatment7 - treatment11     7.42 4.86 18   1.526   0.144    
+#>   treatment7 - treatment12     9.92 4.68 18   2.118   0.048   *
+#>    treatment8 - treatment9    -0.83 5.03 18  -0.166   0.870    
+#>   treatment8 - treatment10     5.33 4.68 18   1.139   0.270    
+#>   treatment8 - treatment11    -1.75 4.68 18  -0.374   0.713    
+#>   treatment8 - treatment12     0.75 5.03 18   0.149   0.883    
+#>   treatment9 - treatment10     6.17 5.03 18   1.226   0.236    
+#>   treatment9 - treatment11    -0.92 5.03 18  -0.182   0.857    
+#>   treatment9 - treatment12     1.58 4.68 18   0.338   0.739    
+#>  treatment10 - treatment11    -7.08 4.86 18  -1.458   0.162    
+#>  treatment10 - treatment12    -4.58 5.03 18  -0.911   0.374    
+#>  treatment11 - treatment12     2.50 4.86 18   0.514   0.613    
 #> 
-#> warnings :
-#> NULL
+#> Treatment Groups
+#> ================
 #> 
+#> Method : lsd
+#> 
+#>  Treatment Adjusted Means   SE df lower.CL upper.CL Group
+#>         10          74.17 3.44 18    66.95    81.39   1  
+#>          5          77.08 3.44 18    69.86    84.30   12 
+#>          6          78.08 3.44 18    70.86    85.30   12 
+#>         12          78.75 3.44 18    71.53    85.97   12 
+#>          2          79.33 1.84 18    75.47    83.19   12 
+#>          8          79.50 3.44 18    72.28    86.72   123
+#>          9          80.33 3.44 18    73.11    87.55   123
+#>          3          81.22 1.84 18    77.36    85.08   123
+#>         11          81.25 3.44 18    74.03    88.47   123
+#>          4          81.78 1.84 18    77.92    85.64   123
+#>          1          83.67 1.84 18    79.81    87.53    23
+#>          7          88.67 3.44 18    81.45    95.89     3
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Test treatments are not replicated across all environments
@@ -477,60 +509,20 @@ out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
                            env = data2$env2, y = data2$y2, checks = chks2,
                            scenario = 2, method.comp = "lsd", alpha = 0.05,
                            group = TRUE, console = TRUE)
-#> Note: adjust = "tukey" was changed to "sidak"
-#> because "tukey" is only appropriate for one set of pairwise comparisons
-#> Details :
-#> $`Number of blocks`
-#> [1] 9
 #> 
-#> $`Number of treatments`
-#> [1] 28
-#> 
-#> $`Number of environments`
-#> [1] 3
-#> 
-#> $`Number of check treatments`
-#> [1] 4
-#> 
-#> $`Number of test treatments`
-#> [1] 24
-#> 
-#> $`Check treatments`
-#> [1] "1" "2" "3" "4"
+#> Augmented Design Details
+#> ========================
+#>                                        
+#> Number of blocks           "9"         
+#> Number of treatments       "28"        
+#> Number of environments     "3"         
+#> Number of check treatments "4"         
+#> Number of test treatments  "24"        
+#> Check treatments           "1, 2, 3, 4"
 #> 
 #> 
-#> Means :
-#>    treatment    Means        SE r Min Max Adjusted Means
-#> 1          1 83.66667 1.9220938 9  78  92       83.66667
-#> 2         10 89.00000        NA 1  89  89       85.75000
-#> 3         11 82.00000        NA 1  82  82       78.75000
-#> 4         12 74.00000        NA 1  74  74       76.50000
-#> 5         13 81.00000        NA 1  81  81       79.25000
-#> 6         14 75.00000        NA 1  75  75       80.25000
-#> 7         15 77.00000        NA 1  77  77       82.25000
-#> 8         16 95.00000        NA 1  95  95       93.25000
-#> 9         17 79.00000        NA 1  79  79       80.50000
-#> 10        18 72.00000        NA 1  72  72       77.25000
-#> 11        19 86.00000        NA 1  86  86       84.25000
-#> 12         2 79.33333 0.7264832 9  76  83       79.33333
-#> 13        20 76.00000        NA 1  76  76       77.50000
-#> 14        21 74.00000        NA 1  74  74       74.50000
-#> 15        22 94.00000        NA 1  94  94       91.00000
-#> 16        23 76.00000        NA 1  76  76       76.50000
-#> 17        24 73.00000        NA 1  73  73       72.75000
-#> 18        25 87.00000        NA 1  87  87       84.00000
-#> 19        26 74.00000        NA 1  74  74       73.75000
-#> 20        27 83.00000        NA 1  83  83       80.00000
-#> 21        28 69.00000        NA 1  69  69       68.75000
-#> 22         3 81.22222 1.6139821 9  75  87       81.22222
-#> 23         4 81.77778 2.1001176 9  74  91       81.77778
-#> 24         5 79.00000        NA 1  79  79       77.50000
-#> 25         6 75.00000        NA 1  75  75       77.50000
-#> 26         7 96.00000        NA 1  96  96       92.75000
-#> 27         8 70.00000        NA 1  70  70       72.50000
-#> 28         9 78.00000        NA 1  78  78       76.50000
-#> 
-#> ANOVA, Treatment Adjusted :
+#> ANOVA, Treatment Adjusted
+#> =========================
 #>                                                           Df Sum Sq Mean Sq
 #> Environment                                                2   24.7   12.35
 #> Treatment (eliminating Blocks)                            27 1550.0   57.41
@@ -550,7 +542,8 @@ out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> ANOVA, Block Adjusted :
+#> ANOVA, Block Adjusted
+#> =====================
 #>                                                           Df Sum Sq Mean Sq
 #> Environment                                                2   24.7   12.35
 #> Treatment (ignoring Blocks)                               27 1550.0   57.41
@@ -572,455 +565,472 @@ out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Block effects :
-#>   1_1   1_2   1_3   2_4   2_5   2_6   3_7   3_8   3_9 
-#>  3.25  1.50 -2.50  1.75 -1.50 -5.25  3.00 -0.50  0.25 
-#> attr(,"overall")
-#> [1] 79.98214
+#> Coefficient of Variation
+#> ========================
+#> NA
 #> 
-#> Treatment effects :
-#>            1            2            3            4            5            6 
-#>   3.68452381  -0.64880952   1.24007937   1.79563492  -2.48214286  -2.48214286 
-#>            7            8            9           10           11           12 
-#>  12.76785714  -7.48214286  -3.48214286   5.76785714  -1.23214286  -3.48214286 
-#>           13           14           15           16           17           18 
-#>  -0.73214286   0.26785714   2.26785714  13.26785714   0.51785714  -2.73214286 
-#>           19           20           21           22           23           24 
-#>   4.26785714  -2.48214286  -5.48214286  11.01785714  -3.48214286  -7.23214286 
-#>           25           26           27           28 
-#>   4.01785714  -6.23214286   0.01785714 -11.23214286 
-#> attr(,"overall")
-#> [1] 79.98214
+#> Overall Adjusted Mean
+#> =====================
+#> 79.98214
 #> 
-#> Std. Errors :
+#> Standard Errors
+#> ===============
 #>                                          Std. Error of Diff. CD (5%)
 #> Control Treatment Means                                   NA      NA
 #> Two Test Treatments (Same Block)                          NA      NA
 #> Two Test Treatments (Different Blocks)                    NA      NA
 #> A Test Treatment and a Control Treatment                  NA      NA
 #> 
-#> Overall adjusted mean :
-#> [1] 79.98214
+#> Treatment Means
+#> ===============
+#>  treatment Means   SE r   Min   Max Adjusted Means
+#>          1 83.67 1.92 9 78.00 92.00          83.67
+#>         10 89.00 <NA> 1 89.00 89.00          85.75
+#>         11 82.00 <NA> 1 82.00 82.00          78.75
+#>         12 74.00 <NA> 1 74.00 74.00          76.50
+#>         13 81.00 <NA> 1 81.00 81.00          79.25
+#>         14 75.00 <NA> 1 75.00 75.00          80.25
+#>         15 77.00 <NA> 1 77.00 77.00          82.25
+#>         16 95.00 <NA> 1 95.00 95.00          93.25
+#>         17 79.00 <NA> 1 79.00 79.00          80.50
+#>         18 72.00 <NA> 1 72.00 72.00          77.25
+#>         19 86.00 <NA> 1 86.00 86.00          84.25
+#>          2 79.33 0.73 9 76.00 83.00          79.33
+#>         20 76.00 <NA> 1 76.00 76.00          77.50
+#>         21 74.00 <NA> 1 74.00 74.00          74.50
+#>         22 94.00 <NA> 1 94.00 94.00          91.00
+#>         23 76.00 <NA> 1 76.00 76.00          76.50
+#>         24 73.00 <NA> 1 73.00 73.00          72.75
+#>         25 87.00 <NA> 1 87.00 87.00          84.00
+#>         26 74.00 <NA> 1 74.00 74.00          73.75
+#>         27 83.00 <NA> 1 83.00 83.00          80.00
+#>         28 69.00 <NA> 1 69.00 69.00          68.75
+#>          3 81.22 1.61 9 75.00 87.00          81.22
+#>          4 81.78 2.10 9 74.00 91.00          81.78
+#>          5 79.00 <NA> 1 79.00 79.00          77.50
+#>          6 75.00 <NA> 1 75.00 75.00          77.50
+#>          7 96.00 <NA> 1 96.00 96.00          92.75
+#>          8 70.00 <NA> 1 70.00 70.00          72.50
+#>          9 78.00 <NA> 1 78.00 78.00          76.50
 #> 
-#> CV :
-#> [1] NA
 #> 
-#> Comparison method :
-#> [1] "lsd"
+#> Comparisons
+#> ===========
 #> 
-#> Comparisons :
-#>                      contrast      estimate       SE df       t.ratio   p.value
-#> 1     treatment1 - treatment2  4.333333e+00 2.285443 24  1.896058e+00 0.9658870
-#> 2     treatment1 - treatment3  2.444444e+00 2.285443 24  1.069571e+00 0.9999908
-#> 3     treatment1 - treatment4  1.888889e+00 2.285443 24  8.264869e-01 0.9999999
-#> 4     treatment1 - treatment5  6.166667e+00 5.598170 24  1.101550e+00 0.9999842
-#> 5     treatment1 - treatment6  6.166667e+00 5.598170 24  1.101550e+00 0.9999842
-#> 6     treatment1 - treatment7 -9.083333e+00 5.598170 24 -1.622554e+00 0.9939411
-#> 7     treatment1 - treatment8  1.116667e+01 5.598170 24  1.994699e+00 0.9451063
-#> 8     treatment1 - treatment9  7.166667e+00 5.598170 24  1.280180e+00 0.9997933
-#> 9    treatment1 - treatment10 -2.083333e+00 5.598170 24 -3.721454e-01 1.0000000
-#> 10   treatment1 - treatment11  4.916667e+00 5.598170 24  8.782632e-01 0.9999998
-#> 11   treatment1 - treatment12  7.166667e+00 5.598170 24  1.280180e+00 0.9997933
-#> 12   treatment1 - treatment13  4.416667e+00 5.598170 24  7.889483e-01 1.0000000
-#> 13   treatment1 - treatment14  3.416667e+00 5.598170 24  6.103185e-01 1.0000000
-#> 14   treatment1 - treatment15  1.416667e+00 5.598170 24  2.530589e-01 1.0000000
-#> 15   treatment1 - treatment16 -9.583333e+00 5.598170 24 -1.711869e+00 0.9885123
-#> 16   treatment1 - treatment17  3.166667e+00 5.598170 24  5.656611e-01 1.0000000
-#> 17   treatment1 - treatment18  6.416667e+00 5.598170 24  1.146208e+00 0.9999679
-#> 18   treatment1 - treatment19 -5.833333e-01 5.598170 24 -1.042007e-01 1.0000000
-#> 19   treatment1 - treatment20  6.166667e+00 5.598170 24  1.101550e+00 0.9999842
-#> 20   treatment1 - treatment21  9.166667e+00 5.598170 24  1.637440e+00 0.9932206
-#> 21   treatment1 - treatment22 -7.333333e+00 5.598170 24 -1.309952e+00 0.9997022
-#> 22   treatment1 - treatment23  7.166667e+00 5.598170 24  1.280180e+00 0.9997933
-#> 23   treatment1 - treatment24  1.091667e+01 5.598170 24  1.950042e+00 0.9553753
-#> 24   treatment1 - treatment25 -3.333333e-01 5.598170 24 -5.954327e-02 1.0000000
-#> 25   treatment1 - treatment26  9.916667e+00 5.598170 24  1.771412e+00 0.9831434
-#> 26   treatment1 - treatment27  3.666667e+00 5.598170 24  6.549760e-01 1.0000000
-#> 27   treatment1 - treatment28  1.491667e+01 5.598170 24  2.664561e+00 0.6238201
-#> 28    treatment2 - treatment3 -1.888889e+00 2.285443 24 -8.264869e-01 0.9999999
-#> 29    treatment2 - treatment4 -2.444444e+00 2.285443 24 -1.069571e+00 0.9999908
-#> 30    treatment2 - treatment5  1.833333e+00 5.598170 24  3.274880e-01 1.0000000
-#> 31    treatment2 - treatment6  1.833333e+00 5.598170 24  3.274880e-01 1.0000000
-#> 32    treatment2 - treatment7 -1.341667e+01 5.598170 24 -2.396617e+00 0.7837997
-#> 33    treatment2 - treatment8  6.833333e+00 5.598170 24  1.220637e+00 0.9999054
-#> 34    treatment2 - treatment9  2.833333e+00 5.598170 24  5.061178e-01 1.0000000
-#> 35   treatment2 - treatment10 -6.416667e+00 5.598170 24 -1.146208e+00 0.9999679
-#> 36   treatment2 - treatment11  5.833333e-01 5.598170 24  1.042007e-01 1.0000000
-#> 37   treatment2 - treatment12  2.833333e+00 5.598170 24  5.061178e-01 1.0000000
-#> 38   treatment2 - treatment13  8.333333e-02 5.598170 24  1.488582e-02 1.0000000
-#> 39   treatment2 - treatment14 -9.166667e-01 5.598170 24 -1.637440e-01 1.0000000
-#> 40   treatment2 - treatment15 -2.916667e+00 5.598170 24 -5.210036e-01 1.0000000
-#> 41   treatment2 - treatment16 -1.391667e+01 5.598170 24 -2.485931e+00 0.7333078
-#> 42   treatment2 - treatment17 -1.166667e+00 5.598170 24 -2.084014e-01 1.0000000
-#> 43   treatment2 - treatment18  2.083333e+00 5.598170 24  3.721454e-01 1.0000000
-#> 44   treatment2 - treatment19 -4.916667e+00 5.598170 24 -8.782632e-01 0.9999998
-#> 45   treatment2 - treatment20  1.833333e+00 5.598170 24  3.274880e-01 1.0000000
-#> 46   treatment2 - treatment21  4.833333e+00 5.598170 24  8.633774e-01 0.9999999
-#> 47   treatment2 - treatment22 -1.166667e+01 5.598170 24 -2.084014e+00 0.9200000
-#> 48   treatment2 - treatment23  2.833333e+00 5.598170 24  5.061178e-01 1.0000000
-#> 49   treatment2 - treatment24  6.583333e+00 5.598170 24  1.175980e+00 0.9999498
-#> 50   treatment2 - treatment25 -4.666667e+00 5.598170 24 -8.336058e-01 0.9999999
-#> 51   treatment2 - treatment26  5.583333e+00 5.598170 24  9.973497e-01 0.9999975
-#> 52   treatment2 - treatment27 -6.666667e-01 5.598170 24 -1.190865e-01 1.0000000
-#> 53   treatment2 - treatment28  1.058333e+01 5.598170 24  1.890499e+00 0.9668571
-#> 54    treatment3 - treatment4 -5.555556e-01 2.285443 24 -2.430844e-01 1.0000000
-#> 55    treatment3 - treatment5  3.722222e+00 5.598170 24  6.648998e-01 1.0000000
-#> 56    treatment3 - treatment6  3.722222e+00 5.598170 24  6.648998e-01 1.0000000
-#> 57    treatment3 - treatment7 -1.152778e+01 5.598170 24 -2.059205e+00 0.9276013
-#> 58    treatment3 - treatment8  8.722222e+00 5.598170 24  1.558049e+00 0.9963817
-#> 59    treatment3 - treatment9  4.722222e+00 5.598170 24  8.435296e-01 0.9999999
-#> 60   treatment3 - treatment10 -4.527778e+00 5.598170 24 -8.087961e-01 1.0000000
-#> 61   treatment3 - treatment11  2.472222e+00 5.598170 24  4.416126e-01 1.0000000
-#> 62   treatment3 - treatment12  4.722222e+00 5.598170 24  8.435296e-01 0.9999999
-#> 63   treatment3 - treatment13  1.972222e+00 5.598170 24  3.522977e-01 1.0000000
-#> 64   treatment3 - treatment14  9.722222e-01 5.598170 24  1.736679e-01 1.0000000
-#> 65   treatment3 - treatment15 -1.027778e+00 5.598170 24 -1.835917e-01 1.0000000
-#> 66   treatment3 - treatment16 -1.202778e+01 5.598170 24 -2.148520e+00 0.8979398
-#> 67   treatment3 - treatment17  7.222222e-01 5.598170 24  1.290104e-01 1.0000000
-#> 68   treatment3 - treatment18  3.972222e+00 5.598170 24  7.095573e-01 1.0000000
-#> 69   treatment3 - treatment19 -3.027778e+00 5.598170 24 -5.408514e-01 1.0000000
-#> 70   treatment3 - treatment20  3.722222e+00 5.598170 24  6.648998e-01 1.0000000
-#> 71   treatment3 - treatment21  6.722222e+00 5.598170 24  1.200789e+00 0.9999282
-#> 72   treatment3 - treatment22 -9.777778e+00 5.598170 24 -1.746603e+00 0.9855759
-#> 73   treatment3 - treatment23  4.722222e+00 5.598170 24  8.435296e-01 0.9999999
-#> 74   treatment3 - treatment24  8.472222e+00 5.598170 24  1.513391e+00 0.9975401
-#> 75   treatment3 - treatment25 -2.777778e+00 5.598170 24 -4.961939e-01 1.0000000
-#> 76   treatment3 - treatment26  7.472222e+00 5.598170 24  1.334762e+00 0.9996011
-#> 77   treatment3 - treatment27  1.222222e+00 5.598170 24  2.183253e-01 1.0000000
-#> 78   treatment3 - treatment28  1.247222e+01 5.598170 24  2.227911e+00 0.8662699
-#> 79    treatment4 - treatment5  4.277778e+00 5.598170 24  7.641386e-01 1.0000000
-#> 80    treatment4 - treatment6  4.277778e+00 5.598170 24  7.641386e-01 1.0000000
-#> 81    treatment4 - treatment7 -1.097222e+01 5.598170 24 -1.959966e+00 0.9532199
-#> 82    treatment4 - treatment8  9.277778e+00 5.598170 24  1.657288e+00 0.9921537
-#> 83    treatment4 - treatment9  5.277778e+00 5.598170 24  9.427684e-01 0.9999992
-#> 84   treatment4 - treatment10 -3.972222e+00 5.598170 24 -7.095573e-01 1.0000000
-#> 85   treatment4 - treatment11  3.027778e+00 5.598170 24  5.408514e-01 1.0000000
-#> 86   treatment4 - treatment12  5.277778e+00 5.598170 24  9.427684e-01 0.9999992
-#> 87   treatment4 - treatment13  2.527778e+00 5.598170 24  4.515365e-01 1.0000000
-#> 88   treatment4 - treatment14  1.527778e+00 5.598170 24  2.729066e-01 1.0000000
-#> 89   treatment4 - treatment15 -4.722222e-01 5.598170 24 -8.435296e-02 1.0000000
-#> 90   treatment4 - treatment16 -1.147222e+01 5.598170 24 -2.049281e+00 0.9305054
-#> 91   treatment4 - treatment17  1.277778e+00 5.598170 24  2.282492e-01 1.0000000
-#> 92   treatment4 - treatment18  4.527778e+00 5.598170 24  8.087961e-01 1.0000000
-#> 93   treatment4 - treatment19 -2.472222e+00 5.598170 24 -4.416126e-01 1.0000000
-#> 94   treatment4 - treatment20  4.277778e+00 5.598170 24  7.641386e-01 1.0000000
-#> 95   treatment4 - treatment21  7.277778e+00 5.598170 24  1.300028e+00 0.9997359
-#> 96   treatment4 - treatment22 -9.222222e+00 5.598170 24 -1.647364e+00 0.9927029
-#> 97   treatment4 - treatment23  5.277778e+00 5.598170 24  9.427684e-01 0.9999992
-#> 98   treatment4 - treatment24  9.027778e+00 5.598170 24  1.612630e+00 0.9943859
-#> 99   treatment4 - treatment25 -2.222222e+00 5.598170 24 -3.969551e-01 1.0000000
-#> 100  treatment4 - treatment26  8.027778e+00 5.598170 24  1.434000e+00 0.9988386
-#> 101  treatment4 - treatment27  1.777778e+00 5.598170 24  3.175641e-01 1.0000000
-#> 102  treatment4 - treatment28  1.302778e+01 5.598170 24  2.327149e+00 0.8200544
-#> 103   treatment5 - treatment6 -1.776357e-15 7.665610 24 -2.317307e-16 1.0000000
-#> 104   treatment5 - treatment7 -1.525000e+01 7.665610 24 -1.989405e+00 0.9464012
-#> 105   treatment5 - treatment8  5.000000e+00 7.665610 24  6.522638e-01 1.0000000
-#> 106   treatment5 - treatment9  1.000000e+00 6.856330 24  1.458506e-01 1.0000000
-#> 107  treatment5 - treatment10 -8.250000e+00 7.665610 24 -1.076235e+00 0.9999897
-#> 108  treatment5 - treatment11 -1.250000e+00 7.665610 24 -1.630660e-01 1.0000000
-#> 109  treatment5 - treatment12  1.000000e+00 7.665610 24  1.304528e-01 1.0000000
-#> 110  treatment5 - treatment13 -1.750000e+00 7.665610 24 -2.282923e-01 1.0000000
-#> 111  treatment5 - treatment14 -2.750000e+00 7.665610 24 -3.587451e-01 1.0000000
-#> 112  treatment5 - treatment15 -4.750000e+00 7.665610 24 -6.196506e-01 1.0000000
-#> 113  treatment5 - treatment16 -1.575000e+01 7.665610 24 -2.054631e+00 0.9289493
-#> 114  treatment5 - treatment17 -3.000000e+00 7.665610 24 -3.913583e-01 1.0000000
-#> 115  treatment5 - treatment18  2.500000e-01 7.665610 24  3.261319e-02 1.0000000
-#> 116  treatment5 - treatment19 -6.750000e+00 7.665610 24 -8.805562e-01 0.9999998
-#> 117  treatment5 - treatment20 -4.884981e-15 7.665610 24 -6.372593e-16 1.0000000
-#> 118  treatment5 - treatment21  3.000000e+00 7.665610 24  3.913583e-01 1.0000000
-#> 119  treatment5 - treatment22 -1.350000e+01 7.665610 24 -1.761112e+00 0.9841890
-#> 120  treatment5 - treatment23  1.000000e+00 7.665610 24  1.304528e-01 1.0000000
-#> 121  treatment5 - treatment24  4.750000e+00 7.665610 24  6.196506e-01 1.0000000
-#> 122  treatment5 - treatment25 -6.500000e+00 7.665610 24 -8.479430e-01 0.9999999
-#> 123  treatment5 - treatment26  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 124  treatment5 - treatment27 -2.500000e+00 7.665610 24 -3.261319e-01 1.0000000
-#> 125  treatment5 - treatment28  8.750000e+00 7.665610 24  1.141462e+00 0.9999701
-#> 126   treatment6 - treatment7 -1.525000e+01 7.665610 24 -1.989405e+00 0.9464012
-#> 127   treatment6 - treatment8  5.000000e+00 6.856330 24  7.292531e-01 1.0000000
-#> 128   treatment6 - treatment9  1.000000e+00 7.665610 24  1.304528e-01 1.0000000
-#> 129  treatment6 - treatment10 -8.250000e+00 7.665610 24 -1.076235e+00 0.9999897
-#> 130  treatment6 - treatment11 -1.250000e+00 7.665610 24 -1.630660e-01 1.0000000
-#> 131  treatment6 - treatment12  1.000000e+00 6.856330 24  1.458506e-01 1.0000000
-#> 132  treatment6 - treatment13 -1.750000e+00 7.665610 24 -2.282923e-01 1.0000000
-#> 133  treatment6 - treatment14 -2.750000e+00 7.665610 24 -3.587451e-01 1.0000000
-#> 134  treatment6 - treatment15 -4.750000e+00 7.665610 24 -6.196506e-01 1.0000000
-#> 135  treatment6 - treatment16 -1.575000e+01 7.665610 24 -2.054631e+00 0.9289493
-#> 136  treatment6 - treatment17 -3.000000e+00 7.665610 24 -3.913583e-01 1.0000000
-#> 137  treatment6 - treatment18  2.500000e-01 7.665610 24  3.261319e-02 1.0000000
-#> 138  treatment6 - treatment19 -6.750000e+00 7.665610 24 -8.805562e-01 0.9999998
-#> 139  treatment6 - treatment20 -3.108624e-15 7.665610 24 -4.055287e-16 1.0000000
-#> 140  treatment6 - treatment21  3.000000e+00 7.665610 24  3.913583e-01 1.0000000
-#> 141  treatment6 - treatment22 -1.350000e+01 7.665610 24 -1.761112e+00 0.9841890
-#> 142  treatment6 - treatment23  1.000000e+00 7.665610 24  1.304528e-01 1.0000000
-#> 143  treatment6 - treatment24  4.750000e+00 7.665610 24  6.196506e-01 1.0000000
-#> 144  treatment6 - treatment25 -6.500000e+00 7.665610 24 -8.479430e-01 0.9999999
-#> 145  treatment6 - treatment26  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 146  treatment6 - treatment27 -2.500000e+00 7.665610 24 -3.261319e-01 1.0000000
-#> 147  treatment6 - treatment28  8.750000e+00 7.665610 24  1.141462e+00 0.9999701
-#> 148   treatment7 - treatment8  2.025000e+01 7.665610 24  2.641668e+00 0.6382215
-#> 149   treatment7 - treatment9  1.625000e+01 7.665610 24  2.119857e+00 0.9081522
-#> 150  treatment7 - treatment10  7.000000e+00 6.856330 24  1.020954e+00 0.9999962
-#> 151  treatment7 - treatment11  1.400000e+01 6.856330 24  2.041909e+00 0.9326126
-#> 152  treatment7 - treatment12  1.625000e+01 7.665610 24  2.119857e+00 0.9081522
-#> 153  treatment7 - treatment13  1.350000e+01 7.665610 24  1.761112e+00 0.9841890
-#> 154  treatment7 - treatment14  1.250000e+01 7.665610 24  1.630660e+00 0.9935569
-#> 155  treatment7 - treatment15  1.050000e+01 7.665610 24  1.369754e+00 0.9994081
-#> 156  treatment7 - treatment16 -5.000000e-01 7.665610 24 -6.522638e-02 1.0000000
-#> 157  treatment7 - treatment17  1.225000e+01 7.665610 24  1.598046e+00 0.9949910
-#> 158  treatment7 - treatment18  1.550000e+01 7.665610 24  2.022018e+00 0.9380862
-#> 159  treatment7 - treatment19  8.500000e+00 7.665610 24  1.108849e+00 0.9999822
-#> 160  treatment7 - treatment20  1.525000e+01 7.665610 24  1.989405e+00 0.9464012
-#> 161  treatment7 - treatment21  1.825000e+01 7.665610 24  2.380763e+00 0.7923291
-#> 162  treatment7 - treatment22  1.750000e+00 7.665610 24  2.282923e-01 1.0000000
-#> 163  treatment7 - treatment23  1.625000e+01 7.665610 24  2.119857e+00 0.9081522
-#> 164  treatment7 - treatment24  2.000000e+01 7.665610 24  2.609055e+00 0.6586181
-#> 165  treatment7 - treatment25  8.750000e+00 7.665610 24  1.141462e+00 0.9999701
-#> 166  treatment7 - treatment26  1.900000e+01 7.665610 24  2.478603e+00 0.7375910
-#> 167  treatment7 - treatment27  1.275000e+01 7.665610 24  1.663273e+00 0.9918068
-#> 168  treatment7 - treatment28  2.400000e+01 7.665610 24  3.130866e+00 0.3462901
-#> 169   treatment8 - treatment9 -4.000000e+00 7.665610 24 -5.218111e-01 1.0000000
-#> 170  treatment8 - treatment10 -1.325000e+01 7.665610 24 -1.728499e+00 0.9871716
-#> 171  treatment8 - treatment11 -6.250000e+00 7.665610 24 -8.153298e-01 1.0000000
-#> 172  treatment8 - treatment12 -4.000000e+00 6.856330 24 -5.834025e-01 1.0000000
-#> 173  treatment8 - treatment13 -6.750000e+00 7.665610 24 -8.805562e-01 0.9999998
-#> 174  treatment8 - treatment14 -7.750000e+00 7.665610 24 -1.011009e+00 0.9999968
-#> 175  treatment8 - treatment15 -9.750000e+00 7.665610 24 -1.271914e+00 0.9998138
-#> 176  treatment8 - treatment16 -2.075000e+01 7.665610 24 -2.706895e+00 0.5970867
-#> 177  treatment8 - treatment17 -8.000000e+00 7.665610 24 -1.043622e+00 0.9999942
-#> 178  treatment8 - treatment18 -4.750000e+00 7.665610 24 -6.196506e-01 1.0000000
-#> 179  treatment8 - treatment19 -1.175000e+01 7.665610 24 -1.532820e+00 0.9970816
-#> 180  treatment8 - treatment20 -5.000000e+00 7.665610 24 -6.522638e-01 1.0000000
-#> 181  treatment8 - treatment21 -2.000000e+00 7.665610 24 -2.609055e-01 1.0000000
-#> 182  treatment8 - treatment22 -1.850000e+01 7.665610 24 -2.413376e+00 0.7746304
-#> 183  treatment8 - treatment23 -4.000000e+00 7.665610 24 -5.218111e-01 1.0000000
-#> 184  treatment8 - treatment24 -2.500000e-01 7.665610 24 -3.261319e-02 1.0000000
-#> 185  treatment8 - treatment25 -1.150000e+01 7.665610 24 -1.500207e+00 0.9978156
-#> 186  treatment8 - treatment26 -1.250000e+00 7.665610 24 -1.630660e-01 1.0000000
-#> 187  treatment8 - treatment27 -7.500000e+00 7.665610 24 -9.783957e-01 0.9999983
-#> 188  treatment8 - treatment28  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 189  treatment9 - treatment10 -9.250000e+00 7.665610 24 -1.206688e+00 0.9999220
-#> 190  treatment9 - treatment11 -2.250000e+00 7.665610 24 -2.935187e-01 1.0000000
-#> 191  treatment9 - treatment12 -3.552714e-15 7.665610 24 -4.634613e-16 1.0000000
-#> 192  treatment9 - treatment13 -2.750000e+00 7.665610 24 -3.587451e-01 1.0000000
-#> 193  treatment9 - treatment14 -3.750000e+00 7.665610 24 -4.891979e-01 1.0000000
-#> 194  treatment9 - treatment15 -5.750000e+00 7.665610 24 -7.501034e-01 1.0000000
-#> 195  treatment9 - treatment16 -1.675000e+01 7.665610 24 -2.185084e+00 0.8839651
-#> 196  treatment9 - treatment17 -4.000000e+00 7.665610 24 -5.218111e-01 1.0000000
-#> 197  treatment9 - treatment18 -7.500000e-01 7.665610 24 -9.783957e-02 1.0000000
-#> 198  treatment9 - treatment19 -7.750000e+00 7.665610 24 -1.011009e+00 0.9999968
-#> 199  treatment9 - treatment20 -1.000000e+00 7.665610 24 -1.304528e-01 1.0000000
-#> 200  treatment9 - treatment21  2.000000e+00 7.665610 24  2.609055e-01 1.0000000
-#> 201  treatment9 - treatment22 -1.450000e+01 7.665610 24 -1.891565e+00 0.9666726
-#> 202  treatment9 - treatment23 -5.773160e-15 7.665610 24 -7.531247e-16 1.0000000
-#> 203  treatment9 - treatment24  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 204  treatment9 - treatment25 -7.500000e+00 7.665610 24 -9.783957e-01 0.9999983
-#> 205  treatment9 - treatment26  2.750000e+00 7.665610 24  3.587451e-01 1.0000000
-#> 206  treatment9 - treatment27 -3.500000e+00 7.665610 24 -4.565847e-01 1.0000000
-#> 207  treatment9 - treatment28  7.750000e+00 7.665610 24  1.011009e+00 0.9999968
-#> 208 treatment10 - treatment11  7.000000e+00 6.856330 24  1.020954e+00 0.9999962
-#> 209 treatment10 - treatment12  9.250000e+00 7.665610 24  1.206688e+00 0.9999220
-#> 210 treatment10 - treatment13  6.500000e+00 7.665610 24  8.479430e-01 0.9999999
-#> 211 treatment10 - treatment14  5.500000e+00 7.665610 24  7.174902e-01 1.0000000
-#> 212 treatment10 - treatment15  3.500000e+00 7.665610 24  4.565847e-01 1.0000000
-#> 213 treatment10 - treatment16 -7.500000e+00 7.665610 24 -9.783957e-01 0.9999983
-#> 214 treatment10 - treatment17  5.250000e+00 7.665610 24  6.848770e-01 1.0000000
-#> 215 treatment10 - treatment18  8.500000e+00 7.665610 24  1.108849e+00 0.9999822
-#> 216 treatment10 - treatment19  1.500000e+00 7.665610 24  1.956791e-01 1.0000000
-#> 217 treatment10 - treatment20  8.250000e+00 7.665610 24  1.076235e+00 0.9999897
-#> 218 treatment10 - treatment21  1.125000e+01 7.665610 24  1.467594e+00 0.9983876
-#> 219 treatment10 - treatment22 -5.250000e+00 7.665610 24 -6.848770e-01 1.0000000
-#> 220 treatment10 - treatment23  9.250000e+00 7.665610 24  1.206688e+00 0.9999220
-#> 221 treatment10 - treatment24  1.300000e+01 7.665610 24  1.695886e+00 0.9896944
-#> 222 treatment10 - treatment25  1.750000e+00 7.665610 24  2.282923e-01 1.0000000
-#> 223 treatment10 - treatment26  1.200000e+01 7.665610 24  1.565433e+00 0.9961524
-#> 224 treatment10 - treatment27  5.750000e+00 7.665610 24  7.501034e-01 1.0000000
-#> 225 treatment10 - treatment28  1.700000e+01 7.665610 24  2.217697e+00 0.8706180
-#> 226 treatment11 - treatment12  2.250000e+00 7.665610 24  2.935187e-01 1.0000000
-#> 227 treatment11 - treatment13 -5.000000e-01 7.665610 24 -6.522638e-02 1.0000000
-#> 228 treatment11 - treatment14 -1.500000e+00 7.665610 24 -1.956791e-01 1.0000000
-#> 229 treatment11 - treatment15 -3.500000e+00 7.665610 24 -4.565847e-01 1.0000000
-#> 230 treatment11 - treatment16 -1.450000e+01 7.665610 24 -1.891565e+00 0.9666726
-#> 231 treatment11 - treatment17 -1.750000e+00 7.665610 24 -2.282923e-01 1.0000000
-#> 232 treatment11 - treatment18  1.500000e+00 7.665610 24  1.956791e-01 1.0000000
-#> 233 treatment11 - treatment19 -5.500000e+00 7.665610 24 -7.174902e-01 1.0000000
-#> 234 treatment11 - treatment20  1.250000e+00 7.665610 24  1.630660e-01 1.0000000
-#> 235 treatment11 - treatment21  4.250000e+00 7.665610 24  5.544243e-01 1.0000000
-#> 236 treatment11 - treatment22 -1.225000e+01 7.665610 24 -1.598046e+00 0.9949910
-#> 237 treatment11 - treatment23  2.250000e+00 7.665610 24  2.935187e-01 1.0000000
-#> 238 treatment11 - treatment24  6.000000e+00 7.665610 24  7.827166e-01 1.0000000
-#> 239 treatment11 - treatment25 -5.250000e+00 7.665610 24 -6.848770e-01 1.0000000
-#> 240 treatment11 - treatment26  5.000000e+00 7.665610 24  6.522638e-01 1.0000000
-#> 241 treatment11 - treatment27 -1.250000e+00 7.665610 24 -1.630660e-01 1.0000000
-#> 242 treatment11 - treatment28  1.000000e+01 7.665610 24  1.304528e+00 0.9997210
-#> 243 treatment12 - treatment13 -2.750000e+00 7.665610 24 -3.587451e-01 1.0000000
-#> 244 treatment12 - treatment14 -3.750000e+00 7.665610 24 -4.891979e-01 1.0000000
-#> 245 treatment12 - treatment15 -5.750000e+00 7.665610 24 -7.501034e-01 1.0000000
-#> 246 treatment12 - treatment16 -1.675000e+01 7.665610 24 -2.185084e+00 0.8839651
-#> 247 treatment12 - treatment17 -4.000000e+00 7.665610 24 -5.218111e-01 1.0000000
-#> 248 treatment12 - treatment18 -7.500000e-01 7.665610 24 -9.783957e-02 1.0000000
-#> 249 treatment12 - treatment19 -7.750000e+00 7.665610 24 -1.011009e+00 0.9999968
-#> 250 treatment12 - treatment20 -1.000000e+00 7.665610 24 -1.304528e-01 1.0000000
-#> 251 treatment12 - treatment21  2.000000e+00 7.665610 24  2.609055e-01 1.0000000
-#> 252 treatment12 - treatment22 -1.450000e+01 7.665610 24 -1.891565e+00 0.9666726
-#> 253 treatment12 - treatment23 -2.220446e-15 7.665610 24 -2.896633e-16 1.0000000
-#> 254 treatment12 - treatment24  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 255 treatment12 - treatment25 -7.500000e+00 7.665610 24 -9.783957e-01 0.9999983
-#> 256 treatment12 - treatment26  2.750000e+00 7.665610 24  3.587451e-01 1.0000000
-#> 257 treatment12 - treatment27 -3.500000e+00 7.665610 24 -4.565847e-01 1.0000000
-#> 258 treatment12 - treatment28  7.750000e+00 7.665610 24  1.011009e+00 0.9999968
-#> 259 treatment13 - treatment14 -1.000000e+00 7.665610 24 -1.304528e-01 1.0000000
-#> 260 treatment13 - treatment15 -3.000000e+00 7.665610 24 -3.913583e-01 1.0000000
-#> 261 treatment13 - treatment16 -1.400000e+01 6.856330 24 -2.041909e+00 0.9326126
-#> 262 treatment13 - treatment17 -1.250000e+00 7.665610 24 -1.630660e-01 1.0000000
-#> 263 treatment13 - treatment18  2.000000e+00 7.665610 24  2.609055e-01 1.0000000
-#> 264 treatment13 - treatment19 -5.000000e+00 6.856330 24 -7.292531e-01 1.0000000
-#> 265 treatment13 - treatment20  1.750000e+00 7.665610 24  2.282923e-01 1.0000000
-#> 266 treatment13 - treatment21  4.750000e+00 7.665610 24  6.196506e-01 1.0000000
-#> 267 treatment13 - treatment22 -1.175000e+01 7.665610 24 -1.532820e+00 0.9970816
-#> 268 treatment13 - treatment23  2.750000e+00 7.665610 24  3.587451e-01 1.0000000
-#> 269 treatment13 - treatment24  6.500000e+00 7.665610 24  8.479430e-01 0.9999999
-#> 270 treatment13 - treatment25 -4.750000e+00 7.665610 24 -6.196506e-01 1.0000000
-#> 271 treatment13 - treatment26  5.500000e+00 7.665610 24  7.174902e-01 1.0000000
-#> 272 treatment13 - treatment27 -7.500000e-01 7.665610 24 -9.783957e-02 1.0000000
-#> 273 treatment13 - treatment28  1.050000e+01 7.665610 24  1.369754e+00 0.9994081
-#> 274 treatment14 - treatment15 -2.000000e+00 6.856330 24 -2.917013e-01 1.0000000
-#> 275 treatment14 - treatment16 -1.300000e+01 7.665610 24 -1.695886e+00 0.9896944
-#> 276 treatment14 - treatment17 -2.500000e-01 7.665610 24 -3.261319e-02 1.0000000
-#> 277 treatment14 - treatment18  3.000000e+00 6.856330 24  4.375519e-01 1.0000000
-#> 278 treatment14 - treatment19 -4.000000e+00 7.665610 24 -5.218111e-01 1.0000000
-#> 279 treatment14 - treatment20  2.750000e+00 7.665610 24  3.587451e-01 1.0000000
-#> 280 treatment14 - treatment21  5.750000e+00 7.665610 24  7.501034e-01 1.0000000
-#> 281 treatment14 - treatment22 -1.075000e+01 7.665610 24 -1.402367e+00 0.9991600
-#> 282 treatment14 - treatment23  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 283 treatment14 - treatment24  7.500000e+00 7.665610 24  9.783957e-01 0.9999983
-#> 284 treatment14 - treatment25 -3.750000e+00 7.665610 24 -4.891979e-01 1.0000000
-#> 285 treatment14 - treatment26  6.500000e+00 7.665610 24  8.479430e-01 0.9999999
-#> 286 treatment14 - treatment27  2.500000e-01 7.665610 24  3.261319e-02 1.0000000
-#> 287 treatment14 - treatment28  1.150000e+01 7.665610 24  1.500207e+00 0.9978156
-#> 288 treatment15 - treatment16 -1.100000e+01 7.665610 24 -1.434980e+00 0.9988272
-#> 289 treatment15 - treatment17  1.750000e+00 7.665610 24  2.282923e-01 1.0000000
-#> 290 treatment15 - treatment18  5.000000e+00 6.856330 24  7.292531e-01 1.0000000
-#> 291 treatment15 - treatment19 -2.000000e+00 7.665610 24 -2.609055e-01 1.0000000
-#> 292 treatment15 - treatment20  4.750000e+00 7.665610 24  6.196506e-01 1.0000000
-#> 293 treatment15 - treatment21  7.750000e+00 7.665610 24  1.011009e+00 0.9999968
-#> 294 treatment15 - treatment22 -8.750000e+00 7.665610 24 -1.141462e+00 0.9999701
-#> 295 treatment15 - treatment23  5.750000e+00 7.665610 24  7.501034e-01 1.0000000
-#> 296 treatment15 - treatment24  9.500000e+00 7.665610 24  1.239301e+00 0.9998782
-#> 297 treatment15 - treatment25 -1.750000e+00 7.665610 24 -2.282923e-01 1.0000000
-#> 298 treatment15 - treatment26  8.500000e+00 7.665610 24  1.108849e+00 0.9999822
-#> 299 treatment15 - treatment27  2.250000e+00 7.665610 24  2.935187e-01 1.0000000
-#> 300 treatment15 - treatment28  1.350000e+01 7.665610 24  1.761112e+00 0.9841890
-#> 301 treatment16 - treatment17  1.275000e+01 7.665610 24  1.663273e+00 0.9918068
-#> 302 treatment16 - treatment18  1.600000e+01 7.665610 24  2.087244e+00 0.9189744
-#> 303 treatment16 - treatment19  9.000000e+00 6.856330 24  1.312656e+00 0.9996924
-#> 304 treatment16 - treatment20  1.575000e+01 7.665610 24  2.054631e+00 0.9289493
-#> 305 treatment16 - treatment21  1.875000e+01 7.665610 24  2.445989e+00 0.7563654
-#> 306 treatment16 - treatment22  2.250000e+00 7.665610 24  2.935187e-01 1.0000000
-#> 307 treatment16 - treatment23  1.675000e+01 7.665610 24  2.185084e+00 0.8839651
-#> 308 treatment16 - treatment24  2.050000e+01 7.665610 24  2.674282e+00 0.6176904
-#> 309 treatment16 - treatment25  9.250000e+00 7.665610 24  1.206688e+00 0.9999220
-#> 310 treatment16 - treatment26  1.950000e+01 7.665610 24  2.543829e+00 0.6987544
-#> 311 treatment16 - treatment27  1.325000e+01 7.665610 24  1.728499e+00 0.9871716
-#> 312 treatment16 - treatment28  2.450000e+01 7.665610 24  3.196093e+00 0.3135599
-#> 313 treatment17 - treatment18  3.250000e+00 7.665610 24  4.239715e-01 1.0000000
-#> 314 treatment17 - treatment19 -3.750000e+00 7.665610 24 -4.891979e-01 1.0000000
-#> 315 treatment17 - treatment20  3.000000e+00 6.856330 24  4.375519e-01 1.0000000
-#> 316 treatment17 - treatment21  6.000000e+00 7.665610 24  7.827166e-01 1.0000000
-#> 317 treatment17 - treatment22 -1.050000e+01 7.665610 24 -1.369754e+00 0.9994081
-#> 318 treatment17 - treatment23  4.000000e+00 7.665610 24  5.218111e-01 1.0000000
-#> 319 treatment17 - treatment24  7.750000e+00 7.665610 24  1.011009e+00 0.9999968
-#> 320 treatment17 - treatment25 -3.500000e+00 7.665610 24 -4.565847e-01 1.0000000
-#> 321 treatment17 - treatment26  6.750000e+00 7.665610 24  8.805562e-01 0.9999998
-#> 322 treatment17 - treatment27  5.000000e-01 7.665610 24  6.522638e-02 1.0000000
-#> 323 treatment17 - treatment28  1.175000e+01 7.665610 24  1.532820e+00 0.9970816
-#> 324 treatment18 - treatment19 -7.000000e+00 7.665610 24 -9.131694e-01 0.9999996
-#> 325 treatment18 - treatment20 -2.500000e-01 7.665610 24 -3.261319e-02 1.0000000
-#> 326 treatment18 - treatment21  2.750000e+00 7.665610 24  3.587451e-01 1.0000000
-#> 327 treatment18 - treatment22 -1.375000e+01 7.665610 24 -1.793726e+00 0.9806966
-#> 328 treatment18 - treatment23  7.500000e-01 7.665610 24  9.783957e-02 1.0000000
-#> 329 treatment18 - treatment24  4.500000e+00 7.665610 24  5.870374e-01 1.0000000
-#> 330 treatment18 - treatment25 -6.750000e+00 7.665610 24 -8.805562e-01 0.9999998
-#> 331 treatment18 - treatment26  3.500000e+00 7.665610 24  4.565847e-01 1.0000000
-#> 332 treatment18 - treatment27 -2.750000e+00 7.665610 24 -3.587451e-01 1.0000000
-#> 333 treatment18 - treatment28  8.500000e+00 7.665610 24  1.108849e+00 0.9999822
-#> 334 treatment19 - treatment20  6.750000e+00 7.665610 24  8.805562e-01 0.9999998
-#> 335 treatment19 - treatment21  9.750000e+00 7.665610 24  1.271914e+00 0.9998138
-#> 336 treatment19 - treatment22 -6.750000e+00 7.665610 24 -8.805562e-01 0.9999998
-#> 337 treatment19 - treatment23  7.750000e+00 7.665610 24  1.011009e+00 0.9999968
-#> 338 treatment19 - treatment24  1.150000e+01 7.665610 24  1.500207e+00 0.9978156
-#> 339 treatment19 - treatment25  2.500000e-01 7.665610 24  3.261319e-02 1.0000000
-#> 340 treatment19 - treatment26  1.050000e+01 7.665610 24  1.369754e+00 0.9994081
-#> 341 treatment19 - treatment27  4.250000e+00 7.665610 24  5.544243e-01 1.0000000
-#> 342 treatment19 - treatment28  1.550000e+01 7.665610 24  2.022018e+00 0.9380862
-#> 343 treatment20 - treatment21  3.000000e+00 7.665610 24  3.913583e-01 1.0000000
-#> 344 treatment20 - treatment22 -1.350000e+01 7.665610 24 -1.761112e+00 0.9841890
-#> 345 treatment20 - treatment23  1.000000e+00 7.665610 24  1.304528e-01 1.0000000
-#> 346 treatment20 - treatment24  4.750000e+00 7.665610 24  6.196506e-01 1.0000000
-#> 347 treatment20 - treatment25 -6.500000e+00 7.665610 24 -8.479430e-01 0.9999999
-#> 348 treatment20 - treatment26  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 349 treatment20 - treatment27 -2.500000e+00 7.665610 24 -3.261319e-01 1.0000000
-#> 350 treatment20 - treatment28  8.750000e+00 7.665610 24  1.141462e+00 0.9999701
-#> 351 treatment21 - treatment22 -1.650000e+01 7.665610 24 -2.152471e+00 0.8964807
-#> 352 treatment21 - treatment23 -2.000000e+00 6.856330 24 -2.917013e-01 1.0000000
-#> 353 treatment21 - treatment24  1.750000e+00 7.665610 24  2.282923e-01 1.0000000
-#> 354 treatment21 - treatment25 -9.500000e+00 7.665610 24 -1.239301e+00 0.9998782
-#> 355 treatment21 - treatment26  7.500000e-01 7.665610 24  9.783957e-02 1.0000000
-#> 356 treatment21 - treatment27 -5.500000e+00 7.665610 24 -7.174902e-01 1.0000000
-#> 357 treatment21 - treatment28  5.750000e+00 7.665610 24  7.501034e-01 1.0000000
-#> 358 treatment22 - treatment23  1.450000e+01 7.665610 24  1.891565e+00 0.9666726
-#> 359 treatment22 - treatment24  1.825000e+01 7.665610 24  2.380763e+00 0.7923291
-#> 360 treatment22 - treatment25  7.000000e+00 6.856330 24  1.020954e+00 0.9999962
-#> 361 treatment22 - treatment26  1.725000e+01 7.665610 24  2.250310e+00 0.8564590
-#> 362 treatment22 - treatment27  1.100000e+01 6.856330 24  1.604357e+00 0.9947361
-#> 363 treatment22 - treatment28  2.225000e+01 7.665610 24  2.902574e+00 0.4751483
-#> 364 treatment23 - treatment24  3.750000e+00 7.665610 24  4.891979e-01 1.0000000
-#> 365 treatment23 - treatment25 -7.500000e+00 7.665610 24 -9.783957e-01 0.9999983
-#> 366 treatment23 - treatment26  2.750000e+00 7.665610 24  3.587451e-01 1.0000000
-#> 367 treatment23 - treatment27 -3.500000e+00 7.665610 24 -4.565847e-01 1.0000000
-#> 368 treatment23 - treatment28  7.750000e+00 7.665610 24  1.011009e+00 0.9999968
-#> 369 treatment24 - treatment25 -1.125000e+01 7.665610 24 -1.467594e+00 0.9983876
-#> 370 treatment24 - treatment26 -1.000000e+00 6.856330 24 -1.458506e-01 1.0000000
-#> 371 treatment24 - treatment27 -7.250000e+00 7.665610 24 -9.457825e-01 0.9999991
-#> 372 treatment24 - treatment28  4.000000e+00 6.856330 24  5.834025e-01 1.0000000
-#> 373 treatment25 - treatment26  1.025000e+01 7.665610 24  1.337141e+00 0.9995900
-#> 374 treatment25 - treatment27  4.000000e+00 6.856330 24  5.834025e-01 1.0000000
-#> 375 treatment25 - treatment28  1.525000e+01 7.665610 24  1.989405e+00 0.9464012
-#> 376 treatment26 - treatment27 -6.250000e+00 7.665610 24 -8.153298e-01 1.0000000
-#> 377 treatment26 - treatment28  5.000000e+00 6.856330 24  7.292531e-01 1.0000000
-#> 378 treatment27 - treatment28  1.125000e+01 7.665610 24  1.467594e+00 0.9983876
+#> Method : lsd
 #> 
-#> Groups :
-#>    treatment   emmean       SE df lower.CL  upper.CL .group
-#> 28        28 68.75000 5.359840 24 49.97624  87.52376      1
-#> 8          8 72.50000 5.359840 24 53.72624  91.27376      1
-#> 24        24 72.75000 5.359840 24 53.97624  91.52376      1
-#> 26        26 73.75000 5.359840 24 54.97624  92.52376      1
-#> 21        21 74.50000 5.359840 24 55.72624  93.27376      1
-#> 9          9 76.50000 5.359840 24 57.72624  95.27376      1
-#> 12        12 76.50000 5.359840 24 57.72624  95.27376      1
-#> 23        23 76.50000 5.359840 24 57.72624  95.27376      1
-#> 18        18 77.25000 5.359840 24 58.47624  96.02376      1
-#> 5          5 77.50000 5.359840 24 58.72624  96.27376      1
-#> 6          6 77.50000 5.359840 24 58.72624  96.27376      1
-#> 20        20 77.50000 5.359840 24 58.72624  96.27376      1
-#> 11        11 78.75000 5.359840 24 59.97624  97.52376      1
-#> 13        13 79.25000 5.359840 24 60.47624  98.02376      1
-#> 2          2 79.33333 1.616052 24 73.67283  84.99383      1
-#> 27        27 80.00000 5.359840 24 61.22624  98.77376      1
-#> 14        14 80.25000 5.359840 24 61.47624  99.02376      1
-#> 17        17 80.50000 5.359840 24 61.72624  99.27376      1
-#> 3          3 81.22222 1.616052 24 75.56172  86.88272      1
-#> 4          4 81.77778 1.616052 24 76.11728  87.43828      1
-#> 15        15 82.25000 5.359840 24 63.47624 101.02376      1
-#> 1          1 83.66667 1.616052 24 78.00617  89.32717      1
-#> 25        25 84.00000 5.359840 24 65.22624 102.77376      1
-#> 19        19 84.25000 5.359840 24 65.47624 103.02376      1
-#> 10        10 85.75000 5.359840 24 66.97624 104.52376      1
-#> 22        22 91.00000 5.359840 24 72.22624 109.77376      1
-#> 7          7 92.75000 5.359840 24 73.97624 111.52376      1
-#> 16        16 93.25000 5.359840 24 74.47624 112.02376      1
+#>                   contrast estimate   SE df t.ratio p.value sig
+#>    treatment1 - treatment2     4.33 2.29 24   1.896   0.070    
+#>    treatment1 - treatment3     2.44 2.29 24   1.070   0.295    
+#>    treatment1 - treatment4     1.89 2.29 24   0.826   0.417    
+#>    treatment1 - treatment5     6.17 5.60 24   1.102   0.282    
+#>    treatment1 - treatment6     6.17 5.60 24   1.102   0.282    
+#>    treatment1 - treatment7    -9.08 5.60 24  -1.623   0.118    
+#>    treatment1 - treatment8    11.17 5.60 24   1.995   0.058    
+#>    treatment1 - treatment9     7.17 5.60 24   1.280   0.213    
+#>   treatment1 - treatment10    -2.08 5.60 24  -0.372   0.713    
+#>   treatment1 - treatment11     4.92 5.60 24   0.878   0.389    
+#>   treatment1 - treatment12     7.17 5.60 24   1.280   0.213    
+#>   treatment1 - treatment13     4.42 5.60 24   0.789   0.438    
+#>   treatment1 - treatment14     3.42 5.60 24   0.610   0.547    
+#>   treatment1 - treatment15     1.42 5.60 24   0.253   0.802    
+#>   treatment1 - treatment16    -9.58 5.60 24  -1.712   0.100    
+#>   treatment1 - treatment17     3.17 5.60 24   0.566   0.577    
+#>   treatment1 - treatment18     6.42 5.60 24   1.146   0.263    
+#>   treatment1 - treatment19    -0.58 5.60 24  -0.104   0.918    
+#>   treatment1 - treatment20     6.17 5.60 24   1.102   0.282    
+#>   treatment1 - treatment21     9.17 5.60 24   1.637   0.115    
+#>   treatment1 - treatment22    -7.33 5.60 24  -1.310   0.203    
+#>   treatment1 - treatment23     7.17 5.60 24   1.280   0.213    
+#>   treatment1 - treatment24    10.92 5.60 24   1.950   0.063    
+#>   treatment1 - treatment25    -0.33 5.60 24  -0.060   0.953    
+#>   treatment1 - treatment26     9.92 5.60 24   1.771   0.089    
+#>   treatment1 - treatment27     3.67 5.60 24   0.655   0.519    
+#>   treatment1 - treatment28    14.92 5.60 24   2.665   0.014   *
+#>    treatment2 - treatment3    -1.89 2.29 24  -0.826   0.417    
+#>    treatment2 - treatment4    -2.44 2.29 24  -1.070   0.295    
+#>    treatment2 - treatment5     1.83 5.60 24   0.327   0.746    
+#>    treatment2 - treatment6     1.83 5.60 24   0.327   0.746    
+#>    treatment2 - treatment7   -13.42 5.60 24  -2.397   0.025   *
+#>    treatment2 - treatment8     6.83 5.60 24   1.221   0.234    
+#>    treatment2 - treatment9     2.83 5.60 24   0.506   0.617    
+#>   treatment2 - treatment10    -6.42 5.60 24  -1.146   0.263    
+#>   treatment2 - treatment11     0.58 5.60 24   0.104   0.918    
+#>   treatment2 - treatment12     2.83 5.60 24   0.506   0.617    
+#>   treatment2 - treatment13     0.08 5.60 24   0.015   0.988    
+#>   treatment2 - treatment14    -0.92 5.60 24  -0.164   0.871    
+#>   treatment2 - treatment15    -2.92 5.60 24  -0.521   0.607    
+#>   treatment2 - treatment16   -13.92 5.60 24  -2.486   0.020   *
+#>   treatment2 - treatment17    -1.17 5.60 24  -0.208   0.837    
+#>   treatment2 - treatment18     2.08 5.60 24   0.372   0.713    
+#>   treatment2 - treatment19    -4.92 5.60 24  -0.878   0.389    
+#>   treatment2 - treatment20     1.83 5.60 24   0.327   0.746    
+#>   treatment2 - treatment21     4.83 5.60 24   0.863   0.396    
+#>   treatment2 - treatment22   -11.67 5.60 24  -2.084   0.048   *
+#>   treatment2 - treatment23     2.83 5.60 24   0.506   0.617    
+#>   treatment2 - treatment24     6.58 5.60 24   1.176   0.251    
+#>   treatment2 - treatment25    -4.67 5.60 24  -0.834   0.413    
+#>   treatment2 - treatment26     5.58 5.60 24   0.997   0.329    
+#>   treatment2 - treatment27    -0.67 5.60 24  -0.119   0.906    
+#>   treatment2 - treatment28    10.58 5.60 24   1.890   0.071    
+#>    treatment3 - treatment4    -0.56 2.29 24  -0.243   0.810    
+#>    treatment3 - treatment5     3.72 5.60 24   0.665   0.512    
+#>    treatment3 - treatment6     3.72 5.60 24   0.665   0.512    
+#>    treatment3 - treatment7   -11.53 5.60 24  -2.059   0.050    
+#>    treatment3 - treatment8     8.72 5.60 24   1.558   0.132    
+#>    treatment3 - treatment9     4.72 5.60 24   0.844   0.407    
+#>   treatment3 - treatment10    -4.53 5.60 24  -0.809   0.427    
+#>   treatment3 - treatment11     2.47 5.60 24   0.442   0.663    
+#>   treatment3 - treatment12     4.72 5.60 24   0.844   0.407    
+#>   treatment3 - treatment13     1.97 5.60 24   0.352   0.728    
+#>   treatment3 - treatment14     0.97 5.60 24   0.174   0.864    
+#>   treatment3 - treatment15    -1.03 5.60 24  -0.184   0.856    
+#>   treatment3 - treatment16   -12.03 5.60 24  -2.149   0.042   *
+#>   treatment3 - treatment17     0.72 5.60 24   0.129   0.898    
+#>   treatment3 - treatment18     3.97 5.60 24   0.710   0.485    
+#>   treatment3 - treatment19    -3.03 5.60 24  -0.541   0.594    
+#>   treatment3 - treatment20     3.72 5.60 24   0.665   0.512    
+#>   treatment3 - treatment21     6.72 5.60 24   1.201   0.242    
+#>   treatment3 - treatment22    -9.78 5.60 24  -1.747   0.093    
+#>   treatment3 - treatment23     4.72 5.60 24   0.844   0.407    
+#>   treatment3 - treatment24     8.47 5.60 24   1.513   0.143    
+#>   treatment3 - treatment25    -2.78 5.60 24  -0.496   0.624    
+#>   treatment3 - treatment26     7.47 5.60 24   1.335   0.194    
+#>   treatment3 - treatment27     1.22 5.60 24   0.218   0.829    
+#>   treatment3 - treatment28    12.47 5.60 24   2.228   0.036   *
+#>    treatment4 - treatment5     4.28 5.60 24   0.764   0.452    
+#>    treatment4 - treatment6     4.28 5.60 24   0.764   0.452    
+#>    treatment4 - treatment7   -10.97 5.60 24  -1.960   0.062    
+#>    treatment4 - treatment8     9.28 5.60 24   1.657   0.110    
+#>    treatment4 - treatment9     5.28 5.60 24   0.943   0.355    
+#>   treatment4 - treatment10    -3.97 5.60 24  -0.710   0.485    
+#>   treatment4 - treatment11     3.03 5.60 24   0.541   0.594    
+#>   treatment4 - treatment12     5.28 5.60 24   0.943   0.355    
+#>   treatment4 - treatment13     2.53 5.60 24   0.452   0.656    
+#>   treatment4 - treatment14     1.53 5.60 24   0.273   0.787    
+#>   treatment4 - treatment15    -0.47 5.60 24  -0.084   0.933    
+#>   treatment4 - treatment16   -11.47 5.60 24  -2.049   0.052    
+#>   treatment4 - treatment17     1.28 5.60 24   0.228   0.821    
+#>   treatment4 - treatment18     4.53 5.60 24   0.809   0.427    
+#>   treatment4 - treatment19    -2.47 5.60 24  -0.442   0.663    
+#>   treatment4 - treatment20     4.28 5.60 24   0.764   0.452    
+#>   treatment4 - treatment21     7.28 5.60 24   1.300   0.206    
+#>   treatment4 - treatment22    -9.22 5.60 24  -1.647   0.113    
+#>   treatment4 - treatment23     5.28 5.60 24   0.943   0.355    
+#>   treatment4 - treatment24     9.03 5.60 24   1.613   0.120    
+#>   treatment4 - treatment25    -2.22 5.60 24  -0.397   0.695    
+#>   treatment4 - treatment26     8.03 5.60 24   1.434   0.164    
+#>   treatment4 - treatment27     1.78 5.60 24   0.318   0.754    
+#>   treatment4 - treatment28    13.03 5.60 24   2.327   0.029   *
+#>    treatment5 - treatment6    -0.00 7.67 24  -0.000   1.000    
+#>    treatment5 - treatment7   -15.25 7.67 24  -1.989   0.058    
+#>    treatment5 - treatment8     5.00 7.67 24   0.652   0.520    
+#>    treatment5 - treatment9     1.00 6.86 24   0.146   0.885    
+#>   treatment5 - treatment10    -8.25 7.67 24  -1.076   0.293    
+#>   treatment5 - treatment11    -1.25 7.67 24  -0.163   0.872    
+#>   treatment5 - treatment12     1.00 7.67 24   0.130   0.897    
+#>   treatment5 - treatment13    -1.75 7.67 24  -0.228   0.821    
+#>   treatment5 - treatment14    -2.75 7.67 24  -0.359   0.723    
+#>   treatment5 - treatment15    -4.75 7.67 24  -0.620   0.541    
+#>   treatment5 - treatment16   -15.75 7.67 24  -2.055   0.051    
+#>   treatment5 - treatment17    -3.00 7.67 24  -0.391   0.699    
+#>   treatment5 - treatment18     0.25 7.67 24   0.033   0.974    
+#>   treatment5 - treatment19    -6.75 7.67 24  -0.881   0.387    
+#>   treatment5 - treatment20    -0.00 7.67 24  -0.000   1.000    
+#>   treatment5 - treatment21     3.00 7.67 24   0.391   0.699    
+#>   treatment5 - treatment22   -13.50 7.67 24  -1.761   0.091    
+#>   treatment5 - treatment23     1.00 7.67 24   0.130   0.897    
+#>   treatment5 - treatment24     4.75 7.67 24   0.620   0.541    
+#>   treatment5 - treatment25    -6.50 7.67 24  -0.848   0.405    
+#>   treatment5 - treatment26     3.75 7.67 24   0.489   0.629    
+#>   treatment5 - treatment27    -2.50 7.67 24  -0.326   0.747    
+#>   treatment5 - treatment28     8.75 7.67 24   1.141   0.265    
+#>    treatment6 - treatment7   -15.25 7.67 24  -1.989   0.058    
+#>    treatment6 - treatment8     5.00 6.86 24   0.729   0.473    
+#>    treatment6 - treatment9     1.00 7.67 24   0.130   0.897    
+#>   treatment6 - treatment10    -8.25 7.67 24  -1.076   0.293    
+#>   treatment6 - treatment11    -1.25 7.67 24  -0.163   0.872    
+#>   treatment6 - treatment12     1.00 6.86 24   0.146   0.885    
+#>   treatment6 - treatment13    -1.75 7.67 24  -0.228   0.821    
+#>   treatment6 - treatment14    -2.75 7.67 24  -0.359   0.723    
+#>   treatment6 - treatment15    -4.75 7.67 24  -0.620   0.541    
+#>   treatment6 - treatment16   -15.75 7.67 24  -2.055   0.051    
+#>   treatment6 - treatment17    -3.00 7.67 24  -0.391   0.699    
+#>   treatment6 - treatment18     0.25 7.67 24   0.033   0.974    
+#>   treatment6 - treatment19    -6.75 7.67 24  -0.881   0.387    
+#>   treatment6 - treatment20    -0.00 7.67 24  -0.000   1.000    
+#>   treatment6 - treatment21     3.00 7.67 24   0.391   0.699    
+#>   treatment6 - treatment22   -13.50 7.67 24  -1.761   0.091    
+#>   treatment6 - treatment23     1.00 7.67 24   0.130   0.897    
+#>   treatment6 - treatment24     4.75 7.67 24   0.620   0.541    
+#>   treatment6 - treatment25    -6.50 7.67 24  -0.848   0.405    
+#>   treatment6 - treatment26     3.75 7.67 24   0.489   0.629    
+#>   treatment6 - treatment27    -2.50 7.67 24  -0.326   0.747    
+#>   treatment6 - treatment28     8.75 7.67 24   1.141   0.265    
+#>    treatment7 - treatment8    20.25 7.67 24   2.642   0.014   *
+#>    treatment7 - treatment9    16.25 7.67 24   2.120   0.045   *
+#>   treatment7 - treatment10     7.00 6.86 24   1.021   0.317    
+#>   treatment7 - treatment11    14.00 6.86 24   2.042   0.052    
+#>   treatment7 - treatment12    16.25 7.67 24   2.120   0.045   *
+#>   treatment7 - treatment13    13.50 7.67 24   1.761   0.091    
+#>   treatment7 - treatment14    12.50 7.67 24   1.631   0.116    
+#>   treatment7 - treatment15    10.50 7.67 24   1.370   0.183    
+#>   treatment7 - treatment16    -0.50 7.67 24  -0.065   0.949    
+#>   treatment7 - treatment17    12.25 7.67 24   1.598   0.123    
+#>   treatment7 - treatment18    15.50 7.67 24   2.022   0.054    
+#>   treatment7 - treatment19     8.50 7.67 24   1.109   0.278    
+#>   treatment7 - treatment20    15.25 7.67 24   1.989   0.058    
+#>   treatment7 - treatment21    18.25 7.67 24   2.381   0.026   *
+#>   treatment7 - treatment22     1.75 7.67 24   0.228   0.821    
+#>   treatment7 - treatment23    16.25 7.67 24   2.120   0.045   *
+#>   treatment7 - treatment24    20.00 7.67 24   2.609   0.015   *
+#>   treatment7 - treatment25     8.75 7.67 24   1.141   0.265    
+#>   treatment7 - treatment26    19.00 7.67 24   2.479   0.021   *
+#>   treatment7 - treatment27    12.75 7.67 24   1.663   0.109    
+#>   treatment7 - treatment28    24.00 7.67 24   3.131   0.005  **
+#>    treatment8 - treatment9    -4.00 7.67 24  -0.522   0.607    
+#>   treatment8 - treatment10   -13.25 7.67 24  -1.728   0.097    
+#>   treatment8 - treatment11    -6.25 7.67 24  -0.815   0.423    
+#>   treatment8 - treatment12    -4.00 6.86 24  -0.583   0.565    
+#>   treatment8 - treatment13    -6.75 7.67 24  -0.881   0.387    
+#>   treatment8 - treatment14    -7.75 7.67 24  -1.011   0.322    
+#>   treatment8 - treatment15    -9.75 7.67 24  -1.272   0.216    
+#>   treatment8 - treatment16   -20.75 7.67 24  -2.707   0.012   *
+#>   treatment8 - treatment17    -8.00 7.67 24  -1.044   0.307    
+#>   treatment8 - treatment18    -4.75 7.67 24  -0.620   0.541    
+#>   treatment8 - treatment19   -11.75 7.67 24  -1.533   0.138    
+#>   treatment8 - treatment20    -5.00 7.67 24  -0.652   0.520    
+#>   treatment8 - treatment21    -2.00 7.67 24  -0.261   0.796    
+#>   treatment8 - treatment22   -18.50 7.67 24  -2.413   0.024   *
+#>   treatment8 - treatment23    -4.00 7.67 24  -0.522   0.607    
+#>   treatment8 - treatment24    -0.25 7.67 24  -0.033   0.974    
+#>   treatment8 - treatment25   -11.50 7.67 24  -1.500   0.147    
+#>   treatment8 - treatment26    -1.25 7.67 24  -0.163   0.872    
+#>   treatment8 - treatment27    -7.50 7.67 24  -0.978   0.338    
+#>   treatment8 - treatment28     3.75 7.67 24   0.489   0.629    
+#>   treatment9 - treatment10    -9.25 7.67 24  -1.207   0.239    
+#>   treatment9 - treatment11    -2.25 7.67 24  -0.294   0.772    
+#>   treatment9 - treatment12    -0.00 7.67 24  -0.000   1.000    
+#>   treatment9 - treatment13    -2.75 7.67 24  -0.359   0.723    
+#>   treatment9 - treatment14    -3.75 7.67 24  -0.489   0.629    
+#>   treatment9 - treatment15    -5.75 7.67 24  -0.750   0.460    
+#>   treatment9 - treatment16   -16.75 7.67 24  -2.185   0.039   *
+#>   treatment9 - treatment17    -4.00 7.67 24  -0.522   0.607    
+#>   treatment9 - treatment18    -0.75 7.67 24  -0.098   0.923    
+#>   treatment9 - treatment19    -7.75 7.67 24  -1.011   0.322    
+#>   treatment9 - treatment20    -1.00 7.67 24  -0.130   0.897    
+#>   treatment9 - treatment21     2.00 7.67 24   0.261   0.796    
+#>   treatment9 - treatment22   -14.50 7.67 24  -1.892   0.071    
+#>   treatment9 - treatment23    -0.00 7.67 24  -0.000   1.000    
+#>   treatment9 - treatment24     3.75 7.67 24   0.489   0.629    
+#>   treatment9 - treatment25    -7.50 7.67 24  -0.978   0.338    
+#>   treatment9 - treatment26     2.75 7.67 24   0.359   0.723    
+#>   treatment9 - treatment27    -3.50 7.67 24  -0.457   0.652    
+#>   treatment9 - treatment28     7.75 7.67 24   1.011   0.322    
+#>  treatment10 - treatment11     7.00 6.86 24   1.021   0.317    
+#>  treatment10 - treatment12     9.25 7.67 24   1.207   0.239    
+#>  treatment10 - treatment13     6.50 7.67 24   0.848   0.405    
+#>  treatment10 - treatment14     5.50 7.67 24   0.717   0.480    
+#>  treatment10 - treatment15     3.50 7.67 24   0.457   0.652    
+#>  treatment10 - treatment16    -7.50 7.67 24  -0.978   0.338    
+#>  treatment10 - treatment17     5.25 7.67 24   0.685   0.500    
+#>  treatment10 - treatment18     8.50 7.67 24   1.109   0.278    
+#>  treatment10 - treatment19     1.50 7.67 24   0.196   0.847    
+#>  treatment10 - treatment20     8.25 7.67 24   1.076   0.293    
+#>  treatment10 - treatment21    11.25 7.67 24   1.468   0.155    
+#>  treatment10 - treatment22    -5.25 7.67 24  -0.685   0.500    
+#>  treatment10 - treatment23     9.25 7.67 24   1.207   0.239    
+#>  treatment10 - treatment24    13.00 7.67 24   1.696   0.103    
+#>  treatment10 - treatment25     1.75 7.67 24   0.228   0.821    
+#>  treatment10 - treatment26    12.00 7.67 24   1.565   0.131    
+#>  treatment10 - treatment27     5.75 7.67 24   0.750   0.460    
+#>  treatment10 - treatment28    17.00 7.67 24   2.218   0.036   *
+#>  treatment11 - treatment12     2.25 7.67 24   0.294   0.772    
+#>  treatment11 - treatment13    -0.50 7.67 24  -0.065   0.949    
+#>  treatment11 - treatment14    -1.50 7.67 24  -0.196   0.847    
+#>  treatment11 - treatment15    -3.50 7.67 24  -0.457   0.652    
+#>  treatment11 - treatment16   -14.50 7.67 24  -1.892   0.071    
+#>  treatment11 - treatment17    -1.75 7.67 24  -0.228   0.821    
+#>  treatment11 - treatment18     1.50 7.67 24   0.196   0.847    
+#>  treatment11 - treatment19    -5.50 7.67 24  -0.717   0.480    
+#>  treatment11 - treatment20     1.25 7.67 24   0.163   0.872    
+#>  treatment11 - treatment21     4.25 7.67 24   0.554   0.584    
+#>  treatment11 - treatment22   -12.25 7.67 24  -1.598   0.123    
+#>  treatment11 - treatment23     2.25 7.67 24   0.294   0.772    
+#>  treatment11 - treatment24     6.00 7.67 24   0.783   0.441    
+#>  treatment11 - treatment25    -5.25 7.67 24  -0.685   0.500    
+#>  treatment11 - treatment26     5.00 7.67 24   0.652   0.520    
+#>  treatment11 - treatment27    -1.25 7.67 24  -0.163   0.872    
+#>  treatment11 - treatment28    10.00 7.67 24   1.305   0.204    
+#>  treatment12 - treatment13    -2.75 7.67 24  -0.359   0.723    
+#>  treatment12 - treatment14    -3.75 7.67 24  -0.489   0.629    
+#>  treatment12 - treatment15    -5.75 7.67 24  -0.750   0.460    
+#>  treatment12 - treatment16   -16.75 7.67 24  -2.185   0.039   *
+#>  treatment12 - treatment17    -4.00 7.67 24  -0.522   0.607    
+#>  treatment12 - treatment18    -0.75 7.67 24  -0.098   0.923    
+#>  treatment12 - treatment19    -7.75 7.67 24  -1.011   0.322    
+#>  treatment12 - treatment20    -1.00 7.67 24  -0.130   0.897    
+#>  treatment12 - treatment21     2.00 7.67 24   0.261   0.796    
+#>  treatment12 - treatment22   -14.50 7.67 24  -1.892   0.071    
+#>  treatment12 - treatment23    -0.00 7.67 24  -0.000   1.000    
+#>  treatment12 - treatment24     3.75 7.67 24   0.489   0.629    
+#>  treatment12 - treatment25    -7.50 7.67 24  -0.978   0.338    
+#>  treatment12 - treatment26     2.75 7.67 24   0.359   0.723    
+#>  treatment12 - treatment27    -3.50 7.67 24  -0.457   0.652    
+#>  treatment12 - treatment28     7.75 7.67 24   1.011   0.322    
+#>  treatment13 - treatment14    -1.00 7.67 24  -0.130   0.897    
+#>  treatment13 - treatment15    -3.00 7.67 24  -0.391   0.699    
+#>  treatment13 - treatment16   -14.00 6.86 24  -2.042   0.052    
+#>  treatment13 - treatment17    -1.25 7.67 24  -0.163   0.872    
+#>  treatment13 - treatment18     2.00 7.67 24   0.261   0.796    
+#>  treatment13 - treatment19    -5.00 6.86 24  -0.729   0.473    
+#>  treatment13 - treatment20     1.75 7.67 24   0.228   0.821    
+#>  treatment13 - treatment21     4.75 7.67 24   0.620   0.541    
+#>  treatment13 - treatment22   -11.75 7.67 24  -1.533   0.138    
+#>  treatment13 - treatment23     2.75 7.67 24   0.359   0.723    
+#>  treatment13 - treatment24     6.50 7.67 24   0.848   0.405    
+#>  treatment13 - treatment25    -4.75 7.67 24  -0.620   0.541    
+#>  treatment13 - treatment26     5.50 7.67 24   0.717   0.480    
+#>  treatment13 - treatment27    -0.75 7.67 24  -0.098   0.923    
+#>  treatment13 - treatment28    10.50 7.67 24   1.370   0.183    
+#>  treatment14 - treatment15    -2.00 6.86 24  -0.292   0.773    
+#>  treatment14 - treatment16   -13.00 7.67 24  -1.696   0.103    
+#>  treatment14 - treatment17    -0.25 7.67 24  -0.033   0.974    
+#>  treatment14 - treatment18     3.00 6.86 24   0.438   0.666    
+#>  treatment14 - treatment19    -4.00 7.67 24  -0.522   0.607    
+#>  treatment14 - treatment20     2.75 7.67 24   0.359   0.723    
+#>  treatment14 - treatment21     5.75 7.67 24   0.750   0.460    
+#>  treatment14 - treatment22   -10.75 7.67 24  -1.402   0.174    
+#>  treatment14 - treatment23     3.75 7.67 24   0.489   0.629    
+#>  treatment14 - treatment24     7.50 7.67 24   0.978   0.338    
+#>  treatment14 - treatment25    -3.75 7.67 24  -0.489   0.629    
+#>  treatment14 - treatment26     6.50 7.67 24   0.848   0.405    
+#>  treatment14 - treatment27     0.25 7.67 24   0.033   0.974    
+#>  treatment14 - treatment28    11.50 7.67 24   1.500   0.147    
+#>  treatment15 - treatment16   -11.00 7.67 24  -1.435   0.164    
+#>  treatment15 - treatment17     1.75 7.67 24   0.228   0.821    
+#>  treatment15 - treatment18     5.00 6.86 24   0.729   0.473    
+#>  treatment15 - treatment19    -2.00 7.67 24  -0.261   0.796    
+#>  treatment15 - treatment20     4.75 7.67 24   0.620   0.541    
+#>  treatment15 - treatment21     7.75 7.67 24   1.011   0.322    
+#>  treatment15 - treatment22    -8.75 7.67 24  -1.141   0.265    
+#>  treatment15 - treatment23     5.75 7.67 24   0.750   0.460    
+#>  treatment15 - treatment24     9.50 7.67 24   1.239   0.227    
+#>  treatment15 - treatment25    -1.75 7.67 24  -0.228   0.821    
+#>  treatment15 - treatment26     8.50 7.67 24   1.109   0.278    
+#>  treatment15 - treatment27     2.25 7.67 24   0.294   0.772    
+#>  treatment15 - treatment28    13.50 7.67 24   1.761   0.091    
+#>  treatment16 - treatment17    12.75 7.67 24   1.663   0.109    
+#>  treatment16 - treatment18    16.00 7.67 24   2.087   0.048   *
+#>  treatment16 - treatment19     9.00 6.86 24   1.313   0.202    
+#>  treatment16 - treatment20    15.75 7.67 24   2.055   0.051    
+#>  treatment16 - treatment21    18.75 7.67 24   2.446   0.022   *
+#>  treatment16 - treatment22     2.25 7.67 24   0.294   0.772    
+#>  treatment16 - treatment23    16.75 7.67 24   2.185   0.039   *
+#>  treatment16 - treatment24    20.50 7.67 24   2.674   0.013   *
+#>  treatment16 - treatment25     9.25 7.67 24   1.207   0.239    
+#>  treatment16 - treatment26    19.50 7.67 24   2.544   0.018   *
+#>  treatment16 - treatment27    13.25 7.67 24   1.728   0.097    
+#>  treatment16 - treatment28    24.50 7.67 24   3.196   0.004  **
+#>  treatment17 - treatment18     3.25 7.67 24   0.424   0.675    
+#>  treatment17 - treatment19    -3.75 7.67 24  -0.489   0.629    
+#>  treatment17 - treatment20     3.00 6.86 24   0.438   0.666    
+#>  treatment17 - treatment21     6.00 7.67 24   0.783   0.441    
+#>  treatment17 - treatment22   -10.50 7.67 24  -1.370   0.183    
+#>  treatment17 - treatment23     4.00 7.67 24   0.522   0.607    
+#>  treatment17 - treatment24     7.75 7.67 24   1.011   0.322    
+#>  treatment17 - treatment25    -3.50 7.67 24  -0.457   0.652    
+#>  treatment17 - treatment26     6.75 7.67 24   0.881   0.387    
+#>  treatment17 - treatment27     0.50 7.67 24   0.065   0.949    
+#>  treatment17 - treatment28    11.75 7.67 24   1.533   0.138    
+#>  treatment18 - treatment19    -7.00 7.67 24  -0.913   0.370    
+#>  treatment18 - treatment20    -0.25 7.67 24  -0.033   0.974    
+#>  treatment18 - treatment21     2.75 7.67 24   0.359   0.723    
+#>  treatment18 - treatment22   -13.75 7.67 24  -1.794   0.085    
+#>  treatment18 - treatment23     0.75 7.67 24   0.098   0.923    
+#>  treatment18 - treatment24     4.50 7.67 24   0.587   0.563    
+#>  treatment18 - treatment25    -6.75 7.67 24  -0.881   0.387    
+#>  treatment18 - treatment26     3.50 7.67 24   0.457   0.652    
+#>  treatment18 - treatment27    -2.75 7.67 24  -0.359   0.723    
+#>  treatment18 - treatment28     8.50 7.67 24   1.109   0.278    
+#>  treatment19 - treatment20     6.75 7.67 24   0.881   0.387    
+#>  treatment19 - treatment21     9.75 7.67 24   1.272   0.216    
+#>  treatment19 - treatment22    -6.75 7.67 24  -0.881   0.387    
+#>  treatment19 - treatment23     7.75 7.67 24   1.011   0.322    
+#>  treatment19 - treatment24    11.50 7.67 24   1.500   0.147    
+#>  treatment19 - treatment25     0.25 7.67 24   0.033   0.974    
+#>  treatment19 - treatment26    10.50 7.67 24   1.370   0.183    
+#>  treatment19 - treatment27     4.25 7.67 24   0.554   0.584    
+#>  treatment19 - treatment28    15.50 7.67 24   2.022   0.054    
+#>  treatment20 - treatment21     3.00 7.67 24   0.391   0.699    
+#>  treatment20 - treatment22   -13.50 7.67 24  -1.761   0.091    
+#>  treatment20 - treatment23     1.00 7.67 24   0.130   0.897    
+#>  treatment20 - treatment24     4.75 7.67 24   0.620   0.541    
+#>  treatment20 - treatment25    -6.50 7.67 24  -0.848   0.405    
+#>  treatment20 - treatment26     3.75 7.67 24   0.489   0.629    
+#>  treatment20 - treatment27    -2.50 7.67 24  -0.326   0.747    
+#>  treatment20 - treatment28     8.75 7.67 24   1.141   0.265    
+#>  treatment21 - treatment22   -16.50 7.67 24  -2.152   0.042   *
+#>  treatment21 - treatment23    -2.00 6.86 24  -0.292   0.773    
+#>  treatment21 - treatment24     1.75 7.67 24   0.228   0.821    
+#>  treatment21 - treatment25    -9.50 7.67 24  -1.239   0.227    
+#>  treatment21 - treatment26     0.75 7.67 24   0.098   0.923    
+#>  treatment21 - treatment27    -5.50 7.67 24  -0.717   0.480    
+#>  treatment21 - treatment28     5.75 7.67 24   0.750   0.460    
+#>  treatment22 - treatment23    14.50 7.67 24   1.892   0.071    
+#>  treatment22 - treatment24    18.25 7.67 24   2.381   0.026   *
+#>  treatment22 - treatment25     7.00 6.86 24   1.021   0.317    
+#>  treatment22 - treatment26    17.25 7.67 24   2.250   0.034   *
+#>  treatment22 - treatment27    11.00 6.86 24   1.604   0.122    
+#>  treatment22 - treatment28    22.25 7.67 24   2.903   0.008  **
+#>  treatment23 - treatment24     3.75 7.67 24   0.489   0.629    
+#>  treatment23 - treatment25    -7.50 7.67 24  -0.978   0.338    
+#>  treatment23 - treatment26     2.75 7.67 24   0.359   0.723    
+#>  treatment23 - treatment27    -3.50 7.67 24  -0.457   0.652    
+#>  treatment23 - treatment28     7.75 7.67 24   1.011   0.322    
+#>  treatment24 - treatment25   -11.25 7.67 24  -1.468   0.155    
+#>  treatment24 - treatment26    -1.00 6.86 24  -0.146   0.885    
+#>  treatment24 - treatment27    -7.25 7.67 24  -0.946   0.354    
+#>  treatment24 - treatment28     4.00 6.86 24   0.583   0.565    
+#>  treatment25 - treatment26    10.25 7.67 24   1.337   0.194    
+#>  treatment25 - treatment27     4.00 6.86 24   0.583   0.565    
+#>  treatment25 - treatment28    15.25 7.67 24   1.989   0.058    
+#>  treatment26 - treatment27    -6.25 7.67 24  -0.815   0.423    
+#>  treatment26 - treatment28     5.00 6.86 24   0.729   0.473    
+#>  treatment27 - treatment28    11.25 7.67 24   1.468   0.155    
 #> 
-#> warnings :
-#> NULL
+#> Treatment Groups
+#> ================
 #> 
+#> Method : lsd
+#> 
+#>  Treatment Adjusted Means   SE df lower.CL upper.CL  Group
+#>         28          68.75 5.36 24    57.69    79.81  1    
+#>          8          72.50 5.36 24    61.44    83.56  12   
+#>         24          72.75 5.36 24    61.69    83.81  12   
+#>         26          73.75 5.36 24    62.69    84.81  12   
+#>         21          74.50 5.36 24    63.44    85.56  12   
+#>          9          76.50 5.36 24    65.44    87.56  123  
+#>         12          76.50 5.36 24    65.44    87.56  123  
+#>         23          76.50 5.36 24    65.44    87.56  123  
+#>         18          77.25 5.36 24    66.19    88.31  1234 
+#>          5          77.50 5.36 24    66.44    88.56  12345
+#>          6          77.50 5.36 24    66.44    88.56  12345
+#>         20          77.50 5.36 24    66.44    88.56  12345
+#>         11          78.75 5.36 24    67.69    89.81  12345
+#>         13          79.25 5.36 24    68.19    90.31  12345
+#>          2          79.33 1.62 24    76.00    82.67  12   
+#>         27          80.00 5.36 24    68.94    91.06  12345
+#>         14          80.25 5.36 24    69.19    91.31  12345
+#>         17          80.50 5.36 24    69.44    91.56  12345
+#>          3          81.22 1.62 24    77.89    84.56   234 
+#>          4          81.78 1.62 24    78.44    85.11   2345
+#>         15          82.25 5.36 24    71.19    93.31  12345
+#>          1          83.67 1.62 24    80.33    87.00   2345
+#>         25          84.00 5.36 24    72.94    95.06  12345
+#>         19          84.25 5.36 24    73.19    95.31  12345
+#>         10          85.75 5.36 24    74.69    96.81   2345
+#>         22          91.00 5.36 24    79.94   102.06    345
+#>          7          92.75 5.36 24    81.69   103.81     45
+#>         16          93.25 5.36 24    82.19   104.31      5
 ```
