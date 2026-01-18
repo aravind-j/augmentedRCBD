@@ -175,21 +175,21 @@ binw <- function(x, method = c("fd", "scott", "sturges")) {
 
   if (method == "fd") {
     bw <-   pretty(range(x, na.rm = TRUE), n = nclass.FD(na.omit(x)),
-                   min.n = 1, right = TRUE)[2] -
+                   min.n = 1)[2] -
       pretty(range(x, na.rm = TRUE), n = nclass.FD(na.omit(x)),
-             min.n = 1, right = TRUE)[1]
+             min.n = 1)[1]
   }
   if (method == "scott") {
     bw <-   pretty(range(x, na.rm = TRUE), n = nclass.scott(na.omit(x)),
-                   min.n = 1, right = TRUE)[2] -
+                   min.n = 1)[2] -
       pretty(range(x, na.rm = TRUE), n = nclass.scott(na.omit(x)),
-             min.n = 1, right = TRUE)[1]
+             min.n = 1)[1]
   }
   if (method == "sturges") {
     bw <-   pretty(range(x, na.rm = TRUE), n = nclass.Sturges(na.omit(x)),
-                   min.n = 1, right = TRUE)[2] -
+                   min.n = 1)[2] -
       pretty(range(x, na.rm = TRUE), n = nclass.Sturges(na.omit(x)),
-             min.n = 1, right = TRUE)[1]
+             min.n = 1)[1]
   }
   return(bw)
 }
