@@ -900,7 +900,7 @@ help(ls)
 Packages in `R` are collections of `R` functions, data, and compiled
 code in a well-defined format. They are add-ons which extend the
 functionality of `R` and at present, there are
-[22956](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+[22973](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).
 
@@ -3354,7 +3354,7 @@ function.
 
     To cite the R package 'augmentedRCBD' in publications use:
 
-      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2025).
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2026).
       augmentedRCBD: Analysis of Augmented Randomised Complete Block
       Designs. R package version 0.1.7.9000,
       https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
@@ -3365,7 +3365,7 @@ function.
         title = {augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs},
         author = {J. Aravind and S. {Mukesh Sankar} and Dhammaprakash Pandhari Wankhede and Vikender Kaur},
         note = {R package version 0.1.7.9000 https://aravind-j.github.io/augmentedRCBD/ https://cran.r-project.org/package=augmentedRCBD},
-        year = {2025},
+        year = {2026},
       }
 
     This free and open-source software implements academic research by the
@@ -3380,7 +3380,7 @@ sessionInfo()
 
     R version 4.5.2 (2025-10-31)
     Platform: aarch64-apple-darwin20
-    Running under: macOS Sequoia 15.7.2
+    Running under: macOS Sequoia 15.7.3
 
     Matrix products: default
     BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
@@ -3403,31 +3403,31 @@ sessionInfo()
      [4] S7_0.2.1                bitops_1.0-9            fastmap_1.2.0          
      [7] RCurl_1.98-1.17         TH.data_1.1-5           fontquiver_0.2.1       
     [10] mathjaxr_2.0-0          XML_3.99-0.20           digest_0.6.39          
-    [13] estimability_1.5.1      lifecycle_1.0.4         multcompView_0.1-10    
+    [13] estimability_1.5.1      lifecycle_1.0.5         multcompView_0.1-10    
     [16] survival_3.8-3          magrittr_2.0.4          compiler_4.5.2         
-    [19] rlang_1.1.6             sass_0.4.10             tools_4.5.2            
+    [19] rlang_1.1.7             sass_0.4.10             tools_4.5.2            
     [22] yaml_2.3.12             data.table_1.18.0       knitr_1.51             
     [25] labeling_0.4.3          askpass_1.2.1           htmlwidgets_1.6.4      
-    [28] curl_7.0.0              plyr_1.8.9              xml2_1.5.1             
+    [28] curl_7.0.0              plyr_1.8.9              xml2_1.5.2             
     [31] RColorBrewer_1.1-3      multcomp_1.4-29         numform_0.7.0          
-    [34] withr_3.0.2             purrr_1.2.0             desc_1.4.3             
+    [34] withr_3.0.2             purrr_1.2.1             desc_1.4.3             
     [37] grid_4.5.2              gdtools_0.4.4           xtable_1.8-4           
     [40] ggplot2_4.0.1           emmeans_2.0.1           scales_1.4.0           
     [43] MASS_7.3-65             cli_3.6.5               mvtnorm_1.3-3          
     [46] rmarkdown_2.30          ragg_1.5.0              generics_0.1.4         
     [49] otel_0.2.0              httr_1.4.7              reshape2_1.4.5         
     [52] cachem_1.1.0            stringr_1.6.0           splines_4.5.2          
-    [55] vctrs_0.6.5             Matrix_1.7-4            sandwich_3.1-1         
+    [55] vctrs_0.7.0             Matrix_1.7-4            sandwich_3.1-1         
     [58] jsonlite_2.0.0          fontBitstreamVera_0.1.1 systemfonts_1.3.1      
     [61] tidyr_1.3.2             jquerylib_0.1.4         glue_1.8.0             
     [64] pkgdown_2.2.0.9000      codetools_0.2-20        stringi_1.8.7          
-    [67] flextable_0.9.10        gtable_0.3.6            tibble_3.3.0           
+    [67] flextable_0.9.10        gtable_0.3.6            tibble_3.3.1           
     [70] pillar_1.11.1           htmltools_0.5.9         openssl_2.3.4          
     [73] R6_2.6.1                textshaping_1.0.4       Rdpack_2.6.4           
     [76] evaluate_1.0.5          lattice_0.22-7          rbibutils_2.4          
     [79] moments_0.14.1          openxlsx_4.2.8.1        fontLiberation_0.1.0   
-    [82] bslib_0.9.0             Rcpp_1.1.0              zip_2.3.3              
-    [85] uuid_1.2-1              officer_0.7.2           xfun_0.55              
+    [82] bslib_0.9.0             Rcpp_1.1.1              zip_2.3.3              
+    [85] uuid_1.2-1              officer_0.7.3           xfun_0.56              
     [88] fs_1.6.6                zoo_1.8-15              pkgconfig_2.0.3        
 
 ## References
