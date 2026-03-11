@@ -5,8 +5,10 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                               env.random = TRUE,
                               check.random = TRUE,
                               test.random = TRUE,
+                              interaction = TRUE,
                               scenario = c("I", "II")) {
 
+  # Checks ----
 
   if (check.random && !test.random) {
     stop("Forbidden combination: check.random = TRUE & test.random = FALSE")
@@ -48,7 +50,8 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
       if (any(test_env_counts$env < 2)) {
         bad <- as.character(test_env_counts$trt[test_env_counts$env < 2])
         stop(
-          "Scenario I violation: the following test treatments occur in only one environment:\n",
+          "Scenario I violation: ",
+          "Test treatments appear in only one environment:\n",
           paste(bad, collapse = ", ")
         )
       }
@@ -58,26 +61,45 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
       if (any(test_env_counts$env > 1)) {
         bad <- as.character(test_env_counts$trt[test_env_counts$env > 1])
         stop(
-          "Scenario II violation: the following test treatments occur in multiple environments:\n",
+          "Scenario II violation: ",
+          "Test treatments appear in multiple environments:\n",
           paste(bad, collapse = ", ")
         )
       }
     }
   }
 
+  #  Build formula ----
+
+  menv <- ifelse(is.null(menv), TRUE, FALSE)
+
+  frmla <- build_formula(menv = menv,
+                         env.random = env.random,
+                         check.random = check.random,
+                         test.random = test.random,
+                         scenario = scenario)
+
+  # Fit the model ----
+  # Decision on inclusion of env treatment interactions ----
 
 }
 
 
 
 
-build_formula <- function(menv = TRUE,
+build_formula <- function(block = "block2", treatment = "treatment",
+                          test = "test", check = "check", env = "env",
+                          y = "y",
+                          menv = TRUE,
                           env.random = TRUE,
                           check.random = TRUE,
                           test.random = TRUE,
+                          interaction = TRUE,
                           scenario = c("I", "II")) {
 
+
   scenario <- match.arg(scenario)
+
 
   # Forbidden combination
   if (check.random && !test.random) {
@@ -87,65 +109,75 @@ build_formula <- function(menv = TRUE,
   fixed  <- character()
   random <- character()
 
-  # Block term (always random) ----
+  # Block term ----
   if (menv) {
-    random <- c(random, sprintf("(1|%s:%s)", "env", "block2"))
+    random <- c(random, sprintf("(1|%s:%s)", env, block))
   } else {
-    random <- c(random, sprintf("(1|%s)", "block"))
+    random <- c(random, sprintf("(1|%s)", block))
   }
 
   # Environment main effect ----
   if (menv) {
-    if (env.random) random <- c(random, sprintf("(1|%s)", "env"))
-    else            fixed <- c(fixed, "env")
+    if (env.random) {
+      random <- c(random, sprintf("(1|%s)", env))
+    } else {
+      fixed <- c(fixed, env)
+    }
   }
 
-  # --- Treatment structure
+  # Treatment structure ----
   if (check.random && test.random) {
-    random <- c(random, "(1|treatment)")
+    random <- c(random, sprintf("(1|%s)", treatment))
+  } else if (!check.random && !test.random) {
+    fixed <- c(fixed, treatment)
+  } else if (!check.random && test.random) {
+    fixed  <- c(fixed, check)
+    random <- c(random, sprintf("(1|%s:%s)", treatment, test))
   }
 
-  if (!check.random && !test.random) {
-    fixed <- c(fixed, "treatment")
-  }
-
-  if (!check.random && test.random) {
-    fixed  <- c(fixed, "check")
-    random <- c(random, "(1|treatment:test)")
-  }
-
-  # --- Env × treatment interactions
-  if (menv) {
-    if (scenario == "I") {
+  # Interaction (No test x env) ----
+  if (menv && scenario == "I") {
+    if (interaction) {  # only include interaction if TRUE
       if (!check.random && test.random) {
-        fixed  <- c(fixed, "env:check")
-        random <- c(random, "(1|env:treatment:test)")
+        fixed  <- c(fixed, sprintf("%s:%s", env, check))
+        random <- c(random, sprintf("(1|%s:%s:%s)", env, treatment, test))
       }
       if (check.random && test.random) {
-        random <- c(random, "(1|env:treatment)")
+        random <- c(random, sprintf("(1|%s:%s)", env, treatment))
       }
       if (!check.random && !test.random) {
-        fixed <- c(fixed, "env:treatment")
+        fixed <- c(fixed, sprintf("%s:%s", env, treatment))
+      }
+    } else {  # interaction = FALSE for scenario I
+      if (!check.random && test.random) {
+        fixed <- c(fixed, sprintf("%s:%s", env, check))
+        # no env:treatment:test random
+      }
+      if (check.random && test.random) {
+        random <- c(random, sprintf("(1|%s:%s:check)", env, treatment))
+      }
+      if (!check.random && !test.random) {
+        fixed <- c(fixed, sprintf("%s:%s", env, check))
       }
     }
+  }
 
-    # Scenario 2 (tests unique per env)
-    if (scenario == "II") {
-      if (!check.random && !test.random) {
-        fixed <- c(fixed, "env:check")  # test: env:treatment not estimable
-      }
-      if (!check.random && test.random) {
-        fixed  <- c(fixed, "env:check")
-        # test random within env already in (1|treatment:test)
-      }
-      if (check.random && test.random) {
-        random <- c(random, "(1|env:check)")
-      }
+  # Scenario II: always no interaction (No test x env)
+  # Only check x env is there
+  if (menv && scenario == "II") {
+    if (!check.random && test.random) {
+      fixed <- c(fixed, sprintf("%s:%s", env, check))
+    }
+    if (check.random && test.random) {
+      random <- c(random, sprintf("(1|%s:%s)", env, treatment))
+    }
+    if (!check.random && !test.random) {
+      fixed <- c(fixed, sprintf("%s:%s", env, check))
     }
   }
 
   rhs <- paste(c(fixed, random), collapse = " + ")
-  formula <- as.formula(paste(deparse(substitute(y)), "~", rhs))
 
+  formula <- as.formula(paste(y, "~", rhs))
   return(formula)
 }
