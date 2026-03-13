@@ -184,9 +184,9 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
         is.vector(y, mode = "numeric"))) {
     stop('"y" should be a vector of class "numeric" or "integer".')
   }
-  if (!(length(y) == length(treatment) &&
-        length(treatment) == length(block))) {
-    stop('"block", "treatment" and "y" are of unequal lengths.')
+  # Size equality of factors
+  if (length(unique(lengths(list(y, treatment, block, env)))) == 1) {
+    stop('"block", "treatment", "env", and "y" are of unequal lengths.')
   }
   if (TRUE %in% is.na(y)) { # check for missing values
     stop('"y" has missing value(s).')
