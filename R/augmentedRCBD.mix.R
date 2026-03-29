@@ -21,7 +21,7 @@
 #' @returns
 #'
 #' @import lme4
-#' @import lmerTest
+#' @importFrom lmerTest ranova
 #' @export
 #'
 #' @examples
@@ -32,7 +32,9 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                               test.random = TRUE,
                               # interaction = TRUE,
                               drop.nonsig.interaction = TRUE,
-                              scenario = c("I", "II")) {
+                              scenario = c("I", "II"),
+                              scenario.violation.threshold = 0.1,
+                              console = TRUE) {
 
   # Checks ----
 
@@ -44,7 +46,6 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
     warning("interaction ignored because menv = FALSE")
     drop.nonsig.interaction <- FALSE
   }
-
 
   # block
   if (!is.factor(block)) {
@@ -101,6 +102,11 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
    data_df <- data.frame(y, block, treatment, test, check)
   }
 
+  # Force scenarion to be NULL when there is no env
+  if (is.null(env)) {
+    scenario = NULL
+  }
+
   # Automatic scenario validation ----
 
   if (!is.null(env)) {
@@ -129,23 +135,60 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                                  FUN = function(x) length(unique(x)))
 
     if (scenario == "I") {
-      if (any(test_env_counts$env < 2)) {
-        bad <- as.character(test_env_counts$trt[test_env_counts$env < 2])
+
+      if (all(test_env_counts$env < 2)) {
         stop(
           "Scenario I violation: ",
-          "Test treatments appear in only one environment:\n",
-          paste(bad, collapse = ", ")
+          "All test treatments appear in only one environment:\n"
         )
+      }
+
+      if (any(test_env_counts$env < 2)) {
+        bad <- as.character(test_env_counts$trt[test_env_counts$env < 2])
+
+        if ((length(bad) / length(tests)) > scenario.violation.threshold) {
+
+          stop(sprintf(
+            paste0(
+              'Scenario I violation: %.0f%% of test treatments appear ',
+              'in only one environment, exceeding the ',
+              '"scenario.violation.threshold" (%.0f%%).'
+            ),
+            (length(bad) / length(tests)) * 100,
+            scenario.violation.threshold * 100
+          ))
+
+        } else {
+          warning(
+            "Scenario I violation: ",
+            "The following ", length(bad),
+            " test treatments appear in only one environment:\n\n",
+            paste(bad, collapse = ", "), "\n"
+          )
+        }
+
       }
     }
 
     if (scenario == "II") {
       if (any(test_env_counts$env > 1)) {
         bad <- as.character(test_env_counts$trt[test_env_counts$env > 1])
-        stop(
+
+        stop(sprintf(
+          paste0(
+            'Scenario II violation: %.0f%% of test treatments appear ',
+            'in multiple environments, exceeding the ',
+            '"scenario.violation.threshold" (%.0f%%).'
+          ),
+          (length(bad) / length(tests)) * 100,
+          scenario.violation.threshold * 100
+        ))
+
+        warning(
           "Scenario II violation: ",
-          "Test treatments appear in multiple environments:\n",
-          paste(bad, collapse = ", ")
+          "The following ", length(bad),
+          " test treatments appear in multiple environments:\n",
+          paste(bad, collapse = ", "), "\n"
         )
       }
     }
@@ -178,6 +221,7 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   # Fit the model ----
   mod_final <-
     lmer(frmla_int, data = data_df, REML = FALSE) # Use ML for testing
+
   if (drop.nonsig.interaction) {
     ## Decision on inclusion of env test-treatment interactions ----
     mod_wo_int <-
@@ -191,15 +235,15 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
     }
   }
 
+  # Use bobyqa if model is still singular
+  if (isSingular(mod_final, tol = 1e-4)) {
+    update(mod_final, control = lmerControl(optimizer = "bobyqa"),
+           data = model.frame(mod_final))
+  }
+
+
   ## Refit with REML ----
   mod_final <- update(mod_final, REML = TRUE, data = model.frame(mod_final))
-
-
-  # isSingular(mod_init, tol = 1e-4)
-  #
-  # mod_init <-
-  #   lmer(frmla, data = data_df,
-  #        control = lmerControl(optimizer = "bobyqa"))
 
 
   # Diagnostics ----
@@ -229,11 +273,16 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   ## Fixed effects ----
 
   if (length(lme4::fixef(mod_final)) > 0) {
-    fixef_anova <-
-      getS3method("anova", "lmerModLmerTest",
-                  envir = asNamespace("lmerTest"))(mod_final,
-                                                   type = 3,
-                                                   ddf = "Satterthwaite")
+    # fixef_anova <-
+    #   getS3method("anova", "lmerModLmerTest",
+    #               envir = asNamespace("lmerTest"))(mod_final,
+    #                                                type = 3,
+    #                                                ddf = "Satterthwaite")
+
+    fixef_anova <- stats::anova(mod_final,  type = 3,
+                                ddf = "Satterthwaite")
+
+
   } else {
     fixef_anova <- NULL
   }
@@ -245,18 +294,53 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
 
   # Adjusted means ----
 
-  mod_fixef <- ranef(mod_final)
-  test_blup <- test_blup$`treatment:test`
+  check_mean <- if (check.random) {
+    "BLUP"
+  } else {
+    "BLUE"
+  }
 
-  adjm_test <- data.frame(treatment = gsub("^(.+)(:.+)$", "\\1", row.names(test_blup)),
-                          Mean = fixef(mod_final)["(Intercept)"] + test_blup[,"(Intercept)"])
-  adjm_test <- adjm_test[!(adjm_test$treatment %in% checks), ]
+  test_mean <- if (test.random) {
+    "BLUP"
+  } else {
+    "BLUE"
+  }
 
+  test_mean <- if (scenario == "II") {
+    paste0(test_mean, "_within_env")
+  } else {
+    test_mean
+  }
+
+  aug_adj_means <-
+    get_aug_means(mod = mod_final, checks = checks,
+                  tests = tests, env = env,
+                  check_mean = check_mean,
+                  test_mean = test_mean)
+
+
+  # Final output ----
+
+  output <- list(Details = NULL,
+                 Model = mod_final,
+                 `Model Diagnostics` = mod_diag,
+                 `ANOVA, Fixed Effects` = fixef_anova,
+                 `LRT, Random Effects` = ranef_anova,
+                 `Means` = aug_adj_means)
+
+  # Set Class
+  class(output) <- "augmentedRCBD.mix"
+
+  # if (console) {
+  #   print.augmentedRCBD.mix(output)
+  # }
+
+  return(output)
 
 }
 
 
-
+# Function to get adjusted means ----
 get_aug_means <- function(mod, checks, tests, env = NULL,
                           check_mean = c("BLUE","BLUP"),
                           test_mean = c("BLUE","BLUP",
@@ -271,7 +355,7 @@ get_aug_means <- function(mod, checks, tests, env = NULL,
 
   intercept <- fe["(Intercept)"]
 
-  # CHECK MEANS ----
+  ## Check means ----
 
   if (check_mean == "BLUE") {
 
@@ -303,7 +387,7 @@ get_aug_means <- function(mod, checks, tests, env = NULL,
   }
 
 
-  # TEST MEANS ----
+  ## Test means ----
 
   if (test_mean == "BLUP") {
 
@@ -335,7 +419,7 @@ get_aug_means <- function(mod, checks, tests, env = NULL,
     )
   }
 
-  # WITHIN ENVIRONMENT CASES ----
+  ## Within-environment cases ----
 
   if (test_mean %in% c("BLUP_within_env","BLUE_within_env")) {
 
@@ -375,7 +459,7 @@ get_aug_means <- function(mod, checks, tests, env = NULL,
     adjm_test <- do.call(rbind, adj_list)
   }
 
-  # FINAL OUTPUT ----
+  ## Final output ----
 
   if (exists("adjm_check")) {
     out <- rbind(adjm_check, adjm_test)
@@ -389,27 +473,7 @@ get_aug_means <- function(mod, checks, tests, env = NULL,
 }
 
 
-
-#' **Rules for constructing the model**
-#'
-#' 1. **Block effect.** The block effect is always treated as random. If `menv = FALSE` (single environment), include `(1 | block)`. If `menv = TRUE` (multi-environment), blocks are nested within environments and the term becomes `(1 | env:block)`.
-#' 2. **Environment main effect.** If `menv = TRUE`, include a main effect for environment. If `env.random = TRUE`, include `(1 | env)`. If `env.random = FALSE`, include `env` as a fixed effect. If `menv = FALSE`, no environment term is included.
-#' 3. **Treatment structure.** Treatments consist of two groups: **checks** and **tests**. The treatment main effect is constructed according to the random/fixed status of checks and tests.
-#' 4. **Both checks and tests random.** If `check.random = TRUE` and `test.random = TRUE`, include a single random treatment effect `(1 | treatment)` instead of separate check and test terms.
-#' 5. **Checks fixed, tests random.** If `check.random = FALSE` and `test.random = TRUE`, include `check` as a fixed effect and include the random test term `(1 | treatment:test)`.
-#' 6. **Both checks and tests fixed.** If `check.random = FALSE` and `test.random = FALSE`, include `treatment` as a fixed effect.
-#' 7. **Interaction eligibility.** Environment × treatment interactions are considered only when `menv = TRUE`. If `menv = FALSE`, no interaction terms are included.
-#' 8. **Meaning of the interaction argument.** The argument `interaction` determines whether **test × environment interaction** is included. If `interaction = TRUE`, test treatments may interact with environments. If `interaction = FALSE`, the test × environment interaction is omitted, but check × environment interaction may still be included.
-#' 9. **Scenario I with interaction = TRUE.** When `scenario = "I"` (tests replicated across environments) and `interaction = TRUE`, include environment × treatment interaction as follows: if `check.random = TRUE` and `test.random = TRUE`, include `(1 | env:treatment)`; if `check.random = FALSE` and `test.random = TRUE`, include `env:check + (1 | env:treatment:test)`; if `check.random = FALSE` and `test.random = FALSE`, include `env:treatment`.
-#' 10. **Scenario I with interaction = FALSE.** When `scenario = "I"` and `interaction = FALSE`, omit the test × environment interaction. The interaction structure becomes: if `check.random = TRUE` and `test.random = TRUE`, include `(1 | env:treatment:check)`; if `check.random = FALSE` and `test.random = TRUE`, include `env:check`; if `check.random = FALSE` and `test.random = FALSE`, include `env:check`.
-#' 11. **Random-effect simplification.** If `env.random = TRUE`, `check.random = FALSE`, and `test.random = TRUE`, and the interaction specification produces both `(1 | env:check)` and `(1 | env:treatment:test)`, these terms are combined into a single term `(1 | env:treatment)`.
-#' 12. **Scenario II (tests not replicated across environments).** When `scenario = "II"`, test treatments occur in only one environment, so test × environment interaction cannot be estimated. Therefore `interaction` is effectively treated as `FALSE`, and the interaction structure follows the same rules described in Rule 10.
-#' 99. **Forbidden configuration.** The combination `check.random = TRUE` and `test.random = FALSE` is not allowed, because tests cannot be fixed while checks are modeled as random.
-#'
-
-
-
-
+# Formula builder ----
 build_formula <- function(block = "block2", treatment = "treatment",
                           test = "test", check = "check", env = "env",
                           y = "y",
@@ -422,18 +486,18 @@ build_formula <- function(block = "block2", treatment = "treatment",
 
   scenario <- match.arg(scenario)
 
-  # Forbidden configuration (Rule 99)  ----
+  ## Forbidden configuration (Rule 99)  ----
   if (check.random && !test.random) {
     stop("Forbidden: check.random = TRUE & test.random = FALSE")
   }
 
-  # Scenario II never allows test x env interaction
+  ## Scenario II never allows test x env interaction
   if (scenario == "II") interaction <- FALSE
 
   fixed  <- character()
   random <- character()
 
-  # Block term (Rule 1) ----
+  ## Block term (Rule 1) ----
 
   if (menv) {
     random <- c(random, sprintf("(1|%s:%s)", env, block))
@@ -441,7 +505,7 @@ build_formula <- function(block = "block2", treatment = "treatment",
     random <- c(random, sprintf("(1|%s)", block))
   }
 
-  # Environment main effect (Rule 2) ----
+  ## Environment main effect (Rule 2) ----
 
   if (menv) {
     if (env.random) {
@@ -451,7 +515,7 @@ build_formula <- function(block = "block2", treatment = "treatment",
     }
   }
 
-  # Treatment main effects (Rules 3–6)  ----
+  ## Treatment main effects (Rules 3–6)  ----
 
   trt_case <- NULL
 
@@ -471,7 +535,7 @@ build_formula <- function(block = "block2", treatment = "treatment",
     fixed <- c(fixed, treatment)
   }
 
-  # Interactions (Rules 7–12)  ----
+  ## Interactions (Rules 7–12)  ----
 
   if (menv) {
 
@@ -526,7 +590,7 @@ build_formula <- function(block = "block2", treatment = "treatment",
     }
   }
 
-  # Build formula
+  ## Build formula
 
   rhs <- paste(c(fixed, random), collapse = " + ")
   as.formula(paste(y, "~", rhs))

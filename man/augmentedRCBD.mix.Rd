@@ -14,7 +14,9 @@ augmentedRCBD.mix(
   check.random = TRUE,
   test.random = TRUE,
   drop.nonsig.interaction = TRUE,
-  scenario = c("I", "II")
+  scenario = c("I", "II"),
+  scenario.violation.threshold = 0.1,
+  console = TRUE
 )
 }
 \arguments{
