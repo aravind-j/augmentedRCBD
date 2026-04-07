@@ -4,6 +4,9 @@
 
 # trouBBlme4SolveR
 
+# data_df$test <- as.factor(data_df$test)
+# data_df$check <- as.factor(data_df$check)
+
 
 #' Title
 #'
@@ -15,13 +18,20 @@
 #' @param env.random
 #' @param check.random
 #' @param test.random
-#' @param interaction
 #' @param scenario
+#' @param drop.nonsig.interaction
+#' @param scenario.violation.threshold
+#' @param df_method
+#' @param console
 #'
 #' @returns
 #'
-#' @import lme4
-#' @importFrom lmerTest ranova
+#' @importFrom lme4 lmerControl isSingular fixef ranef VarCorr
+#' @importFrom lmerTest lmer ranova
+#' @importFrom stats aggregate AIC BIC as.formula model.frame model.matrix update
+#' @importFrom emmeans emmeans
+#' @importFrom dplyr %>% bind_rows group_by n summarize
+#' @importFrom utils tail
 #' @export
 #'
 #' @examples
@@ -34,16 +44,20 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                               drop.nonsig.interaction = TRUE,
                               scenario = c("I", "II"),
                               scenario.violation.threshold = 0.1,
+                              df_method = c("kenward-roger", "satterthwaite"),
                               console = TRUE) {
 
   # Checks ----
+
+  df_method <- match.arg(df_method)
+  scenario <- match.arg(scenario)
 
   if (check.random && !test.random) {
     stop("Forbidden combination: check.random = TRUE & test.random = FALSE")
   }
 
   if (is.null(env) && drop.nonsig.interaction) {
-    warning("interaction ignored because menv = FALSE")
+    warning("interaction ignored because env = NULL")
     drop.nonsig.interaction <- FALSE
   }
 
@@ -56,9 +70,9 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
     stop('"treatment" should be of class "factor".')
   }
   # environment
-    if (!is.null(env) && !is.factor(env)) {
-      stop('"env" should be of class "factor".')
-    }
+  if (!is.null(env) && !is.factor(env)) {
+    stop('"env" should be of class "factor".')
+  }
   # y
   if (!(is.vector(y, mode = "integer") |
         is.vector(y, mode = "numeric"))) {
@@ -66,7 +80,7 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   }
   # Size equality of factors
   if (is.null(env)) {
-    if (length(unique(lengths(list(y, treatment, block)))) == 1) {
+    if (length(unique(lengths(list(y, treatment, block)))) != 1) {
       stop('"block", "treatment" and "y" are of unequal lengths.')
     }
   } else {
@@ -92,14 +106,14 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                   treatment, "test")
 
   # Fix treatment order so that checks are in the beginning ----
-  treatment_org <- treatment
+  # treatment_org <- treatment
   treatment <- factor(treatment,
                       levels = c(checks, setdiff(levels(treatment),
                                                  checks)))
   if (!is.null(env)) {
-   data_df <- data.frame(y, block2, treatment, env, test, check)
+    data_df <- data.frame(y, block2, treatment, env, test, check)
   } else {
-   data_df <- data.frame(y, block, treatment, test, check)
+    data_df <- data.frame(y, block, treatment, test, check)
   }
 
   # Force scenarion to be NULL when there is no env
@@ -112,16 +126,6 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   if (!is.null(env)) {
 
     ## Identify tests vs checks
-    test_flag  <-
-      ifelse(treatment %in% levels(treatment)[treatment %in% treatment],
-             !(treatment %in% unique(treatment[treatment %in% treatment])),
-             NA)
-    test_flag <-
-      ifelse(treatment %in% unique(treatment), 1, 1)  # placeholder safety
-    test_flag <-
-      ifelse(treatment %in% levels(treatment)[treatment %in% treatment], 1, 1)
-
-    ## More robust: infer from factor 'check'
     test_flag <- ifelse(as.character(treatment) %in%
                           as.character(unique(treatment[check == "test"])),
                         1, 0)
@@ -130,9 +134,10 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                           env = env,
                           test = test_flag)
 
-    test_env_counts <- aggregate(env ~ trt,
-                                 data = dat_tmp[dat_tmp$test == 1, ],
-                                 FUN = function(x) length(unique(x)))
+    test_env_counts <-
+      stats::aggregate(env ~ trt,
+                       data = dat_tmp[dat_tmp$test == 1, ],
+                       FUN = function(x) length(unique(x)))
 
     if (scenario == "I") {
 
@@ -141,9 +146,7 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
           "Scenario I violation: ",
           "All test treatments appear in only one environment:\n"
         )
-      }
-
-      if (any(test_env_counts$env < 2)) {
+      } else if (any(test_env_counts$env < 2)) {
         bad <- as.character(test_env_counts$trt[test_env_counts$env < 2])
 
         if ((length(bad) / length(tests)) > scenario.violation.threshold) {
@@ -174,61 +177,72 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
       if (any(test_env_counts$env > 1)) {
         bad <- as.character(test_env_counts$trt[test_env_counts$env > 1])
 
-        stop(sprintf(
-          paste0(
-            'Scenario II violation: %.0f%% of test treatments appear ',
-            'in multiple environments, exceeding the ',
-            '"scenario.violation.threshold" (%.0f%%).'
-          ),
-          (length(bad) / length(tests)) * 100,
-          scenario.violation.threshold * 100
-        ))
+        if ((length(bad) / length(tests)) > scenario.violation.threshold) {
 
-        warning(
-          "Scenario II violation: ",
-          "The following ", length(bad),
-          " test treatments appear in multiple environments:\n",
-          paste(bad, collapse = ", "), "\n"
-        )
+          stop(sprintf(
+            paste0(
+              'Scenario II violation: %.0f%% of test treatments appear ',
+              'in multiple environments, exceeding the ',
+              '"scenario.violation.threshold" (%.0f%%).'
+            ),
+            (length(bad) / length(tests)) * 100,
+            scenario.violation.threshold * 100
+          ))
+
+        } else {
+          warning(
+            "Scenario II violation: ",
+            "The following ", length(bad),
+            " test treatments appear in multiple environments:\n",
+            paste(bad, collapse = ", "), "\n"
+          )
+        }
       }
     }
   }
-
 
   #  Build formula ----
 
   menv <- ifelse(is.null(env), FALSE, TRUE)
 
-  frmla_int <- build_formula(block = ifelse(is.null(env), "block", "block2"),
-                             treatment = "treatment",
-                             test = "test", check = "check",
-                             env = "env", y = "y",
-                             menv = menv,
-                             env.random = env.random,
-                             check.random = check.random,
-                             test.random = test.random,
-                             scenario = scenario, interaction = TRUE)
-  frmla_wo_int <- build_formula(block = ifelse(is.null(env), "block", "block2"),
-                                treatment = "treatment",
-                                test = "test", check = "check",
-                                env = "env", y = "y",
-                                menv = menv,
-                                env.random = env.random,
-                                check.random = check.random,
-                                test.random = test.random,
-                                scenario = scenario, interaction = FALSE)
+  frmla_int <-
+    build_formula(block = ifelse(is.null(env), "block", "block2"),
+                  treatment = "treatment",
+                  test = "test", check = "check",
+                  env = "env", y = "y",
+                  menv = menv,
+                  env.random = env.random,
+                  check.random = check.random,
+                  test.random = test.random,
+                  scenario = scenario, interaction = TRUE)
+
+  if (menv == TRUE) {
+    frmla_wo_int <-
+      build_formula(block = ifelse(is.null(env), "block", "block2"),
+                    treatment = "treatment",
+                    test = "test", check = "check",
+                    env = "env", y = "y",
+                    menv = menv,
+                    env.random = env.random,
+                    check.random = check.random,
+                    test.random = test.random,
+                    scenario = scenario, interaction = FALSE)
+  }
 
   # Fit the model ----
   mod_final <-
-    lmer(frmla_int, data = data_df, REML = FALSE) # Use ML for testing
+    lmerTest::lmer(frmla_int, data = data_df,
+                   REML = FALSE) # Use ML for testing
 
-  if (drop.nonsig.interaction) {
+  if (menv && drop.nonsig.interaction) {
     ## Decision on inclusion of env test-treatment interactions ----
     mod_wo_int <-
-      lmer(frmla_wo_int, data = data_df, REML = FALSE) # Use ML for testing
+      lmerTest::lmer(frmla_wo_int, data = data_df,
+                     REML = FALSE) # Use ML for testing
 
     LRT <- anova(mod_wo_int, mod_final)
-    LRT_p <- tibble::deframe(broom::tidy(LRT)[2, "p.value"])
+    # LRT_p <- tibble::deframe(broom::tidy(LRT)[2, "p.value"])
+    LRT_p <- tail(LRT[["Pr(>Chisq)"]], 1)
 
     if (LRT_p > 0.05) {
       mod_final <- mod_wo_int
@@ -237,10 +251,10 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
 
   # Use bobyqa if model is still singular
   if (isSingular(mod_final, tol = 1e-4)) {
-    update(mod_final, control = lmerControl(optimizer = "bobyqa"),
-           data = model.frame(mod_final))
+    mod_final <-
+      update(mod_final, control = lmerControl(optimizer = "bobyqa"),
+             data = model.frame(mod_final))
   }
-
 
   ## Refit with REML ----
   mod_final <- update(mod_final, REML = TRUE, data = model.frame(mod_final))
@@ -272,15 +286,16 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
 
   ## Fixed effects ----
 
-  if (length(lme4::fixef(mod_final)) > 0) {
+  # if (length(lme4::fixef(mod_final)) > 0) {
+  if (any(colnames(model.matrix(mod_final)) != "(Intercept)")) {
     # fixef_anova <-
     #   getS3method("anova", "lmerModLmerTest",
     #               envir = asNamespace("lmerTest"))(mod_final,
     #                                                type = 3,
     #                                                ddf = "Satterthwaite")
 
-    fixef_anova <- stats::anova(mod_final,  type = 3,
-                                ddf = "Satterthwaite")
+    fixef_anova <- anova(mod_final,  type = 3,
+                         ddf = "Satterthwaite")
 
 
   } else {
@@ -306,18 +321,18 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
     "BLUE"
   }
 
-  test_mean <- if (scenario == "II") {
+  test_mean <- if (!is.null(scenario) && scenario == "II") {
     paste0(test_mean, "_within_env")
   } else {
     test_mean
   }
 
   aug_adj_means <-
-    get_aug_means(mod = mod_final, checks = checks,
-                  tests = tests, env = env,
-                  check_mean = check_mean,
-                  test_mean = test_mean)
-
+    get_treatment_means(mod = mod_final, checks = checks,
+                        tests = tests, env = env,
+                        check_mean = check_mean,
+                        test_mean = test_mean,
+                        df_method = df_method)
 
   # Final output ----
 
@@ -341,137 +356,221 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
 
 
 # Function to get adjusted means ----
-get_aug_means <- function(mod, checks, tests, env = NULL,
-                          check_mean = c("BLUE","BLUP"),
-                          test_mean = c("BLUE","BLUP",
-                                        "BLUE_within_env",
-                                        "BLUP_within_env")) {
+get_treatment_means <-
+  function(mod, checks, tests, env = NULL,
+           check_mean = c("BLUE","BLUP"),
+           test_mean = c("BLUE","BLUP",
+                         "BLUE_within_env",
+                         "BLUP_within_env"),
+           df_method = c("kenward-roger", "satterthwaite")) {
 
-  check_mean <- match.arg(check_mean)
-  test_mean <- match.arg(test_mean)
+    df_method <- match.arg(df_method)
 
-  fe <- lme4::fixef(mod)
-  re <- lme4::ranef(mod)
+    # Setup
+    data_df <- mod@frame
+    has_env <- "env" %in% names(data_df)
 
-  intercept <- fe["(Intercept)"]
+    # Get model effects
+    beta <- fixef(mod)
+    re_list <- ranef(mod, condVar = TRUE)
 
-  ## Check means ----
+    has_fixed_check <- any(grepl("^check", names(beta)))
+    has_fixed_treatment <- any(grepl("^treatment", names(beta)))
+    has_fixed_env_check <-
+      any(grepl("^env[0-9]+:check[0-9]+$", names(beta)))
+    has_fixed_treatment_env <-
+      any(grepl("^treatment[0-9]+:env[0-9]+$", names(beta)))
 
-  if (check_mean == "BLUE") {
+    fetch <- ifelse(has_fixed_check, "check", "treatment")
+    fetch <- ifelse(has_fixed_env_check, "treatment | env", fetch)
 
-    check_blue <- sapply(checks, function(ch) {
+    nstg_list <- NULL
+    if (has_fixed_env_check) {
+      nstg_list <- list(treatment = c("env", "check"))
+    }
 
-      coef_name <- paste0("check", ch)
+    has_random_treatment <- "treatment" %in% names(re_list)
+    has_random_treatment_test <- "treatment:test" %in% names(re_list)
 
-      intercept +
-        if (coef_name %in% names(fe)) fe[coef_name] else 0
-
-    })
-
-    adjm_check <- data.frame(
-      treatment = checks,
-      Mean = check_blue
-    )
-  }
-
-  if (check_mean == "BLUP") {
-
-    check_re <- re$treatment
-
-    adjm_check <- data.frame(
-      treatment = rownames(check_re),
-      Mean = intercept + check_re[, "(Intercept)"]
-    )
-
-    adjm_check <- adjm_check[adjm_check$treatment %in% checks, ]
-  }
+    key <- paste(check_mean, test_mean, sep = "_")
 
 
-  ## Test means ----
+    cases <- list(
+      "BLUP_BLUP" = function() {
+        out <- get_blup(mod = mod, within_env = FALSE,
+                        has_random_treatment = has_random_treatment,
+                        has_random_treatment_test = has_random_treatment_test)
+        out$type <- "BLUP"
+        out
+      },
+      "BLUE_BLUP" = function() {
+        blue_out <-
+          get_blue(mod = mod, has_env = has_env,
+                   within_env = FALSE, fetch = "check",
+                   emm_df = df_method, nesting = NULL)
+        blue_out <- blue_out[blue_out$treatment %in% checks, ]
+        blue_out$type <- "BLUE"
+        blup_out <-
+          get_blup(mod = mod, within_env = FALSE,
+                   has_random_treatment = has_random_treatment,
+                   has_random_treatment_test = has_random_treatment_test)
+        blup_out$treatment <- gsub(":.*", "", blup_out$treatment)
+        blup_out <- blup_out[blup_out$treatment %in% tests, ]
+        blup_out$type <- "BLUP"
+        dplyr::bind_rows(blue_out, blup_out)
+      },
+      "BLUE_BLUE" = function() {
+        out <- get_blue(mod = mod, has_env = has_env,
+                        within_env = FALSE, fetch = fetch,
+                        nesting = nstg_list,
+                        emm_df = df_method)
 
-  if (test_mean == "BLUP") {
+        if (has_fixed_env_check) {
+          out <- out %>%
+            group_by(treatment) %>%
+            summarize(
+              # arithmetic mean of the BLUEs across environments
+              mean = mean(mean),
+              # SE = sqrt(mean(SE^2)),  # approximate
+              # SE of the average
+              SE = sqrt(sum(SE^2) / (n()^2)),
+              # Placeholder for DF
+              df = NA,
+              .groups = "drop"
+            )
 
-    test_re <- re$`treatment:test`
+          out$type <- "BLUE_avg"
+        } else {
+          out$type <- "BLUE"
+        }
 
-    adjm_test <- data.frame(
-      treatment = gsub("^(.+)(:.+)$", "\\1", rownames(test_re)),
-      Mean = intercept + test_re[, "(Intercept)"]
-    )
+        out
 
-    adjm_test <- adjm_test[adjm_test$treatment %in% tests, ]
-  }
+      },
+      "BLUP_BLUP_within_env" = function() {
+        out <- get_blup(mod = mod, within_env = TRUE,
+                        has_random_treatment = has_random_treatment,
+                        has_random_treatment_test = has_random_treatment_test)
+        out
 
-
-  if (test_mean == "BLUE") {
-
-    test_blue <- sapply(tests, function(tr) {
-
-      coef_name <- paste0("treatment", tr)
-
-      intercept +
-        if (coef_name %in% names(fe)) fe[coef_name] else 0
-
-    })
-
-    adjm_test <- data.frame(
-      treatment = tests,
-      Mean = test_blue
-    )
-  }
-
-  ## Within-environment cases ----
-
-  if (test_mean %in% c("BLUP_within_env","BLUE_within_env")) {
-
-    env_levels <- levels(env)
-
-    adj_list <- lapply(env_levels, function(e) {
-
-      if (test_mean == "BLUP_within_env") {
-
-        re_env <- re$`env:treatment:test`
-
-        idx <- grepl(paste0("^", e, ":"), rownames(re_env))
-
-        tmp <- re_env[idx, , drop = FALSE]
-
-        data.frame(
-          env = e,
-          treatment = gsub("^[^:]+:([^:]+):.*$", "\\1", rownames(tmp)),
-          Mean = intercept + tmp[, "(Intercept)"]
-        )
-
-      } else {
-
-        sapply(tests, function(tr) {
-
-          coef_name <- paste0("env", e, ":treatment", tr)
-
-          intercept +
-            if (coef_name %in% names(fe)) fe[coef_name] else 0
-
-        })
-
+      },
+      "BLUE_BLUP_within_env" = function() {
+        blue_out <-
+          get_blue(mod = mod, has_env = has_env,
+                   within_env = FALSE, fetch = "check",
+                   emm_df = df_method, nesting = NULL)
+        blue_out <- blue_out[blue_out$treatment %in% checks, ]
+        blue_out$type <- "BLUE"
+        blup_out <-
+          get_blup(mod = mod, within_env = TRUE,
+                   has_random_treatment = has_random_treatment,
+                   has_random_treatment_test = has_random_treatment_test)
+        blup_out$treatment <- gsub(":.*", "", blup_out$treatment)
+        blup_out <- blup_out[blup_out$treatment %in% tests, ]
+        blup_out$type <- "BLUP"
+        dplyr::bind_rows(blue_out, blup_out)
+      },
+      "BLUE_BLUE_within_env" = function() {
+        check_out <- get_blue(mod = mod, has_env = has_env,
+                              within_env = FALSE, fetch = "check",
+                              nesting = nstg_list,
+                              emm_df = df_method)
+        check_out <- check_out[check_out$treatment %in% checks, ]
+        test_out <- get_blue(mod = mod, has_env = has_env,
+                             within_env = FALSE, fetch = "treatment",
+                             nesting = nstg_list,
+                             emm_df = df_method)
+        test_out <- test_out[test_out$treatment %in% tests, ]
+        dplyr::bind_rows(check_out, test_out)
       }
+    )
 
-    })
+    if (!key %in% names(cases)) {
+      stop("Invalid combination")
+    }
 
-    adjm_test <- do.call(rbind, adj_list)
+    res <- cases[[key]]()
+
+    return(res)
+
   }
 
-  ## Final output ----
+# BLUE using emmeans ----
+get_blue <- function(mod = mod, within_env = FALSE, has_env = has_env,
+                     fetch, nesting, emm_df) {
 
-  if (exists("adjm_check")) {
-    out <- rbind(adjm_check, adjm_test)
+  if (within_env && has_env && fetch != "check") {
+    emm <- emmeans(mod,
+                   as.formula(paste0("~ ", fetch, " | ", "env")),
+                   lmer.df = emm_df)
+
+    emm_df_out <- as.data.frame(emm)
+
+    # average across env
+    agg <- aggregate(cbind(emmean, SE, df) ~ treatment,
+                     data = emm_df_out,
+                     FUN = function(x) c(mean = mean(x)))
+
+    out <- data.frame(
+      treatment = agg$treatment,
+      mean = agg$emmean[, "mean"],
+      SE = agg$SE[, "mean"],
+      df = agg$df[, "mean"]
+    )
+
   } else {
-    out <- adjm_test
-  }
+    emm <- emmeans(mod,
+                   as.formula(paste0("~ ", fetch)),
+                   lmer.df = emm_df, nesting = nesting)
 
-  rownames(out) <- NULL
+    out <- as.data.frame(emm)[, c(gsub(" \\| env", "", fetch),
+                                  "emmean", "SE", "df")]
+    names(out) <- c("treatment", "mean", "SE", "df")
+
+  }
 
   return(out)
 }
 
+get_blup <- function(mod, within_env = FALSE,
+                     has_random_treatment,
+                     has_random_treatment_test) {
+
+  beta0 <- fixef(mod)["(Intercept)"]
+
+  # extract random effects
+  if (has_random_treatment) {
+    re <- re_list["treatment"][[1]]
+  } else if (has_random_treatment_test) {
+    re <- re_list["treatment:test"][[1]]
+  } else {
+    stop("No treatment random effect in model")
+  }
+
+  re_vals <- re[,1]
+  names(re_vals) <- rownames(re)
+
+  # conditional variance
+  postVar <- attr(re, "postVar")
+
+  # SE extraction
+  se_vals <- sapply(1:length(re_vals),
+                    function(i) {
+                      sqrt(postVar[,,i])
+                    })
+
+  names(se_vals) <- names(re_vals)
+
+  # BLUP mean
+  mean_vals <- beta0 + re_vals
+
+  out <- data.frame(treatment = names(mean_vals),
+                    mean = as.numeric(mean_vals),
+                    SE = as.numeric(se_vals),
+                    df = NA)
+
+  return(out)
+}
 
 # Formula builder ----
 build_formula <- function(block = "block2", treatment = "treatment",

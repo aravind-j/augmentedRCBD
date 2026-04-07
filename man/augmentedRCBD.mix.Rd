@@ -16,11 +16,12 @@ augmentedRCBD.mix(
   drop.nonsig.interaction = TRUE,
   scenario = c("I", "II"),
   scenario.violation.threshold = 0.1,
+  df_method = c("kenward-roger", "satterthwaite"),
   console = TRUE
 )
 }
 \arguments{
-\item{scenario}{}
+\item{console}{}
 }
 \description{
 Title

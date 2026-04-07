@@ -42,6 +42,8 @@ Imports:
     flextable,
     ggplot2,
     grDevices,
+    lme4,
+    lmerTest,
     mathjaxr,
     methods,
     moments,
