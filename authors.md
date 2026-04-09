@@ -13,7 +13,8 @@
 
 - **Vikender Kaur**. Author. [](https://orcid.org/0000-0001-9698-7329)
 
-- **ICAR-NBGPR**. Copyright holder.  
+- **ICAR-NBGPR**. Copyright holder.
+  [![ROR](https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg)](https://ror.org/https://ror.org/00scbd467)  
   https://nbpgr.org.in/
 
 ## Citation

@@ -341,7 +341,7 @@ out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 #>   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
 #>   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
 #>   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-#>   treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+#>   treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
 #>   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
 #>   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
 #>  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -388,7 +388,7 @@ out2 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y2,
 #> Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
 #>   Treatment: Check                    3   2150     717   2.504 0.156116    
 #>   Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
-#> Residuals                             6   1717     286                     
+#> Residuals                             6   1718     286                     
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -400,7 +400,7 @@ out2 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y2,
 #>   Treatment: Test               7  34863    4980  17.399 0.001366 ** 
 #>   Treatment: Test vs. Check     1  27694   27694  96.749 6.36e-05 ***
 #> Block (eliminating Treatments)  2   1277     639   2.231 0.188645    
-#> Residuals                       6   1718     286                     
+#> Residuals                       6   1717     286                     
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -664,7 +664,7 @@ out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 #>   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
 #>   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
 #>   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-#>   treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+#>   treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
 #>   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
 #>   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
 #>  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -711,7 +711,7 @@ out2 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y2,
 #> Treatment (eliminating Blocks)       11  58965    5360  18.727 0.000920 ***
 #>   Treatment: Check                    3   2150     717   2.504 0.156116    
 #>   Treatment: Test and Test vs. Check  8  56815    7102  24.810 0.000473 ***
-#> Residuals                             6   1717     286                     
+#> Residuals                             6   1718     286                     
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -723,7 +723,7 @@ out2 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y2,
 #>   Treatment: Test               7  34863    4980  17.399 0.001366 ** 
 #>   Treatment: Test vs. Check     1  27694   27694  96.749 6.36e-05 ***
 #> Block (eliminating Treatments)  2   1277     639   2.231 0.188645    
-#> Residuals                       6   1718     286                     
+#> Residuals                       6   1717     286                     
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -999,7 +999,7 @@ out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 #>   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
 #>   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
 #>   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-#>   treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+#>   treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
 #>   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
 #>   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
 #>  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -1168,7 +1168,7 @@ out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 #>   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
 #>   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
 #>   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-#>   treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+#>   treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
 #>   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
 #>   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
 #>  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    

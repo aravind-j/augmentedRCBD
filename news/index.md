@@ -1,6 +1,13 @@
 # Changelog
 
-## augmentedRCBD 0.1.8
+## augmentedRCBD 0.2.0
+
+### NEW FUNCTIONS:
+
+- `augmentedRCBD.menv` - Combined analysis of augmented RCBD in multiple
+  environments (using fixed effects model).
+- `augmentedRCBD.mix` - Analysis of augmented RCBD in single and
+  multiple environments using mixed effects models.
 
 ### UPDATED FUNCTIONS:
 

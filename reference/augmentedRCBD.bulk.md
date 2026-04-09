@@ -245,7 +245,7 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
 #>     Treatment (ignoring Blocks) 11 52.33 ⁿˢ 11  5882.50 **
 #>                Treatment: Check  3 17.64 ⁿˢ  3   716.75 ⁿˢ
 #>                 Treatment: Test  7 72.27 ⁿˢ  7  4980.41 **
-#>       Treatment: Test vs. Check  1 16.88 ⁿˢ  1 27694.41 **
+#>       Treatment: Test vs. Check  1 16.87 ⁿˢ  1 27694.41 **
 #>  Block (eliminating Treatments)  2 34.75 ⁿˢ  2   638.58 ⁿˢ
 #>                       Residuals  6 26.97     6   286.25   
 #> ⁿˢ P > 0.05; * P <= 0.05; ** P <= 0.01

@@ -221,7 +221,7 @@ out <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 #>   treatment8 - treatment10    -4.00 7.34  6  -0.545   0.606    
 #>   treatment8 - treatment11   -13.25 8.21  6  -1.614   0.158    
 #>   treatment8 - treatment12    -6.25 8.21  6  -0.761   0.475    
-#>   treatment9 - treatment10     0.00 8.21  6   0.000   1.000    
+#>   treatment9 - treatment10    -0.00 8.21  6  -0.000   1.000    
 #>   treatment9 - treatment11    -9.25 8.21  6  -1.126   0.303    
 #>   treatment9 - treatment12    -2.25 8.21  6  -0.274   0.793    
 #>  treatment10 - treatment11    -9.25 8.21  6  -1.126   0.303    
@@ -256,13 +256,13 @@ report.augmentedRCBD(aug = out,
                      check.col = c("brown", "darkcyan",
                                    "forestgreen", "purple"))
 #> Warning: P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.
-#> File created at /var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpCaS79L/augmentedRCBD output.docx
+#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpftuLSO/augmentedRCBD output.docx
 report.augmentedRCBD(aug = out,
                      target = file.path(tempdir(),
                                         "augmentedRCBD output.xlsx"),
                      file.type = "excel",
                      check.col = c("brown", "darkcyan",
                                    "forestgreen", "purple"))
-#> File created at /var/folders/kg/7q73ww8s3llgyl61c9z_j5g40000gn/T//RtmpCaS79L/augmentedRCBD output.xlsx
+#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpftuLSO/augmentedRCBD output.xlsx
 # }
 ```
