@@ -1,44 +1,145 @@
-# For forbidden combos
-# Checks and tests partition treatment. Making checks random but tests fixed breaks
-# the nesting/partition logic and creates a non-identifiable treatment variance decomposition.
+### This file is part of 'augmentedRCBD' package for R.
 
-# trouBBlme4SolveR
+### Copyright (C) 2015-2024, ICAR-NBPGR.
+#
+# augmentedRCBD is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# augmentedRCBD is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  https://www.r-project.org/Licenses/
 
-# data_df$test <- as.factor(data_df$test)
-# data_df$check <- as.factor(data_df$check)
-
-
-#' Title
+#' Analysis of Augmented Randomised Complete Block Design in Single and Multiple
+#' Environments Using Mixed Models
 #'
-#' @param block
-#' @param treatment
-#' @param env
-#' @param y
-#' @param checks
-#' @param env.random
-#' @param check.random
-#' @param test.random
-#' @param scenario
-#' @param drop.nonsig.interaction
-#' @param scenario.violation.threshold
-#' @param df_method
-#' @param console
+#' The function \code{augmentedRCBD.mix} implements analysis of variance of an
+#' augmented randomised block design (Federer, 1956; Federer, 1961) and the
+#' generation as well as comparison of the adjusted means of the
+#' treatments/genotypes using mixed-effect models. The analysis can be performed
+#' for cases where the design is in a single environment or is across multiple
+#' environments such as locations and/or seasons with either 1) test treatments
+#' are replicated across environments (\code{scenario = "I"}) or 2) test
+#' treatments are not replicated across environments (\code{scenario = "II"}).
+#' \loadmathjax
 #'
-#' @returns
+#' The model to be fitted as well as the method for estimation of treatment
+#' means is determined by the arguments \code{scenario}, \code{env.random},
+#' \code{check.random}, \code{test.random}, \code{drop.nonsig.interaction}.
+#'
+#' \describe{
+#'   \item{\strong{ 1. Single Environment: }\emph{Random Effects} -  check, test}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|block) + (1|treatment)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
+#'   }}
+#'   \item{\strong{ 2. Single Environment: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  test}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|block) + (1|treatment:test)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
+#'   }}
+#'   \item{\strong{ 3. Single Environment: }\emph{Fixed Effects} -  check, test}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + (1|block)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
+#'   }}
+#'   \item{\strong{ 4. Multiple Environments - Scenario I: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
+#'   }}
+#'   \item{\strong{ 5. Multiple Environments - Scenario I: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|env:block) + (1|treatment) + (1|env:treatment)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
+#'   }}
+#'   \item{\strong{ 6. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|treatment:test) + (1|env:check)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
+#'   }}
+#'   \item{\strong{ 7. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|treatment:test) + (1|env:treatment)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
+#'   }}
+#'   \item{\strong{ 8. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + env:check + (1|env) + (1|env:block)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
+#'   }}
+#'   \item{\strong{ 9. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~  treatment + env:treatment + (1|env) + (1|env:block)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
+#'   }}
+#'   \item{\strong{10. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
+#'   }}
+#'   \item{\strong{11. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|env:block) + (1|treatment) + (1|env:treatment)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
+#'   }}
+#'   \item{\strong{12. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env, check; \emph{Random Effects} -  test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + check + env:check + (1|env:block) + (1|treatment:test)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
+#'   }}
+#'   \item{\strong{13. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env, check; \emph{Random Effects} -  test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + check + env:check + (1|env:block) + (1|treatment:test) + (1|env:treatment:test)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
+#'   }}
+#'   \item{\strong{14. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + treatment + env:check + (1|env:block)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
+#'   }}
+#'   \item{\strong{15. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + treatment + env:treatment + (1|env:block)}}
+#'     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
+#'   }}
+#'   \item{\strong{16. Multiple Environments - Scenario II: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUP) and Test treatment (BLUP within Environment)}
+#'   }}
+#'   \item{\strong{17. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|treatment:test) + (1|env:check)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP within Environment)}
+#'   }}
+#'   \item{\strong{18. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + env:check + (1|env) + (1|env:block)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUE within Environment)}
+#'   }}
+#'   \item{\strong{19. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUP) and Test treatment (BLUP within Environment)}
+#'   }}
+#'   \item{\strong{20. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  env, check; \emph{Random Effects} -  test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + check + env:check + (1|env:block) + (1|treatment:test)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP within Environment)}
+#'   }}
+#'   \item{\strong{21. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + treatment + env:check + (1|env:block)}}
+#'     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUE within Environment)}
+#'   }}
+#' }
+#'
+#' @note \itemize{ \item Making checks random but tests fixed breaks the
+#'   nesting/partition logic and creates a non-identifiable treatment variance
+#'   decomposition. So this combination is not implemented in this function.}
+#'
+#' @inheritParams augmentedRCBD.menv
+#' @param checks Character vector of the checks present in \code{treatment}
+#'   levels.
+#' @param env.random logical. If \code{TRUE}, \code{env} is considered as a
+#'   random effect. Default is \code{FALSE}.
+#' @param check.random logical. If \code{TRUE}, \code{check} treatments are
+#'   considered as random effects. Default is \code{FALSE}.
+#' @param test.random logical. If \code{TRUE}, \code{test} treatments are
+#'   considered as random effects. Default is \code{TRUE}.
+#' @param drop.nonsig.interaction logical. If \code{TRUE}, "test treatment
+#'   \mjseqn{\times} environment" interaction effect is dropped from the model
+#'   if found to be non-significant.
+#' @param scenario.violation.threshold Threshold proportion of number of
+#'   accessions violating \code{scenario} requirements to trigger an error.
+#'   Default of \code{0.1}.
+#' @param df_method Degrees-of-freedom method for estimation of BLUE means.
+#'
+#' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}},
+#'   \code{\link[augmentedRCBD.menv]{augmentedRCBD}}
+#'
+#' @returns A list of class \code{augmentedRCBD.mix} containing the following
+#'   components:
 #'
 #' @importFrom lme4 lmerControl isSingular fixef ranef VarCorr
 #' @importFrom lmerTest lmer ranova
-#' @importFrom stats aggregate AIC BIC as.formula model.frame model.matrix update
+#' @importFrom stats aggregate AIC BIC as.formula model.frame model.matrix
+#'   update
 #' @importFrom emmeans emmeans
 #' @importFrom dplyr %>% bind_rows group_by n summarize
 #' @importFrom utils tail
 #' @export
 #'
 #' @examples
+#'
 augmentedRCBD.mix <- function(block, treatment, env = NULL,
                               y, checks = NULL,
-                              env.random = TRUE,
-                              check.random = TRUE,
+                              env.random = FALSE,
+                              check.random = FALSE,
                               test.random = TRUE,
                               # interaction = TRUE,
                               drop.nonsig.interaction = TRUE,
@@ -104,6 +205,8 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   test <- ifelse(treatment %in% checks, 0, 1)
   check <- ifelse(treatment %in% checks,
                   treatment, "test")
+  test <- as.factor(test)
+  check <- as.factor(check)
 
   # Fix treatment order so that checks are in the beginning ----
   # treatment_org <- treatment
@@ -398,6 +501,7 @@ get_treatment_means <-
     cases <- list(
       "BLUP_BLUP" = function() {
         out <- get_blup(mod = mod, within_env = FALSE,
+                        has_fixed_check = has_fixed_check,
                         has_random_treatment = has_random_treatment,
                         has_random_treatment_test = has_random_treatment_test)
         out$type <- "BLUP"
@@ -412,6 +516,7 @@ get_treatment_means <-
         blue_out$type <- "BLUE"
         blup_out <-
           get_blup(mod = mod, within_env = FALSE,
+                   has_fixed_check = has_fixed_check,
                    has_random_treatment = has_random_treatment,
                    has_random_treatment_test = has_random_treatment_test)
         blup_out$treatment <- gsub(":.*", "", blup_out$treatment)
@@ -449,6 +554,7 @@ get_treatment_means <-
       },
       "BLUP_BLUP_within_env" = function() {
         out <- get_blup(mod = mod, within_env = TRUE,
+                        has_fixed_check = has_fixed_check,
                         has_random_treatment = has_random_treatment,
                         has_random_treatment_test = has_random_treatment_test)
         out
@@ -463,6 +569,7 @@ get_treatment_means <-
         blue_out$type <- "BLUE"
         blup_out <-
           get_blup(mod = mod, within_env = TRUE,
+                   has_fixed_check = has_fixed_check,
                    has_random_treatment = has_random_treatment,
                    has_random_treatment_test = has_random_treatment_test)
         blup_out$treatment <- gsub(":.*", "", blup_out$treatment)
@@ -495,7 +602,7 @@ get_treatment_means <-
 
   }
 
-# BLUE using emmeans ----
+# BLUE means/marginal means from emmeans ----
 get_blue <- function(mod = mod, within_env = FALSE, has_env = has_env,
                      fetch, nesting, emm_df) {
 
@@ -532,11 +639,22 @@ get_blue <- function(mod = mod, within_env = FALSE, has_env = has_env,
   return(out)
 }
 
+# BLUP means -----
 get_blup <- function(mod, within_env = FALSE,
+                     has_fixed_check,
                      has_random_treatment,
                      has_random_treatment_test) {
 
-  beta0 <- fixef(mod)["(Intercept)"]
+  # Anchor
+  if (!has_fixed_check) {
+    beta0 <- fixef(mod)["(Intercept)"]
+    anchr <- beta0
+  } else {
+    em <- emmeans(mod, "check")
+    em_df <- as.data.frame(em)
+    mu_test <- em_df$emmean[em_df$check == "test"]
+    anchr <- mu_test
+  }
 
   # extract random effects
   if (has_random_treatment) {
@@ -554,6 +672,8 @@ get_blup <- function(mod, within_env = FALSE,
   postVar <- attr(re, "postVar")
 
   # SE extraction
+  # Conditional SDs of BLUPs/ Posterior SD of random effects
+  # Not exactly SE of means
   se_vals <- sapply(1:length(re_vals),
                     function(i) {
                       sqrt(postVar[,,i])
@@ -562,7 +682,7 @@ get_blup <- function(mod, within_env = FALSE,
   names(se_vals) <- names(re_vals)
 
   # BLUP mean
-  mean_vals <- beta0 + re_vals
+  mean_vals <- anchr + re_vals
 
   out <- data.frame(treatment = names(mean_vals),
                     mean = as.numeric(mean_vals),
