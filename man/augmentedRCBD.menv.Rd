@@ -31,8 +31,7 @@ augmentedRCBD.menv(
 \item{y}{Numeric vector of response variable (Trait).}
 
 \item{checks}{Character vector of the checks present in \code{treatment}
-levels. If not specified, checks are inferred from the data on the basis of
-number of replications of treatments/genotypes.}
+levels.}
 
 \item{method.comp}{Method for comparison of treatments (\code{"lsd"} for
 least significant difference or \code{"tukey"} for Tukey's honest

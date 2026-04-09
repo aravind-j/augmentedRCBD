@@ -49,6 +49,8 @@
 #'
 #' @inheritParams augmentedRCBD
 #' @param env Vector of environments (as a factor).
+#' @param checks Character vector of the checks present in \code{treatment}
+#'   levels.
 #' @param scenario Either \code{1} or \code{2} (see \strong{Details}).
 #'
 #' @encoding UTF-8
