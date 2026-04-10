@@ -3,6 +3,7 @@
 S3method(print,augmentedRCBD)
 S3method(print,augmentedRCBD.bulk)
 S3method(print,augmentedRCBD.menv)
+S3method(print,augmentedRCBD.mix)
 export(augmentedRCBD)
 export(augmentedRCBD.bulk)
 export(augmentedRCBD.menv)
