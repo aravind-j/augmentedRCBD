@@ -148,6 +148,8 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
                               df_method = c("kenward-roger", "satterthwaite"),
                               console = TRUE) {
 
+  aug.debug <- getOption("augmentedRCBD.debug", default = FALSE)
+
   # Checks ----
 
   df_method <- match.arg(df_method)
@@ -343,7 +345,27 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
       lmerTest::lmer(frmla_wo_int, data = data_df,
                      REML = FALSE) # Use ML for testing
 
-    LRT <- anova(mod_wo_int, mod_final)
+    mod_final_trms <- attr(terms(formula(mod_final)), "term.labels")
+    mod_wo_int_trms <- attr(terms(formula(mod_wo_int)), "term.labels")
+
+    if (length(mod_wo_int_trms) < length(mod_final_trms)) {
+      if (aug.debug) {
+        message("Dropping interaction term to test its significance.")
+      }
+      LRT <- anova(mod_wo_int, mod_final)
+    } else {
+      frmla_wo_int2 <- update(frmla_int, . ~ . - (1 | env:treatment))
+      mod_wo_int2 <- lmerTest::lmer(frmla_wo_int2, data = data_df,
+                                   REML = FALSE) # Use ML for testing
+      LRT <- anova(mod_wo_int2, mod_final)
+
+      if (aug.debug) {
+        print(formula(mod_final))
+        print(formula(mod_wo_int2))
+      }
+
+    }
+
     # LRT_p <- tibble::deframe(broom::tidy(LRT)[2, "p.value"])
     LRT_p <- tail(LRT[["Pr(>Chisq)"]], 1)
 
@@ -449,9 +471,9 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   # Set Class
   class(output) <- "augmentedRCBD.mix"
 
-  # if (console) {
-  #   print.augmentedRCBD.mix(output)
-  # }
+  if (console) {
+    print.augmentedRCBD.mix(output)
+  }
 
   return(output)
 
@@ -656,6 +678,8 @@ get_blup <- function(mod, within_env = FALSE,
     anchr <- mu_test
   }
 
+  re_list <- ranef(mod, condVar = TRUE)
+
   # extract random effects
   if (has_random_treatment) {
     re <- re_list["treatment"][[1]]
@@ -692,7 +716,6 @@ get_blup <- function(mod, within_env = FALSE,
   return(out)
 }
 
-# Formula builder ----
 build_formula <- function(block = "block2", treatment = "treatment",
                           test = "test", check = "check", env = "env",
                           y = "y",
@@ -705,57 +728,53 @@ build_formula <- function(block = "block2", treatment = "treatment",
 
   scenario <- match.arg(scenario)
 
-  ## Forbidden configuration (Rule 99)  ----
+  ## Rule 99: Forbidden configuration ----
   if (check.random && !test.random) {
     stop("Forbidden: check.random = TRUE & test.random = FALSE")
   }
 
-  ## Scenario II never allows test x env interaction
+  ## Rule 13: Scenario II disables interaction ----
   if (scenario == "II") interaction <- FALSE
 
   fixed  <- character()
   random <- character()
 
-  ## Block term (Rule 1) ----
+  add_fixed  <- function(x) fixed  <<- c(fixed, x)
+  add_random <- function(x) random <<- c(random, x)
 
+  ## Rule 1: Block ----
   if (menv) {
-    random <- c(random, sprintf("(1|%s:%s)", env, block))
+    add_random(sprintf("(1|%s:%s)", env, block))
   } else {
-    random <- c(random, sprintf("(1|%s)", block))
+    add_random(sprintf("(1|%s)", block))
   }
 
-  ## Environment main effect (Rule 2) ----
-
+  ## Rule 2: Environment main ----
   if (menv) {
-    if (env.random) {
-      random <- c(random, sprintf("(1|%s)", env))
-    } else {
-      fixed <- c(fixed, env)
-    }
+    if (env.random) add_random(sprintf("(1|%s)", env))
+    else add_fixed(env)
   }
 
-  ## Treatment main effects (Rules 3–6)  ----
-
+  ## Rules 3–6: Treatment structure ----
   trt_case <- NULL
 
   if (check.random && test.random) {
     trt_case <- "both_random"
-    random <- c(random, sprintf("(1|%s)", treatment))
+    add_random(sprintf("(1|%s)", treatment))
   }
 
   if (!check.random && test.random) {
     trt_case <- "check_fixed"
-    fixed  <- c(fixed, check)
-    random <- c(random, sprintf("(1|%s:%s)", treatment, test))
+    add_fixed(check)
+    add_random(sprintf("(1|%s:%s)", treatment, test))
   }
 
   if (!check.random && !test.random) {
     trt_case <- "both_fixed"
-    fixed <- c(fixed, treatment)
+    add_fixed(treatment)
   }
 
-  ## Interactions (Rules 7–12)  ----
-
+  ## Rules 7–10: Interactions ----
   if (menv) {
 
     if (scenario == "I") {
@@ -763,57 +782,115 @@ build_formula <- function(block = "block2", treatment = "treatment",
       if (interaction) {
 
         if (trt_case == "both_random") {
-          random <- c(random, sprintf("(1|%s:%s)", env, treatment))
+          add_random(sprintf("(1|%s:%s)", env, treatment))
         }
 
         if (trt_case == "check_fixed") {
-          fixed  <- c(fixed, sprintf("%s:%s", env, check))
-          random <- c(random, sprintf("(1|%s:%s:%s)", env, treatment, test))
+          add_fixed(sprintf("%s:%s", env, check))
+          add_random(sprintf("(1|%s:%s:%s)", env, treatment, test))
         }
 
         if (trt_case == "both_fixed") {
-          fixed <- c(fixed, sprintf("%s:%s", env, treatment))
+          add_fixed(sprintf("%s:%s", env, treatment))
         }
 
       } else {
 
         if (trt_case == "both_random") {
-          random <- c(random, sprintf("(1|%s:%s:%s)", env, treatment, check))
+          add_random(sprintf("(1|%s:%s:%s)", env, treatment, check))
         }
 
-        if (trt_case == "check_fixed") {
-          fixed <- c(fixed, sprintf("%s:%s", env, check))
+        if (trt_case %in% c("check_fixed", "both_fixed")) {
+          add_fixed(sprintf("%s:%s", env, check))
         }
-
-        if (trt_case == "both_fixed") {
-          fixed <- c(fixed, sprintf("%s:%s", env, check))
-        }
-
       }
     }
 
     if (scenario == "II") {
 
       if (trt_case == "both_random") {
-        random <- c(random, sprintf("(1|%s:%s:%s)", env, treatment, check))
+        add_random(sprintf("(1|%s:%s:%s)", env, treatment, check))
       }
 
-      if (trt_case == "check_fixed") {
-        fixed <- c(fixed, sprintf("%s:%s", env, check))
+      if (trt_case %in% c("check_fixed", "both_fixed")) {
+        add_fixed(sprintf("%s:%s", env, check))
       }
-
-      if (trt_case == "both_fixed") {
-        fixed <- c(fixed, sprintf("%s:%s", env, check))
-      }
-
     }
   }
 
-  ## Build formula
+  ## Rule 11: Random hierarchy enforcement ----
+  if (menv && env.random) {
+
+    is_env_term <- grepl(paste0("^", env, ":"), fixed)
+
+    if (any(is_env_term)) {
+      env_terms <- fixed[is_env_term]
+      fixed <- fixed[!is_env_term]
+
+      add_random(sprintf("(1|%s)", env_terms))
+    }
+  }
+
+  ## Rule 12: Random-effect simplification ----
+  if (menv && env.random) {
+
+    has_env_check <- any(grepl(sprintf("\\(1\\|%s:%s\\)", env, check), random))
+    has_env_trt_test <- any(grepl(sprintf("\\(1\\|%s:%s:%s\\)", env, treatment, test), random))
+
+    if (has_env_check && has_env_trt_test) {
+
+      random <- random[!grepl(sprintf("\\(1\\|%s:%s\\)", env, check), random)]
+      random <- random[!grepl(sprintf("\\(1\\|%s:%s:%s\\)", env, treatment, test), random)]
+
+      add_random(sprintf("(1|%s:%s)", env, treatment))
+    }
+  }
+
+  ## Cleanup ----
+  fixed  <- unique(fixed)
+  random <- unique(random)
+
+  priority <- c(env, check, treatment, block)
+
+  fixed  <- sort_terms_canonical(fixed, priority)
+  random <- sort_terms_canonical(random, priority)
 
   rhs <- paste(c(fixed, random), collapse = " + ")
   as.formula(paste(y, "~", rhs))
-
 }
 
 
+
+sort_terms <- function(terms, priority = NULL) {
+
+  terms <- unique(terms)
+
+  # Detect random terms
+  is_random <- grepl("^\\(1\\|", terms)
+
+  # Extract "core" term (inside random or as-is for fixed)
+  core <- ifelse(
+    is_random,
+    sub("^\\(1\\|", "", sub("\\)$", "", terms)),
+    terms
+  )
+
+  # Count interaction order (number of :)
+  n_colon <- lengths(regmatches(core, gregexpr(":", core)))
+
+  # Base factor (first variable in interaction)
+  base <- sub(":.*", "", core)
+
+  # Priority handling
+  if (!is.null(priority)) {
+    pri <- match(base, priority)
+    pri[is.na(pri)] <- Inf
+  } else {
+    pri <- rep(Inf, length(base))
+  }
+
+  # lme4-style: shorter interactions first, then priority, then lexicographic
+  ord <- order(n_colon, pri, core)
+
+  terms[ord]
+}
