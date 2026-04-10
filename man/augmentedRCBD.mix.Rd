@@ -87,28 +87,28 @@ means is determined by the arguments \code{scenario}, \code{env.random},
   \item{\strong{ 3. Single Environment: }\emph{Fixed Effects} -  check, test}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + (1|block)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
   }}
-  \item{\strong{ 4. Multiple Environments - Scenario I: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+  \item{\strong{ 4. Multiple Environments - Scenario I: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|treatment) + (1|env:block) + (1|env:treatment:check)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
   }}
-  \item{\strong{ 5. Multiple Environments - Scenario I: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|env:block) + (1|treatment) + (1|env:treatment)}}
+  \item{\strong{ 5. Multiple Environments - Scenario I: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|treatment) + (1|env:block) + (1|env:treatment)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
   }}
-  \item{\strong{ 6. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|treatment:test) + (1|env:check)}}
+  \item{\strong{ 6. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|env:check) + (1|treatment:test)}}
     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
   }}
-  \item{\strong{ 7. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|treatment:test) + (1|env:treatment)}}
+  \item{\strong{ 7. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|env:treatment) + (1|treatment:test)}}
     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP)}
   }}
-  \item{\strong{ 8. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + env:check + (1|env) + (1|env:block)}}
+  \item{\strong{ 8. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + (1|env) + (1|env:block2) + (1|env:check)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
   }}
-  \item{\strong{ 9. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~  treatment + env:treatment + (1|env) + (1|env:block)}}
+  \item{\strong{ 9. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + (1|env) + (1|env:block2) + (1|env:treatment)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
   }}
-  \item{\strong{10. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+  \item{\strong{10. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|treatment) + (1|env:block) + (1|env:treatment:check)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
   }}
-  \item{\strong{11. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|env:block) + (1|treatment) + (1|env:treatment)}}
+  \item{\strong{11. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|treatment) + (1|env:block) + (1|env:treatment)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUP)}
   }}
   \item{\strong{12. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env, check; \emph{Random Effects} -  test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + check + env:check + (1|env:block) + (1|treatment:test)}}
@@ -123,16 +123,16 @@ means is determined by the arguments \code{scenario}, \code{env.random},
   \item{\strong{15. Multiple Environments - Scenario I: }\emph{Fixed Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - TRUE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + treatment + env:treatment + (1|env:block)}}
     \item{\emph{Mean Estimate: }}{Check and Test treatments (BLUE)}
   }}
-  \item{\strong{16. Multiple Environments - Scenario II: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+  \item{\strong{16. Multiple Environments - Scenario II: }\emph{Random Effects} -  env, check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ (1|env) + (1|treatment) + (1|env:block) + (1|env:treatment:check)}}
     \item{\emph{Mean Estimate: }}{Check treatment (BLUP) and Test treatment (BLUP within Environment)}
   }}
-  \item{\strong{17. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|treatment:test) + (1|env:check)}}
+  \item{\strong{17. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  check; \emph{Random Effects} -  env, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ check + (1|env) + (1|env:block) + (1|env:check) + (1|treatment:test)}}
     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUP within Environment)}
   }}
-  \item{\strong{18. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + env:check + (1|env) + (1|env:block)}}
+  \item{\strong{18. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  check, test; \emph{Random Effects} -  env; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ treatment + (1|env) + (1|env:block2) + (1|env:check)}}
     \item{\emph{Mean Estimate: }}{Check treatment (BLUE) and Test treatment (BLUE within Environment)}
   }}
-  \item{\strong{19. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|env:block) + (1|treatment) + (1|env:treatment:check)}}
+  \item{\strong{19. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  env; \emph{Random Effects} -  check, test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + (1|treatment) + (1|env:block) + (1|env:treatment:check)}}
     \item{\emph{Mean Estimate: }}{Check treatment (BLUP) and Test treatment (BLUP within Environment)}
   }}
   \item{\strong{20. Multiple Environments - Scenario II: }\emph{Fixed Effects} -  env, check; \emph{Random Effects} -  test; \emph{Test treatment \mjseqn{\times} Environment Interaction} - FALSE}{\itemize{ \item{\emph{Model: } }{\code{y ~ env + check + env:check + (1|env:block) + (1|treatment:test)}}
