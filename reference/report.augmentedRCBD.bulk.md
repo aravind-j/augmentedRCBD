@@ -83,7 +83,7 @@ report.augmentedRCBD.bulk(
   target = file.path(tempdir(),
                      "augmentedRCBD bulk output.docx"),
   file.type = "word")
-#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpftuLSO/augmentedRCBD bulk output.docx
+#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpiRHxlG/augmentedRCBD bulk output.docx
 report.augmentedRCBD.bulk(
   aug.bulk = bout,
   target = file.path(tempdir(),

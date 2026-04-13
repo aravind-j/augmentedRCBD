@@ -900,7 +900,7 @@ help(ls)
 Packages in `R` are collections of `R` functions, data, and compiled
 code in a well-defined format. They are add-ons which extend the
 functionality of `R` and at present, there are
-[23573](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+[23576](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).
 

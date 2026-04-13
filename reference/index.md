@@ -4,12 +4,19 @@
 
 - [`augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.md)
   : Analysis of Augmented Randomised Complete Block Design
+
 - [`augmentedRCBD.menv()`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.menv.md)
   : Combined Analysis of Augmented Randomised Complete Block Design in
   Multiple Environments
+
 - [`augmentedRCBD.mix()`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.mix.md)
   : Analysis of Augmented Randomised Complete Block Design in Single and
   Multiple Environments Using Mixed Models
+
+- [`print(`*`<augmentedRCBD.mix>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/print.augmentedRCBD.mix.md)
+  :
+
+  Prints summary of `augmentedRCBD.mix` object
 
 ## Supplementary functions
 
