@@ -51,6 +51,7 @@ reference:
          - '`augmentedRCBD`'
          - '`augmentedRCBD.menv`'
          - '`augmentedRCBD.mix`'
+         - '`print.augmentedRCBD.mix`'
 
     - title: Supplementary functions
       contents:
