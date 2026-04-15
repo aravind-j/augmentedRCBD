@@ -51,7 +51,6 @@ reference:
          - '`augmentedRCBD`'
          - '`augmentedRCBD.menv`'
          - '`augmentedRCBD.mix`'
-         - '`print.augmentedRCBD.mix`'
 
     - title: Supplementary functions
       contents:
@@ -65,6 +64,7 @@ reference:
          - '`print.augmentedRCBD`'
          - '`print.augmentedRCBD.bulk`'
          - '`print.augmentedRCBD.menv`'
+         - '`print.augmentedRCBD.mix`'
 
     - title: MS Word report generation
       contents:
