@@ -52,6 +52,7 @@ Imports:
     numform,
     officer,
     openxlsx,
+    pbkrtest,
     Rdpack,
     reshape2,
     stats,
