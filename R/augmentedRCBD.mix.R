@@ -128,7 +128,7 @@
 #' @importFrom lme4 lmerControl isSingular fixef ranef VarCorr
 #' @importFrom lmerTest lmer ranova
 #' @importFrom stats aggregate AIC BIC as.formula formula model.frame
-#'   model.matrix terms update
+#'   model.matrix reformulate terms update
 #' @importFrom emmeans emmeans
 #' @importFrom dplyr %>% bind_rows group_by n summarize
 #' @importFrom utils tail
@@ -667,7 +667,6 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   ## Refit with REML ----
   mod_final <- update(mod_final, REML = TRUE, data = model.frame(mod_final))
 
-
   # Diagnostics ----
 
   vcov_df <- data.frame(VarCorr(mod_final))
@@ -713,7 +712,6 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   ## Random effects ----
 
   ranef_anova <- lmerTest::ranova(mod_final)
-
 
   # Adjusted means ----
 
@@ -1145,8 +1143,9 @@ build_formula <- function(block = "block2", treatment = "treatment",
   fixed  <- sort_terms(fixed, priority)
   random <- sort_terms(random, priority)
 
-  rhs <- paste(c(fixed, random), collapse = " + ")
-  as.formula(paste(y, "~", rhs))
+  # rhs <- paste(c(fixed, random), collapse = " + ")
+  # as.formula(paste(y, "~", rhs))
+  reformulate(termlabels = c(fixed, random), response = y)
 }
 
 
