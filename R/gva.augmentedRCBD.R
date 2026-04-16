@@ -41,9 +41,9 @@
 #' The estimates of \mjseqn{PCV} and \mjseqn{GCV} are categorised according to
 #' Sivasubramanian and Madhavamenon (1978) as follows:
 #'
-#' \tabular{ll}{ \strong{\emph{CV} (\%)} \tab \strong{Category} \cr x \mjseqn{ <
-#' } 10 \tab Low \cr 10 \mjseqn{\le} x \mjseqn{ < } 20 \tab Medium \cr
-#' \mjseqn{\ge} 20 \tab High }
+#' \tabular{ll}{ \strong{\emph{CV} (\%)} \tab \strong{Category} \cr x \mjteqn{ <
+#' }{ &lt; }{ < } 10 \tab Low \cr 10 \mjseqn{\le} x \mjteqn{ < }{ &lt; }{ < } 20
+#' \tab Medium \cr \mjseqn{\ge} 20 \tab High }
 #'
 #' The broad-sense heritability (\mjseqn{H^{2}}) is calculated according to
 #' method of Lush (1940) as follows:
@@ -53,9 +53,9 @@
 #' The estimates of broad-sense heritability (\mjseqn{H^{2}}) are categorised
 #' according to Robinson (1966) as follows:
 #'
-#' \tabular{ll}{ \strong{\mjseqn{H^{2}}} \tab \strong{Category} \cr x \mjseqn{ <
-#' } 30 \tab Low \cr 30 \mjseqn{\le} x \mjseqn{ < } 60 \tab Medium \cr
-#' \mjseqn{\ge} 60 \tab High }
+#' \tabular{ll}{ \strong{\mjseqn{H^{2}}} \tab \strong{Category} \cr x \mjteqn{ <
+#' }{ &lt; }{ < } 30 \tab Low \cr 30 \mjseqn{\le} x \mjteqn{ < }{ &lt; }{ < } 60
+#' \tab Medium \cr \mjseqn{\ge} 60 \tab High }
 #'
 #' Genetic advance (\mjseqn{GA}) is estimated and categorised according to
 #' Johnson et al., (1955) as follows:
