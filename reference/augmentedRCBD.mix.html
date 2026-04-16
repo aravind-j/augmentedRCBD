@@ -397,7 +397,7 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="augmentedRCBD.html">augmentedRCBD</a></code>,
-  <code>augmentedRCBD</code></p></div>
+  <code><a href="augmentedRCBD.menv.html">augmentedRCBD.menv</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -443,7 +443,6 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-in"><span>                          y <span class="op">=</span> <span class="va">y1</span>, checks <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                          check.random <span class="op">=</span> <span class="cn">FALSE</span>, test.random <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                          console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
@@ -546,14 +545,14 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.00000 3.104656 7.892933 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 82.00000 3.104656 7.892933 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 83.33333 3.104656 7.892933 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.83213 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.72742 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 95.44045 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 70.72742 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 77.83213 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 74.72742 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 88.44045 5.350376 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 81.44045 5.350376 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.83213 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.72742 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 95.44045 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 70.72742 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 77.83213 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 74.72742 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 88.44045 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 81.44045 6.158823 7.969123 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Multiple Environments - Scenario 1:</span></span></span>
@@ -767,7 +766,6 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-in"><span>                           drop.nonsig.interaction <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                           scenario <span class="op">=</span> <span class="st">"I"</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fixed-effect model matrix is rank deficient so dropping 4 columns / coefficients</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> NOTE: Results may be misleading due to involvement in interactions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
@@ -877,14 +875,14 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.852592 23.97900 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.852592 23.97900 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 77.94040 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.51212 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.97833 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.34417 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.26832 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 71.82920 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 82.88623 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.23040 3.207596 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 77.94040 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.51212 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.97833 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.34417 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.26832 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 71.82920 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 82.88623 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.23040 3.419139 23.98953 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 15. Fixed Effects - env, check, test;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -895,7 +893,6 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-in"><span>                           check.random <span class="op">=</span> <span class="cn">FALSE</span>, test.random <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                           drop.nonsig.interaction <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                           scenario <span class="op">=</span> <span class="st">"I"</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> NOTE: Results may be misleading due to involvement in interactions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
@@ -1005,14 +1002,14 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.852592 23.97900 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.852592 23.97900 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 77.94040 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.51212 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.97833 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.34417 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.26832 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 71.82920 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 82.88623 3.207596 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.23040 3.207596 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 77.94040 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.51212 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.97833 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.34417 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.26832 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 71.82920 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 82.88623 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.23040 3.419139 23.98953 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Multiple Environments - Scenario 2:</span></span></span>
@@ -1136,7 +1133,6 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-in"><span>                           scenario <span class="op">=</span> <span class="st">"II"</span>, console <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fixed-effect model matrix is rank deficient so dropping 6 columns / coefficients</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> fixed-effect model matrix is rank deficient so dropping 6 columns / coefficients</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
@@ -1253,30 +1249,30 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> 256         4 83.33333 3.208784 23.97900 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 284         4 80.00000 3.208784 23.97900 BLUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 312         4 82.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 341         5 78.95124 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 342         6 75.21129 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 343         7 95.83747 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 344         8 70.21129 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 345         9 77.95124 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 346        10 88.83747 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 347        11 81.83747 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 348        12 74.21129 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 377        13 80.77787 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 378        14 75.23296 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 379        15 77.23296 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 380        16 94.77787 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 381        17 78.98916 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 382        18 72.23296 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 383        19 85.77787 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 384        20 75.98916 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 413        21 74.09210 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 414        22 93.86456 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 415        23 76.09210 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 416        24 73.04334 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 417        25 86.86456 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 418        26 74.04334 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 419        27 82.86456 5.555719 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 420        28 69.04334 5.555719 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 341         5 78.95124 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 342         6 75.21129 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 343         7 95.83747 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 344         8 70.21129 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 345         9 77.95124 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 346        10 88.83747 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 347        11 81.83747 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 348        12 74.21129 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 377        13 80.77787 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 378        14 75.23296 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 379        15 77.23296 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 380        16 94.77787 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 381        17 78.98916 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 382        18 72.23296 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 383        19 85.77787 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 384        20 75.98916 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 413        21 74.09210 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 414        22 93.86456 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 415        23 76.09210 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 416        24 73.04334 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 417        25 86.86456 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 418        26 74.04334 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 419        27 82.86456 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 420        28 69.04334 5.922122 23.98953 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

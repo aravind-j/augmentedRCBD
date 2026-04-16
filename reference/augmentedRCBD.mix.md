@@ -363,7 +363,7 @@ means is determined by the arguments `scenario`, `env.random`,
 ## See also
 
 [`augmentedRCBD`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.md),
-`augmentedRCBD`
+[`augmentedRCBD.menv`](https://aravind-j.github.io/augmentedRCBD/reference/augmentedRCBD.menv.md)
 
 ## Examples
 
@@ -409,7 +409,6 @@ out3 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
                           y = y1, checks =  c("1", "2", "3", "4"),
                           check.random = FALSE, test.random = FALSE,
                           console = TRUE)
-#> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
 #> 
 #> Augmented Design Details
 #> ========================
@@ -512,14 +511,14 @@ out3 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
 #> 2          2 79.00000 3.104656 7.892933 BLUE
 #> 3          3 82.00000 3.104656 7.892933 BLUE
 #> 4          4 83.33333 3.104656 7.892933 BLUE
-#> 5          5 78.83213 5.350376 7.969123 BLUE
-#> 6          6 75.72742 5.350376 7.969123 BLUE
-#> 7          7 95.44045 5.350376 7.969123 BLUE
-#> 8          8 70.72742 5.350376 7.969123 BLUE
-#> 9          9 77.83213 5.350376 7.969123 BLUE
-#> 10        10 74.72742 5.350376 7.969123 BLUE
-#> 11        11 88.44045 5.350376 7.969123 BLUE
-#> 12        12 81.44045 5.350376 7.969123 BLUE
+#> 5          5 78.83213 6.158823 7.969123 BLUE
+#> 6          6 75.72742 6.158823 7.969123 BLUE
+#> 7          7 95.44045 6.158823 7.969123 BLUE
+#> 8          8 70.72742 6.158823 7.969123 BLUE
+#> 9          9 77.83213 6.158823 7.969123 BLUE
+#> 10        10 74.72742 6.158823 7.969123 BLUE
+#> 11        11 88.44045 6.158823 7.969123 BLUE
+#> 12        12 81.44045 6.158823 7.969123 BLUE
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Multiple Environments - Scenario 1:
@@ -733,7 +732,6 @@ out14 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
                            drop.nonsig.interaction = TRUE,
                            scenario = "I", console = TRUE)
 #> fixed-effect model matrix is rank deficient so dropping 4 columns / coefficients
-#> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
 #> NOTE: Results may be misleading due to involvement in interactions
 #> 
 #> Augmented Design Details
@@ -843,14 +841,14 @@ out14 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 2          2 79.33333 1.852592 23.97900 BLUE
 #> 3          3 81.22222 1.852592 23.97900 BLUE
 #> 4          4 81.77778 1.852592 23.97900 BLUE
-#> 5          5 77.94040 3.207596 23.98953 BLUE
-#> 6          6 75.51212 3.207596 23.98953 BLUE
-#> 7          7 88.97833 3.207596 23.98953 BLUE
-#> 8          8 79.34417 3.207596 23.98953 BLUE
-#> 9          9 81.26832 3.207596 23.98953 BLUE
-#> 10        10 71.82920 3.207596 23.98953 BLUE
-#> 11        11 82.88623 3.207596 23.98953 BLUE
-#> 12        12 80.23040 3.207596 23.98953 BLUE
+#> 5          5 77.94040 3.419139 23.98953 BLUE
+#> 6          6 75.51212 3.419139 23.98953 BLUE
+#> 7          7 88.97833 3.419139 23.98953 BLUE
+#> 8          8 79.34417 3.419139 23.98953 BLUE
+#> 9          9 81.26832 3.419139 23.98953 BLUE
+#> 10        10 71.82920 3.419139 23.98953 BLUE
+#> 11        11 82.88623 3.419139 23.98953 BLUE
+#> 12        12 80.23040 3.419139 23.98953 BLUE
 
 # 15. Fixed Effects - env, check, test;
 # Without dropping of non-significant env:test interaction
@@ -861,7 +859,6 @@ out15 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
                            check.random = FALSE, test.random = FALSE,
                            drop.nonsig.interaction = FALSE,
                            scenario = "I", console = TRUE)
-#> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
 #> NOTE: Results may be misleading due to involvement in interactions
 #> 
 #> Augmented Design Details
@@ -971,14 +968,14 @@ out15 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 2          2 79.33333 1.852592 23.97900 BLUE
 #> 3          3 81.22222 1.852592 23.97900 BLUE
 #> 4          4 81.77778 1.852592 23.97900 BLUE
-#> 5          5 77.94040 3.207596 23.98953 BLUE
-#> 6          6 75.51212 3.207596 23.98953 BLUE
-#> 7          7 88.97833 3.207596 23.98953 BLUE
-#> 8          8 79.34417 3.207596 23.98953 BLUE
-#> 9          9 81.26832 3.207596 23.98953 BLUE
-#> 10        10 71.82920 3.207596 23.98953 BLUE
-#> 11        11 82.88623 3.207596 23.98953 BLUE
-#> 12        12 80.23040 3.207596 23.98953 BLUE
+#> 5          5 77.94040 3.419139 23.98953 BLUE
+#> 6          6 75.51212 3.419139 23.98953 BLUE
+#> 7          7 88.97833 3.419139 23.98953 BLUE
+#> 8          8 79.34417 3.419139 23.98953 BLUE
+#> 9          9 81.26832 3.419139 23.98953 BLUE
+#> 10        10 71.82920 3.419139 23.98953 BLUE
+#> 11        11 82.88623 3.419139 23.98953 BLUE
+#> 12        12 80.23040 3.419139 23.98953 BLUE
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Multiple Environments - Scenario 2:
@@ -1102,7 +1099,6 @@ out21 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
                            scenario = "II", console = TRUE)
 #> fixed-effect model matrix is rank deficient so dropping 6 columns / coefficients
 #> fixed-effect model matrix is rank deficient so dropping 6 columns / coefficients
-#> Cannot use mode = "kenward-roger" because *pbkrtest* package is not installed
 #> 
 #> Augmented Design Details
 #> ========================
@@ -1219,29 +1215,29 @@ out21 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 256         4 83.33333 3.208784 23.97900 BLUE
 #> 284         4 80.00000 3.208784 23.97900 BLUE
 #> 312         4 82.00000 3.208784 23.97900 BLUE
-#> 341         5 78.95124 5.555719 23.98953 BLUE
-#> 342         6 75.21129 5.555719 23.98953 BLUE
-#> 343         7 95.83747 5.555719 23.98953 BLUE
-#> 344         8 70.21129 5.555719 23.98953 BLUE
-#> 345         9 77.95124 5.555719 23.98953 BLUE
-#> 346        10 88.83747 5.555719 23.98953 BLUE
-#> 347        11 81.83747 5.555719 23.98953 BLUE
-#> 348        12 74.21129 5.555719 23.98953 BLUE
-#> 377        13 80.77787 5.555719 23.98953 BLUE
-#> 378        14 75.23296 5.555719 23.98953 BLUE
-#> 379        15 77.23296 5.555719 23.98953 BLUE
-#> 380        16 94.77787 5.555719 23.98953 BLUE
-#> 381        17 78.98916 5.555719 23.98953 BLUE
-#> 382        18 72.23296 5.555719 23.98953 BLUE
-#> 383        19 85.77787 5.555719 23.98953 BLUE
-#> 384        20 75.98916 5.555719 23.98953 BLUE
-#> 413        21 74.09210 5.555719 23.98953 BLUE
-#> 414        22 93.86456 5.555719 23.98953 BLUE
-#> 415        23 76.09210 5.555719 23.98953 BLUE
-#> 416        24 73.04334 5.555719 23.98953 BLUE
-#> 417        25 86.86456 5.555719 23.98953 BLUE
-#> 418        26 74.04334 5.555719 23.98953 BLUE
-#> 419        27 82.86456 5.555719 23.98953 BLUE
-#> 420        28 69.04334 5.555719 23.98953 BLUE
+#> 341         5 78.95124 5.922122 23.98953 BLUE
+#> 342         6 75.21129 5.922122 23.98953 BLUE
+#> 343         7 95.83747 5.922122 23.98953 BLUE
+#> 344         8 70.21129 5.922122 23.98953 BLUE
+#> 345         9 77.95124 5.922122 23.98953 BLUE
+#> 346        10 88.83747 5.922122 23.98953 BLUE
+#> 347        11 81.83747 5.922122 23.98953 BLUE
+#> 348        12 74.21129 5.922122 23.98953 BLUE
+#> 377        13 80.77787 5.922122 23.98953 BLUE
+#> 378        14 75.23296 5.922122 23.98953 BLUE
+#> 379        15 77.23296 5.922122 23.98953 BLUE
+#> 380        16 94.77787 5.922122 23.98953 BLUE
+#> 381        17 78.98916 5.922122 23.98953 BLUE
+#> 382        18 72.23296 5.922122 23.98953 BLUE
+#> 383        19 85.77787 5.922122 23.98953 BLUE
+#> 384        20 75.98916 5.922122 23.98953 BLUE
+#> 413        21 74.09210 5.922122 23.98953 BLUE
+#> 414        22 93.86456 5.922122 23.98953 BLUE
+#> 415        23 76.09210 5.922122 23.98953 BLUE
+#> 416        24 73.04334 5.922122 23.98953 BLUE
+#> 417        25 86.86456 5.922122 23.98953 BLUE
+#> 418        26 74.04334 5.922122 23.98953 BLUE
+#> 419        27 82.86456 5.922122 23.98953 BLUE
+#> 420        28 69.04334 5.922122 23.98953 BLUE
 
 ```
