@@ -423,5 +423,5 @@ out21 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 }
 \seealso{
 \code{\link[augmentedRCBD]{augmentedRCBD}},
-  \code{\link[augmentedRCBD.menv]{augmentedRCBD}}
+  \code{\link[augmentedRCBD]{augmentedRCBD.menv}}
 }

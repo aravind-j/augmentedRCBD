@@ -120,7 +120,7 @@
 #' @param df_method Degrees-of-freedom method for estimation of BLUE means.
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD}},
-#'   \code{\link[augmentedRCBD.menv]{augmentedRCBD}}
+#'   \code{\link[augmentedRCBD]{augmentedRCBD.menv}}
 #'
 #' @returns A list of class \code{augmentedRCBD.mix} containing the following
 #'   components:
