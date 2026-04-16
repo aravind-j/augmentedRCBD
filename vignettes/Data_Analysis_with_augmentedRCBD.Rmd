@@ -664,9 +664,10 @@ library(augmentedRCBD)
 
 ```{r, results='asis', echo=FALSE}
 # Fetch release version
-rver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("augmentedRCBD")) == "",
-               yes = getNamespaceVersion("augmentedRCBD"),
-               no = as.vector(available.packages()["augmentedRCBD",]["Version"]))
+# rver <- ifelse(test = gsub("(.\\.)(\\d+)(\\..)", "", getNamespaceVersion("augmentedRCBD")) == "",
+#                yes = getNamespaceVersion("augmentedRCBD"),
+#                no = as.vector(available.packages()["augmentedRCBD",]["Version"]))
+rver <- getNamespaceVersion("augmentedRCBD")
 ```
 The current version of the package is `r rver`. The previous versions are as follows.
 
