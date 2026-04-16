@@ -168,8 +168,9 @@ citation("augmentedRCBD")
 
     To cite the R package 'augmentedRCBD' in publications use:
 
-      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2026).  augmentedRCBD: Analysis
-      of Augmented Randomised Complete Block Designs. R package version 0.1.7.9000,
+      Aravind, J., Mukesh Sankar, S., Wankhede, D. P., and Kaur, V. (2026).
+      augmentedRCBD: Analysis of Augmented Randomised Complete Block
+      Designs. R package version 0.1.7.9000,
       https://aravind-j.github.io/augmentedRCBD/https://cran.r-project.org/package=augmentedRCBD.
 
     A BibTeX entry for LaTeX users is
@@ -181,5 +182,6 @@ citation("augmentedRCBD")
         year = {2026},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If
-    you use it, please support the project by citing the package.
+    This free and open-source software implements academic research by the
+    authors and co-workers. If you use it, please support the project by
+    citing the package.
