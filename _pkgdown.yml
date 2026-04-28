@@ -11,8 +11,21 @@ template:
     navbar-light-brand-color: "#f7f8f8" # Navbar package name text colour
     navbar-light-brand-hover-color: "#f7f8f8" # Navbar package name text colour on hover
     link-color: "#984807" # Colour of links
-  params:
-    ganalytics: UA-116716530-2
+  includes:
+    in_header: |
+       <!-- Global site tag (gtag.js) - Google Analytics -->
+       <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRQ5L694TJ" ></script>
+       <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+
+         gtag('config', 'G-BRQ5L694TJ');
+       </script>
+       <!-- Google tag (gtag.js) -->
+    after_body: >
+      <script data-goatcounter="https://augmentedrcbd.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
 deploy:
   install_metadata: true

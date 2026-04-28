@@ -54,7 +54,7 @@ cat(paste("[![develVersion](https://img.shields.io/badge/devel%20version-", dver
 [![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website - pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/augmentedRCBD.svg)](https://aravind-j.github.io/augmentedRCBD/)
-[![.](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon)
+<!-- [![.](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon) -->
 <!-- [![packageversion](https://img.shields.io/badge/Package%20version-0.2.3.3-orange.svg)](https://github.com/aravind-j/augmentedRCBD) -->
 <!-- [![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/aravind-j/augmentedRCBD/total.svg)] -->
 <!-- [![Rdoc](https://www.rdocumentation.org/badges/version/augmentedRCBD)](https://www.rdocumentation.org/packages/augmentedRCBD) -->
