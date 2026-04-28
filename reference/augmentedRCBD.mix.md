@@ -393,7 +393,86 @@ out1 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data', but variables found in environment of formula: try specifying 'formula' as a formula rather than a string in the original model
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ (1 | treatment) + (1 | block)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 122.8
+#> 
+#> Scaled residuals: 
+#>      Min       1Q   Median       3Q      Max 
+#> -1.39758 -0.63355 -0.09756  0.32441  1.98295 
+#> 
+#> Random effects:
+#>  Groups    Name        Variance Std.Dev.
+#>  treatment (Intercept)  0.00    0.000   
+#>  block     (Intercept) 22.17    4.709   
+#>  Residual              26.27    5.125   
+#> Number of obs: 20, groups:  treatment, 12; block, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error     df t value Pr(>|t|)   
+#> (Intercept)   81.500      2.951  2.031   27.61  0.00121 **
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular treatment    block Residual
+#> 1 Normal exit from bobyqa                  TRUE         0 22.17234 26.26546
+#>        AIC      BIC
+#> 1 130.7885 134.7715
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> NULL
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ 1 + (1 | treatment) + (1 | block)
+#>                 npar  logLik    AIC    LRT Df Pr(>Chisq)  
+#> <none>             4 -61.394 130.79                       
+#> (1 | treatment)    3 -61.394 128.79 0.0000  1    1.00000  
+#> (1 | block)        3 -64.072 134.14 5.3557  1    0.02065 *
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment mean SE df type
+#> 1          1 81.5  0 NA BLUP
+#> 2          2 81.5  0 NA BLUP
+#> 3          3 81.5  0 NA BLUP
+#> 4          4 81.5  0 NA BLUP
+#> 5          5 81.5  0 NA BLUP
+#> 6          6 81.5  0 NA BLUP
+#> 7          7 81.5  0 NA BLUP
+#> 8          8 81.5  0 NA BLUP
+#> 9          9 81.5  0 NA BLUP
+#> 10        10 81.5  0 NA BLUP
+#> 11        11 81.5  0 NA BLUP
+#> 12        12 81.5  0 NA BLUP
 
 # 02. Fixed Effects - check; Random Effects - test
 out2 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
@@ -402,7 +481,93 @@ out2 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
                           console = TRUE)
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data', but variables found in environment of formula: try specifying 'formula' as a formula rather than a string in the original model
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ check + (1 | block) + (1 | treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 106.2
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.2205 -0.3482 -0.2066  0.4002  1.6731 
+#> 
+#> Random effects:
+#>  Groups         Name        Variance Std.Dev.
+#>  treatment:test (Intercept) 10.52    3.243   
+#>  block          (Intercept) 17.69    4.206   
+#>  Residual                   24.84    4.984   
+#> Number of obs: 20, groups:  treatment:test, 12; block, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  81.8763     3.0135  3.0523  27.170 9.66e-05 ***
+#> check1        2.7904     3.8030  0.9570   0.734    0.601    
+#> check2       -2.8763     3.8030  0.9570  -0.756    0.592    
+#> check3        0.1237     3.8030  0.9570   0.033    0.979    
+#> check4        1.4570     3.8030  0.9570   0.383    0.769    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>        (Intr) check1 check2 check3
+#> check1  0.050                     
+#> check2  0.050 -0.300              
+#> check3  0.050 -0.300 -0.300       
+#> check4  0.050 -0.300 -0.300 -0.300
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt conv_lme4             opt_message opt_warnings singular
+#> 1        0           Normal exit from bobyqa                 FALSE
+#>   treatment.test    block Residual      AIC      BIC
+#> 1       10.51697 17.68735  24.8361 122.1983 130.1642
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>       Sum Sq Mean Sq NumDF DenDF F value Pr(>F)
+#> check 32.778  8.1946     4     2  0.3299  0.842
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ check + (1 | block) + (1 | treatment:test)
+#>                      npar  logLik    AIC     LRT Df Pr(>Chisq)  
+#> <none>                  8 -53.099 122.20                        
+#> (1 | block)             7 -54.569 123.14 2.94061  1    0.08638 .
+#> (1 | treatment:test)    7 -53.164 120.33 0.13036  1    0.71806  
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE       df type
+#> 1          1 84.66667 4.969050 2.152436 BLUE
+#> 2          2 79.00000 4.969050 2.152436 BLUE
+#> 3          3 82.00000 4.969050 2.152436 BLUE
+#> 4          4 83.33333 4.969050 2.152436 BLUE
+#> 5          5 79.95499 2.786081       NA BLUP
+#> 6          6 79.91155 2.779019       NA BLUP
+#> 7          7 83.91242 2.779019       NA BLUP
+#> 8          8 78.42413 2.779019       NA BLUP
+#> 9          9 79.65750 2.786081       NA BLUP
+#> 10        10 79.61407 2.779019       NA BLUP
+#> 11        11 81.83003 2.779019       NA BLUP
+#> 12        12 79.74765 2.779019       NA BLUP
 
 # 03. Random Effects - Fixed Effects - check, test
 out3 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
@@ -589,7 +754,94 @@ out4 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_wo_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 375.9
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.5350 -0.6249 -0.1477  0.4048  2.2955 
+#> 
+#> Random effects:
+#>  Groups              Name        Variance Std.Dev.
+#>  env:treatment:check (Intercept)  0.000   0.000   
+#>  treatment           (Intercept)  3.305   1.818   
+#>  env:block2          (Intercept) 13.438   3.666   
+#>  env                 (Intercept)  0.000   0.000   
+#>  Residual                        23.625   4.861   
+#> Number of obs: 60, groups:  
+#> env:treatment:check, 36; treatment, 12; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error     df t value Pr(>|t|)    
+#> (Intercept)   80.559      1.488 10.011   54.12 1.09e-13 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment.check treatment
+#> 1 Normal exit from bobyqa                  TRUE                   0  3.304911
+#>   env.block2 env Residual      AIC      BIC
+#> 1   13.43794   0   23.625 387.8948 400.4608
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> NULL
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ 1 + (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#>                           npar  logLik    AIC     LRT Df Pr(>Chisq)    
+#> <none>                       6 -187.95 387.89                          
+#> (1 | env)                    5 -187.95 385.89  0.0000  1  0.9999998    
+#> (1 | treatment)              5 -188.43 386.85  0.9602  1  0.3271461    
+#> (1 | env:block2)             5 -193.89 397.77 11.8762  1  0.0005685 ***
+#> (1 | env:treatment:check)    5 -187.95 385.89  0.0000  1  1.0000000    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE df type
+#> 1          1 82.29086 1.270503 NA BLUP
+#> 2          2 79.87577 1.270503 NA BLUP
+#> 3          3 80.92850 1.270503 NA BLUP
+#> 4          4 81.23813 1.270503 NA BLUP
+#> 5          5 79.52941 1.559247 NA BLUP
+#> 6          6 79.87221 1.558127 NA BLUP
+#> 7          7 82.64335 1.556813 NA BLUP
+#> 8          8 80.42125 1.557021 NA BLUP
+#> 9          9 80.45872 1.559491 NA BLUP
+#> 10        10 78.90556 1.557019 NA BLUP
+#> 11        11 80.75118 1.556806 NA BLUP
+#> 12        12 79.78956 1.558369 NA BLUP
 
 # 05. Random Effects - env, check, test;
 # Without dropping of non-significant env:test interaction
@@ -603,7 +855,94 @@ out5 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 375.9
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.5350 -0.6249 -0.1477  0.4048  2.2955 
+#> 
+#> Random effects:
+#>  Groups        Name        Variance Std.Dev.
+#>  env:treatment (Intercept)  0.000   0.000   
+#>  treatment     (Intercept)  3.305   1.818   
+#>  env:block2    (Intercept) 13.438   3.666   
+#>  env           (Intercept)  0.000   0.000   
+#>  Residual                  23.625   4.861   
+#> Number of obs: 60, groups:  
+#> env:treatment, 36; treatment, 12; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error     df t value Pr(>|t|)    
+#> (Intercept)   80.559      1.488 10.011   54.12 1.09e-13 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment treatment
+#> 1 Normal exit from bobyqa                  TRUE             0  3.304911
+#>   env.block2 env Residual      AIC      BIC
+#> 1   13.43794   0   23.625 387.8948 400.4608
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> NULL
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ 1 + (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)
+#>                     npar  logLik    AIC     LRT Df Pr(>Chisq)    
+#> <none>                 6 -187.95 387.89                          
+#> (1 | env)              5 -187.95 385.89  0.0000  1  0.9999998    
+#> (1 | treatment)        5 -188.43 386.85  0.9602  1  0.3271461    
+#> (1 | env:block2)       5 -193.89 397.77 11.8762  1  0.0005685 ***
+#> (1 | env:treatment)    5 -187.95 385.89  0.0000  1  1.0000000    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE df type
+#> 1          1 82.29086 1.270503 NA BLUP
+#> 2          2 79.87577 1.270503 NA BLUP
+#> 3          3 80.92850 1.270503 NA BLUP
+#> 4          4 81.23813 1.270503 NA BLUP
+#> 5          5 79.52941 1.559247 NA BLUP
+#> 6          6 79.87221 1.558127 NA BLUP
+#> 7          7 82.64335 1.556813 NA BLUP
+#> 8          8 80.42125 1.557021 NA BLUP
+#> 9          9 80.45872 1.559491 NA BLUP
+#> 10        10 78.90556 1.557019 NA BLUP
+#> 11        11 80.75118 1.556806 NA BLUP
+#> 12        12 79.78956 1.558369 NA BLUP
 
 # 06. Fixed Effects - check; Random Effects - env, test;
 # With dropping of non-significant env:test interaction
@@ -619,7 +958,107 @@ out6 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) +      (1 | treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_wo_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 360.8
+#> 
+#> Scaled residuals: 
+#>      Min       1Q   Median       3Q      Max 
+#> -1.50439 -0.63853 -0.03649  0.35541  2.43950 
+#> 
+#> Random effects:
+#>  Groups         Name        Variance Std.Dev.
+#>  env:check      (Intercept)  0.000   0.000   
+#>  treatment:test (Intercept)  7.712   2.777   
+#>  env:block2     (Intercept) 12.826   3.581   
+#>  env            (Intercept)  0.000   0.000   
+#>  Residual                   23.085   4.805   
+#> Number of obs: 60, groups:  
+#> env:check, 15; treatment:test, 12; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 81.13454    1.77398  7.68157  45.736 1.22e-10 ***
+#> check1       2.53213    2.80861  2.82615   0.902    0.437    
+#> check2      -1.80121    2.80861  2.82615  -0.641    0.570    
+#> check3       0.08768    2.80861  2.82615   0.031    0.977    
+#> check4       0.64324    2.80861  2.82615   0.229    0.834    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>        (Intr) check1 check2 check3
+#> check1  0.067                     
+#> check2  0.067 -0.303              
+#> check3  0.067 -0.303 -0.303       
+#> check4  0.067 -0.303 -0.303 -0.303
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.check treatment.test
+#> 1 Normal exit from bobyqa                  TRUE         0       7.712414
+#>   env.block2 env Residual      AIC      BIC
+#> 1   12.82638   0 23.08469 380.8263 401.7698
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>       Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> check 38.542  9.6356     4 2.9602  0.4174 0.7912
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) + (1 | treatment:test)
+#>                      npar  logLik    AIC     LRT Df Pr(>Chisq)   
+#> <none>                 10 -180.41 380.83                         
+#> (1 | env)               9 -180.41 378.83  0.0000  1    1.00000   
+#> (1 | env:block2)        9 -185.76 389.53 10.7030  1    0.00107 **
+#> (1 | env:check)         9 -180.41 378.83  0.0000  1    1.00000   
+#> (1 | treatment:test)    9 -181.19 380.39  1.5587  1    0.21186   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE       df type
+#> 1          1 83.66667 3.420897 3.351039 BLUE
+#> 2          2 79.33333 3.420897 3.351039 BLUE
+#> 3          3 81.22222 3.420897 3.351039 BLUE
+#> 4          4 81.77778 3.420897 3.351039 BLUE
+#> 5          5 78.35828 2.044951       NA BLUP
+#> 6          6 78.91023 2.042787       NA BLUP
+#> 7          7 83.70619 2.039857       NA BLUP
+#> 8          8 79.82877 2.040670       NA BLUP
+#> 9          9 79.98128 2.045910       NA BLUP
+#> 10        10 77.26612 2.040657       NA BLUP
+#> 11        11 80.45126 2.039824       NA BLUP
+#> 12        12 78.87954 2.043726       NA BLUP
 
 # 07. Fixed Effects - check; Random Effects - env, test;
 # Without dropping of non-significant env:test interaction
@@ -633,7 +1072,107 @@ out7 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ check + (1 | env) + (1 | env:block2) + (1 | env:treatment) +      (1 | treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 360.8
+#> 
+#> Scaled residuals: 
+#>      Min       1Q   Median       3Q      Max 
+#> -1.50439 -0.63853 -0.03649  0.35541  2.43950 
+#> 
+#> Random effects:
+#>  Groups         Name        Variance Std.Dev.
+#>  env:treatment  (Intercept)  0.000   0.000   
+#>  treatment:test (Intercept)  7.712   2.777   
+#>  env:block2     (Intercept) 12.826   3.581   
+#>  env            (Intercept)  0.000   0.000   
+#>  Residual                   23.085   4.805   
+#> Number of obs: 60, groups:  
+#> env:treatment, 36; treatment:test, 12; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 81.13454    1.77398  7.68157  45.736 1.22e-10 ***
+#> check1       2.53213    2.80861  2.82615   0.902    0.437    
+#> check2      -1.80121    2.80861  2.82615  -0.641    0.570    
+#> check3       0.08768    2.80861  2.82615   0.031    0.977    
+#> check4       0.64324    2.80861  2.82615   0.229    0.834    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>        (Intr) check1 check2 check3
+#> check1  0.067                     
+#> check2  0.067 -0.303              
+#> check3  0.067 -0.303 -0.303       
+#> check4  0.067 -0.303 -0.303 -0.303
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment treatment.test
+#> 1 Normal exit from bobyqa                  TRUE             0       7.712414
+#>   env.block2 env Residual      AIC      BIC
+#> 1   12.82638   0 23.08469 380.8263 401.7698
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>       Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> check 38.542  9.6356     4 2.9602  0.4174 0.7912
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ check + (1 | env) + (1 | env:block2) + (1 | env:treatment) + (1 | treatment:test)
+#>                      npar  logLik    AIC     LRT Df Pr(>Chisq)   
+#> <none>                 10 -180.41 380.83                         
+#> (1 | env)               9 -180.41 378.83  0.0000  1    1.00000   
+#> (1 | env:block2)        9 -185.76 389.53 10.7030  1    0.00107 **
+#> (1 | env:treatment)     9 -180.41 378.83  0.0000  1    1.00000   
+#> (1 | treatment:test)    9 -181.19 380.39  1.5587  1    0.21186   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE      df type
+#> 1          1 83.66667 3.420897 3.40063 BLUE
+#> 2          2 79.33333 3.420897 3.40063 BLUE
+#> 3          3 81.22222 3.420897 3.40063 BLUE
+#> 4          4 81.77778 3.420897 3.40063 BLUE
+#> 5          5 78.35828 2.044951      NA BLUP
+#> 6          6 78.91023 2.042787      NA BLUP
+#> 7          7 83.70619 2.039857      NA BLUP
+#> 8          8 79.82877 2.040670      NA BLUP
+#> 9          9 79.98128 2.045910      NA BLUP
+#> 10        10 77.26612 2.040657      NA BLUP
+#> 11        11 80.45126 2.039824      NA BLUP
+#> 12        12 78.87954 2.043726      NA BLUP
 
 # 08. Fixed Effects - check, test; Random Effects - env;
 # With dropping of non-significant env:test interaction
@@ -649,7 +1188,131 @@ out8 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_wo_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 321.1
+#> 
+#> Scaled residuals: 
+#>      Min       1Q   Median       3Q      Max 
+#> -1.48346 -0.70487  0.01713  0.38514  2.44862 
+#> 
+#> Random effects:
+#>  Groups     Name        Variance Std.Dev.
+#>  env:check  (Intercept)  0.00    0.000   
+#>  env:block2 (Intercept) 10.77    3.282   
+#>  env        (Intercept)  0.00    0.000   
+#>  Residual               23.66    4.864   
+#> Number of obs: 60, groups:  env:check, 15; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  80.2956     1.3088  8.5982  61.351 1.16e-12 ***
+#> treatment1    3.3710     1.6452 39.9670   2.049  0.04707 *  
+#> treatment2   -0.9623     1.6452 39.9670  -0.585  0.56189    
+#> treatment3    0.9266     1.6452 39.9670   0.563  0.57645    
+#> treatment4    1.4821     1.6452 39.9670   0.901  0.37305    
+#> treatment5   -3.3723     2.8017 42.9237  -1.204  0.23532    
+#> treatment6   -2.4937     2.7906 42.7117  -0.894  0.37654    
+#> treatment7    7.8618     2.7755 42.3215   2.833  0.00704 ** 
+#> treatment8   -0.5720     2.7804 42.5238  -0.206  0.83798    
+#> treatment9    0.1712     2.8085 43.2029   0.061  0.95167    
+#> treatment10  -5.7575     2.7800 42.5096  -2.071  0.04446 *  
+#> treatment11   1.1022     2.7746 42.2854   0.397  0.69318    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>             (Intr) trtmn1 trtmn2 trtmn3 trtmn4 trtmn5 trtmn6 trtmn7 trtmn8
+#> treatment1  -0.138                                                        
+#> treatment2  -0.138  0.029                                                 
+#> treatment3  -0.138  0.029  0.029                                          
+#> treatment4  -0.138  0.029  0.029  0.029                                   
+#> treatment5   0.030 -0.072 -0.072 -0.072 -0.072                            
+#> treatment6   0.039 -0.079 -0.079 -0.079 -0.079 -0.096                     
+#> treatment7   0.047 -0.085 -0.085 -0.085 -0.085 -0.149 -0.109              
+#> treatment8   0.047 -0.085 -0.085 -0.085 -0.085 -0.102 -0.103 -0.155       
+#> treatment9   0.030 -0.071 -0.071 -0.071 -0.071 -0.094 -0.147 -0.100 -0.153
+#> treatment10  0.048 -0.086 -0.086 -0.086 -0.086 -0.146 -0.060 -0.111 -0.062
+#> treatment11  0.047 -0.086 -0.086 -0.086 -0.086 -0.105 -0.148 -0.111 -0.064
+#>             trtmn9 trtm10
+#> treatment1               
+#> treatment2               
+#> treatment3               
+#> treatment4               
+#> treatment5               
+#> treatment6               
+#> treatment7               
+#> treatment8               
+#> treatment9               
+#> treatment10 -0.153       
+#> treatment11 -0.147 -0.108
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.check env.block2 env
+#> 1 Normal exit from bobyqa                  TRUE         0   10.77185   0
+#>   Residual      AIC      BIC
+#> 1 23.65965 353.1243 386.6338
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>           Sum Sq Mean Sq NumDF  DenDF F value  Pr(>F)  
+#> treatment 451.26  41.024    11 41.469  1.7339 0.09929 .
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)
+#>                  npar  logLik    AIC   LRT Df Pr(>Chisq)   
+#> <none>             16 -160.56 353.12                       
+#> (1 | env)          15 -160.56 351.12 0.000  1   1.000000   
+#> (1 | env:block2)   15 -164.17 358.34 7.213  1   0.007238 **
+#> (1 | env:check)    15 -160.56 351.12 0.000  1   1.000000   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE        df type
+#> 1          1 83.66667 1.955945  9.380281 BLUE
+#> 2          2 79.33333 1.955945  9.380281 BLUE
+#> 3          3 81.22222 1.955945  9.380281 BLUE
+#> 4          4 81.77778 1.955945  9.380281 BLUE
+#> 5          5 76.92337 3.163385 33.641987 BLUE
+#> 6          6 77.80193 3.163808 33.652457 BLUE
+#> 7          7 88.15743 3.155753 33.499934 BLUE
+#> 8          8 79.72363 3.163422 33.667519 BLUE
+#> 9          9 80.46687 3.171783 33.825748 BLUE
+#> 10        10 74.53810 3.163433 33.667827 BLUE
+#> 11        11 81.39787 3.155737 33.499637 BLUE
+#> 12        12 78.53853 3.171499 33.817383 BLUE
 
 # 09.Fixed Effects - check, test; Random Effects - env;
 # Without dropping of non-significant env:test interaction
@@ -663,7 +1326,131 @@ out9 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:treatment)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 321.1
+#> 
+#> Scaled residuals: 
+#>      Min       1Q   Median       3Q      Max 
+#> -1.48346 -0.70487  0.01713  0.38514  2.44862 
+#> 
+#> Random effects:
+#>  Groups        Name        Variance Std.Dev.
+#>  env:treatment (Intercept)  0.00    0.000   
+#>  env:block2    (Intercept) 10.77    3.282   
+#>  env           (Intercept)  0.00    0.000   
+#>  Residual                  23.66    4.864   
+#> Number of obs: 60, groups:  env:treatment, 36; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  80.2956     1.3088  8.5982  61.351 1.16e-12 ***
+#> treatment1    3.3710     1.6452 39.9670   2.049  0.04707 *  
+#> treatment2   -0.9623     1.6452 39.9670  -0.585  0.56189    
+#> treatment3    0.9266     1.6452 39.9670   0.563  0.57645    
+#> treatment4    1.4821     1.6452 39.9670   0.901  0.37305    
+#> treatment5   -3.3723     2.8017 42.9237  -1.204  0.23532    
+#> treatment6   -2.4937     2.7906 42.7117  -0.894  0.37654    
+#> treatment7    7.8618     2.7755 42.3215   2.833  0.00704 ** 
+#> treatment8   -0.5720     2.7804 42.5238  -0.206  0.83798    
+#> treatment9    0.1712     2.8085 43.2029   0.061  0.95167    
+#> treatment10  -5.7575     2.7800 42.5096  -2.071  0.04446 *  
+#> treatment11   1.1022     2.7746 42.2854   0.397  0.69318    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>             (Intr) trtmn1 trtmn2 trtmn3 trtmn4 trtmn5 trtmn6 trtmn7 trtmn8
+#> treatment1  -0.138                                                        
+#> treatment2  -0.138  0.029                                                 
+#> treatment3  -0.138  0.029  0.029                                          
+#> treatment4  -0.138  0.029  0.029  0.029                                   
+#> treatment5   0.030 -0.072 -0.072 -0.072 -0.072                            
+#> treatment6   0.039 -0.079 -0.079 -0.079 -0.079 -0.096                     
+#> treatment7   0.047 -0.085 -0.085 -0.085 -0.085 -0.149 -0.109              
+#> treatment8   0.047 -0.085 -0.085 -0.085 -0.085 -0.102 -0.103 -0.155       
+#> treatment9   0.030 -0.071 -0.071 -0.071 -0.071 -0.094 -0.147 -0.100 -0.153
+#> treatment10  0.048 -0.086 -0.086 -0.086 -0.086 -0.146 -0.060 -0.111 -0.062
+#> treatment11  0.047 -0.086 -0.086 -0.086 -0.086 -0.105 -0.148 -0.111 -0.064
+#>             trtmn9 trtm10
+#> treatment1               
+#> treatment2               
+#> treatment3               
+#> treatment4               
+#> treatment5               
+#> treatment6               
+#> treatment7               
+#> treatment8               
+#> treatment9               
+#> treatment10 -0.153       
+#> treatment11 -0.147 -0.108
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment env.block2 env
+#> 1 Normal exit from bobyqa                  TRUE             0   10.77185   0
+#>   Residual      AIC      BIC
+#> 1 23.65965 353.1243 386.6338
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>           Sum Sq Mean Sq NumDF  DenDF F value  Pr(>F)  
+#> treatment 451.26  41.024    11 41.469  1.7339 0.09929 .
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:treatment)
+#>                     npar  logLik    AIC   LRT Df Pr(>Chisq)   
+#> <none>                16 -160.56 353.12                       
+#> (1 | env)             15 -160.56 351.12 0.000  1   1.000000   
+#> (1 | env:block2)      15 -164.17 358.34 7.213  1   0.007238 **
+#> (1 | env:treatment)   15 -160.56 351.12 0.000  1   1.000000   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE        df type
+#> 1          1 83.66667 1.955945  7.376537 BLUE
+#> 2          2 79.33333 1.955945  7.376537 BLUE
+#> 3          3 81.22222 1.955945  7.376537 BLUE
+#> 4          4 81.77778 1.955945  7.376537 BLUE
+#> 5          5 76.92337 3.164642 33.592744 BLUE
+#> 6          6 77.80193 3.165037 33.603731 BLUE
+#> 7          7 88.15743 3.157459 33.445174 BLUE
+#> 8          8 79.72363 3.165176 33.619369 BLUE
+#> 9          9 80.46687 3.173055 33.783634 BLUE
+#> 10        10 74.53810 3.165186 33.619694 BLUE
+#> 11        11 81.39787 3.157447 33.444860 BLUE
+#> 12        12 78.53853 3.172753 33.774900 BLUE
 
 # 10. Fixed Effects - env; Random Effects - check, test;
 # With dropping of non-significant env:test interaction
@@ -678,7 +1465,99 @@ out10 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_wo_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 369.4
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.5341 -0.5766 -0.1672  0.4757  2.2693 
+#> 
+#> Random effects:
+#>  Groups              Name        Variance Std.Dev.
+#>  env:treatment:check (Intercept)  0.000   0.000   
+#>  treatment           (Intercept)  3.077   1.754   
+#>  env:block2          (Intercept) 18.531   4.305   
+#>  Residual                        23.760   4.874   
+#> Number of obs: 60, groups:  
+#> env:treatment:check, 36; treatment, 12; env:block2, 9
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  80.5653     1.6621  7.3369  48.472 1.81e-10 ***
+#> env1          0.7355     2.2166  5.9363   0.332    0.751    
+#> env2         -0.8470     2.2166  5.9365  -0.382    0.716    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>      (Intr) env1  
+#> env1  0.000       
+#> env2  0.000 -0.500
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment.check treatment
+#> 1 Normal exit from bobyqa                  TRUE                   0  3.076909
+#>   env.block2 Residual      AIC      BIC
+#> 1    18.5308 23.75951 383.4009 398.0613
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>     Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> env 4.0964  2.0482     2 5.9364  0.0862 0.9185
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#>                           npar  logLik    AIC     LRT Df Pr(>Chisq)    
+#> <none>                       7 -184.70 383.40                          
+#> (1 | treatment)              6 -185.13 382.26  0.8618  1  0.3532338    
+#> (1 | env:block2)             6 -191.66 395.33 13.9265  1  0.0001901 ***
+#> (1 | env:treatment:check)    6 -184.70 381.40  0.0000  1  1.0000000    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE df type
+#> 1          1 82.23451 1.254103 NA BLUP
+#> 2          2 79.90224 1.254103 NA BLUP
+#> 3          3 80.91887 1.254103 NA BLUP
+#> 4          4 81.21788 1.254103 NA BLUP
+#> 5          5 79.57354 1.521652 NA BLUP
+#> 6          6 79.96497 1.520450 NA BLUP
+#> 7          7 82.51007 1.519063 NA BLUP
+#> 8          8 80.44859 1.519266 NA BLUP
+#> 9          9 80.44819 1.521893 NA BLUP
+#> 10        10 79.05562 1.519263 NA BLUP
+#> 11        11 80.71496 1.519056 NA BLUP
+#> 12        12 79.79421 1.520690 NA BLUP
 
 # 11. Fixed Effects - env; Random Effects - check, test;
 # Without dropping of non-significant env:test interaction
@@ -692,7 +1571,98 @@ out11 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 369.4
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.5341 -0.5766 -0.1672  0.4757  2.2693 
+#> 
+#> Random effects:
+#>  Groups        Name        Variance Std.Dev.
+#>  env:treatment (Intercept)  0.000   0.000   
+#>  treatment     (Intercept)  3.077   1.754   
+#>  env:block2    (Intercept) 18.531   4.305   
+#>  Residual                  23.760   4.874   
+#> Number of obs: 60, groups:  env:treatment, 36; treatment, 12; env:block2, 9
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  80.5653     1.6621  7.3369  48.472 1.81e-10 ***
+#> env1          0.7355     2.2166  5.9363   0.332    0.751    
+#> env2         -0.8470     2.2166  5.9365  -0.382    0.716    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>      (Intr) env1  
+#> env1  0.000       
+#> env2  0.000 -0.500
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment treatment
+#> 1 Normal exit from bobyqa                  TRUE             0  3.076909
+#>   env.block2 Residual      AIC      BIC
+#> 1    18.5308 23.75951 383.4009 398.0613
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>     Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> env 4.0964  2.0482     2 5.9364  0.0862 0.9185
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)
+#>                     npar  logLik    AIC     LRT Df Pr(>Chisq)    
+#> <none>                 7 -184.70 383.40                          
+#> (1 | treatment)        6 -185.13 382.26  0.8618  1  0.3532338    
+#> (1 | env:block2)       6 -191.66 395.33 13.9265  1  0.0001901 ***
+#> (1 | env:treatment)    6 -184.70 381.40  0.0000  1  1.0000000    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE df type
+#> 1          1 82.23451 1.254103 NA BLUP
+#> 2          2 79.90224 1.254103 NA BLUP
+#> 3          3 80.91887 1.254103 NA BLUP
+#> 4          4 81.21788 1.254103 NA BLUP
+#> 5          5 79.57354 1.521652 NA BLUP
+#> 6          6 79.96497 1.520450 NA BLUP
+#> 7          7 82.51007 1.519063 NA BLUP
+#> 8          8 80.44859 1.519266 NA BLUP
+#> 9          9 80.44819 1.521893 NA BLUP
+#> 10        10 79.05562 1.519263 NA BLUP
+#> 11        11 80.71496 1.519056 NA BLUP
+#> 12        12 79.79421 1.520690 NA BLUP
 
 # 12. Fixed Effects - env, check; Random Effects - test;
 # With dropping of non-significant env:test interaction
@@ -706,7 +1676,104 @@ out12 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data', but variables found in environment of formula: try specifying 'formula' as a formula rather than a string in the original model
+#> NOTE: Results may be misleading due to involvement in interactions
+#> NOTE: Results may be misleading due to involvement in interactions
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_wo_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 329.4
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.2844 -0.5023 -0.1338  0.3901  2.0383 
+#> 
+#> Random effects:
+#>  Groups         Name        Variance Std.Dev.
+#>  treatment:test (Intercept)  6.024   2.454   
+#>  env:block2     (Intercept) 17.691   4.206   
+#>  Residual                   26.998   5.196   
+#> Number of obs: 60, groups:  treatment:test, 12; env:block2, 9
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 81.13327    1.86685  6.90079  43.460 1.13e-09 ***
+#> env1         0.74197    2.23210  6.19031   0.332    0.751    
+#> env2        -1.25472    2.23210  6.19036  -0.562    0.594    
+#> check1       2.53339    2.63322  2.24482   0.962    0.428    
+#> check2      -1.79994    2.63322  2.24482  -0.684    0.558    
+#> check3       0.08895    2.63322  2.24482   0.034    0.976    
+#> check4       0.64450    2.63322  2.24482   0.245    0.827    
+#> env1:check1  0.25803    2.15655 33.66923   0.120    0.905    
+#> env2:check1  0.25472    2.15656 33.67000   0.118    0.907    
+#> env1:check2 -1.07530    2.15655 33.66923  -0.499    0.621    
+#> env2:check2 -0.07861    2.15656 33.67000  -0.036    0.971    
+#> env1:check3  0.03581    2.15655 33.66923   0.017    0.987    
+#> env2:check3 -1.30083    2.15656 33.67000  -0.603    0.550    
+#> env1:check4  0.81359    2.15655 33.66923   0.377    0.708    
+#> env2:check4 -0.52306    2.15656 33.67000  -0.243    0.810    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation matrix not shown by default, as p = 15 > 12.
+#> Use print(summary(x$Model), correlation=TRUE)  or
+#>     vcov(summary(x$Model))        if you need it
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt conv_lme4             opt_message opt_warnings singular
+#> 1        0           Normal exit from bobyqa                 FALSE
+#>   treatment.test env.block2 Residual      AIC      BIC
+#> 1       6.024114   17.69102  26.9985 365.4463 403.1445
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>           Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> env        8.626  4.3130     2  6.190  0.1598 0.8558
+#> check     50.443 12.6108     4  2.289  0.4671 0.7649
+#> env:check 57.291  7.1614     8 33.696  0.2653 0.9729
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)
+#>                      npar  logLik    AIC     LRT Df Pr(>Chisq)   
+#> <none>                 18 -164.72 365.45                         
+#> (1 | env:block2)       17 -169.84 373.68 10.2346  1   0.001378 **
+#> (1 | treatment:test)   17 -165.11 364.22  0.7767  1   0.378149   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE       df type
+#> 1          1 83.66667 3.315059 3.125624 BLUE
+#> 2          2 79.33333 3.315059 3.125624 BLUE
+#> 3          3 81.22222 3.315059 3.125624 BLUE
+#> 4          4 81.77778 3.315059 3.125624 BLUE
+#> 5          5 78.63559 1.962439       NA BLUP
+#> 6          6 79.13449 1.960477       NA BLUP
+#> 7          7 82.85302 1.958030       NA BLUP
+#> 8          8 79.82048 1.958552       NA BLUP
+#> 9          9 79.87122 1.963058       NA BLUP
+#> 10        10 77.79771 1.958543       NA BLUP
+#> 11        11 80.26108 1.958009       NA BLUP
+#> 12        12 78.95737 1.961087       NA BLUP
 
 # 13. Fixed Effects - env, check; Random Effects - test;
 # Without dropping of non-significant env:test interaction
@@ -720,7 +1787,112 @@ out13 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data', but variables found in environment of formula: try specifying 'formula' as a formula rather than a string in the original model
+#> NOTE: Results may be misleading due to involvement in interactions
+#> NOTE: Results may be misleading due to involvement in interactions
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test) +      (1 | env:treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 329.4
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.2844 -0.5023 -0.1338  0.3901  2.0383 
+#> 
+#> Random effects:
+#>  Groups             Name        Variance  Std.Dev. 
+#>  env:treatment:test (Intercept) 4.186e-15 6.470e-08
+#>  treatment:test     (Intercept) 6.024e+00 2.454e+00
+#>  env:block2         (Intercept) 1.769e+01 4.206e+00
+#>  Residual                       2.700e+01 5.196e+00
+#> Number of obs: 60, groups:  
+#> env:treatment:test, 36; treatment:test, 12; env:block2, 9
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 81.13327    1.86685  6.90079  43.460 1.13e-09 ***
+#> env1         0.74197    2.23210  6.19031   0.332    0.751    
+#> env2        -1.25472    2.23210  6.19036  -0.562    0.594    
+#> check1       2.53339    2.63322  2.24482   0.962    0.428    
+#> check2      -1.79994    2.63322  2.24482  -0.684    0.558    
+#> check3       0.08895    2.63322  2.24482   0.034    0.976    
+#> check4       0.64450    2.63322  2.24482   0.245    0.827    
+#> env1:check1  0.25803    2.15655 33.66923   0.120    0.905    
+#> env2:check1  0.25472    2.15656 33.67000   0.118    0.907    
+#> env1:check2 -1.07530    2.15655 33.66923  -0.499    0.621    
+#> env2:check2 -0.07861    2.15656 33.67000  -0.036    0.971    
+#> env1:check3  0.03581    2.15655 33.66923   0.017    0.987    
+#> env2:check3 -1.30083    2.15656 33.67000  -0.603    0.550    
+#> env1:check4  0.81359    2.15655 33.66923   0.377    0.708    
+#> env2:check4 -0.52306    2.15656 33.67000  -0.243    0.810    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation matrix not shown by default, as p = 15 > 12.
+#> Use print(summary(x$Model), correlation=TRUE)  or
+#>     vcov(summary(x$Model))        if you need it
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment.test
+#> 1 Normal exit from bobyqa                  TRUE       4.185786e-15
+#>   treatment.test env.block2 Residual      AIC      BIC
+#> 1       6.024113   17.69103  26.9985 367.4463 407.2389
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>           Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> env        8.626  4.3130     2  6.190  0.1598 0.8558
+#> check     50.443 12.6108     4  2.289  0.4671 0.7649
+#> env:check 57.291  7.1614     8 33.696  0.2653 0.9729
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test) + (1 | env:treatment:test)
+#>                          npar  logLik    AIC    LRT Df Pr(>Chisq)   
+#> <none>                     19 -164.72 367.45                        
+#> (1 | env:block2)           18 -168.90 373.79 8.3428  1   0.003872 **
+#> (1 | treatment:test)       18 -165.09 366.18 0.7356  1   0.391085   
+#> (1 | env:treatment:test)   18 -164.72 365.45 0.0000  1   1.000000   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE       df type
+#> 1          1 83.66667 3.315059 3.059302 BLUE
+#> 2          2 79.33333 3.315059 3.059302 BLUE
+#> 3          3 81.22222 3.315059 3.059302 BLUE
+#> 4          4 81.77778 3.315059 3.059302 BLUE
+#> 5          5 78.63559 1.962439       NA BLUP
+#> 6          6 79.13449 1.960477       NA BLUP
+#> 7          7 82.85302 1.958030       NA BLUP
+#> 8          8 79.82048 1.958552       NA BLUP
+#> 9          9 79.87122 1.963058       NA BLUP
+#> 10        10 77.79771 1.958543       NA BLUP
+#> 11        11 80.26108 1.958009       NA BLUP
+#> 12        12 78.95737 1.961087       NA BLUP
 
 # 14. Fixed Effects - env, check, test;
 # With dropping of non-significant env:test interaction
@@ -1041,7 +2213,110 @@ out16 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 376.6
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.7191 -0.6154 -0.2276  0.4480  2.0900 
+#> 
+#> Random effects:
+#>  Groups              Name        Variance Std.Dev.
+#>  env:treatment:check (Intercept)  0.000   0.000   
+#>  treatment           (Intercept)  1.695   1.302   
+#>  env:block2          (Intercept) 13.614   3.690   
+#>  env                 (Intercept)  0.000   0.000   
+#>  Residual                        24.958   4.996   
+#> Number of obs: 60, groups:  
+#> env:treatment:check, 36; treatment, 28; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error     df t value Pr(>|t|)    
+#> (Intercept)   80.581      1.440  9.074   55.98 7.76e-13 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment.check treatment
+#> 1 Normal exit from bobyqa                  TRUE                   0  1.695004
+#>   env.block2 env Residual      AIC      BIC
+#> 1   13.61394   0  24.9579 388.6321 401.1981
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> NULL
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ 1 + (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#>                           npar  logLik    AIC     LRT Df Pr(>Chisq)    
+#> <none>                       6 -188.32 388.63                          
+#> (1 | env)                    5 -188.32 386.63  0.0000  1  1.0000000    
+#> (1 | treatment)              5 -188.43 386.85  0.2229  1  0.6368575    
+#> (1 | env:block2)             5 -193.84 397.68 11.0471  1  0.0008883 ***
+#> (1 | env:treatment:check)    5 -188.32 386.63  0.0000  1  1.0000000    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE df type
+#> 1          1 81.75159 1.053935 NA BLUP
+#> 2          2 80.10771 1.053935 NA BLUP
+#> 3          3 80.82427 1.053935 NA BLUP
+#> 4          4 81.03503 1.053935 NA BLUP
+#> 5          5 80.44431 1.265171 NA BLUP
+#> 6          6 80.43961 1.264582 NA BLUP
+#> 7          7 81.27513 1.264582 NA BLUP
+#> 8          8 80.12164 1.264582 NA BLUP
+#> 9          9 80.38071 1.265171 NA BLUP
+#> 10        10 80.82996 1.264582 NA BLUP
+#> 11        11 80.38479 1.264582 NA BLUP
+#> 12        12 80.37602 1.264582 NA BLUP
+#> 13        13 80.39980 1.264582 NA BLUP
+#> 14        14 80.48610 1.264582 NA BLUP
+#> 15        15 80.61330 1.264582 NA BLUP
+#> 16        16 81.29014 1.264582 NA BLUP
+#> 17        17 80.55879 1.265171 NA BLUP
+#> 18        18 80.29532 1.264582 NA BLUP
+#> 19        19 80.71778 1.264582 NA BLUP
+#> 20        20 80.36801 1.265171 NA BLUP
+#> 21        21 80.24645 1.265171 NA BLUP
+#> 22        22 81.17597 1.264582 NA BLUP
+#> 23        23 80.37364 1.265171 NA BLUP
+#> 24        24 80.25215 1.264582 NA BLUP
+#> 25        25 80.73080 1.264582 NA BLUP
+#> 26        26 80.31575 1.264582 NA BLUP
+#> 27        27 80.47642 1.264582 NA BLUP
+#> 28        28 79.99777 1.264582 NA BLUP
 
 # 17. Fixed Effects - check; Random Effects - env, test
 out17 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
@@ -1053,7 +2328,123 @@ out17 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) +      (1 | treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 361.5
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.4007 -0.5591 -0.1435  0.4250  2.0065 
+#> 
+#> Random effects:
+#>  Groups         Name        Variance Std.Dev.
+#>  treatment:test (Intercept) 12.69    3.563   
+#>  env:check      (Intercept)  0.00    0.000   
+#>  env:block2     (Intercept) 10.81    3.288   
+#>  env            (Intercept)  0.00    0.000   
+#>  Residual                   21.53    4.640   
+#> Number of obs: 60, groups:  
+#> treatment:test, 28; env:check, 15; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 81.13607    1.91634  5.99805  42.339 1.17e-08 ***
+#> check1       2.53060    3.39433  2.24198   0.746    0.526    
+#> check2      -1.80274    3.39433  2.24198  -0.531    0.643    
+#> check3       0.08615    3.39433  2.24198   0.025    0.982    
+#> check4       0.64171    3.39433  2.24198   0.189    0.866    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>        (Intr) check1 check2 check3
+#> check1  0.084                     
+#> check2  0.084 -0.309              
+#> check3  0.084 -0.309 -0.309       
+#> check4  0.084 -0.309 -0.309 -0.309
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular treatment.test env.check
+#> 1 Normal exit from bobyqa                  TRUE       12.69184         0
+#>   env.block2 env Residual      AIC    BIC
+#> 1   10.81295   0  21.5321 381.5266 402.47
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>       Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> check 27.314  6.8286     4 2.3058  0.3171 0.8501
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) + (1 | treatment:test)
+#>                      npar  logLik    AIC    LRT Df Pr(>Chisq)   
+#> <none>                 10 -180.76 381.53                        
+#> (1 | env)               9 -180.76 379.53 0.0000  1   1.000000   
+#> (1 | env:block2)        9 -184.52 387.05 7.5193  1   0.006104 **
+#> (1 | env:check)         9 -180.76 379.53 0.0000  1   1.000000   
+#> (1 | treatment:test)    9 -181.19 380.39 0.8584  1   0.354174   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE       df type
+#> 1          1 83.66667 4.035559 3.389111 BLUE
+#> 2          2 79.33333 4.035559 3.389111 BLUE
+#> 3          3 81.22222 4.035559 3.389111 BLUE
+#> 4          4 81.77778 4.035559 3.389111 BLUE
+#> 5          5 79.19710 2.903648       NA BLUP
+#> 6          6 79.00884 2.897031       NA BLUP
+#> 7          7 84.29258 2.897031       NA BLUP
+#> 8          8 77.15460 2.897031       NA BLUP
+#> 9          9 78.82625 2.903648       NA BLUP
+#> 10        10 81.69665 2.897031       NA BLUP
+#> 11        11 79.10072 2.897031       NA BLUP
+#> 12        12 78.63799 2.897031       NA BLUP
+#> 13        13 79.16036 2.897031       NA BLUP
+#> 14        14 79.37853 2.897031       NA BLUP
+#> 15        15 80.12022 2.897031       NA BLUP
+#> 16        16 84.35221 2.897031       NA BLUP
+#> 17        17 79.87531 2.903648       NA BLUP
+#> 18        18 78.26599 2.897031       NA BLUP
+#> 19        19 81.01459 2.897031       NA BLUP
+#> 20        20 78.76277 2.903648       NA BLUP
+#> 21        21 77.97738 2.903648       NA BLUP
+#> 22        22 83.68680 2.897031       NA BLUP
+#> 23        23 78.71907 2.903648       NA BLUP
+#> 24        24 77.83822 2.897031       NA BLUP
+#> 25        25 81.09087 2.897031       NA BLUP
+#> 26        26 78.20907 2.897031       NA BLUP
+#> 27        27 79.60748 2.897031       NA BLUP
+#> 28        28 76.35484 2.897031       NA BLUP
 
 # 18. Fixed Effects - check, test; Random Effects - env
 out18 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
@@ -1065,7 +2456,139 @@ out18 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 209.4
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.3525 -0.3572  0.0000  0.0000  1.8303 
+#> 
+#> Random effects:
+#>  Groups     Name        Variance Std.Dev.
+#>  env:check  (Intercept)  0.00    0.000   
+#>  env:block2 (Intercept)  1.78    1.334   
+#>  env        (Intercept)  0.00    0.000   
+#>  Residual               23.50    4.848   
+#> Number of obs: 60, groups:  env:check, 15; env:block2, 9; env, 3
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  79.9958     0.9665  9.3687  82.768 9.68e-15 ***
+#> treatment1    3.6708     1.7780 24.1747   2.065  0.04985 *  
+#> treatment2   -0.6625     1.7780 24.1747  -0.373  0.71269    
+#> treatment3    1.2264     1.7780 24.1747   0.690  0.49693    
+#> treatment4    1.7819     1.7780 24.1747   1.002  0.32618    
+#> treatment5   -1.3446     4.8828 31.1306  -0.275  0.78485    
+#> treatment6   -4.4146     4.8728 30.8073  -0.906  0.37198    
+#> treatment7   15.2485     4.8728 30.8073   3.129  0.00382 ** 
+#> treatment8   -9.4146     4.8728 30.8073  -1.932  0.06259 .  
+#> treatment9   -2.3446     4.8828 31.1306  -0.480  0.63446    
+#> treatment10   8.2485     4.8728 30.8073   1.693  0.10059    
+#> treatment11   1.2485     4.8728 30.8073   0.256  0.79948    
+#> treatment12  -5.4146     4.8728 30.8073  -1.111  0.27508    
+#> treatment13   0.5973     4.8728 30.8073   0.123  0.90324    
+#> treatment14  -3.7752     4.8728 30.8073  -0.775  0.44439    
+#> treatment15  -1.7752     4.8728 30.8073  -0.364  0.71811    
+#> treatment16  14.5973     4.8728 30.8073   2.996  0.00537 ** 
+#> treatment17  -0.6471     4.8828 31.1306  -0.133  0.89542    
+#> treatment18  -6.7752     4.8728 30.8073  -1.390  0.17436    
+#> treatment19   5.5973     4.8728 30.8073   1.149  0.25953    
+#> treatment20  -3.6471     4.8828 31.1306  -0.747  0.46071    
+#> treatment21  -5.8796     4.8828 31.1306  -1.204  0.23761    
+#> treatment22  13.3066     4.8728 30.8073   2.731  0.01036 *  
+#> treatment23  -3.8796     4.8828 31.1306  -0.795  0.43289    
+#> treatment24  -7.0540     4.8728 30.8073  -1.448  0.15782    
+#> treatment25   6.3066     4.8728 30.8073   1.294  0.20519    
+#> treatment26  -6.0540     4.8728 30.8073  -1.242  0.22346    
+#> treatment27   2.3066     4.8728 30.8073   0.473  0.63928    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation matrix not shown by default, as p = 28 > 12.
+#> Use print(summary(x$Model), correlation=TRUE)  or
+#>     vcov(summary(x$Model))        if you need it
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.check env.block2 env
+#> 1 Normal exit from bobyqa                  TRUE         0   1.780093   0
+#>   Residual      AIC      BIC
+#> 1 23.50463 273.4126 340.4317
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>           Sum Sq Mean Sq NumDF  DenDF F value  Pr(>F)  
+#> treatment 1242.4  46.014    27 25.469  1.9577 0.04661 *
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)
+#>                  npar  logLik    AIC     LRT Df Pr(>Chisq)
+#> <none>             32 -104.71 273.41                      
+#> (1 | env)          31 -104.71 271.41 0.00000  1     1.0000
+#> (1 | env:block2)   31 -104.82 271.63 0.21914  1     0.6397
+#> (1 | env:check)    31 -104.71 271.41 0.00000  1     1.0000
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE        df type
+#> 1          1 83.66667 1.676131  7.882789 BLUE
+#> 2          2 79.33333 1.676131  7.882789 BLUE
+#> 3          3 81.22222 1.676131  7.882789 BLUE
+#> 4          4 81.77778 1.676131  7.882789 BLUE
+#> 5          5 78.65125 5.501086 30.336883 BLUE
+#> 6          6 75.58125 5.501086 30.336883 BLUE
+#> 7          7 95.24437 5.501086 30.336883 BLUE
+#> 8          8 70.58125 5.501086 30.336883 BLUE
+#> 9          9 77.65125 5.501086 30.336883 BLUE
+#> 10        10 88.24437 5.501086 30.336883 BLUE
+#> 11        11 81.24437 5.501086 30.336883 BLUE
+#> 12        12 74.58125 5.501086 30.336883 BLUE
+#> 13        13 80.59312 5.501086 30.336883 BLUE
+#> 14        14 76.22063 5.501086 30.336883 BLUE
+#> 15        15 78.22063 5.501086 30.336883 BLUE
+#> 16        16 94.59312 5.501086 30.336883 BLUE
+#> 17        17 79.34875 5.501086 30.336883 BLUE
+#> 18        18 73.22063 5.501086 30.336883 BLUE
+#> 19        19 85.59312 5.501086 30.336883 BLUE
+#> 20        20 76.34875 5.501086 30.336883 BLUE
+#> 21        21 74.11625 5.501086 30.336883 BLUE
+#> 22        22 93.30249 5.501086 30.336883 BLUE
+#> 23        23 76.11625 5.501086 30.336883 BLUE
+#> 24        24 72.94187 5.501086 30.336883 BLUE
+#> 25        25 86.30249 5.501086 30.336883 BLUE
+#> 26        26 73.94187 5.501086 30.336883 BLUE
+#> 27        27 82.30249 5.501086 30.336883 BLUE
+#> 28        28 68.94187 5.501086 30.336883 BLUE
 
 # 19. Fixed Effects - env; Random Effects - check, test
 out19 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
@@ -1077,7 +2600,115 @@ out19 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data': object 'mod_final' not found
+#> boundary (singular) fit: see help('isSingular')
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 370.1
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.7073 -0.6393 -0.1755  0.4327  2.0857 
+#> 
+#> Random effects:
+#>  Groups              Name        Variance Std.Dev.
+#>  env:treatment:check (Intercept)  0.000   0.000   
+#>  treatment           (Intercept)  1.429   1.195   
+#>  env:block2          (Intercept) 18.778   4.333   
+#>  Residual                        25.171   5.017   
+#> Number of obs: 60, groups:  
+#> env:treatment:check, 36; treatment, 28; env:block2, 9
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error      df t value Pr(>|t|)    
+#> (Intercept)  80.6029     1.6217  6.6253  49.702 8.97e-10 ***
+#> env1          0.7362     2.2436  5.9724   0.328    0.754    
+#> env2         -0.8719     2.2436  5.9724  -0.389    0.711    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation of Fixed Effects:
+#>      (Intr) env1  
+#> env1  0.000       
+#> env2  0.000 -0.500
+#> optimizer (bobyqa) convergence code: 0 (OK)
+#> boundary (singular) fit: see help('isSingular')
+#> 
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt                                       conv_lme4
+#> 1        0 boundary (singular) fit: see help('isSingular')
+#>               opt_message opt_warnings singular env.treatment.check treatment
+#> 1 Normal exit from bobyqa                  TRUE                   0  1.428706
+#>   env.block2 Residual      AIC      BIC
+#> 1   18.77751 25.17089 384.0833 398.7437
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>     Sum Sq Mean Sq NumDF  DenDF F value Pr(>F)
+#> env 4.4023  2.2011     2 5.9724  0.0874 0.9174
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)
+#>                           npar  logLik    AIC     LRT Df Pr(>Chisq)    
+#> <none>                       7 -185.04 384.08                          
+#> (1 | treatment)              6 -185.13 382.26  0.1794  1  0.6718853    
+#> (1 | env:block2)             6 -191.48 394.96 12.8756  1  0.0003329 ***
+#> (1 | env:treatment:check)    6 -185.04 382.08  0.0000  1  1.0000000    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean        SE df type
+#> 1          1 81.63881 0.9974662 NA BLUP
+#> 2          2 80.17364 0.9974662 NA BLUP
+#> 3          3 80.81230 0.9974662 NA BLUP
+#> 4          4 81.00015 0.9974662 NA BLUP
+#> 5          5 80.47684 1.1671588 NA BLUP
+#> 6          6 80.48728 1.1666376 NA BLUP
+#> 7          7 81.16592 1.1666376 NA BLUP
+#> 8          8 80.21873 1.1666376 NA BLUP
+#> 9          9 80.42313 1.1671588 NA BLUP
+#> 10        10 80.78994 1.1666376 NA BLUP
+#> 11        11 80.41396 1.1666376 NA BLUP
+#> 12        12 80.43357 1.1666376 NA BLUP
+#> 13        13 80.44487 1.1666376 NA BLUP
+#> 14        14 80.54260 1.1666376 NA BLUP
+#> 15        15 80.65003 1.1666376 NA BLUP
+#> 16        16 81.19683 1.1666376 NA BLUP
+#> 17        17 80.59601 1.1671588 NA BLUP
+#> 18        18 80.38147 1.1666376 NA BLUP
+#> 19        19 80.71343 1.1666376 NA BLUP
+#> 20        20 80.43488 1.1671588 NA BLUP
+#> 21        21 80.32286 1.1671588 NA BLUP
+#> 22        22 81.08899 1.1666376 NA BLUP
+#> 23        23 80.43028 1.1671588 NA BLUP
+#> 24        24 80.33155 1.1666376 NA BLUP
+#> 25        25 80.71301 1.1666376 NA BLUP
+#> 26        26 80.38527 1.1666376 NA BLUP
+#> 27        27 80.49816 1.1666376 NA BLUP
+#> 28        28 80.11671 1.1666376 NA BLUP
 
 # 20. Fixed Effects - env, check; Random Effects - test
 out20 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
@@ -1088,7 +2719,120 @@ out20 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
                            scenario = "II", console = TRUE)
 #> boundary (singular) fit: see help('isSingular')
 #> boundary (singular) fit: see help('isSingular')
-#> Error: bad 'data', but variables found in environment of formula: try specifying 'formula' as a formula rather than a string in the original model
+#> NOTE: Results may be misleading due to involvement in interactions
+#> NOTE: Results may be misleading due to involvement in interactions
+#> 
+#> Augmented Design Details
+#> ========================
+#> NULL
+#> 
+#> Model Formula
+#> =========================
+#> y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)
+#> Model Details
+#> =========================
+#> Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+#> lmerModLmerTest]
+#> Formula: frmla_int
+#>    Data: model.frame(mod_final)
+#> Control: lmerControl(optimizer = "bobyqa")
+#> 
+#> REML criterion at convergence: 330.2
+#> 
+#> Scaled residuals: 
+#>     Min      1Q  Median      3Q     Max 
+#> -1.1920 -0.5147 -0.1671  0.3962  1.9464 
+#> 
+#> Random effects:
+#>  Groups         Name        Variance Std.Dev.
+#>  treatment:test (Intercept)  3.522   1.877   
+#>  env:block2     (Intercept) 17.760   4.214   
+#>  Residual                   28.225   5.313   
+#> Number of obs: 60, groups:  treatment:test, 28; env:block2, 9
+#> 
+#> Fixed effects:
+#>             Estimate Std. Error       df t value Pr(>|t|)    
+#> (Intercept) 81.13170    1.75844  3.21727  46.139 1.19e-05 ***
+#> env1         0.74220    2.24880  4.81716   0.330    0.755    
+#> env2        -1.25321    2.24880  4.81716  -0.557    0.602    
+#> check1       2.53497    2.26136  0.32012   1.121    0.652    
+#> check2      -1.79836    2.26136  0.32012  -0.795    0.715    
+#> check3       0.09053    2.26136  0.32012   0.040    0.981    
+#> check4       0.64608    2.26136  0.32012   0.286    0.873    
+#> env1:check1  0.25780    2.20767 20.10997   0.117    0.908    
+#> env2:check1  0.25321    2.20767 20.10997   0.115    0.910    
+#> env1:check2 -1.07554    2.20767 20.10997  -0.487    0.631    
+#> env2:check2 -0.08012    2.20767 20.10997  -0.036    0.971    
+#> env1:check3  0.03557    2.20767 20.10997   0.016    0.987    
+#> env2:check3 -1.30235    2.20767 20.10997  -0.590    0.562    
+#> env1:check4  0.81335    2.20767 20.10997   0.368    0.716    
+#> env2:check4 -0.52457    2.20767 20.10997  -0.238    0.815    
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Correlation matrix not shown by default, as p = 15 > 12.
+#> Use print(summary(x$Model), correlation=TRUE)  or
+#>     vcov(summary(x$Model))        if you need it
+#> 
+#> Model Diagnostics
+#> =========================
+#>   conv_opt conv_lme4             opt_message opt_warnings singular
+#> 1        0           Normal exit from bobyqa                 FALSE
+#>   treatment.test env.block2 Residual      AIC      BIC
+#> 1       3.522165   17.76004 28.22528 366.1819 403.8801
+#> 
+#> ANOVA, Fixed Effects
+#> =========================
+#> Type III Analysis of Variance Table with Satterthwaite's method
+#>           Sum Sq Mean Sq NumDF   DenDF F value Pr(>F)
+#> env        8.865  4.4325     2  4.8172  0.1570 0.8589
+#> check     72.357 18.0893     4  2.0000  0.6409 0.6844
+#> env:check 54.846  6.8558     8 21.2312  0.2429 0.9774
+#> 
+#> LRT, Random Effects
+#> =========================
+#> ANOVA-like table for random-effects: Single term deletions
+#> 
+#> Model:
+#> y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)
+#>                      npar  logLik    AIC    LRT Df Pr(>Chisq)   
+#> <none>                 18 -165.09 366.18                        
+#> (1 | env:block2)       17 -169.01 372.02 7.8424  1   0.005104 **
+#> (1 | treatment:test)   17 -165.11 364.22 0.0411  1   0.839259   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Model Formula
+#> =========================
+#>    treatment     mean       SE        df type
+#> 1          1 83.66667 2.937966 0.7943792 BLUE
+#> 2          2 79.33333 2.937966 0.7943792 BLUE
+#> 3          3 81.22222 2.937966 0.7943792 BLUE
+#> 4          4 81.77778 2.937966 0.7943792 BLUE
+#> 5          5 79.51143 1.783427        NA BLUP
+#> 6          6 79.50158 1.781885        NA BLUP
+#> 7          7 80.94890 1.781885        NA BLUP
+#> 8          8 78.94686 1.781885        NA BLUP
+#> 9          9 79.40049 1.783427        NA BLUP
+#> 10        10 80.17230 1.781885        NA BLUP
+#> 11        11 79.39570 1.781885        NA BLUP
+#> 12        12 79.39063 1.781885        NA BLUP
+#> 13        13 79.31853 1.781885        NA BLUP
+#> 14        14 79.48307 1.781885        NA BLUP
+#> 15        15 79.70496 1.781885        NA BLUP
+#> 16        16 80.87173 1.781885        NA BLUP
+#> 17        17 79.59947 1.783427        NA BLUP
+#> 18        18 79.15024 1.781885        NA BLUP
+#> 19        19 79.87324 1.781885        NA BLUP
+#> 20        20 79.26664 1.783427        NA BLUP
+#> 21        21 79.33435 1.783427        NA BLUP
+#> 22        22 80.92214 1.781885        NA BLUP
+#> 23        23 79.55623 1.783427        NA BLUP
+#> 24        24 79.31357 1.781885        NA BLUP
+#> 25        25 80.14553 1.781885        NA BLUP
+#> 26        26 79.42451 1.781885        NA BLUP
+#> 27        27 79.70176 1.781885        NA BLUP
+#> 28        28 78.86979 1.781885        NA BLUP
 
 # 21. Fixed Effects - env, check, test
 out21 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
