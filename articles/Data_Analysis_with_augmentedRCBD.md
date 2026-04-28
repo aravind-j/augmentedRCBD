@@ -900,7 +900,7 @@ help(ls)
 Packages in `R` are collections of `R` functions, data, and compiled
 code in a well-defined format. They are add-ons which extend the
 functionality of `R` and at present, there are
-[23606](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+[23716](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).
 
@@ -3401,7 +3401,7 @@ sessionInfo()
 
     loaded via a namespace (and not attached):
      [1] tidyselect_1.2.1        dplyr_1.2.1             farver_2.1.2           
-     [4] bitops_1.0-9            S7_0.2.1                RCurl_1.98-1.18        
+     [4] bitops_1.0-9            S7_0.2.2                RCurl_1.98-1.18        
      [7] fastmap_1.2.0           TH.data_1.1-5           fontquiver_0.2.1       
     [10] mathjaxr_2.0-0          XML_3.99-0.23           digest_0.6.39          
     [13] estimability_1.5.1      lifecycle_1.0.5         multcompView_0.1-11    
@@ -3409,29 +3409,29 @@ sessionInfo()
     [19] rlang_1.2.0             sass_0.4.10             tools_4.5.3            
     [22] yaml_2.3.12             data.table_1.18.2.1     knitr_1.51             
     [25] labeling_0.4.3          askpass_1.2.1           htmlwidgets_1.6.4      
-    [28] curl_7.0.0              plyr_1.8.9              xml2_1.5.2             
+    [28] curl_7.1.0              plyr_1.8.9              xml2_1.5.2             
     [31] RColorBrewer_1.1-3      multcomp_1.4-30         numform_0.7.0          
     [34] withr_3.0.2             purrr_1.2.2             numDeriv_2016.8-1.1    
     [37] desc_1.4.3              grid_4.5.3              gdtools_0.5.0          
-    [40] xtable_1.8-8            ggplot2_4.0.2           emmeans_2.0.3          
+    [40] xtable_1.8-8            ggplot2_4.0.3           emmeans_2.0.3          
     [43] scales_1.4.0            MASS_7.3-65             cli_3.6.6              
-    [46] mvtnorm_1.3-6           rmarkdown_2.31          ragg_1.5.2             
+    [46] mvtnorm_1.3-7           rmarkdown_2.31          ragg_1.5.2             
     [49] reformulas_0.4.4        generics_0.1.4          otel_0.2.0             
     [52] httr_1.4.8              reshape2_1.4.5          minqa_1.2.8            
     [55] cachem_1.1.0            stringr_1.6.0           splines_4.5.3          
     [58] vctrs_0.7.3             boot_1.3-32             Matrix_1.7-4           
     [61] sandwich_3.1-1          jsonlite_2.0.0          fontBitstreamVera_0.1.1
     [64] systemfonts_1.3.2       tidyr_1.3.2             jquerylib_0.1.4        
-    [67] glue_1.8.0              pkgdown_2.2.0.9000      nloptr_2.2.1           
+    [67] glue_1.8.1              pkgdown_2.2.0.9000      nloptr_2.2.1           
     [70] codetools_0.2-20        stringi_1.8.7           flextable_0.9.11       
     [73] gtable_0.3.6            lme4_2.0-1              lmerTest_3.2-1         
     [76] tibble_3.3.1            pillar_1.11.1           htmltools_0.5.9        
-    [79] openssl_2.3.5           R6_2.6.1                textshaping_1.0.5      
+    [79] openssl_2.4.0           R6_2.6.1                textshaping_1.0.5      
     [82] Rdpack_2.6.6            evaluate_1.0.5          lattice_0.22-9         
     [85] rbibutils_2.4.1         moments_0.14.1          openxlsx_4.2.8.1       
-    [88] fontLiberation_0.1.0    bslib_0.10.0            Rcpp_1.1.1             
+    [88] fontLiberation_0.1.0    bslib_0.10.0            Rcpp_1.1.1-1.1         
     [91] zip_2.3.3               uuid_1.2-2              nlme_3.1-168           
-    [94] officer_0.7.3           xfun_0.57               fs_2.0.1               
+    [94] officer_0.7.4           xfun_0.57               fs_2.1.0               
     [97] zoo_1.8-15              pkgconfig_2.0.3        
 
 ## References
