@@ -128,7 +128,7 @@
 #' @importFrom lme4 lmerControl isSingular fixef ranef VarCorr
 #' @importFrom lmerTest lmer ranova
 #' @importFrom stats aggregate AIC BIC as.formula formula model.frame
-#'   model.matrix reformulate terms update
+#'   model.matrix terms update
 #' @importFrom emmeans emmeans
 #' @importFrom dplyr %>% bind_rows group_by n summarize
 #' @importFrom utils tail
@@ -1143,9 +1143,9 @@ build_formula <- function(block = "block2", treatment = "treatment",
   fixed  <- sort_terms(fixed, priority)
   random <- sort_terms(random, priority)
 
-  # rhs <- paste(c(fixed, random), collapse = " + ")
-  # as.formula(paste(y, "~", rhs))
-  reformulate(termlabels = c(fixed, random), response = y)
+  rhs <- paste(c(fixed, random), collapse = " + ")
+  as.formula(paste(y, "~", rhs), env = parent.frame())
+  # reformulate(termlabels = c(fixed, random), response = y)
 }
 
 
