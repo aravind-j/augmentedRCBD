@@ -499,7 +499,7 @@ augmentedRCBD.menv <- function(block, treatment, env, y, checks = NULL,
     colnames(LSMeans2) <- c("treatment", "Adjusted Means")
 
     Means <- merge.data.frame(Means, LSMeans2, by = "treatment", all = TRUE)
-    colnames(Means) <- c("treatment", "Means", "SE", "r",
+    colnames(Means) <- c("Treatment", "Means", "SE", "r",
                          "Min", "Max", "Adjusted Means")
 
     if (simplify == TRUE) {
