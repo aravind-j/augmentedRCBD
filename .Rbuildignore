@@ -37,3 +37,5 @@
 ^codemeta\.json$
 ^cran-comments-archive\.md$
 ^vignettes/.*\.log$
+^\.positai$
+^\.claude$
