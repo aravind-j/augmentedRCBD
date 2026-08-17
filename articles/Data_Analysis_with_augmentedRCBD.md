@@ -109,6 +109,7 @@ generate the output.
 For example, type `1+1` in the console and press ‘Enter’.
 
 ``` r
+
 1+1
 ```
 
@@ -166,6 +167,7 @@ directory, while [`setwd()`](https://rdrr.io/r/base/getwd.html) can be
 used to change the existing working directory.
 
 ``` r
+
 # Print current working directory
 getwd()
 ```
@@ -173,6 +175,7 @@ getwd()
     [1] "C:/Users/Computer/Documents"
 
 ``` r
+
 # Set new working directory
 setwd("C:/Data Analysis/")
 getwd()
@@ -192,6 +195,7 @@ or a condition. A more advanced and most useful expression is a function
 call (see [section 4.3](#ObjFun)).
 
 ``` r
+
 # Constant
 123
 ```
@@ -199,6 +203,7 @@ call (see [section 4.3](#ObjFun)).
     [1] 123
 
 ``` r
+
 # Arithmetic (add two numbers)
 1 + 2
 ```
@@ -206,6 +211,7 @@ call (see [section 4.3](#ObjFun)).
     [1] 3
 
 ``` r
+
 # Condition
 34 > 25
 ```
@@ -213,12 +219,14 @@ call (see [section 4.3](#ObjFun)).
     [1] TRUE
 
 ``` r
+
 1 == 2
 ```
 
     [1] FALSE
 
 ``` r
+
 # Function call (mean of a series of numbers)
 mean(c(25,56,89,35))
 ```
@@ -229,6 +237,7 @@ Information from an expression can be stored as an ‘object’ (see
 [section 4.3](#ObjFun)) by assigning a name using the operator ‘`<-`’.
 
 ``` r
+
 # Assign the result of the expression 1 + 2 to an object 'a'
 a <- 1 + 2
 a
@@ -264,6 +273,7 @@ Vector modes ‘numeric’ stores real numbers, while ‘integer’ stores
 integers, which can be enforced by suffixing elements with ‘`L`’.
 
 ``` r
+
 # A numeric vector
 a <- c(1, 2, 3.3)
 class(a)
@@ -272,18 +282,21 @@ class(a)
     [1] "numeric"
 
 ``` r
+
 str(a)
 ```
 
      num [1:3] 1 2 3.3
 
 ``` r
+
 length(a)
 ```
 
     [1] 3
 
 ``` r
+
 # An integer vector
 b <- c(1L, 2L, 3L)
 class(b)
@@ -292,12 +305,14 @@ class(b)
     [1] "integer"
 
 ``` r
+
 str(b)
 ```
 
      int [1:3] 1 2 3
 
 ``` r
+
 length(b)
 ```
 
@@ -306,6 +321,7 @@ length(b)
 The vector mode ‘character’ store text.
 
 ``` r
+
 # A character vector
 c <- c("one","two","three")
 class(c)
@@ -314,12 +330,14 @@ class(c)
     [1] "character"
 
 ``` r
+
 str(c)
 ```
 
      chr [1:3] "one" "two" "three"
 
 ``` r
+
 length(c)
 ```
 
@@ -328,6 +346,7 @@ length(c)
 The vector mode ‘logical’ stores ‘`TRUE`’ OR ‘`FALSE`’ logical data.
 
 ``` r
+
 #logical vector
 d <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE)
 class(d)
@@ -336,12 +355,14 @@ class(d)
     [1] "logical"
 
 ``` r
+
 str(d)
 ```
 
      logi [1:6] TRUE TRUE TRUE FALSE TRUE FALSE
 
 ``` r
+
 length(d)
 ```
 
@@ -353,6 +374,7 @@ A ‘factor’ in `R` stores data from categorical data in variables as
 different levels.
 
 ``` r
+
 catg <- c("male","female","female","male","male")
 catg
 ```
@@ -360,12 +382,14 @@ catg
     [1] "male"   "female" "female" "male"   "male"  
 
 ``` r
+
 is.factor(catg)
 ```
 
     [1] FALSE
 
 ``` r
+
 # Apply the factor function
 factor_catg <- factor(catg)
 
@@ -376,18 +400,21 @@ factor_catg
     Levels: female male
 
 ``` r
+
 is.factor(factor_catg)
 ```
 
     [1] TRUE
 
 ``` r
+
 class(factor_catg)
 ```
 
     [1] "factor"
 
 ``` r
+
 str(factor_catg)
 ```
 
@@ -397,6 +424,7 @@ A character, numeric or integer vector can be transformed to a factor by
 using the [`as.factor()`](https://rdrr.io/r/base/factor.html) function.
 
 ``` r
+
 # Conversion of numeric to factor
 a <- c(1, 2, 3.3)
 class(a)
@@ -405,12 +433,14 @@ class(a)
     [1] "numeric"
 
 ``` r
+
 str(a)
 ```
 
      num [1:3] 1 2 3.3
 
 ``` r
+
 fac_a <- as.factor(a)
 class(fac_a)
 ```
@@ -418,12 +448,14 @@ class(fac_a)
     [1] "factor"
 
 ``` r
+
 str(fac_a)
 ```
 
      Factor w/ 3 levels "1","2","3.3": 1 2 3
 
 ``` r
+
 # Conversion of integer to factor
 b <- c(1L, 2L, 3L)
 class(b)
@@ -432,12 +464,14 @@ class(b)
     [1] "integer"
 
 ``` r
+
 str(b)
 ```
 
      int [1:3] 1 2 3
 
 ``` r
+
 fac_b <- as.factor(b)
 class(fac_b)
 ```
@@ -445,12 +479,14 @@ class(fac_b)
     [1] "factor"
 
 ``` r
+
 str(fac_b)
 ```
 
      Factor w/ 3 levels "1","2","3": 1 2 3
 
 ``` r
+
 # Conversion of character to factor
 c <- c("one","two","three")
 class(c)
@@ -459,12 +495,14 @@ class(c)
     [1] "character"
 
 ``` r
+
 str(c)
 ```
 
      chr [1:3] "one" "two" "three"
 
 ``` r
+
 fac_c <- as.factor(c)
 class(fac_c)
 ```
@@ -472,6 +510,7 @@ class(fac_c)
     [1] "factor"
 
 ``` r
+
 str(fac_c)
 ```
 
@@ -482,6 +521,7 @@ str(fac_c)
 A ‘matrix’ in `R` is a vector with the attributes ‘`nrow`’ and ‘`ncol`’.
 
 ``` r
+
 # Generate 5 * 4 numeric matrix
 m <- matrix(1:20, nrow = 5, ncol = 4)
 m
@@ -495,18 +535,21 @@ m
     [5,]    5   10   15   20
 
 ``` r
+
 class(m)
 ```
 
     [1] "matrix" "array" 
 
 ``` r
+
 typeof(m)
 ```
 
     [1] "integer"
 
 ``` r
+
 # Dimensions of m
 dim(m) 
 ```
@@ -521,6 +564,7 @@ mixture of data types such as vectors, matrices, data frames, other
 lists or any other data structure.
 
 ``` r
+
 w <- list(a, m, d, list(b, c))
 class(w)
 ```
@@ -528,6 +572,7 @@ class(w)
     [1] "list"
 
 ``` r
+
 str(w)
 ```
 
@@ -548,6 +593,7 @@ needs to be of a single data type, however data type can vary between
 columns.
 
 ``` r
+
 L <- LETTERS[1:4]
 y <- 1:4
 z <- c("This", "is", "a", "data frame")
@@ -562,6 +608,7 @@ df
     4 D 1 4 data frame
 
 ``` r
+
 str(df)
 ```
 
@@ -572,6 +619,7 @@ str(df)
      $ z: chr  "This" "is" "a" "data frame"
 
 ``` r
+
 attributes(df)
 ```
 
@@ -585,12 +633,14 @@ attributes(df)
     [1] 1 2 3 4
 
 ``` r
+
 rownames(df)
 ```
 
     [1] "1" "2" "3" "4"
 
 ``` r
+
 colnames(df)
 ```
 
@@ -611,6 +661,7 @@ takes a numeric vector as argument and returns the mean as a numeric
 vector.
 
 ``` r
+
 a <- c(1, 2, 3.3)
 mean(a)
 ```
@@ -621,6 +672,7 @@ The user can also create custom functions. For example the function
 `foo` adds two numbers and gives the result.
 
 ``` r
+
 foo <- function(n1, n2) {
   out <- n1 + n2
   return(out)
@@ -638,6 +690,7 @@ can be included in different data objects.
 `NA` (not available) indicates missing data.
 
 ``` r
+
 x <- c(2.5, NA, 8.6)
 y <- c(TRUE, FALSE, NA)
 z <- c("k", NA, "m", "n", "o")
@@ -647,24 +700,28 @@ is.na(x)
     [1] FALSE  TRUE FALSE
 
 ``` r
+
 is.na(z)
 ```
 
     [1] FALSE  TRUE FALSE FALSE FALSE
 
 ``` r
+
 anyNA(x)
 ```
 
     [1] TRUE
 
 ``` r
+
 a
 ```
 
     [1] 1.0 2.0 3.3
 
 ``` r
+
 is.na(a)
 ```
 
@@ -673,6 +730,7 @@ is.na(a)
 `Inf` indicates infinity.
 
 ``` r
+
 1/0
 ```
 
@@ -681,6 +739,7 @@ is.na(a)
 `NaN` (Not a Number) indicates any undefined value.
 
 ``` r
+
 0/0
 ```
 
@@ -695,6 +754,7 @@ extracted by using the `$` operator.
 Consider a vector `a`.
 
 ``` r
+
 a <- c(1, 2, 3.3, 2.8, 6.7)
 # Numeric indexing
 # Extract first element
@@ -704,6 +764,7 @@ a[1]
     [1] 1
 
 ``` r
+
 # Extract elements 2:3
 a[2:3]
 ```
@@ -711,6 +772,7 @@ a[2:3]
     [1] 2.0 3.3
 
 ``` r
+
 # Logical indexing
 a[a > 3]
 ```
@@ -720,6 +782,7 @@ a[a > 3]
 Consider a matrix `m`.
 
 ``` r
+
 m <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
 colnames(m) <- c('a', 'b', 'c')
 m
@@ -731,6 +794,7 @@ m
     [3,] 7 8 9
 
 ``` r
+
 # Extract elements
 m[,2] # 2nd column of matrix
 ```
@@ -738,6 +802,7 @@ m[,2] # 2nd column of matrix
     [1] 2 5 8
 
 ``` r
+
 m[3,] # 3rd row of matrix
 ```
 
@@ -745,6 +810,7 @@ m[3,] # 3rd row of matrix
     7 8 9 
 
 ``` r
+
 m[2:3, 1:3] # rows 2,3 of columns 1,2,3 
 ```
 
@@ -753,6 +819,7 @@ m[2:3, 1:3] # rows 2,3 of columns 1,2,3
     [2,] 7 8 9
 
 ``` r
+
 m[2,2] # Element in 2nd column of 2nd row
 ```
 
@@ -760,12 +827,14 @@ m[2,2] # Element in 2nd column of 2nd row
     5 
 
 ``` r
+
 m[, 'b'] # Column 'b'
 ```
 
     [1] 2 5 8
 
 ``` r
+
 m[, c('a', 'c')] # Column 'a' and 'c'
 ```
 
@@ -777,6 +846,7 @@ m[, c('a', 'c')] # Column 'a' and 'c'
 Consider a list `w`.
 
 ``` r
+
 w <- list(vec = a, mat = m, data = df, alist = list(b, c))
 
 # Indexing by number
@@ -790,6 +860,7 @@ w[2] # As list structure
     [3,] 7 8 9
 
 ``` r
+
 w[[2]] # Without list structure
 ```
 
@@ -799,6 +870,7 @@ w[[2]] # Without list structure
     [3,] 7 8 9
 
 ``` r
+
 # Indexing by name
 w$vec
 ```
@@ -806,6 +878,7 @@ w$vec
     [1] 1.0 2.0 3.3 2.8 6.7
 
 ``` r
+
 w$data
 ```
 
@@ -818,6 +891,7 @@ w$data
 Consider a data frame `df`.
 
 ``` r
+
 df
 ```
 
@@ -828,6 +902,7 @@ df
     4 D 1 4 data frame
 
 ``` r
+
 # Indexing by number
 df[,2] # 2nd column of data frame
 ```
@@ -835,6 +910,7 @@ df[,2] # 2nd column of data frame
     [1] 1 1 1 1
 
 ``` r
+
 df[2] # 2nd column of data frame
 ```
 
@@ -845,6 +921,7 @@ df[2] # 2nd column of data frame
     4 1
 
 ``` r
+
 df[3,] # 3rd row of data frame
 ```
 
@@ -852,6 +929,7 @@ df[3,] # 3rd row of data frame
     3 C 1 3 a
 
 ``` r
+
 df[2:3, 1:3] # rows 2,3 of columns 1,2,3 
 ```
 
@@ -860,12 +938,14 @@ df[2:3, 1:3] # rows 2,3 of columns 1,2,3
     3 C 1 3
 
 ``` r
+
 df[2,2] # Element in 2nd column of 2nd row
 ```
 
     [1] 1
 
 ``` r
+
 # Indexing by name
 df$L
 ```
@@ -873,6 +953,7 @@ df$L
     [1] "A" "B" "C" "D"
 
 ``` r
+
 df$z
 ```
 
@@ -887,6 +968,7 @@ arguments that are taken by the function and the type of output object
 returned (‘Value’).
 
 ``` r
+
 ?ls
 help(ls)
 
@@ -900,7 +982,7 @@ help(ls)
 Packages in `R` are collections of `R` functions, data, and compiled
 code in a well-defined format. They are add-ons which extend the
 functionality of `R` and at present, there are
-[23717](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+[24703](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 packages available for deployment and use at the official repository,
 the Comprehensive R Archive Network (CRAN).
 
@@ -909,6 +991,7 @@ Valid packages from CRAN can be installed by using the
 command.
 
 ``` r
+
 # Install the package 'readxl' for importing data from excel
 install.packages(readxl)
 ```
@@ -917,6 +1000,7 @@ Installed packages can be loaded using the function
 [`library()`](https://rdrr.io/r/base/library.html).
 
 ``` r
+
 # Install the package 'readxl' for importing data from excel
 library(readxl)
 ```
@@ -960,6 +1044,7 @@ The `augdata.csv` file can be imported into `R` using the
 function in the `readr` package.
 
 ``` r
+
 data <- read.csv(file = "augdata.csv")
 str(data)
 ```
@@ -974,6 +1059,7 @@ The argument `stringsAsFactors = FALSE` reads the text columns as of
 type `character` instead of the default `factor`.
 
 ``` r
+
 data <- read.csv(file = "augdata.csv", stringsAsFactors = FALSE)
 str(data)
 ```
@@ -989,6 +1075,7 @@ The `augdata.xlsx` file can be imported into `R` using the
 function in the `readxl` package.
 
 ``` r
+
 library(readxl)
 data <- read_excel(path = "augdata.xlsx")
 ```
@@ -1005,6 +1092,7 @@ The tabular data can be exported from `R` to a `.csv`
 function.
 
 ``` r
+
 write.csv(x = data, file = "augdata.csv")
 ```
 
@@ -1031,6 +1119,7 @@ The package `augmentedRCBD` can be installed using the following
 functions.
 
 ``` r
+
 # Install from CRAN
 install.packages('augmentedRCBD', dependencies=TRUE)
 
@@ -1051,8 +1140,10 @@ function from [\`devtools](https://devtools.r-lib.org/) package.
 Then the package can be loaded using the function
 
 ``` r
+
 library(augmentedRCBD)
 ```
+
 
     --------------------------------------------------------------------------------
     Welcome to augmentedRCBD version 0.1.7.9000
@@ -1078,16 +1169,17 @@ are as follows.
 
 **Table 2.** Version history of `augmentedRCBD` `R` package.
 
-| Version | Date       |
-|:--------|:-----------|
-| 0.1.0   | 2018-07-10 |
-| 0.1.1   | 2019-07-21 |
-| 0.1.2   | 2020-03-19 |
-| 0.1.3   | 2020-07-27 |
-| 0.1.4   | 2021-02-17 |
-| 0.1.5   | 2021-06-12 |
-| 0.1.6   | 2023-05-28 |
-| 0.1.7   | 2023-08-19 |
+| Version      | Date       |
+|:-------------|:-----------|
+| 0.1.0        | 2018-07-10 |
+| 0.1.1        | 2019-07-21 |
+| 0.1.2        | 2020-03-19 |
+| 0.1.3        | 2020-07-27 |
+| 0.1.4        | 2021-02-17 |
+| 0.1.5        | 2021-06-12 |
+| 0.1.6        | 2023-05-28 |
+| 0.1.7        | 2023-08-19 |
+| PACKAGES.rds | 2026-07-09 |
 
 To know detailed history of changes use `news(package='augmentedRCBD')`.
 
@@ -1236,6 +1328,7 @@ Consider the data in [Table 1](#impexp). The data can be imported into
 `R` as [vectors](#vector) as follows.
 
 ``` r
+
 blk <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3)
 trt <- c(1, 2, 3, 4, 7, 11, 12, 1, 2, 3, 4, 5, 9, 1, 2, 3, 4, 8, 6, 10)
 y1 <- c(92, 79, 87, 81, 96, 89, 82, 79, 81, 81, 91, 79, 78, 83, 77, 78, 78,
@@ -1248,6 +1341,7 @@ The `blk` and `trt` vectors with the block and treatment data need to be
 converted into factors as follows before analysis.
 
 ``` r
+
 # Convert block and treatment to factors
 blk <- as.factor(blk)
 trt <- as.factor(trt)
@@ -1257,9 +1351,11 @@ With the data in appropriate format, the analysis can be performed as
 follows for the trait `y1` as follows.
 
 ``` r
+
 out1 <- augmentedRCBD(blk, trt, y1, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = TRUE)
 ```
+
 
     Augmented Design Details
     ========================
@@ -1418,6 +1514,7 @@ out1 <- augmentedRCBD(blk, trt, y1, method.comp = "lsd",
              7          93.50 5.61  6    79.77   107.23     2
 
 ``` r
+
 class(out1)
 ```
 
@@ -1426,9 +1523,11 @@ class(out1)
 Similarly the analysis for the trait `y2` can be computed as follows.
 
 ``` r
+
 out2 <- augmentedRCBD(blk, trt, y2, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = TRUE)
 ```
+
 
     Augmented Design Details
     ========================
@@ -1589,6 +1688,7 @@ out2 <- augmentedRCBD(blk, trt, y2, method.comp = "lsd",
             10         437.67 18.27  6   392.95   482.38        7
 
 ``` r
+
 class(out2)
 ```
 
@@ -1599,6 +1699,7 @@ used for analysis. Consider the data frame `data` imported from [Table
 1](#impexp) according to the instructions in [section 4.8](#impexp).
 
 ``` r
+
 str(data)
 ```
 
@@ -1609,16 +1710,19 @@ str(data)
      $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...
 
 ``` r
+
 # Convert block and treatment to factors
 data$blk <- as.factor(data$blk)
 data$trt <- as.factor(data$trt)
 ```
 
 ``` r
+
 # Results for variable y1
 out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = TRUE)
 ```
+
 
     Augmented Design Details
     ========================
@@ -1777,16 +1881,19 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
              7          93.50 5.61  6    79.77   107.23     2
 
 ``` r
+
 class(out1)
 ```
 
     [1] "augmentedRCBD"
 
 ``` r
+
 # Results for variable y2
 out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
                      alpha = 0.05, group = TRUE, console = TRUE)
 ```
+
 
     Augmented Design Details
     ========================
@@ -1947,6 +2054,7 @@ out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
             10         437.67 18.27  6   392.95   482.38        7
 
 ``` r
+
 class(out2)
 ```
 
@@ -1958,11 +2066,13 @@ may also be falsely detected as checks. To avoid this, the checks can be
 specified by the `checks` argument.
 
 ``` r
+
 # Results for variable y1 (checks specified)
 out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = TRUE,
                       checks = c("1", "2", "3", "4"))
 ```
+
 
     Augmented Design Details
     ========================
@@ -2121,11 +2231,13 @@ out1 <- augmentedRCBD(data$blk, data$trt, data$y1, method.comp = "lsd",
              7          93.50 5.61  6    79.77   107.23     2
 
 ``` r
+
 # Results for variable y2 (checks specified)
 out2 <- augmentedRCBD(data$blk, data$trt, data$y2, method.comp = "lsd",
                       alpha = 0.05, group = TRUE, console = TRUE,
                       checks = c("1", "2", "3", "4"))
 ```
+
 
     Augmented Design Details
     ========================
@@ -2299,9 +2411,11 @@ The results of analysis in an object of class `augmentedRCBD` can be
 printed to the console as follows.
 
 ``` r
+
 # Print results for variable y1
 print(out1)
 ```
+
 
     Augmented Design Details
     ========================
@@ -2460,9 +2574,11 @@ print(out1)
              7          93.50 5.61  6    79.77   107.23     2
 
 ``` r
+
 # Print results for variable y2
 print(out2)
 ```
+
 
     Augmented Design Details
     ========================
@@ -2633,6 +2749,7 @@ the results in an object of class `augmentedRCBD` can be computed as
 follows.
 
 ``` r
+
 # Descriptive statistics for variable y1
 describe.augmentedRCBD(out1)
 ```
@@ -2670,6 +2787,7 @@ describe.augmentedRCBD(out1)
     [1] 0.1997357
 
 ``` r
+
 # Descriptive statistics for variable y2
 describe.augmentedRCBD(out2)
 ```
@@ -2712,6 +2830,7 @@ The frequency distribution of the adjusted means from the results in an
 object of class `augmentedRCBD` can be plotted as follows.
 
 ``` r
+
 # Frequency distribution for variable y1
 freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
 ```
@@ -2720,12 +2839,14 @@ freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
     (`geom_bar()`).
 
 ``` r
+
 plot(freq1)
 ```
 
 ![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png)
 
 ``` r
+
 # Frequency distribution for variable y2
 freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
 ```
@@ -2734,6 +2855,7 @@ freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
     (`geom_bar()`).
 
 ``` r
+
 plot(freq2)
 ```
 
@@ -2743,6 +2865,7 @@ The colours for the check values may be specified using the argument
 `check.col`.
 
 ``` r
+
 colset <- c("red3", "green4", "purple3", "darkorange3")
 
 # Frequency distribution for variable y1
@@ -2753,12 +2876,14 @@ freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
     (`geom_bar()`).
 
 ``` r
+
 plot(freq1)
 ```
 
 ![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-1.png)
 
 ``` r
+
 # Frequency distribution for variable y2
 freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
 ```
@@ -2767,6 +2892,7 @@ freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
     (`geom_bar()`).
 
 ``` r
+
 plot(freq2)
 ```
 
@@ -2776,6 +2902,7 @@ The default the check highlighting can be avoided using the argument
 `highlight.check = FALSE`.
 
 ``` r
+
 # Frequency distribution for variable y1
 freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
                                 highlight.check = FALSE)
@@ -2785,12 +2912,14 @@ freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
     (`geom_bar()`).
 
 ``` r
+
 plot(freq1)
 ```
 
 ![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-1.png)
 
 ``` r
+
 # Frequency distribution for variable y2
 freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
                                 highlight.check = FALSE)
@@ -2800,6 +2929,7 @@ freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
     (`geom_bar()`).
 
 ``` r
+
 plot(freq2)
 ```
 
@@ -2825,6 +2955,7 @@ to be performed only if the sum of squares of “Treatment: Test” are
 significant.
 
 ``` r
+
 # Genetic variability statistics for variable y1
 gva.augmentedRCBD(out1)
 ```
@@ -2875,6 +3006,7 @@ gva.augmentedRCBD(out1)
     [1] "Medium"
 
 ``` r
+
 # Genetic variability statistics for variable y2
 gva.augmentedRCBD(out2)
 ```
@@ -2932,6 +3064,7 @@ The results generated by the analysis can be exported to a MS Word file
 as follows.
 
 ``` r
+
 # MS word report for variable y1
 report.augmentedRCBD(aug = out1,
                      target = file.path(tempdir(),
@@ -2955,6 +3088,7 @@ Alternatively, the analysis results can also be exported to a MS Excel
 file as follows.
 
 ``` r
+
 # MS excel report for variable y1
 report.augmentedRCBD(aug = out1,
                      target = file.path(tempdir(),
@@ -2994,6 +3128,7 @@ Consider the data frame `data` imported from [Table 1](#impexp)
 according to the instructions in [section 4.8](#impexp).
 
 ``` r
+
 str(data)
 ```
 
@@ -3004,6 +3139,7 @@ str(data)
      $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...
 
 ``` r
+
 # Convert block and treatment to factors
 data$blk <- as.factor(data$blk)
 data$trt <- as.factor(data$trt)
@@ -3028,6 +3164,7 @@ of variation, broad sense heritability and genetic advance over mean
 between traits are also generated.
 
 ``` r
+
 bout <- augmentedRCBD.bulk(data = data, block = "blk",
                            treatment = "trt", traits = c("y1", "y2"),
                            checks = NULL, alpha = 0.05, describe = TRUE,
@@ -3036,6 +3173,7 @@ bout <- augmentedRCBD.bulk(data = data, block = "blk",
                                          "forestgreen", "purple"),
                            console = TRUE)
 ```
+
 
     ANOVA for y1 computed (1/2)
 
@@ -3137,6 +3275,7 @@ bout <- augmentedRCBD.bulk(data = data, block = "blk",
      GAM category could not be computed.
 
 
+
     Warning Messages
     ================
 
@@ -3179,9 +3318,11 @@ The results of analysis in an object of class `augmentedRCBD.bulk` can
 be printed to the console as follows.
 
 ``` r
+
 # Print results
 print(bout)
 ```
+
 
     Augmented Design Details
     ========================
@@ -3279,6 +3420,7 @@ print(bout)
      GAM category could not be computed.
 
 
+
     Warning Messages
     ================
 
@@ -3321,6 +3463,7 @@ The results generated by the analysis can be exported to a MS Word file
 as follows.
 
 ``` r
+
 # MS word report
 report.augmentedRCBD.bulk(aug.bulk = bout,
                           target = file.path(tempdir(),
@@ -3338,6 +3481,7 @@ Alternatively, the analysis results can also be exported to a MS Excel
 file as follows.
 
 ``` r
+
 # MS excel report
 report.augmentedRCBD.bulk(aug.bulk = bout,
                           target = file.path(tempdir(),
@@ -3376,12 +3520,13 @@ function.
 ## 10 Session Info
 
 ``` r
+
 sessionInfo()
 ```
 
-    R version 4.6.0 (2026-04-24)
+    R version 4.6.1 (2026-06-24)
     Platform: aarch64-apple-darwin23
-    Running under: macOS Sequoia 15.7.4
+    Running under: macOS Tahoe 26.5.2
 
     Matrix products: default
     BLAS:   /Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib 
@@ -3401,38 +3546,38 @@ sessionInfo()
 
     loaded via a namespace (and not attached):
      [1] tidyselect_1.2.1        dplyr_1.2.1             farver_2.1.2           
-     [4] bitops_1.0-9            S7_0.2.2                RCurl_1.98-1.18        
+     [4] bitops_1.1-0            S7_0.2.2                RCurl_1.98-1.19        
      [7] fastmap_1.2.0           TH.data_1.1-5           fontquiver_0.2.1       
     [10] mathjaxr_2.0-0          XML_3.99-0.23           digest_0.6.39          
-    [13] estimability_1.5.1      lifecycle_1.0.5         multcompView_0.1-11    
-    [16] survival_3.8-6          magrittr_2.0.5          compiler_4.6.0         
-    [19] rlang_1.2.0             sass_0.4.10             tools_4.6.0            
-    [22] yaml_2.3.12             data.table_1.18.2.1     knitr_1.51             
+    [13] estimability_2.0.0      lifecycle_1.0.5         multcompView_0.1-12    
+    [16] survival_3.8-6          magrittr_2.0.5          compiler_4.6.1         
+    [19] rlang_1.3.0             sass_0.4.10             tools_4.6.1            
+    [22] yaml_2.3.12             data.table_1.18.4       knitr_1.51             
     [25] labeling_0.4.3          askpass_1.2.1           htmlwidgets_1.6.4      
-    [28] curl_7.1.0              plyr_1.8.9              xml2_1.5.2             
-    [31] RColorBrewer_1.1-3      multcomp_1.4-30         numform_0.7.0          
-    [34] withr_3.0.2             purrr_1.2.2             numDeriv_2016.8-1.1    
-    [37] desc_1.4.3              grid_4.6.0              gdtools_0.5.0          
-    [40] xtable_1.8-8            ggplot2_4.0.3           emmeans_2.0.3          
+    [28] curl_7.1.0              plyr_1.8.9              xml2_1.6.0             
+    [31] RColorBrewer_1.1-3      multcomp_1.4-31         numform_0.7.0          
+    [34] withr_3.0.3             purrr_1.2.2             numDeriv_2016.8-1.1    
+    [37] desc_1.4.3              grid_4.6.1              gdtools_0.5.1          
+    [40] xtable_1.8-8            ggplot2_4.0.3           emmeans_2.0.4          
     [43] scales_1.4.0            MASS_7.3-65             cli_3.6.6              
-    [46] mvtnorm_1.3-7           rmarkdown_2.31          ragg_1.5.2             
+    [46] mvtnorm_1.4-2           rmarkdown_2.31          ragg_1.5.2             
     [49] reformulas_0.4.4        generics_0.1.4          otel_0.2.0             
     [52] httr_1.4.8              reshape2_1.4.5          minqa_1.2.8            
-    [55] cachem_1.1.0            stringr_1.6.0           splines_4.6.0          
+    [55] cachem_1.1.0            stringr_1.6.0           splines_4.6.1          
     [58] vctrs_0.7.3             boot_1.3-32             Matrix_1.7-5           
-    [61] sandwich_3.1-1          jsonlite_2.0.0          fontBitstreamVera_0.1.1
+    [61] sandwich_3.1-3          jsonlite_2.0.0          fontBitstreamVera_0.1.1
     [64] systemfonts_1.3.2       tidyr_1.3.2             jquerylib_0.1.4        
-    [67] glue_1.8.1              pkgdown_2.2.0.9000      nloptr_2.2.1           
-    [70] codetools_0.2-20        stringi_1.8.7           flextable_0.9.11       
-    [73] gtable_0.3.6            lme4_2.0-1              lmerTest_3.2-1         
+    [67] glue_1.8.1              pkgdown_2.2.1.9000      nloptr_2.2.1           
+    [70] codetools_0.2-20        stringi_1.8.9           flextable_0.10.0       
+    [73] gtable_0.3.6            lme4_2.0-6              lmerTest_3.2-1         
     [76] tibble_3.3.1            pillar_1.11.1           htmltools_0.5.9        
-    [79] openssl_2.4.0           R6_2.6.1                textshaping_1.0.5      
+    [79] openssl_2.4.2           R6_2.6.1                textshaping_1.0.5      
     [82] Rdpack_2.6.6            evaluate_1.0.5          lattice_0.22-9         
     [85] rbibutils_2.4.1         moments_0.14.1          openxlsx_4.2.8.1       
-    [88] fontLiberation_0.1.0    bslib_0.10.0            Rcpp_1.1.1-1.1         
-    [91] zip_2.3.3               uuid_1.2-2              nlme_3.1-169           
-    [94] officer_0.7.4           xfun_0.57               fs_2.1.0               
-    [97] zoo_1.8-15              pkgconfig_2.0.3        
+    [88] fontLiberation_0.1.0    bslib_0.12.0            Rcpp_1.1.2             
+    [91] zip_3.0.2               uuid_1.2-2              nlme_3.1-169           
+    [94] officer_0.7.6           xfun_0.60               fs_2.1.0               
+    [97] zoo_1.9-0               pkgconfig_2.0.3        
 
 ## References
 

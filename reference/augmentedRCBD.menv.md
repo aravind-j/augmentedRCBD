@@ -199,6 +199,7 @@ across all the blocks and environments.
 ## Examples
 
 ``` r
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Scenario 1: Test treatments are replicated across all environments
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -342,7 +343,7 @@ out1 <- augmentedRCBD.menv(block = data1$blk1, treatment = data1$trt1,
 #> 
 #> Treatment Means
 #> ===============
-#>  treatment Means   SE r   Min   Max Adjusted Means
+#>  Treatment Means   SE r   Min   Max Adjusted Means
 #>          1 83.67 1.92 9 78.00 92.00          83.67
 #>         10 71.67 1.45 3 69.00 74.00          74.17
 #>         11 83.00 4.58 3 74.00 89.00          81.25
@@ -581,7 +582,7 @@ out2 <- augmentedRCBD.menv(block = data2$blk2, treatment = data2$trt2,
 #> 
 #> Treatment Means
 #> ===============
-#>  treatment Means   SE r   Min   Max Adjusted Means
+#>  Treatment Means   SE r   Min   Max Adjusted Means
 #>          1 83.67 1.92 9 78.00 92.00          83.67
 #>         10 89.00 <NA> 1 89.00 89.00          85.75
 #>         11 82.00 <NA> 1 82.00 82.00          78.75

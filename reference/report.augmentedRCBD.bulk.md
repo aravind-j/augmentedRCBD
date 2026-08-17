@@ -83,7 +83,10 @@ report.augmentedRCBD.bulk(
   target = file.path(tempdir(),
                      "augmentedRCBD bulk output.docx"),
   file.type = "word")
-#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpfRmgej/augmentedRCBD bulk output.docx
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptaXhLq/augmentedRCBD bulk output.docx
 report.augmentedRCBD.bulk(
   aug.bulk = bout,
   target = file.path(tempdir(),

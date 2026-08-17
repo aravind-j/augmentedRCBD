@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Analysis of Augmented Randomised Complete Block Design in Single and Multiple Environments Using Mixed Models — augmentedRCBD.mix"><meta name="description" content='The function augmentedRCBD.mix implements analysis of variance of an
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Analysis of Augmented Randomised Complete Block Design in Single and Multiple Environments Using Mixed Models — augmentedRCBD.mix"><meta name="description" content='The function augmentedRCBD.mix implements analysis of variance of an
 augmented randomised block design (Federer, 1956; Federer, 1961) and the
 generation as well as comparison of the adjusted means of the
 treatments/genotypes using mixed-effect models. The analysis can be performed
@@ -431,7 +431,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ (1 | treatment) + (1 | block)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -518,7 +559,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ check + (1 | block) + (1 | treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -611,7 +693,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ treatment + (1 | block)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -795,7 +918,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -896,7 +1060,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -999,7 +1204,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) +      (1 | treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1113,7 +1359,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ check + (1 | env) + (1 | env:block2) + (1 | env:treatment) +      (1 | treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1228,7 +1515,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1366,7 +1694,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:treatment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1504,7 +1873,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1610,7 +2020,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1715,7 +2166,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1826,7 +2318,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test) +      (1 | env:treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -1942,7 +2475,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + treatment + env:treatment + (1 | env:block2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2069,7 +2643,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "I"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + treatment + env:treatment + (1 | env:block2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2254,7 +2869,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "II"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP (within Environment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2369,7 +3025,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "II"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP (within Environment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) +      (1 | treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2496,7 +3193,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "II"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE (within Environment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2639,7 +3377,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "II"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP (within Environment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2758,7 +3537,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Random"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "II"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUP (within Environment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -2880,7 +3700,48 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Augmented Design Details</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of blocks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of environments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Number of test treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check treatments`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Environment effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test effect`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Fixed"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Scenario</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "II"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test x Environment interaction`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Check mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Test mean estimate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BLUE (within Environment)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Model formula`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "y ~ env + treatment + env:check + (1 | env:block2)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
@@ -3030,7 +3891,7 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.9000.</p>
 </div>
 
     </footer></div>

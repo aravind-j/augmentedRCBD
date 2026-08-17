@@ -150,6 +150,7 @@ follows:
 Using the same the Appendix Table A of Falconer and Mackay (1996) can be
 recreated as follows.
 
+
     TableA <- data.frame(p = c(seq(0.01, 0.10, 0.01), NA,
                                 seq(0.10, 0.50, 0.02), NA,
                                 seq(1, 5, 0.2), NA,

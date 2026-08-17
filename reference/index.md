@@ -32,6 +32,9 @@
   : Analysis of Augmented Randomised Complete Block Design for Multiple
   Traits/Characters
 
+- [`construct.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/construct.augmentedRCBD.md)
+  : Construct an Augmented Block Design
+
 ## Print methods
 
 - [`print(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/print.augmentedRCBD.md)

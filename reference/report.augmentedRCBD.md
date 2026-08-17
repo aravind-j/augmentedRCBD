@@ -255,14 +255,41 @@ report.augmentedRCBD(aug = out,
                      file.type = "word",
                      check.col = c("brown", "darkcyan",
                                    "forestgreen", "purple"))
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
 #> Warning: P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.
-#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpfRmgej/augmentedRCBD output.docx
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> Warning: 'regulartable' is deprecated.
+#> Use 'flextable' instead.
+#> See help("Deprecated")
+#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptaXhLq/augmentedRCBD output.docx
 report.augmentedRCBD(aug = out,
                      target = file.path(tempdir(),
                                         "augmentedRCBD output.xlsx"),
                      file.type = "excel",
                      check.col = c("brown", "darkcyan",
                                    "forestgreen", "purple"))
-#> File created at /var/folders/tb/y368xp_x10s3ty1b_mtl5mxr0000gn/T//RtmpfRmgej/augmentedRCBD output.xlsx
+#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptaXhLq/augmentedRCBD output.xlsx
 # }
 ```

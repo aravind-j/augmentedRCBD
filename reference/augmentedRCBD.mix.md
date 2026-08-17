@@ -397,7 +397,48 @@ out1 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 3
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] NA
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] NA
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] NA
+#> 
+#> $`Test x Environment interaction`
+#> [1] NA
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ (1 | treatment) + (1 | block)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -484,7 +525,48 @@ out2 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 3
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] NA
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] NA
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] NA
+#> 
+#> $`Test x Environment interaction`
+#> [1] NA
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ check + (1 | block) + (1 | treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -577,7 +659,48 @@ out3 <- augmentedRCBD.mix(block = data$blk, treatment = data$trt,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 3
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] NA
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] NA
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] NA
+#> 
+#> $`Test x Environment interaction`
+#> [1] NA
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Model formula`
+#> [1] "y ~ treatment + (1 | block)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -761,7 +884,48 @@ out4 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -862,7 +1026,48 @@ out5 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -965,7 +1170,48 @@ out6 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) +      (1 | treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1079,7 +1325,48 @@ out7 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ check + (1 | env) + (1 | env:block2) + (1 | env:treatment) +      (1 | treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1194,7 +1481,48 @@ out8 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Model formula`
+#> [1] "y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1332,7 +1660,48 @@ out9 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Model formula`
+#> [1] "y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:treatment)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1470,7 +1839,48 @@ out10 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1576,7 +1986,48 @@ out11 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1681,7 +2132,48 @@ out12 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1792,7 +2284,48 @@ out13 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test) +      (1 | env:treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -1908,7 +2441,48 @@ out14 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + treatment + env:treatment + (1 | env:block2)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2035,7 +2609,48 @@ out15 <- augmentedRCBD.mix(env = data1$env1, block = data1$blk1,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 12
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 8
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] "I"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + treatment + env:treatment + (1 | env:block2)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2220,7 +2835,48 @@ out16 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 28
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 24
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "II"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP (within Environment)"
+#> 
+#> $`Model formula`
+#> [1] "y ~ (1 | env) + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2335,7 +2991,48 @@ out17 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 28
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 24
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "II"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP (within Environment)"
+#> 
+#> $`Model formula`
+#> [1] "y ~ check + (1 | env) + (1 | env:block2) + (1 | env:check) +      (1 | treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2462,7 +3159,48 @@ out18 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 28
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 24
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Random"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] "II"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE (within Environment)"
+#> 
+#> $`Model formula`
+#> [1] "y ~ treatment + (1 | env) + (1 | env:block2) + (1 | env:check)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2605,7 +3343,48 @@ out19 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 28
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 24
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Random"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "II"
+#> 
+#> $`Test x Environment interaction`
+#> [1] TRUE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUP"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP (within Environment)"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + (1 | treatment) + (1 | env:block2) + (1 | env:treatment:check)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2724,7 +3503,48 @@ out20 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 28
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 24
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Random"
+#> 
+#> $Scenario
+#> [1] "II"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUP (within Environment)"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + check + env:check + (1 | env:block2) + (1 | treatment:test)"
+#> 
 #> 
 #> Model Formula
 #> =========================
@@ -2846,7 +3666,48 @@ out21 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
 #> 
 #> Augmented Design Details
 #> ========================
-#> NULL
+#> $`Number of blocks`
+#> [1] 9
+#> 
+#> $`Number of treatments`
+#> [1] 28
+#> 
+#> $`Number of environments`
+#> [1] 3
+#> 
+#> $`Number of check treatments`
+#> [1] 4
+#> 
+#> $`Number of test treatments`
+#> [1] 24
+#> 
+#> $`Check treatments`
+#> [1] "1" "2" "3" "4"
+#> 
+#> $`Environment effect`
+#> [1] "Fixed"
+#> 
+#> $`Check effect`
+#> [1] "Fixed"
+#> 
+#> $`Test effect`
+#> [1] "Fixed"
+#> 
+#> $Scenario
+#> [1] "II"
+#> 
+#> $`Test x Environment interaction`
+#> [1] FALSE
+#> 
+#> $`Check mean estimate`
+#> [1] "BLUE"
+#> 
+#> $`Test mean estimate`
+#> [1] "BLUE (within Environment)"
+#> 
+#> $`Model formula`
+#> [1] "y ~ env + treatment + env:check + (1 | env:block2)"
+#> 
 #> 
 #> Model Formula
 #> =========================

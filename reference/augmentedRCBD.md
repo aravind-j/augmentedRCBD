@@ -1081,6 +1081,15 @@ out1 <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 #> Two Test Treatments (Different Blocks)              8.995369 22.01088
 #> A Test Treatment and a Control Treatment            7.344688 17.97180
 #> 
+#> 
+#> Warning Messages
+#> ===================
+#> 
+#> 
+#> [Model]
+#> The following test treatment(s) are replicated.
+#> 1, 4
+#> 
 #> Treatment Means
 #> ===============
 #>  Treatment Block Means   SE r   Min   Max Adjusted Means
