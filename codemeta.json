@@ -8,46 +8,40 @@
   "codeRepository": "https://github.com/aravind-j/augmentedRCBD",
   "issueTracker": "https://github.com/aravind-j/augmentedRCBD/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.1.7",
+  "version": "0.1.7.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R Under development (unstable) (2023-08-09 r84924 ucrt)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
+  "runtimePlatform": "R Under development (unstable) (2026-07-18 r90277 ucrt)",
   "author": [
     {
       "@type": "Person",
       "givenName": "J.",
       "familyName": "Aravind",
-      "email": "j.aravind@icar.gov.in",
+      "email": "j.aravind@icar.org.in",
       "@id": "https://orcid.org/0000-0002-4791-442X"
     },
     {
       "@type": "Person",
       "givenName": "S.",
       "familyName": "Mukesh Sankar",
-      "email": "mukeshsankar@gmail.com",
+      "email": "mukesh.s@icar.org.in",
       "@id": "https://orcid.org/0000-0001-5459-392X"
     },
     {
       "@type": "Person",
       "givenName": ["Dhammaprakash", "Pandhari"],
       "familyName": "Wankhede",
-      "email": "d.wankhede@icar.gov.in",
+      "email": "d.wankhede@icar.org.in",
       "@id": "https://orcid.org/0000-0001-6384-8664"
     },
     {
       "@type": "Person",
       "givenName": "Vikender",
       "familyName": "Kaur",
-      "email": "vikender.kaur@icar.gov.in",
+      "email": "vikender.kaur@icar.org.in",
       "@id": "https://orcid.org/0000-0001-9698-7329"
     }
   ],
@@ -62,7 +56,7 @@
       "@type": "Person",
       "givenName": "J.",
       "familyName": "Aravind",
-      "email": "j.aravind@icar.gov.in",
+      "email": "j.aravind@icar.org.in",
       "@id": "https://orcid.org/0000-0002-4791-442X"
     }
   ],
@@ -126,6 +120,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=pander"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "pbkrtest",
+      "name": "pbkrtest",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=pbkrtest"
     },
     {
       "@type": "SoftwareApplication",
@@ -250,6 +256,30 @@
     },
     "8": {
       "@type": "SoftwareApplication",
+      "identifier": "lme4",
+      "name": "lme4",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lme4"
+    },
+    "9": {
+      "@type": "SoftwareApplication",
+      "identifier": "lmerTest",
+      "name": "lmerTest",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lmerTest"
+    },
+    "10": {
+      "@type": "SoftwareApplication",
       "identifier": "mathjaxr",
       "name": "mathjaxr",
       "provider": {
@@ -260,12 +290,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=mathjaxr"
     },
-    "9": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    "10": {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "moments",
       "name": "moments",
@@ -277,7 +307,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=moments"
     },
-    "11": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "multcomp",
       "name": "multcomp",
@@ -289,7 +319,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=multcomp"
     },
-    "12": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "multcompView",
       "name": "multcompView",
@@ -301,7 +331,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=multcompView"
     },
-    "13": {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "numform",
       "name": "numform",
@@ -313,7 +343,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=numform"
     },
-    "14": {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
@@ -325,7 +355,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=officer"
     },
-    "15": {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "openxlsx",
       "name": "openxlsx",
@@ -337,7 +367,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=openxlsx"
     },
-    "16": {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "Rdpack",
       "name": "Rdpack",
@@ -349,7 +379,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=Rdpack"
     },
-    "17": {
+    "19": {
       "@type": "SoftwareApplication",
       "identifier": "reshape2",
       "name": "reshape2",
@@ -361,12 +391,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=reshape2"
     },
-    "18": {
+    "20": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
     },
-    "19": {
+    "21": {
       "@type": "SoftwareApplication",
       "identifier": "stringi",
       "name": "stringi",
@@ -378,14 +408,26 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=stringi"
     },
-    "20": {
+    "22": {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    "23": {
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
     "SystemRequirements": null
   },
-  "fileSize": "1671.634KB",
+  "fileSize": "1820.192KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -394,32 +436,33 @@
           "@type": "Person",
           "givenName": "J.",
           "familyName": "Aravind",
-          "email": "aravindj@nbpgr.ernet.in",
+          "email": "j.aravind@icar.org.in",
           "@id": "https://orcid.org/0000-0002-4791-442X"
         },
         {
           "@type": "Person",
           "givenName": "S.",
           "familyName": "Mukesh Sankar",
-          "email": "mukeshsankar@gmail.com"
+          "email": "mukesh.s@icar.org.in"
         },
         {
           "@type": "Person",
           "givenName": ["Dhammaprakash", "Pandhari"],
           "familyName": "Wankhede",
-          "email": "d.wankhede@icar.gov.in"
+          "email": "d.wankhede@icar.org.in"
         },
         {
           "@type": "Person",
           "givenName": "Vikender",
           "familyName": "Kaur",
-          "email": "vikender.kaur@icar.gov.in"
+          "email": "vikender.kaur@icar.org.in"
         }
       ],
       "name": "augmentedRCBD: Analysis of Augmented Randomised Complete Block Designs",
-      "description": "R package version 0.1.7 https://aravind-j.github.io/augmentedRCBD/ https://cran.r-project.org/package=augmentedRCBD"
+      "description": "R package version 0.1.7.9000 https://aravind-j.github.io/augmentedRCBD/ https://cran.r-project.org/package=augmentedRCBD"
     }
   ],
+  "releaseNotes": "https://github.com/aravind-j/augmentedRCBD/blob/main/NEWS.md",
   "readme": "https://github.com/aravind-j/augmentedRCBD/blob/master/README.md",
   "contIntegration": "https://github.com/aravind-j/augmentedRCBD/actions",
   "developmentStatus": ["https://www.repostatus.org/#inactive", "https://lifecycle.r-lib.org/articles/stages.html#stable"],
