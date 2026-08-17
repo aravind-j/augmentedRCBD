@@ -1,0 +1,60 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples &
+# https://github.com/ropensci/cffr/tree/main/inst/yaml
+# The action runs when:
+# - A new release is published
+# - The DESCRIPTION or inst/CITATION are modified
+# - Can be run manually
+# For customizing the triggers, visit https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  release:
+    types: [published]
+  push:
+    branches: [master, main]
+    paths:
+    - DESCRIPTION
+    - inst/CITATION
+  workflow_dispatch:
+
+name: Update .zenodo.json
+permissions:
+  contents: write
+
+jobs:
+  update-zenodo-json:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - uses: actions/checkout@v7
+    - uses: r-lib/actions/setup-r@v2
+      with:
+        use-public-rspm: true
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      with:
+        extra-packages: |
+          github::aravind-j/avial
+          any::V8
+
+    - name: Update .zenodo.json
+      run: |
+
+        library(avial)
+
+        # Create your .zenodo.json file
+        generate_zenodo_json(from = "description")
+
+      shell: Rscript {0}
+
+    - name: Commit results
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add .zenodo.json
+
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+
+        git commit -m "Update .zenodo.json"
+        git push

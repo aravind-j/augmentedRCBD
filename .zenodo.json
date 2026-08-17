@@ -1,0 +1,37 @@
+{
+  "title": "Analysis of Augmented Randomised Complete Block Designs",
+  "upload_type": "software",
+  "description": "Functions for analysis of data generated from experiments in\n    augmented randomised complete block design according to Federer, W.T.\n    (1961) <doi:10.2307/2527837>. Computes analysis of variance, adjusted\n    means, descriptive statistics, genetic variability statistics etc.\n    Further includes data visualization and report generation functions.",
+  "creators": [
+    {
+      "name": "Aravind, J.",
+      "orcid": "0000-0002-4791-442X"
+    },
+    {
+      "name": "Mukesh Sankar, S.",
+      "orcid": "0000-0001-5459-392X"
+    },
+    {
+      "name": "Wankhede, Dhammaprakash Pandhari",
+      "orcid": "0000-0001-6384-8664"
+    },
+    {
+      "name": "Kaur, Vikender",
+      "orcid": "0000-0001-9698-7329"
+    },
+    {
+      "name": "ICAR-NBGPR"
+    }
+  ],
+  "access_right": "open",
+  "license": "GPL-2.0-or-later",
+  "version": "0.1.7.9000",
+  "keywords": "augmentedRCBD",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/aravind-j/augmentedRCBD\n    https://CRAN.R-project.org/package=augmentedRCBD\n    https://aravind-j.github.io/augmentedRCBD/\n    https://doi.org/10.5281/zenodo.1310011",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}
