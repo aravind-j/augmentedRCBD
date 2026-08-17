@@ -128,7 +128,7 @@
 #' @importFrom lme4 lmerControl isSingular fixef ranef VarCorr
 #' @importFrom lmerTest lmer ranova
 #' @importFrom stats aggregate AIC BIC as.formula formula model.frame
-#'   model.matrix terms update
+#' @importFrom stats model.matrix terms update
 #' @importFrom emmeans emmeans
 #' @importFrom dplyr %>% bind_rows group_by n summarize
 #' @importFrom utils tail
@@ -667,6 +667,46 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
   ## Refit with REML ----
   mod_final <- update(mod_final, REML = TRUE, data = model.frame(mod_final))
 
+  # Basic details ----
+
+  # Re-assess whether the test x env interaction was not dropped in LRT
+  final_terms <- attr(terms(formula(mod_final)), "term.labels")
+  interaction_retained <- if (menv) {
+    any(grepl("env.*treatment|treatment.*env", final_terms))
+  } else {
+    NA
+  }
+
+  # Type of mean estimated for checks/tests
+  check_mean_type <- if (check.random) "BLUP" else "BLUE"
+  test_mean_type  <- if (test.random) "BLUP" else "BLUE"
+  test_mean_type  <- if (!is.null(scenario) && scenario == "II") {
+    paste0(test_mean_type, " (within Environment)")
+  } else {
+    test_mean_type
+  }
+
+  Details <-
+    list(`Number of blocks` = nlevels(block),
+         `Number of treatments` = nlevels(treatment),
+         `Number of environments` = if (menv) nlevels(env) else NA,
+         `Number of check treatments` = length(checks),
+         `Number of test treatments` = length(tests),
+         `Check treatments` = checks,
+         `Environment effect` = if (menv) {
+           ifelse(env.random, "Random", "Fixed")
+         } else {
+           NA
+         },
+         `Check effect` = ifelse(check.random, "Random", "Fixed"),
+         `Test effect` = ifelse(test.random, "Random", "Fixed"),
+         `Scenario` = if (menv) scenario else NA,
+         `Test x Environment interaction` = interaction_retained,
+         `Check mean estimate` = check_mean_type,
+         `Test mean estimate` = test_mean_type,
+         `Model formula` = paste(deparse(formula(mod_final)),
+                                 collapse = " "))
+
   # Diagnostics ----
 
   vcov_df <- data.frame(VarCorr(mod_final))
@@ -742,7 +782,7 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
 
   # Final output ----
 
-  output <- list(Details = NULL,
+  output <- list(Details = Details,
                  Model = mod_final,
                  `Model Diagnostics` = mod_diag,
                  `ANOVA, Fixed Effects` = fixef_anova,
