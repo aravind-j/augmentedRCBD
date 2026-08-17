@@ -59,6 +59,7 @@ navbar:
       href: https://github.com/aravind-j/augmentedRCBD
 
 reference:
+
     - title: Core anlaysis functions
       contents:
          - '`augmentedRCBD`'
@@ -71,6 +72,7 @@ reference:
          - '`gva.augmentedRCBD`'
          - '`freqdist.augmentedRCBD`'
          - '`augmentedRCBD.bulk`'
+         - '`construct.augmentedRCBD`'
 
     - title: Print methods
       contents:

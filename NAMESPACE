@@ -8,6 +8,7 @@ export(augmentedRCBD)
 export(augmentedRCBD.bulk)
 export(augmentedRCBD.menv)
 export(augmentedRCBD.mix)
+export(construct.augmentedRCBD)
 export(describe.augmentedRCBD)
 export(freqdist.augmentedRCBD)
 export(gva.augmentedRCBD)
@@ -21,62 +22,82 @@ import(officer)
 import(openxlsx)
 importFrom(Rdpack,reprompt)
 importFrom(cli,ansi_strip)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,group_by)
-importFrom(dplyr,mutate_if)
-importFrom(dplyr,n)
-importFrom(dplyr,summarize)
+importFrom(dplyr,
+  "%>%",
+  arrange,
+  bind_rows,
+  group_by,
+  mutate_if,
+  n,
+  summarize
+)
 importFrom(emmeans,emmeans)
-importFrom(grDevices,col2rgb)
-importFrom(grDevices,dev.new)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,nclass.FD)
-importFrom(grDevices,nclass.Sturges)
-importFrom(grDevices,nclass.scott)
-importFrom(grDevices,png)
-importFrom(graphics,pairs)
-importFrom(graphics,plot)
-importFrom(lme4,VarCorr)
-importFrom(lme4,fixef)
-importFrom(lme4,isSingular)
-importFrom(lme4,lmerControl)
-importFrom(lme4,ranef)
-importFrom(lmerTest,lmer)
-importFrom(lmerTest,ranova)
+importFrom(grDevices,
+  col2rgb,
+  dev.new,
+  dev.off,
+  nclass.FD,
+  nclass.Sturges,
+  nclass.scott,
+  png
+)
+importFrom(graphics,
+  pairs,
+  plot
+)
+importFrom(lme4,
+  VarCorr,
+  fixef,
+  isSingular,
+  lmerControl,
+  ranef
+)
+importFrom(lmerTest,
+  lmer,
+  ranova
+)
 importFrom(methods,is)
-importFrom(moments,agostino.test)
-importFrom(moments,anscombe.test)
+importFrom(moments,
+  agostino.test,
+  anscombe.test
+)
 importFrom(multcomp,cld)
 importFrom(numform,f_num)
-importFrom(reshape2,dcast)
-importFrom(reshape2,melt)
-importFrom(stats,"contrasts<-")
-importFrom(stats,AIC)
-importFrom(stats,BIC)
-importFrom(stats,aggregate)
-importFrom(stats,anova)
-importFrom(stats,aov)
-importFrom(stats,as.formula)
-importFrom(stats,coef)
-importFrom(stats,contr.helmert)
-importFrom(stats,dnorm)
-importFrom(stats,formula)
-importFrom(stats,model.frame)
-importFrom(stats,model.matrix)
-importFrom(stats,na.omit)
-importFrom(stats,qnorm)
-importFrom(stats,qt)
-importFrom(stats,qtukey)
-importFrom(stats,sd)
-importFrom(stats,terms)
-importFrom(stats,update)
-importFrom(stringi,stri_pad_right)
-importFrom(stringi,stri_trans_totitle)
+importFrom(reshape2,
+  dcast,
+  melt
+)
+importFrom(stats,
+  "contrasts<-",
+  AIC,
+  BIC,
+  aggregate,
+  anova,
+  aov,
+  as.formula,
+  coef,
+  contr.helmert,
+  dnorm,
+  formula,
+  model.frame,
+  model.matrix,
+  na.omit,
+  qnorm,
+  qt,
+  qtukey,
+  sd,
+  terms,
+  update
+)
+importFrom(stringi,
+  stri_pad_right,
+  stri_trans_totitle
+)
 importFrom(tidyr,pivot_wider)
-importFrom(utils,capture.output)
-importFrom(utils,citation)
-importFrom(utils,getFromNamespace)
-importFrom(utils,stack)
-importFrom(utils,tail)
+importFrom(utils,
+  capture.output,
+  citation,
+  getFromNamespace,
+  stack,
+  tail
+)
