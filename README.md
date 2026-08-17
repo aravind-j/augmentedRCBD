@@ -35,9 +35,10 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--04--28-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--08--17-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
+<!-- [![augmentedRCBD status badge](https://aravind-j.r-universe.dev/augmentedRCBD/badges/version)](https://aravind-j.r-universe.dev/augmentedRCBD) -->
 [![Website -
 pkgdown](https://img.shields.io/website-up-down-green-red/https/aravind-j.github.io/augmentedRCBD.svg)](https://aravind-j.github.io/augmentedRCBD/)
 <!-- [![.](https://pro-pulsar-193905.appspot.com/UA-116716530-1/welcome-page)](https://github.com/aravind-j/google-analytics-beacon) -->
@@ -181,5 +182,5 @@ citation("augmentedRCBD")
         year = {2026},
       }
 
-    This free and open-source software implements academic research by the authors and co-workers. If you use
-    it, please support the project by citing the package.
+    This free and open-source software implements academic research by the authors and co-workers. If
+    you use it, please support the project by citing the package.
