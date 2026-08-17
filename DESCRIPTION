@@ -76,4 +76,4 @@ RdMacros:
     Rdpack
 Copyright: 2015-2024, ICAR-NBPGR
 Encoding: UTF-8
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.1.0
