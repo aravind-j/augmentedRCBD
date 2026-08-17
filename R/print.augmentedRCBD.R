@@ -86,11 +86,11 @@ print.augmentedRCBD <- function(x, ...){
   cat("\n\nStandard Errors\n")
   cat("===============\n")
   print(x$`Std. Errors`)
-  if (!is.null(x$x$warnings)) {
+  if (!is.null(x$warnings)) {
     cat("\n\nWarning Messages\n")
     cat("===================\n")
     cat("\n\n[Model]\n")
-    cat(paste(x$x$warnings), sep = "\n")
+    cat(paste(x$warnings), sep = "\n")
   }
   cat("\nTreatment Means\n")
   cat("===============\n")
