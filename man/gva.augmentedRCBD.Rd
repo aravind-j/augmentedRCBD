@@ -4,13 +4,15 @@
 \alias{gva.augmentedRCBD}
 \title{Perform Genetic Variability Analysis on \code{augmentedRCBD} Output}
 \usage{
-\method{gva}{augmentedRCBD}(aug, k = 2.063)
+\method{gva}{augmentedRCBD}(aug, k = 2.063, ...)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
 
 \item{k}{The standardized selection differential or selection intensity.
 Default is 2.063 for 5\% selection proportion (see \strong{Details}).}
+
+\item{...}{Unused}
 }
 \value{
 A list with the following descriptive statistics:  \item{Mean}{The

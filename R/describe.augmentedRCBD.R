@@ -30,6 +30,7 @@
 #' 1983). }
 #'
 #' @param aug An object of class \code{augmentedRCBD}.
+#' @param ... Unused
 #'
 #' @return A list with the following descriptive statistics:  \item{Count}{The
 #'   number of treatments/genotypes.} \item{Mean}{The mean value.}
@@ -80,7 +81,7 @@
 #' describe(out1)
 #' describe(out2)
 #'
-describe.augmentedRCBD <- function(aug) { # all treatments (test + checks)
+describe.augmentedRCBD <- function(aug, ...) { # all treatments (test + checks)
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class "augmentedRCBD".')

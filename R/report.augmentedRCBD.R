@@ -36,6 +36,7 @@
 #'   plot as a character vector. Must be valid colour values in R (named
 #'   colours, hexadecimal representation, index of colours [\code{1:8}] in
 #'   default R \code{palette()} etc.).
+#' @param ... Unused
 #'
 #' @note The raw values in the \code{augmentedRCBD} object are retained with
 #'   full precision. They are only formatted to display 2 decimal places in the
@@ -87,16 +88,17 @@
 #'
 #' # Generate reports
 #' \donttest{
-#' report.augmentedRCBD(aug = out,
-#'                      target = file.path(tempdir(),
-#'                                         "augmentedRCBD output.xlsx"),
-#'                      file.type = "excel",
-#'                      check.col = c("brown", "darkcyan",
-#'                                    "forestgreen", "purple"))
+#' report(aug = out,
+#'        target = file.path(tempdir(),
+#'                           "augmentedRCBD output.xlsx"),
+#'        file.type = "excel",
+#'        check.col = c("brown", "darkcyan",
+#'                      "forestgreen", "purple"))
 #' }
 #'
 report.augmentedRCBD <- function(aug, target, file.type = c("excel"),
-                                 k = 2.063, check.col = "red"){
+                                 k = 2.063, check.col = "red",
+                                 ...){
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class "augmentedRCBD".')

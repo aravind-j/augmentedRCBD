@@ -30,6 +30,7 @@
 #'   plot as a character vector. Must be valid colour values in R (named
 #'   colours, hexadecimal representation, index of colours [\code{1:8}] in
 #'   default R \code{palette()} etc.).
+#' @param ... Unused
 #'
 #' @return The frequency distribution plot as a ggplot2 plot grob.
 #'
@@ -86,7 +87,7 @@
 #'  plot(freq2)
 #'
 freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
-                                   check.col = "red") {
+                                   check.col = "red", ...) {
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class "augmentedRCBD".')

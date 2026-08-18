@@ -4,10 +4,12 @@
 \alias{describe.augmentedRCBD}
 \title{Compute Descriptive Statistics from \code{augmentedRCBD} Output}
 \usage{
-\method{describe}{augmentedRCBD}(aug)
+\method{describe}{augmentedRCBD}(aug, ...)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
+
+\item{...}{Unused}
 }
 \value{
 A list with the following descriptive statistics:  \item{Count}{The

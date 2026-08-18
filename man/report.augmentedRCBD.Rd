@@ -4,7 +4,7 @@
 \alias{report.augmentedRCBD}
 \title{Generate MS Word or Excel Report from \code{augmentedRCBD} Output}
 \usage{
-\method{report}{augmentedRCBD}(aug, target, file.type = c("excel"), k = 2.063, check.col = "red")
+\method{report}{augmentedRCBD}(aug, target, file.type = c("excel"), k = 2.063, check.col = "red", ...)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
@@ -25,6 +25,8 @@ supported.}
 plot as a character vector. Must be valid colour values in R (named
 colours, hexadecimal representation, index of colours [\code{1:8}] in
 default R \code{palette()} etc.).}
+
+\item{...}{Unused}
 }
 \description{
 \code{report.augmentedRCBD} generates a tidy report from an object of class
@@ -69,12 +71,12 @@ out <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 
 # Generate reports
 \donttest{
-report.augmentedRCBD(aug = out,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.xlsx"),
-                     file.type = "excel",
-                     check.col = c("brown", "darkcyan",
-                                   "forestgreen", "purple"))
+report(aug = out,
+       target = file.path(tempdir(),
+                          "augmentedRCBD output.xlsx"),
+       file.type = "excel",
+       check.col = c("brown", "darkcyan",
+                     "forestgreen", "purple"))
 }
 
 }

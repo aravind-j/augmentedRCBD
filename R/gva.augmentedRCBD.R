@@ -221,6 +221,7 @@
 #' @inheritParams describe.augmentedRCBD
 #' @param k The standardized selection differential or selection intensity.
 #'   Default is 2.063 for 5\% selection proportion (see \strong{Details}).
+#' @param ... Unused
 #'
 #' @return A list with the following descriptive statistics:  \item{Mean}{The
 #'   mean value.} \item{PV}{Phenotyic variance.} \item{GV}{Genotyipc variance.}
@@ -305,7 +306,7 @@
 #'  gva(out1)
 #'  gva(out2)
 #'
-gva.augmentedRCBD <- function(aug, k = 2.063) {
+gva.augmentedRCBD <- function(aug, k = 2.063, ...) {
 
   if (!is(aug, "augmentedRCBD")) {
     stop('"aug" is not of class "augmentedRCBD".')

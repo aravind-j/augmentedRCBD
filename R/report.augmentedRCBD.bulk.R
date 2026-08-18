@@ -22,11 +22,12 @@
 #' \code{\link[officer]{officer}} package or xlsx MS excel file using the
 #' \code{\link[openxlsx]{openxlsx}} package.
 #'
-#' @param aug.bulk An object of class \code{augmentedRCBD.bulk}.
+#' @param aug An object of class \code{augmentedRCBD.bulk}.
 #' @param target The path to the docx file to be created.
 #' @param file.type The file type of the report. From v0.2.0, only
 #'   \code{"excel"} (MS Excel report) is supported. Generation of MS Word
 #'   reports is no longer supported.
+#' @param ... Unused
 #'
 #' @export
 #' @import officer
@@ -79,23 +80,25 @@
 #'                            console = FALSE)
 #'
 #' \donttest{
-#' report.augmentedRCBD.bulk(
-#'   aug.bulk = bout,
-#'   target = file.path(tempdir(),
-#'                      "augmentedRCBD bulk output.xlsx"),
-#'   file.type = "excel")
+#' report(aug = bout,
+#'        target = file.path(tempdir(),
+#'                           "augmentedRCBD bulk output.xlsx"),
+#'        file.type = "excel")
 #' }
 #'
 #' @seealso \code{\link[augmentedRCBD]{augmentedRCBD.bulk}}
 #'
 #'
-report.augmentedRCBD.bulk <- function(aug.bulk, target,
-                                      file.type = c("excel")){
+report.augmentedRCBD.bulk <- function(aug, target,
+                                      file.type = c("excel"),
+                                      ...){
 
   # Checks ----
-  if (!is(aug.bulk, "augmentedRCBD.bulk")) {
-    stop('"aug.bulk" is not of class "augmentedRCBD.bulk".')
+  if (!is(aug, "augmentedRCBD.bulk")) {
+    stop('"aug" is not of class "augmentedRCBD.bulk".')
   }
+
+  aug.bulk <- aug
 
   file.type <- match.arg(file.type)
 

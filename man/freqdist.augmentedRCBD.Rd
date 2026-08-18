@@ -4,7 +4,7 @@
 \alias{freqdist.augmentedRCBD}
 \title{Plot Frequency Distribution from \code{augmentedRCBD} Output}
 \usage{
-\method{freqdist}{augmentedRCBD}(aug, xlab, highlight.check = TRUE, check.col = "red")
+\method{freqdist}{augmentedRCBD}(aug, xlab, highlight.check = TRUE, check.col = "red", ...)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
@@ -18,6 +18,8 @@ are also plotted. Default is \code{TRUE}.}
 plot as a character vector. Must be valid colour values in R (named
 colours, hexadecimal representation, index of colours [\code{1:8}] in
 default R \code{palette()} etc.).}
+
+\item{...}{Unused}
 }
 \value{
 The frequency distribution plot as a ggplot2 plot grob.

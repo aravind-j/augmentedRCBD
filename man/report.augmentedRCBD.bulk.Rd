@@ -4,16 +4,18 @@
 \alias{report.augmentedRCBD.bulk}
 \title{Generate MS Word or Excel Report from \code{augmentedRCBD.bulk} Output}
 \usage{
-\method{report}{augmentedRCBD.bulk}(aug.bulk, target, file.type = c("excel"))
+\method{report}{augmentedRCBD.bulk}(aug, target, file.type = c("excel"), ...)
 }
 \arguments{
-\item{aug.bulk}{An object of class \code{augmentedRCBD.bulk}.}
+\item{aug}{An object of class \code{augmentedRCBD.bulk}.}
 
 \item{target}{The path to the docx file to be created.}
 
 \item{file.type}{The file type of the report. From v0.2.0, only
 \code{"excel"} (MS Excel report) is supported. Generation of MS Word
 reports is no longer supported.}
+
+\item{...}{Unused}
 }
 \description{
 \code{report.augmentedRCBD.bulk} generates a tidy report from an object of
@@ -59,11 +61,10 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            console = FALSE)
 
 \donttest{
-report.augmentedRCBD.bulk(
-  aug.bulk = bout,
-  target = file.path(tempdir(),
-                     "augmentedRCBD bulk output.xlsx"),
-  file.type = "excel")
+report(aug = bout,
+       target = file.path(tempdir(),
+                          "augmentedRCBD bulk output.xlsx"),
+       file.type = "excel")
 }
 
 }
