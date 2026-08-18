@@ -39,3 +39,4 @@
 ^vignettes/.*\.log$
 ^\.positai$
 ^\.claude$
+^\.zenodo\.json$
