@@ -1,10 +1,10 @@
-# Construct an Augmented Block Design
+# Construct an Augmented Randomised Complete Block Design Layout
 
-Generates an augmented block design (Federer, 1956; Federer, 1961) in
-which test treatments are divided into blocks of a specified size. A set
-of check treatments can be randomly positioned among the test
-treatments, while another set of check treatments can be placed at fixed
-positions at the end of each block.
+Generates an augmented block design layout (Federer, 1956; Federer,
+1961) in which test treatments are divided into blocks of a specified
+size. A set of check treatments can be randomly positioned among the
+test treatments, while another set of check treatments can be placed at
+fixed positions at the end of each block.
 
 ## Usage
 

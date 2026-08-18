@@ -1311,12 +1311,11 @@ trait data should be of the type integer or numeric ([see section
 Analysis of data for a single trait can be performed by using
 `augmentedRCBD` function. It generates an object of class
 `augmentedRCBD`. Such an object can then be taken as input by the
-several functions to print the results to console
-(`print.augmentedRCBD`), generate descriptive statistics from adjusted
-means (`describe.augmentedRCBD`), plot frequency distribution
-(`freqdist.augmentedRCBD`) and computed genetic variability statistics
-(gva.augmentedRCBD). All these outputs can also be exported as a MS Word
-report using the `report.augmentedRCBD` function.
+several functions to print the results to console (`print`), generate
+descriptive statistics from adjusted means (`describe`), plot frequency
+distribution (`freqdist`) and computed genetic variability statistics
+(`gva`). All these outputs can also be exported as a MS Word report
+using the `report` function.
 
 ![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-59-1.png)
 
@@ -2405,7 +2404,7 @@ output with `simplify = TRUE` in order to reduce output object size.
 If `truncate.means = TRUE`, then any negative adjusted means will be
 truncated to zero with a warning.
 
-### 7.2 `print.augmentedRCBD()`
+### 7.2 `print()`
 
 The results of analysis in an object of class `augmentedRCBD` can be
 printed to the console as follows.
@@ -2738,7 +2737,7 @@ print(out2)
              6         382.67 18.27  6   337.95   427.38       67
             10         437.67 18.27  6   392.95   482.38        7
 
-### 7.3 `describe.augmentedRCBD()`
+### 7.3 `describe()`
 
 The descriptive statistics such as count, mean, standard error, minimum,
 maximum, skewness ( with p-value from D’Agostino test of skewness
@@ -2751,7 +2750,7 @@ follows.
 ``` r
 
 # Descriptive statistics for variable y1
-describe.augmentedRCBD(out1)
+describe(out1)
 ```
 
     $Count
@@ -2789,7 +2788,7 @@ describe.augmentedRCBD(out1)
 ``` r
 
 # Descriptive statistics for variable y2
-describe.augmentedRCBD(out2)
+describe(out2)
 ```
 
     $Count
@@ -2824,7 +2823,7 @@ describe.augmentedRCBD(out2)
     $`Kurtosis(p.value)`
     [1] 0.5913975
 
-### 7.4 `freqdist.augmentedRCBD()`
+### 7.4 `freqdist()`
 
 The frequency distribution of the adjusted means from the results in an
 object of class `augmentedRCBD` can be plotted as follows.
@@ -2832,7 +2831,7 @@ object of class `augmentedRCBD` can be plotted as follows.
 ``` r
 
 # Frequency distribution for variable y1
-freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
+freq1 <- freqdist(out1, xlab = "Trait 1")
 ```
 
     Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
@@ -2848,7 +2847,7 @@ plot(freq1)
 ``` r
 
 # Frequency distribution for variable y2
-freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
+freq2 <- freqdist(out2, xlab = "Trait 2")
 ```
 
     Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
@@ -2869,7 +2868,7 @@ The colours for the check values may be specified using the argument
 colset <- c("red3", "green4", "purple3", "darkorange3")
 
 # Frequency distribution for variable y1
-freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
+freq1 <- freqdist(out1, xlab = "Trait 1", check.col = colset)
 ```
 
     Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
@@ -2885,7 +2884,7 @@ plot(freq1)
 ``` r
 
 # Frequency distribution for variable y2
-freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
+freq2 <- freqdist(out2, xlab = "Trait 2", check.col = colset)
 ```
 
     Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
@@ -2904,8 +2903,8 @@ The default the check highlighting can be avoided using the argument
 ``` r
 
 # Frequency distribution for variable y1
-freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
-                                highlight.check = FALSE)
+freq1 <- freqdist(out1, xlab = "Trait 1",
+                  highlight.check = FALSE)
 ```
 
     Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
@@ -2921,8 +2920,8 @@ plot(freq1)
 ``` r
 
 # Frequency distribution for variable y2
-freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
-                                highlight.check = FALSE)
+freq2 <- freqdist(out2, xlab = "Trait 2",
+                  highlight.check = FALSE)
 ```
 
     Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
@@ -2935,7 +2934,7 @@ plot(freq2)
 
 ![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-2.png)
 
-### 7.5 `gva.augmentedRCBD()`
+### 7.5 `gva()`
 
 The genetic variability statistics such as mean, phenotypic, genotypic
 and environmental variation (Federer and Searle
@@ -2957,7 +2956,7 @@ significant.
 ``` r
 
 # Genetic variability statistics for variable y1
-gva.augmentedRCBD(out1)
+gva(out1)
 ```
 
     Warning in gva.augmentedRCBD(out1): P-value for "Treatment: Test" is > 0.05.
@@ -3008,7 +3007,7 @@ gva.augmentedRCBD(out1)
 ``` r
 
 # Genetic variability statistics for variable y2
-gva.augmentedRCBD(out2)
+gva(out2)
 ```
 
     $Mean
@@ -3058,48 +3057,25 @@ For information on how to deal with these, refer Robinson et al.
 ([1955](#ref-robinson_genetic_1955)) and Dudley and Moll
 ([1969](#ref-dudley_interpretation_1969)).
 
-### 7.5 `report.augmentedRCBD()`
+### 7.5 `report()`
 
-The results generated by the analysis can be exported to a MS Word file
-as follows.
-
-``` r
-
-# MS word report for variable y1
-report.augmentedRCBD(aug = out1,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.docx"),
-                     file.type = "word")
-
-# MS word report for variable y2
-report.augmentedRCBD(aug = out2,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.docx"),
-                     file.type = "word")
-```
-
-![The \`R\` download
-location.](https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png)
-
-**Fig. 6**: MS Word report generated with `report.agumentedRCBD`
-function.
-
-Alternatively, the analysis results can also be exported to a MS Excel
-file as follows.
+The results generated by the analysis can be exported to a MS Excel file
+as follows. Generation of MS Word reports is no longer supported from
+v0.2.0.
 
 ``` r
 
 # MS excel report for variable y1
-report.augmentedRCBD(aug = out1,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.xlsx"),
-                     file.type = "excel")
+report(aug = out1,
+       target = file.path(tempdir(),
+                          "augmentedRCBD output.xlsx"),
+       file.type = "excel")
 
 # MS excel report for variable y2
-report.augmentedRCBD(aug = out2,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.xlsx"),
-                     file.type = "excel")
+report(aug = out2,
+       target = file.path(tempdir(),
+                          "augmentedRCBD output.xlsx"),
+       file.type = "excel")
 ```
 
 ![The \`R\` download
@@ -3113,11 +3089,10 @@ function.
 Analysis of data for a multiple traits simultaneously can be performed
 by using `augmentedRCBD.bulk` function. It generates an object of class
 `augmentedRCBD.bulk`. Such an object can then be taken as input by
-`print.augmentedRCBD.bulk` to print the results to console. The results
-can also be exported as a MS Word report using the
-`report.augmentedRCBD.bulk` function.
+`print` to print the results to console. The results can also be
+exported as a MS Word report using the `report` function.
 
-![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-80-1.png)
+![](Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-77-1.png)
 
 **Fig. 8**. Workflow for analysis of multiple traits with
 `augmentedRCBD`.
@@ -3312,7 +3287,7 @@ bout <- augmentedRCBD.bulk(data = data, block = "blk",
              8     3 73.25 213.67
              9     2 77.25 323.92
 
-### 8.2 `print.augmentedRCBD.bulk()`
+### 8.2 `print()`
 
 The results of analysis in an object of class `augmentedRCBD.bulk` can
 be printed to the console as follows.
@@ -3457,36 +3432,19 @@ print(bout)
              8     3 73.25 213.67
              9     2 77.25 323.92
 
-### 8.3 `report.augmentedRCBD.bulk()`
+### 8.3 `report()`
 
-The results generated by the analysis can be exported to a MS Word file
-as follows.
-
-``` r
-
-# MS word report
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.docx"),
-                          file.type = "word")
-```
-
-![The \`R\` download
-location.](https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png)
-
-**Fig. 9**: MS Word report generated with `report.agumentedRCBD.bulk`
-function.
-
-Alternatively, the analysis results can also be exported to a MS Excel
-file as follows.
+The results generated by the analysis can be exported to a MS Excel file
+as follows. Generation of MS Word reports is no longer supported from
+v0.2.0.
 
 ``` r
 
 # MS excel report
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.xlsx"),
-                          file.type = "excel")
+report(aug.bulk = bout,
+       target = file.path(tempdir(),
+                          "augmentedRCBD bulk output.xlsx"),
+       file.type = "excel")
 ```
 
 ![The \`R\` download

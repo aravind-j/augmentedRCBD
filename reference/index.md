@@ -13,17 +13,17 @@
 
 ## Supplementary functions
 
-- [`describe.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.md)
+- [`describe(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.md)
   :
 
   Compute Descriptive Statistics from `augmentedRCBD` Output
 
-- [`gva.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/gva.augmentedRCBD.md)
+- [`gva(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/gva.augmentedRCBD.md)
   :
 
   Perform Genetic Variability Analysis on `augmentedRCBD` Output
 
-- [`freqdist.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/freqdist.augmentedRCBD.md)
+- [`freqdist(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/freqdist.augmentedRCBD.md)
   :
 
   Plot Frequency Distribution from `augmentedRCBD` Output
@@ -33,7 +33,7 @@
   Traits/Characters
 
 - [`construct.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/construct.augmentedRCBD.md)
-  : Construct an Augmented Block Design
+  : Construct an Augmented Randomised Complete Block Design Layout
 
 ## Print methods
 
@@ -59,12 +59,12 @@
 
 ## MS Word report generation
 
-- [`report.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.md)
+- [`report(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.md)
   :
 
   Generate MS Word or Excel Report from `augmentedRCBD` Output
 
-- [`report.augmentedRCBD.bulk()`](https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.bulk.md)
+- [`report(`*`<augmentedRCBD.bulk>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/report.augmentedRCBD.bulk.md)
   :
 
   Generate MS Word or Excel Report from `augmentedRCBD.bulk` Output

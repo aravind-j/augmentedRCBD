@@ -9,12 +9,13 @@ package or xlsx MS excel file using the
 ## Usage
 
 ``` r
-report.augmentedRCBD.bulk(aug.bulk, target, file.type = c("word", "excel"))
+# S3 method for class 'augmentedRCBD.bulk'
+report(aug, target, file.type = c("excel"), ...)
 ```
 
 ## Arguments
 
-- aug.bulk:
+- aug:
 
   An object of class `augmentedRCBD.bulk`.
 
@@ -24,26 +25,32 @@ report.augmentedRCBD.bulk(aug.bulk, target, file.type = c("word", "excel"))
 
 - file.type:
 
-  The file type of the report. Either `"word"` for MS Word report file
-  or `"excel"` for MS Excel report file.
+  The file type of the report. From v0.2.0, only `"excel"` (MS Excel
+  report) is supported. Generation of MS Word reports is no longer
+  supported.
+
+- ...:
+
+  Unused
 
 ## Note
 
-The raw values in the `augmentedRCBD` object are rounded off to 2 digits
-in the word and excel reports. However, in case of excel report, the raw
-values are present in the cell and are formatted to display only 2
-digits.
+The raw values in the `augmentedRCBD` object are retained with full
+precision. They are only formatted to display 2 decimal places in the
+Excel report.
 
-So, if values such as adjusted means are being used of downstream
-analysis, export the raw values from within R or use the excel report.
+If values such as adjusted means are required for downstream analysis,
+export the raw values directly from R or use the Excel report, which
+preserves the underlying values.
 
-This default rounding can be changed by setting the global options
-`augmentedRCBD.round.digits`. For example
+The default number of displayed decimal places can be changed using the
+`augmentedRCBD.round.digits` global option. For example,
 `setOption(augmentedRCBD.round.digits = 3)` sets the number of decimal
-places for rounding to 3.
+places to 3.
 
-Values will not be rounded to zero, instead will be rounded to the
-nearest decimal place.
+Values are not rounded to zero; instead, they are rounded to the nearest
+decimal place specified by `augmentedRCBD.round.digits`. F value, t
+ratio and p values are not rounded to less than 3 decimal places.
 
 ## See also
 
@@ -78,20 +85,10 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
 #> ANOVA for y2 computed (2/2)
 
 # \donttest{
-report.augmentedRCBD.bulk(
-  aug.bulk = bout,
-  target = file.path(tempdir(),
-                     "augmentedRCBD bulk output.docx"),
-  file.type = "word")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptaXhLq/augmentedRCBD bulk output.docx
-report.augmentedRCBD.bulk(
-  aug.bulk = bout,
-  target = file.path(tempdir(),
-                     "augmentedRCBD bulk output.xlsx"),
-  file.type = "excel")
+report(aug = bout,
+       target = file.path(tempdir(),
+                          "augmentedRCBD bulk output.xlsx"),
+       file.type = "excel")
 #> Error in insertImage(wb = wb, sheet = sheet, file = fileName, width = width,     height = height, startRow = startRow, startCol = startCol,     units = units, dpi = dpi): File does not exist.
 # }
 ```

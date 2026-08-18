@@ -6,7 +6,8 @@ adjusted means in an object of class `augmentedRCBD`.
 ## Usage
 
 ``` r
-describe.augmentedRCBD(aug)
+# S3 method for class 'augmentedRCBD'
+describe(aug, ...)
 ```
 
 ## Arguments
@@ -14,6 +15,10 @@ describe.augmentedRCBD(aug)
 - aug:
 
   An object of class `augmentedRCBD`.
+
+- ...:
+
+  Unused
 
 ## Value
 
@@ -434,7 +439,7 @@ Anscombe FJ, Glynn WJ (1983). “Distribution of the kurtosis statistic
 #>         10         437.67 18.27  6   392.95   482.38        7
 
 # Descriptive statistics
-describe.augmentedRCBD(out1)
+describe(out1)
 #> $Count
 #> [1] 12
 #> 
@@ -467,7 +472,7 @@ describe.augmentedRCBD(out1)
 #> $`Kurtosis(p.value)`
 #> [1] 0.1997357
 #> 
-describe.augmentedRCBD(out2)
+describe(out2)
 #> $Count
 #> [1] 12
 #> 

@@ -84,7 +84,7 @@ J.<sup>1</sup>, Mukesh Sankar, S.<sup>2</sup>, Wankhede, D.
 P.<sup>3</sup>, and Kaur, V.<sup>4</sup>
 </h4>
             
-            <h4 data-toc-skip class="date">2026-08-17</h4>
+            <h4 data-toc-skip class="date">2026-08-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/aravind-j/augmentedRCBD/blob/master/vignettes/Data_Analysis_with_augmentedRCBD.Rmd" class="external-link"><code>vignettes/Data_Analysis_with_augmentedRCBD.Rmd</code></a></small>
       <div class="d-none name"><code>Data_Analysis_with_augmentedRCBD.Rmd</code></div>
@@ -1531,12 +1531,11 @@ trait data should be of the type integer or numeric (<a href="#vector">see secti
 <code>augmentedRCBD</code> function. It generates an object of class
 <code>augmentedRCBD</code>. Such an object can then be taken as input by
 the several functions to print the results to console
-(<code>print.augmentedRCBD</code>), generate descriptive statistics from
-adjusted means (<code>describe.augmentedRCBD</code>), plot frequency
-distribution (<code>freqdist.augmentedRCBD</code>) and computed genetic
-variability statistics (gva.augmentedRCBD). All these outputs can also
-be exported as a MS Word report using the
-<code>report.augmentedRCBD</code> function.</p>
+(<code>print</code>), generate descriptive statistics from adjusted
+means (<code>describe</code>), plot frequency distribution
+(<code>freqdist</code>) and computed genetic variability statistics
+(<code>gva</code>). All these outputs can also be exported as a MS Word
+report using the <code>report</code> function.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-59-1.png" class="r-plt" alt="" width="700"></p>
 <p><strong>Fig. 4</strong>. Workflow for analysis of single traits with
 <code>augmentedRCBD</code>.</p>
@@ -2570,7 +2569,7 @@ reduce output object size.</p>
 means will be truncated to zero with a warning.</p>
 </div>
 <div class="section level3">
-<h3 id="print-augmentedrcbd">7.2 <code>print.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd"></a>
+<h3 id="print">7.2 <code>print()</code><a class="anchor" aria-label="anchor" href="#print"></a>
 </h3>
 <p>The results of analysis in an object of class
 <code>augmentedRCBD</code> can be printed to the console as follows.</p>
@@ -2896,7 +2895,7 @@ Method : lsd
         10         437.67 18.27  6   392.95   482.38        7</code></pre>
 </div>
 <div class="section level3">
-<h3 id="describe-augmentedrcbd">7.3 <code>describe.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#describe-augmentedrcbd"></a>
+<h3 id="describe">7.3 <code>describe()</code><a class="anchor" aria-label="anchor" href="#describe"></a>
 </h3>
 <p>The descriptive statistics such as count, mean, standard error,
 minimum, maximum, skewness ( with p-value from D’Agostino test of
@@ -2906,7 +2905,7 @@ adjusted means from the results in an object of class
 <code>augmentedRCBD</code> can be computed as follows.</p>
 <div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Descriptive statistics for variable y1</span></span>
-<span><span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/generics-augmented.html">describe</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$Count
 [1] 12
 
@@ -2940,7 +2939,7 @@ $`Kurtosis(p.value)`
 [1] 0.1997357</code></pre>
 <div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Descriptive statistics for variable y2</span></span>
-<span><span class="fu"><a href="../reference/describe.augmentedRCBD.html">describe.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/generics-augmented.html">describe</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$Count
 [1] 12
 
@@ -2974,14 +2973,14 @@ $`Kurtosis(p.value)`
 [1] 0.5913975</code></pre>
 </div>
 <div class="section level3">
-<h3 id="freqdist-augmentedrcbd">7.4 <code>freqdist.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#freqdist-augmentedrcbd"></a>
+<h3 id="freqdist">7.4 <code>freqdist()</code><a class="anchor" aria-label="anchor" href="#freqdist"></a>
 </h3>
 <p>The frequency distribution of the adjusted means from the results in
 an object of class <code>augmentedRCBD</code> can be plotted as
 follows.</p>
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
-<span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generics-augmented.html">freqdist</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
@@ -2989,7 +2988,7 @@ follows.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-70-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
-<span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generics-augmented.html">freqdist</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
@@ -3001,7 +3000,7 @@ follows.</p>
 <code class="sourceCode R"><span><span class="va">colset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red3"</span>, <span class="st">"green4"</span>, <span class="st">"purple3"</span>, <span class="st">"darkorange3"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Frequency distribution for variable y1</span></span>
-<span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generics-augmented.html">freqdist</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
@@ -3009,7 +3008,7 @@ follows.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-71-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
-<span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generics-augmented.html">freqdist</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>, check.col <span class="op">=</span> <span class="va">colset</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
@@ -3019,8 +3018,8 @@ follows.</p>
 <code>highlight.check = FALSE</code>.</p>
 <div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y1</span></span>
-<span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span>
-<span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">freq1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generics-augmented.html">freqdist</a></span><span class="op">(</span><span class="va">out1</span>, xlab <span class="op">=</span> <span class="st">"Trait 1"</span>,</span>
+<span>                  highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
@@ -3028,8 +3027,8 @@ follows.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Frequency distribution for variable y2</span></span>
-<span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/freqdist.augmentedRCBD.html">freqdist.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,</span>
-<span>                                highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">freq2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/generics-augmented.html">freqdist</a></span><span class="op">(</span><span class="va">out2</span>, xlab <span class="op">=</span> <span class="st">"Trait 2"</span>,</span>
+<span>                  highlight.check <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning:  [1m [22mRemoved 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).</code></pre>
 <div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
@@ -3037,7 +3036,7 @@ follows.</p>
 <p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-72-2.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
-<h3 id="gva-augmentedrcbd">7.5 <code>gva.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#gva-augmentedrcbd"></a>
+<h3 id="gva">7.5 <code>gva()</code><a class="anchor" aria-label="anchor" href="#gva"></a>
 </h3>
 <p>The genetic variability statistics such as mean, phenotypic,
 genotypic and environmental variation (<span class="citation">Federer
@@ -3053,7 +3052,7 @@ variability analysis needs to be performed only if the sum of squares of
 “Treatment: Test” are significant.</p>
 <div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Genetic variability statistics for variable y1</span></span>
-<span><span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/generics-augmented.html">gva</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Warning in gva.augmentedRCBD(out1): P-value for "Treatment: Test" is &gt; 0.05.
 Genetic variability analysis may not be appropriate for this trait.</code></pre>
 <pre><code>$Mean
@@ -3099,7 +3098,7 @@ $`GAM category`
 [1] "Medium"</code></pre>
 <div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Genetic variability statistics for variable y2</span></span>
-<span><span class="fu"><a href="../reference/gva.augmentedRCBD.html">gva.augmentedRCBD</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/generics-augmented.html">gva</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$Mean
 [1] 298.4792
 
@@ -3145,41 +3144,23 @@ $`GAM category`
 abnormal. For information on how to deal with these, refer <span class="citation">Robinson et al. (<a href="#ref-robinson_genetic_1955">1955</a>)</span> and <span class="citation">Dudley and Moll (<a href="#ref-dudley_interpretation_1969">1969</a>)</span>.</p>
 </div>
 <div class="section level3">
-<h3 id="report-augmentedrcbd">7.5 <code>report.augmentedRCBD()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd"></a>
+<h3 id="report">7.5 <code>report()</code><a class="anchor" aria-label="anchor" href="#report"></a>
 </h3>
-<p>The results generated by the analysis can be exported to a MS Word
-file as follows.</p>
+<p>The results generated by the analysis can be exported to a MS Excel
+file as follows. Generation of MS Word reports is no longer supported
+from v0.2.0.</p>
 <div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># MS word report for variable y1</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
-<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                                        <span class="st">"augmentedRCBD output.docx"</span><span class="op">)</span>,</span>
-<span>                     file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># MS word report for variable y2</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out2</span>,</span>
-<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                                        <span class="st">"augmentedRCBD output.docx"</span><span class="op">)</span>,</span>
-<span>                     file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png" align="center" alt="The `R` download location."></p>
-<p style="text-align: left;">
-<strong>Fig. 6</strong>: MS Word report generated with
-<code>report.agumentedRCBD</code> function.
-</p>
-<p>Alternatively, the analysis results can also be exported to a MS
-Excel file as follows.</p>
-<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS excel report for variable y1</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
-<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                                        <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span>
-<span>                     file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/generics-augmented.html">report</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out1</span>,</span>
+<span>       target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                          <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span>
+<span>       file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># MS excel report for variable y2</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.html">report.augmentedRCBD</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out2</span>,</span>
-<span>                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                                        <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span>
-<span>                     file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/generics-augmented.html">report</a></span><span class="op">(</span>aug <span class="op">=</span> <span class="va">out2</span>,</span>
+<span>       target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                          <span class="st">"augmentedRCBD output.xlsx"</span><span class="op">)</span>,</span>
+<span>       file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDexcel.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
 <strong>Fig. 6</strong>: MS Excel report generated with
@@ -3193,25 +3174,24 @@ Excel file as follows.</p>
 <p>Analysis of data for a multiple traits simultaneously can be
 performed by using <code>augmentedRCBD.bulk</code> function. It
 generates an object of class <code>augmentedRCBD.bulk</code>. Such an
-object can then be taken as input by
-<code>print.augmentedRCBD.bulk</code> to print the results to console.
-The results can also be exported as a MS Word report using the
-<code>report.augmentedRCBD.bulk</code> function.</p>
-<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-80-1.png" class="r-plt" alt="" width="700"></p>
+object can then be taken as input by <code>print</code> to print the
+results to console. The results can also be exported as a MS Word report
+using the <code>report</code> function.</p>
+<p><img src="Data_Analysis_with_augmentedRCBD_files/figure-html/unnamed-chunk-77-1.png" class="r-plt" alt="" width="700"></p>
 <p><strong>Fig. 8</strong>. Workflow for analysis of multiple traits
 with <code>augmentedRCBD</code>.</p>
 <div class="section level3">
 <h3 id="augmentedrcbd-bulk">8.1 <code>augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#augmentedrcbd-bulk"></a>
 </h3>
 <p>Consider the data frame <code>data</code> imported from <a href="#impexp">Table 1</a> according to the instructions in <a href="#impexp">section 4.8</a>.</p>
-<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code>'data.frame':   20 obs. of  4 variables:
  $ blk: Factor w/ 3 levels "1","2","3": 1 1 1 1 1 1 1 2 2 2 ...
  $ trt: Factor w/ 12 levels "1","2","3","4",..: 1 2 3 4 7 11 12 1 2 3 ...
  $ y1 : num  92 79 87 81 96 89 82 79 81 81 ...
  $ y2 : num  258 224 238 278 347 300 289 260 220 237 ...</code></pre>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert block and treatment to factors</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">blk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">blk</span><span class="op">)</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">trt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">trt</span><span class="op">)</span></span></code></pre></div>
@@ -3233,7 +3213,7 @@ variability statistics respectively. If <code>gva = TRUE</code>, then
 plots to compare phenotypic and genotypic coefficient of variation,
 broad sense heritability and genetic advance over mean between traits
 are also generated.</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/augmentedRCBD.bulk.html">augmentedRCBD.bulk</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, block <span class="op">=</span> <span class="st">"blk"</span>,</span>
 <span>                           treatment <span class="op">=</span> <span class="st">"trt"</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
 <span>                           checks <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, describe <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -3377,12 +3357,12 @@ Treatment Means
          9     2 77.25 323.92</code></pre>
 </div>
 <div class="section level3">
-<h3 id="print-augmentedrcbd-bulk">8.2 <code>print.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#print-augmentedrcbd-bulk"></a>
+<h3 id="print-1">8.2 <code>print()</code><a class="anchor" aria-label="anchor" href="#print-1"></a>
 </h3>
 <p>The results of analysis in an object of class
 <code>augmentedRCBD.bulk</code> can be printed to the console as
 follows.</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bout</span><span class="op">)</span></span></code></pre></div>
 <pre><code>
@@ -3517,29 +3497,17 @@ Treatment Means
          9     2 77.25 323.92</code></pre>
 </div>
 <div class="section level3">
-<h3 id="report-augmentedrcbd-bulk">8.3 <code>report.augmentedRCBD.bulk()</code><a class="anchor" aria-label="anchor" href="#report-augmentedrcbd-bulk"></a>
+<h3 id="report-1">8.3 <code>report()</code><a class="anchor" aria-label="anchor" href="#report-1"></a>
 </h3>
-<p>The results generated by the analysis can be exported to a MS Word
-file as follows.</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># MS word report</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
-<span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                                             <span class="st">"augmentedRCBD bulk output.docx"</span><span class="op">)</span>,</span>
-<span>                          file.type <span class="op">=</span> <span class="st">"word"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png" align="center" alt="The `R` download location."></p>
-<p style="text-align: left;">
-<strong>Fig. 9</strong>: MS Word report generated with
-<code>report.agumentedRCBD.bulk</code> function.
-</p>
-<p>Alternatively, the analysis results can also be exported to a MS
-Excel file as follows.</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<p>The results generated by the analysis can be exported to a MS Excel
+file as follows. Generation of MS Word reports is no longer supported
+from v0.2.0.</p>
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># MS excel report</span></span>
-<span><span class="fu"><a href="../reference/report.augmentedRCBD.bulk.html">report.augmentedRCBD.bulk</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
-<span>                          target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>                                             <span class="st">"augmentedRCBD bulk output.xlsx"</span><span class="op">)</span>,</span>
-<span>                          file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/generics-augmented.html">report</a></span><span class="op">(</span>aug.bulk <span class="op">=</span> <span class="va">bout</span>,</span>
+<span>       target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                          <span class="st">"augmentedRCBD bulk output.xlsx"</span><span class="op">)</span>,</span>
+<span>       file.type <span class="op">=</span> <span class="st">"excel"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkexcel.png" align="center" alt="The `R` download location."></p>
 <p style="text-align: left;">
 <strong>Fig. 10</strong>: MS Excel report generated with
@@ -3573,7 +3541,7 @@ citing the package.</code></pre>
 <div class="section level2">
 <h2 id="session-info">10 Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.6.1 (2026-06-24)
 Platform: aarch64-apple-darwin23

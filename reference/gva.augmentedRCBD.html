@@ -62,7 +62,8 @@ of class <code>augmentedRCBD</code>. <script>MathJax = {output: {font: "mathjax-
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gva.augmentedRCBD</span><span class="op">(</span><span class="va">aug</span>, k <span class="op">=</span> <span class="fl">2.063</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'augmentedRCBD'</span></span>
+<span><span class="fu"><a href="generics-augmented.html">gva</a></span><span class="op">(</span><span class="va">aug</span>, k <span class="op">=</span> <span class="fl">2.063</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,6 +77,10 @@ of class <code>augmentedRCBD</code>. <script>MathJax = {output: {font: "mathjax-
 <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
 <dd><p>The standardized selection differential or selection intensity.
 Default is 2.063 for 5% selection proportion (see <strong>Details</strong>).</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Unused</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -576,7 +581,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         10         437.67 18.27  6   392.95   482.38        7</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span> <span class="co"># Genetic variability analysis</span></span></span>
-<span class="r-in"><span> <span class="fu">gva.augmentedRCBD</span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="generics-augmented.html">gva</a></span><span class="op">(</span><span class="va">out1</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>P-value for "Treatment: Test" is &gt; 0.05. Genetic variability analysis may not be appropriate for this trait.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Mean</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 81.0625</span>
@@ -620,7 +625,7 @@ Pearson/Prenctice Hall, New York, NY.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`GAM category`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Medium"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span> <span class="fu">gva.augmentedRCBD</span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></span>
+<span class="r-in"><span> <span class="fu"><a href="generics-augmented.html">gva</a></span><span class="op">(</span><span class="va">out2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Mean</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 298.4792</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

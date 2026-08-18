@@ -8,6 +8,9 @@
   environments (using fixed effects model).
 - `augmentedRCBD.mix` - Analysis of augmented RCBD in single and
   multiple environments using mixed effects models.
+- `construct.augmentedRCBD` - Construct an Augmented Randomised Complete
+  Block Design Layout.
+- `describe`, `freqdist`, `gva` and `report` - S3 generics.
 
 ### UPDATED FUNCTIONS:
 

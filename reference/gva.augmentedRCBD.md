@@ -6,7 +6,8 @@ of class `augmentedRCBD`.
 ## Usage
 
 ``` r
-gva.augmentedRCBD(aug, k = 2.063)
+# S3 method for class 'augmentedRCBD'
+gva(aug, k = 2.063, ...)
 ```
 
 ## Arguments
@@ -19,6 +20,10 @@ gva.augmentedRCBD(aug, k = 2.063)
 
   The standardized selection differential or selection intensity.
   Default is 2.063 for 5% selection proportion (see **Details**).
+
+- ...:
+
+  Unused
 
 ## Value
 
@@ -684,7 +689,7 @@ Pearson/Prenctice Hall, New York, NY.
 #>         10         437.67 18.27  6   392.95   482.38        7
 
  # Genetic variability analysis
- gva.augmentedRCBD(out1)
+ gva(out1)
 #> Warning: P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.
 #> $Mean
 #> [1] 81.0625
@@ -728,7 +733,7 @@ Pearson/Prenctice Hall, New York, NY.
 #> $`GAM category`
 #> [1] "Medium"
 #> 
- gva.augmentedRCBD(out2)
+ gva(out2)
 #> $Mean
 #> [1] 298.4792
 #> 

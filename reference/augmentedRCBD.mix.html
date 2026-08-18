@@ -535,19 +535,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment mean SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 81.5  0 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11           81.5  0 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12           81.5  0 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 02. Fixed Effects - check; Random Effects - test</span></span></span>
 <span class="r-in"><span><span class="va">out2</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>block <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">blk</span>, treatment <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">trt</span>,</span></span>
@@ -671,19 +671,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 84.66667 4.969050 2.152436 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.00000 4.969050 2.152436 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 82.00000 4.969050 2.152436 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 83.33333 4.969050 2.152436 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.95499 2.786081       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.91155 2.779019       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 83.91242 2.779019       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 78.42413 2.779019       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 79.65750 2.786081       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 79.61407 2.779019       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 81.83003 2.779019       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 79.74765 2.779019       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       84.66667 4.969050 2.152436 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.00000 4.969050 2.152436 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       82.00000 4.969050 2.152436 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       83.33333 4.969050 2.152436 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.95499 2.786081       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.91155 2.779019       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       83.91242 2.779019       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       78.42413 2.779019       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       79.65750 2.786081       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       79.61407 2.779019       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       81.83003 2.779019       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       79.74765 2.779019       NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 03. Random Effects - Fixed Effects - check, test</span></span></span>
 <span class="r-in"><span><span class="va">out3</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>block <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">blk</span>, treatment <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">trt</span>,</span></span>
@@ -828,19 +828,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 84.66667 3.104656 7.892933 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.00000 3.104656 7.892933 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 82.00000 3.104656 7.892933 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 83.33333 3.104656 7.892933 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.83213 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.72742 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 95.44045 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 70.72742 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 77.83213 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 74.72742 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 88.44045 6.158823 7.969123 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 81.44045 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       84.66667 3.104656 7.892933 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.00000 3.104656 7.892933 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       82.00000 3.104656 7.892933 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       83.33333 3.104656 7.892933 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       78.83213 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       75.72742 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       95.44045 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       70.72742 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       77.83213 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       74.72742 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       88.44045 6.158823 7.969123 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       81.44045 6.158823 7.969123 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Multiple Environments - Scenario 1:</span></span></span>
@@ -1027,19 +1027,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 82.29086 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.87577 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 80.92850 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.23813 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.52941 1.559247 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.87221 1.558127 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 82.64335 1.556813 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 80.42125 1.557021 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.45872 1.559491 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 78.90556 1.557019 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.75118 1.556806 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 79.78956 1.558369 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       82.29086 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.87577 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       80.92850 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.23813 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.52941 1.559247 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.87221 1.558127 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       82.64335 1.556813 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       80.42125 1.557021 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.45872 1.559491 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       78.90556 1.557019 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.75118 1.556806 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       79.78956 1.558369 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 05. Random Effects - env, check, test;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -1169,19 +1169,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 82.29086 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.87577 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 80.92850 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.23813 1.270503 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.52941 1.559247 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.87221 1.558127 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 82.64335 1.556813 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 80.42125 1.557021 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.45872 1.559491 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 78.90556 1.557019 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.75118 1.556806 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 79.78956 1.558369 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       82.29086 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.87577 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       80.92850 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.23813 1.270503 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.52941 1.559247 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.87221 1.558127 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       82.64335 1.556813 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       80.42125 1.557021 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.45872 1.559491 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       78.90556 1.557019 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.75118 1.556806 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       79.78956 1.558369 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 06. Fixed Effects - check; Random Effects - env, test;</span></span></span>
 <span class="r-in"><span><span class="co"># With dropping of non-significant env:test interaction</span></span></span>
@@ -1326,19 +1326,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 3.420897 3.351039 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 3.420897 3.351039 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 3.420897 3.351039 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 3.420897 3.351039 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.35828 2.044951       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 78.91023 2.042787       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 83.70619 2.039857       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.82877 2.040670       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 79.98128 2.045910       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 77.26612 2.040657       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.45126 2.039824       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.87954 2.043726       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 3.420897 3.351039 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 3.420897 3.351039 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 3.420897 3.351039 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 3.420897 3.351039 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       78.35828 2.044951       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       78.91023 2.042787       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       83.70619 2.039857       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.82877 2.040670       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       79.98128 2.045910       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       77.26612 2.040657       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.45126 2.039824       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.87954 2.043726       NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 07. Fixed Effects - check; Random Effects - env, test;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -1481,19 +1481,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE      df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 3.420897 3.40063 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 3.420897 3.40063 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 3.420897 3.40063 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 3.420897 3.40063 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.35828 2.044951      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 78.91023 2.042787      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 83.70619 2.039857      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.82877 2.040670      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 79.98128 2.045910      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 77.26612 2.040657      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.45126 2.039824      NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.87954 2.043726      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE      df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 3.420897 3.40063 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 3.420897 3.40063 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 3.420897 3.40063 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 3.420897 3.40063 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       78.35828 2.044951      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       78.91023 2.042787      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       83.70619 2.039857      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.82877 2.040670      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       79.98128 2.045910      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       77.26612 2.040657      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.45126 2.039824      NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.87954 2.043726      NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 08. Fixed Effects - check, test; Random Effects - env;</span></span></span>
 <span class="r-in"><span><span class="co"># With dropping of non-significant env:test interaction</span></span></span>
@@ -1662,19 +1662,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE        df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 1.955945  9.380281 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.955945  9.380281 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.955945  9.380281 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.955945  9.380281 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 76.92337 3.163385 33.641987 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 77.80193 3.163808 33.652457 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.15743 3.155753 33.499934 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.72363 3.163422 33.667519 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.46687 3.171783 33.825748 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 74.53810 3.163433 33.667827 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 81.39787 3.155737 33.499637 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.53853 3.171499 33.817383 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE        df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 1.955945  9.380281 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 1.955945  9.380281 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 1.955945  9.380281 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 1.955945  9.380281 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       76.92337 3.163385 33.641987 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       77.80193 3.163808 33.652457 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       88.15743 3.155753 33.499934 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.72363 3.163422 33.667519 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.46687 3.171783 33.825748 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       74.53810 3.163433 33.667827 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       81.39787 3.155737 33.499637 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.53853 3.171499 33.817383 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 09.Fixed Effects - check, test; Random Effects - env;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -1841,19 +1841,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE        df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 1.955945  7.376537 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.955945  7.376537 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.955945  7.376537 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.955945  7.376537 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 76.92337 3.164642 33.592744 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 77.80193 3.165037 33.603731 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.15743 3.157459 33.445174 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.72363 3.165176 33.619369 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.46687 3.173055 33.783634 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 74.53810 3.165186 33.619694 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 81.39787 3.157447 33.444860 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.53853 3.172753 33.774900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE        df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 1.955945  7.376537 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 1.955945  7.376537 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 1.955945  7.376537 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 1.955945  7.376537 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       76.92337 3.164642 33.592744 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       77.80193 3.165037 33.603731 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       88.15743 3.157459 33.445174 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.72363 3.165176 33.619369 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.46687 3.173055 33.783634 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       74.53810 3.165186 33.619694 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       81.39787 3.157447 33.444860 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.53853 3.172753 33.774900 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 10. Fixed Effects - env; Random Effects - check, test;</span></span></span>
 <span class="r-in"><span><span class="co"># With dropping of non-significant env:test interaction</span></span></span>
@@ -1989,19 +1989,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 82.23451 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.90224 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 80.91887 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.21788 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.57354 1.521652 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.96497 1.520450 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 82.51007 1.519063 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 80.44859 1.519266 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.44819 1.521893 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 79.05562 1.519263 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.71496 1.519056 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 79.79421 1.520690 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       82.23451 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.90224 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       80.91887 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.21788 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.57354 1.521652 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.96497 1.520450 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       82.51007 1.519063 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       80.44859 1.519266 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.44819 1.521893 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       79.05562 1.519263 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.71496 1.519056 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       79.79421 1.520690 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 11. Fixed Effects - env; Random Effects - check, test;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -2135,19 +2135,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 82.23451 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.90224 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 80.91887 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.21788 1.254103 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.57354 1.521652 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.96497 1.520450 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 82.51007 1.519063 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 80.44859 1.519266 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.44819 1.521893 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 79.05562 1.519263 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.71496 1.519056 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 79.79421 1.520690 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       82.23451 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.90224 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       80.91887 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.21788 1.254103 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.57354 1.521652 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.96497 1.520450 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       82.51007 1.519063 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       80.44859 1.519266 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.44819 1.521893 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       79.05562 1.519263 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.71496 1.519056 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       79.79421 1.520690 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 12. Fixed Effects - env, check; Random Effects - test;</span></span></span>
 <span class="r-in"><span><span class="co"># With dropping of non-significant env:test interaction</span></span></span>
@@ -2287,19 +2287,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 3.315059 3.125624 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 3.315059 3.125624 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 3.315059 3.125624 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 3.315059 3.125624 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.63559 1.962439       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.13449 1.960477       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 82.85302 1.958030       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.82048 1.958552       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 79.87122 1.963058       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 77.79771 1.958543       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.26108 1.958009       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.95737 1.961087       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 3.315059 3.125624 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 3.315059 3.125624 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 3.315059 3.125624 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 3.315059 3.125624 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       78.63559 1.962439       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.13449 1.960477       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       82.85302 1.958030       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.82048 1.958552       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       79.87122 1.963058       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       77.79771 1.958543       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.26108 1.958009       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.95737 1.961087       NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 13. Fixed Effects - env, check; Random Effects - test;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -2447,19 +2447,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 3.315059 3.059302 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 3.315059 3.059302 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 3.315059 3.059302 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 3.315059 3.059302 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.63559 1.962439       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.13449 1.960477       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 82.85302 1.958030       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.82048 1.958552       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 79.87122 1.963058       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 77.79771 1.958543       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.26108 1.958009       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.95737 1.961087       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 3.315059 3.059302 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 3.315059 3.059302 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 3.315059 3.059302 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 3.315059 3.059302 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       78.63559 1.962439       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.13449 1.960477       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       82.85302 1.958030       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.82048 1.958552       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       79.87122 1.963058       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       77.79771 1.958543       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.26108 1.958009       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.95737 1.961087       NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 14. Fixed Effects - env, check, test;</span></span></span>
 <span class="r-in"><span><span class="co"># With dropping of non-significant env:test interaction</span></span></span>
@@ -2616,19 +2616,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 77.94040 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.51212 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.97833 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.34417 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.26832 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 71.82920 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 82.88623 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.23040 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       77.94040 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       75.51212 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       88.97833 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.34417 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       81.26832 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       71.82920 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       82.88623 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       80.23040 3.419139 23.98953 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 15. Fixed Effects - env, check, test;</span></span></span>
 <span class="r-in"><span><span class="co"># Without dropping of non-significant env:test interaction</span></span></span>
@@ -2784,19 +2784,19 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.852592 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 77.94040 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.51212 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 88.97833 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 79.34417 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 81.26832 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 71.82920 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 82.88623 3.419139 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.23040 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 1.852592 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       77.94040 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       75.51212 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       88.97833 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       79.34417 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       81.26832 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       71.82920 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       82.88623 3.419139 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       80.23040 3.419139 23.98953 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span></span>
 <span class="r-in"><span><span class="co"># Multiple Environments - Scenario 2:</span></span></span>
@@ -2978,35 +2978,35 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 81.75159 1.053935 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 80.10771 1.053935 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 80.82427 1.053935 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.03503 1.053935 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 80.44431 1.265171 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 80.43961 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 81.27513 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 80.12164 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.38071 1.265171 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 80.82996 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.38479 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.37602 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13 80.39980 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14 80.48610 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15 80.61330 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16 81.29014 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17 80.55879 1.265171 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18 80.29532 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19 80.71778 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20 80.36801 1.265171 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21 80.24645 1.265171 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22 81.17597 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23 80.37364 1.265171 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24 80.25215 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25 80.73080 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26 80.31575 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27 80.47642 1.264582 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28 79.99777 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       81.75159 1.053935 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       80.10771 1.053935 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       80.82427 1.053935 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.03503 1.053935 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       80.44431 1.265171 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       80.43961 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       81.27513 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       80.12164 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.38071 1.265171 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       80.82996 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.38479 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       80.37602 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13       80.39980 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14       80.48610 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15       80.61330 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16       81.29014 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17       80.55879 1.265171 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18       80.29532 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19       80.71778 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20       80.36801 1.265171 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21       80.24645 1.265171 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22       81.17597 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23       80.37364 1.265171 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24       80.25215 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25       80.73080 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26       80.31575 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27       80.47642 1.264582 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28       79.99777 1.264582 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 17. Fixed Effects - check; Random Effects - env, test</span></span></span>
 <span class="r-in"><span><span class="va">out17</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>env <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">env2</span>, block <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">blk2</span>,</span></span>
@@ -3147,35 +3147,35 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 4.035559 3.389111 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 4.035559 3.389111 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 4.035559 3.389111 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 4.035559 3.389111 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.19710 2.903648       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.00884 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 84.29258 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 77.15460 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 78.82625 2.903648       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 81.69665 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 79.10072 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 78.63799 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13 79.16036 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14 79.37853 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15 80.12022 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16 84.35221 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17 79.87531 2.903648       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18 78.26599 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19 81.01459 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20 78.76277 2.903648       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21 77.97738 2.903648       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22 83.68680 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23 78.71907 2.903648       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24 77.83822 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25 81.09087 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26 78.20907 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27 79.60748 2.897031       NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28 76.35484 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 4.035559 3.389111 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 4.035559 3.389111 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 4.035559 3.389111 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 4.035559 3.389111 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.19710 2.903648       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.00884 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       84.29258 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       77.15460 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       78.82625 2.903648       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       81.69665 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       79.10072 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       78.63799 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13       79.16036 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14       79.37853 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15       80.12022 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16       84.35221 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17       79.87531 2.903648       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18       78.26599 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19       81.01459 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20       78.76277 2.903648       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21       77.97738 2.903648       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22       83.68680 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23       78.71907 2.903648       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24       77.83822 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25       81.09087 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26       78.20907 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27       79.60748 2.897031       NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28       76.35484 2.897031       NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 18. Fixed Effects - check, test; Random Effects - env</span></span></span>
 <span class="r-in"><span><span class="va">out18</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>env <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">env2</span>, block <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">blk2</span>,</span></span>
@@ -3332,35 +3332,35 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE        df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 1.676131  7.882789 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 1.676131  7.882789 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 1.676131  7.882789 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 1.676131  7.882789 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 78.65125 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 75.58125 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 95.24437 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 70.58125 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 77.65125 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 88.24437 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 81.24437 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 74.58125 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13 80.59312 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14 76.22063 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15 78.22063 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16 94.59312 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17 79.34875 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18 73.22063 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19 85.59312 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20 76.34875 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21 74.11625 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22 93.30249 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23 76.11625 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24 72.94187 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25 86.30249 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26 73.94187 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27 82.30249 5.501086 30.336883 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28 68.94187 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE        df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 1.676131  7.882789 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 1.676131  7.882789 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 1.676131  7.882789 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 1.676131  7.882789 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       78.65125 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       75.58125 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       95.24437 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       70.58125 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       77.65125 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       88.24437 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       81.24437 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       74.58125 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13       80.59312 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14       76.22063 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15       78.22063 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16       94.59312 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17       79.34875 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18       73.22063 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19       85.59312 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20       76.34875 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21       74.11625 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22       93.30249 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23       76.11625 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24       72.94187 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25       86.30249 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26       73.94187 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27       82.30249 5.501086 30.336883 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28       68.94187 5.501086 30.336883 BLUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 19. Fixed Effects - env; Random Effects - check, test</span></span></span>
 <span class="r-in"><span><span class="va">out19</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>env <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">env2</span>, block <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">blk2</span>,</span></span>
@@ -3493,35 +3493,35 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean        SE df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 81.63881 0.9974662 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 80.17364 0.9974662 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 80.81230 0.9974662 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.00015 0.9974662 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 80.47684 1.1671588 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 80.48728 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 81.16592 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 80.21873 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 80.42313 1.1671588 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 80.78994 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 80.41396 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 80.43357 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13 80.44487 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14 80.54260 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15 80.65003 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16 81.19683 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17 80.59601 1.1671588 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18 80.38147 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19 80.71343 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20 80.43488 1.1671588 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21 80.32286 1.1671588 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22 81.08899 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23 80.43028 1.1671588 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24 80.33155 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25 80.71301 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26 80.38527 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27 80.49816 1.1666376 NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28 80.11671 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means        SE df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       81.63881 0.9974662 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       80.17364 0.9974662 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       80.81230 0.9974662 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.00015 0.9974662 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       80.47684 1.1671588 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       80.48728 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       81.16592 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       80.21873 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       80.42313 1.1671588 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       80.78994 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       80.41396 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       80.43357 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13       80.44487 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14       80.54260 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15       80.65003 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16       81.19683 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17       80.59601 1.1671588 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18       80.38147 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19       80.71343 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20       80.43488 1.1671588 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21       80.32286 1.1671588 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22       81.08899 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23       80.43028 1.1671588 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24       80.33155 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25       80.71301 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26       80.38527 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27       80.49816 1.1666376 NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28       80.11671 1.1666376 NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 20. Fixed Effects - env, check; Random Effects - test</span></span></span>
 <span class="r-in"><span><span class="va">out20</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>env <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">env2</span>, block <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">blk2</span>,</span></span>
@@ -3658,35 +3658,35 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    treatment     mean       SE        df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1 83.66667 2.937966 0.7943792 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2 79.33333 2.937966 0.7943792 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3 81.22222 2.937966 0.7943792 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4 81.77778 2.937966 0.7943792 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5 79.51143 1.783427        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6 79.50158 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7 80.94890 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8 78.94686 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9 79.40049 1.783427        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10 80.17230 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11 79.39570 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12 79.39063 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13 79.31853 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14 79.48307 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15 79.70496 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16 80.87173 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17 79.59947 1.783427        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18 79.15024 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19 79.87324 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20 79.26664 1.783427        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21 79.33435 1.783427        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22 80.92214 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23 79.55623 1.783427        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24 79.31357 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25 80.14553 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26 79.42451 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27 79.70176 1.781885        NA BLUP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28 78.86979 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Treatment Adjusted Means       SE        df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1       83.66667 2.937966 0.7943792 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2       79.33333 2.937966 0.7943792 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3       81.22222 2.937966 0.7943792 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4       81.77778 2.937966 0.7943792 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5       79.51143 1.783427        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6       79.50158 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7       80.94890 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8       78.94686 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9       79.40049 1.783427        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10       80.17230 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11       79.39570 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12       79.39063 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13       79.31853 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14       79.48307 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15       79.70496 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        16       80.87173 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        17       79.59947 1.783427        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        18       79.15024 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        19       79.87324 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        20       79.26664 1.783427        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        21       79.33435 1.783427        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        22       80.92214 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        23       79.55623 1.783427        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        24       79.31357 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        25       80.14553 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        26       79.42451 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        27       79.70176 1.781885        NA BLUP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        28       78.86979 1.781885        NA BLUP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># 21. Fixed Effects - env, check, test</span></span></span>
 <span class="r-in"><span><span class="va">out21</span> <span class="op">&lt;-</span> <span class="fu">augmentedRCBD.mix</span><span class="op">(</span>env <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">env2</span>, block <span class="op">=</span> <span class="va">data2</span><span class="op">$</span><span class="va">blk2</span>,</span></span>
@@ -3841,44 +3841,43 @@ means is determined by the arguments <code>scenario</code>, <code>env.random</co
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model Formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> =========================</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     treatment     mean       SE       df type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1           1 84.66667 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29          1 82.66667 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57          1 83.66667 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86          2 79.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 114         2 78.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 142         2 81.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 171         3 82.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 199         3 78.66667 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 227         3 83.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 256         4 83.33333 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 284         4 80.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 312         4 82.00000 3.208784 23.97900 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 341         5 78.95124 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 342         6 75.21129 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 343         7 95.83747 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 344         8 70.21129 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 345         9 77.95124 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 346        10 88.83747 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 347        11 81.83747 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 348        12 74.21129 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 377        13 80.77787 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 378        14 75.23296 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 379        15 77.23296 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 380        16 94.77787 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 381        17 78.98916 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 382        18 72.23296 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 383        19 85.77787 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 384        20 75.98916 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 413        21 74.09210 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 414        22 93.86456 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 415        23 76.09210 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 416        24 73.04334 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 417        25 86.86456 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 418        26 74.04334 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 419        27 82.86456 5.922122 23.98953 BLUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 420        28 69.04334 5.922122 23.98953 BLUE</span>
-<span class="r-in"><span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Treatment Adjusted Means       SE       df type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1           1       84.66667 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29          1       82.66667 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57          1       83.66667 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86          2       79.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 114         2       78.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 142         2       81.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 171         3       82.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 199         3       78.66667 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 227         3       83.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 256         4       83.33333 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 284         4       80.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 312         4       82.00000 3.208784 23.97900 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 341         5       78.95124 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 342         6       75.21129 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 343         7       95.83747 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 344         8       70.21129 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 345         9       77.95124 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 346        10       88.83747 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 347        11       81.83747 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 348        12       74.21129 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 377        13       80.77787 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 378        14       75.23296 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 379        15       77.23296 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 380        16       94.77787 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 381        17       78.98916 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 382        18       72.23296 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 383        19       85.77787 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 384        20       75.98916 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 413        21       74.09210 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 414        22       93.86456 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 415        23       76.09210 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 416        24       73.04334 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 417        25       86.86456 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 418        26       74.04334 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 419        27       82.86456 5.922122 23.98953 BLUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 420        28       69.04334 5.922122 23.98953 BLUE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

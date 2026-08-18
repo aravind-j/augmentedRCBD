@@ -8,7 +8,8 @@ check means with standard errors (if specified by argument
 ## Usage
 
 ``` r
-freqdist.augmentedRCBD(aug, xlab, highlight.check = TRUE, check.col = "red")
+# S3 method for class 'augmentedRCBD'
+freqdist(aug, xlab, highlight.check = TRUE, check.col = "red", ...)
 ```
 
 ## Arguments
@@ -32,6 +33,10 @@ freqdist.augmentedRCBD(aug, xlab, highlight.check = TRUE, check.col = "red")
   character vector. Must be valid colour values in R (named colours,
   hexadecimal representation, index of colours \[`1:8`\] in default R
   [`palette()`](https://rdrr.io/r/grDevices/palette.html) etc.).
+
+- ...:
+
+  Unused
 
 ## Value
 
@@ -381,14 +386,14 @@ The frequency distribution plot as a ggplot2 plot grob.
 #>         10         437.67 18.27  6   392.95   482.38        7
 
  # Frequency distribution plots
- freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
+ freq1 <- freqdist(out1, xlab = "Trait 1")
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
  class(freq1)
 #> [1] "gtable" "gTree"  "grob"   "gDesc" 
  plot(freq1)
 
- freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
+ freq2 <- freqdist(out2, xlab = "Trait 2")
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
  plot(freq2)
@@ -396,26 +401,24 @@ The frequency distribution plot as a ggplot2 plot grob.
 
  # Change check colours
  colset <- c("red3", "green4", "purple3", "darkorange3")
- freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
+ freq1 <- freqdist(out1, xlab = "Trait 1", check.col = colset)
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
  plot(freq1)
 
- freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
+ freq2 <- freqdist(out2, xlab = "Trait 2", check.col = colset)
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
  plot(freq2)
 
 
  # Without checks highlighted
- freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
-                                 highlight.check = FALSE)
+ freq1 <- freqdist(out1, xlab = "Trait 1", highlight.check = FALSE)
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
  plot(freq1)
 
- freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
-                                 highlight.check = FALSE)
+ freq2 <- freqdist(out2, xlab = "Trait 2", highlight.check = FALSE)
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
  plot(freq2)

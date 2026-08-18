@@ -9,13 +9,8 @@ package or xlsx MS excel file using the
 ## Usage
 
 ``` r
-report.augmentedRCBD(
-  aug,
-  target,
-  file.type = c("word", "excel"),
-  k = 2.063,
-  check.col = "red"
-)
+# S3 method for class 'augmentedRCBD'
+report(aug, target, file.type = c("excel"), k = 2.063, check.col = "red", ...)
 ```
 
 ## Arguments
@@ -30,8 +25,9 @@ report.augmentedRCBD(
 
 - file.type:
 
-  The file type of the report. Either `"word"` for MS Word report file
-  or `"excel"` for MS Excel report file.
+  The file type of the report. From v0.2.0, only `"excel"` (MS Excel
+  report) is supported. Generation of MS Word reports is no longer
+  supported.
 
 - k:
 
@@ -48,24 +44,28 @@ report.augmentedRCBD(
   hexadecimal representation, index of colours \[`1:8`\] in default R
   [`palette()`](https://rdrr.io/r/grDevices/palette.html) etc.).
 
+- ...:
+
+  Unused
+
 ## Note
 
-The raw values in the `augmentedRCBD` object are rounded off to 2 digits
-in the word and excel reports. However, in case of excel report, the raw
-values are present in the cell and are formatted to display only 2
-digits.
+The raw values in the `augmentedRCBD` object are retained with full
+precision. They are only formatted to display 2 decimal places in the
+Excel report.
 
-So, if values such as adjusted means are being used of downstream
-analysis, export the raw values from within R or use the excel report.
+If values such as adjusted means are required for downstream analysis,
+export the raw values directly from R or use the Excel report, which
+preserves the underlying values.
 
-This default rounding can be changed by setting the global options
-`augmentedRCBD.round.digits`. For example
+The default number of displayed decimal places can be changed using the
+`augmentedRCBD.round.digits` global option. For example,
 `setOption(augmentedRCBD.round.digits = 3)` sets the number of decimal
-places for rounding to 3.
+places to 3.
 
-Values will not be rounded to zero, instead will be rounded to the
-nearest decimal place. F value, t ratio and p values are not rounded to
-less than 3 decimal places.
+Values are not rounded to zero; instead, they are rounded to the nearest
+decimal place specified by `augmentedRCBD.round.digits`. F value, t
+ratio and p values are not rounded to less than 3 decimal places.
 
 ## See also
 
@@ -249,47 +249,12 @@ out <- augmentedRCBD(block = data$blk, treatment = data$trt, y = data$y1,
 
 # Generate reports
 # \donttest{
-report.augmentedRCBD(aug = out,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.docx"),
-                     file.type = "word",
-                     check.col = c("brown", "darkcyan",
-                                   "forestgreen", "purple"))
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: P-value for "Treatment: Test" is > 0.05. Genetic variability analysis may not be appropriate for this trait.
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> Warning: 'regulartable' is deprecated.
-#> Use 'flextable' instead.
-#> See help("Deprecated")
-#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptaXhLq/augmentedRCBD output.docx
-report.augmentedRCBD(aug = out,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.xlsx"),
-                     file.type = "excel",
-                     check.col = c("brown", "darkcyan",
-                                   "forestgreen", "purple"))
-#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptaXhLq/augmentedRCBD output.xlsx
+report(aug = out,
+       target = file.path(tempdir(),
+                          "augmentedRCBD output.xlsx"),
+       file.type = "excel",
+       check.col = c("brown", "darkcyan",
+                     "forestgreen", "purple"))
+#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmpoimGJo/augmentedRCBD output.xlsx
 # }
 ```
