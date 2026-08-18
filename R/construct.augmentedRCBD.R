@@ -160,7 +160,8 @@ construct.augmentedRCBD <- function(block.size, test.treatments,
         c(block_treatments, fixed.checks)
 
       data.frame(Block = b,
-                 Plot = seq_len(n.test + random.checks.size + fixed.checks.size),
+                 Plot = seq_len(n.test + random.checks.size +
+                                  fixed.checks.size),
                  Treatment = block_treatments)
     })
 
