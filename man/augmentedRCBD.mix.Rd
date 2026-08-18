@@ -419,7 +419,6 @@ out21 <- augmentedRCBD.mix(env = data2$env2, block = data2$blk2,
                            check.random = FALSE, test.random = FALSE,
                            scenario = "II", console = TRUE)
 
-
 }
 \seealso{
 \code{\link[augmentedRCBD]{augmentedRCBD}},

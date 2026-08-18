@@ -405,7 +405,6 @@
 #'                            check.random = FALSE, test.random = FALSE,
 #'                            scenario = "II", console = TRUE)
 #'
-#'
 augmentedRCBD.mix <- function(block, treatment, env = NULL,
                               y, checks = NULL,
                               env.random = FALSE,
@@ -801,7 +800,7 @@ augmentedRCBD.mix <- function(block, treatment, env = NULL,
 }
 
 
-# Function to get adjusted means ----
+# Function to get model-based means ----
 get_treatment_means <-
   function(mod, checks, tests, env = NULL,
            check_mean = c("BLUE","BLUP"),
@@ -854,15 +853,15 @@ get_treatment_means <-
           get_blue(mod = mod, has_env = has_env,
                    within_env = FALSE, fetch = "check",
                    emm_df = df_method, nesting = NULL)
-        blue_out <- blue_out[blue_out$treatment %in% checks, ]
+        blue_out <- blue_out[blue_out$Treatment %in% checks, ]
         blue_out$type <- "BLUE"
         blup_out <-
           get_blup(mod = mod, within_env = FALSE,
                    has_fixed_check = has_fixed_check,
                    has_random_treatment = has_random_treatment,
                    has_random_treatment_test = has_random_treatment_test)
-        blup_out$treatment <- gsub(":.*", "", blup_out$treatment)
-        blup_out <- blup_out[blup_out$treatment %in% tests, ]
+        blup_out$Treatment <- gsub(":.*", "", blup_out$Treatment)
+        blup_out <- blup_out[blup_out$Treatment %in% tests, ]
         blup_out$type <- "BLUP"
         dplyr::bind_rows(blue_out, blup_out)
       },
@@ -874,7 +873,7 @@ get_treatment_means <-
 
         if (has_fixed_env_check) {
           out <- out %>%
-            group_by(.data$treatment) %>%
+            group_by(.data$Treatment) %>%
             summarize(
               # arithmetic mean of the BLUEs across environments
               mean = mean(mean),
@@ -908,15 +907,15 @@ get_treatment_means <-
           get_blue(mod = mod, has_env = has_env,
                    within_env = FALSE, fetch = "check",
                    emm_df = df_method, nesting = NULL)
-        blue_out <- blue_out[blue_out$treatment %in% checks, ]
+        blue_out <- blue_out[blue_out$Treatment %in% checks, ]
         blue_out$type <- "BLUE"
         blup_out <-
           get_blup(mod = mod, within_env = TRUE,
                    has_fixed_check = has_fixed_check,
                    has_random_treatment = has_random_treatment,
                    has_random_treatment_test = has_random_treatment_test)
-        blup_out$treatment <- gsub(":.*", "", blup_out$treatment)
-        blup_out <- blup_out[blup_out$treatment %in% tests, ]
+        blup_out$Treatment <- gsub(":.*", "", blup_out$Treatment)
+        blup_out <- blup_out[blup_out$Treatment %in% tests, ]
         blup_out$type <- "BLUP"
         dplyr::bind_rows(blue_out, blup_out)
       },
@@ -925,12 +924,12 @@ get_treatment_means <-
         #                       within_env = FALSE, fetch = "check",
         #                       nesting = nstg_list,
         #                       emm_df = df_method)
-        # check_out <- check_out[check_out$treatment %in% checks, ]
+        # check_out <- check_out[check_out$Treatment %in% checks, ]
         # test_out <- get_blue(mod = mod, has_env = has_env,
         #                      within_env = FALSE, fetch = "treatment",
         #                      nesting = nstg_list,
         #                      emm_df = df_method)
-        # test_out <- test_out[test_out$treatment %in% tests, ]
+        # test_out <- test_out[test_out$Treatment %in% tests, ]
         # dplyr::bind_rows(check_out, test_out)
 
         out <- get_blue(mod = mod, has_env = has_env,
@@ -982,7 +981,7 @@ get_blue <- function(mod = mod, within_env = FALSE, has_env = has_env,
 
     out <- as.data.frame(emm)[, c(gsub(" \\| env", "", fetch),
                                   "emmean", "SE", "df")]
-    names(out) <- c("treatment", "mean", "SE", "df")
+    names(out) <- c("Treatment", "Adjusted Means", "SE", "df")
 
   }
 
@@ -1036,10 +1035,10 @@ get_blup <- function(mod, within_env = FALSE,
   # BLUP mean
   mean_vals <- anchr + re_vals
 
-  out <- data.frame(treatment = names(mean_vals),
-                    mean = as.numeric(mean_vals),
+  out <- data.frame(Treatment = names(mean_vals),
+                    `Adjusted Means` = as.numeric(mean_vals),
                     SE = as.numeric(se_vals),
-                    df = NA)
+                    df = NA, check.names = FALSE)
 
   return(out)
 }
