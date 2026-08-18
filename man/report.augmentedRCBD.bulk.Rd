@@ -4,7 +4,7 @@
 \alias{report.augmentedRCBD.bulk}
 \title{Generate MS Word or Excel Report from \code{augmentedRCBD.bulk} Output}
 \usage{
-report.augmentedRCBD.bulk(aug.bulk, target, file.type = c("word", "excel"))
+\method{report}{augmentedRCBD.bulk}(aug.bulk, target, file.type = c("word", "excel"))
 }
 \arguments{
 \item{aug.bulk}{An object of class \code{augmentedRCBD.bulk}.}

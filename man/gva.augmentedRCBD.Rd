@@ -4,7 +4,7 @@
 \alias{gva.augmentedRCBD}
 \title{Perform Genetic Variability Analysis on \code{augmentedRCBD} Output}
 \usage{
-gva.augmentedRCBD(aug, k = 2.063)
+\method{gva}{augmentedRCBD}(aug, k = 2.063)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
@@ -268,8 +268,8 @@ Genetic variability analysis needs to be performed only if the sum of
                        console = TRUE)
 
  # Genetic variability analysis
- gva.augmentedRCBD(out1)
- gva.augmentedRCBD(out2)
+ gva(out1)
+ gva(out2)
 
 }
 \references{

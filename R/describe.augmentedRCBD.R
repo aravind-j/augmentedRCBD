@@ -77,8 +77,8 @@
 #'                        console = TRUE)
 #'
 #' # Descriptive statistics
-#' describe.augmentedRCBD(out1)
-#' describe.augmentedRCBD(out2)
+#' describe(out1)
+#' describe(out2)
 #'
 describe.augmentedRCBD <- function(aug) { # all treatments (test + checks)
 

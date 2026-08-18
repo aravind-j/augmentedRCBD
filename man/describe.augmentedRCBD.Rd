@@ -4,7 +4,7 @@
 \alias{describe.augmentedRCBD}
 \title{Compute Descriptive Statistics from \code{augmentedRCBD} Output}
 \usage{
-describe.augmentedRCBD(aug)
+\method{describe}{augmentedRCBD}(aug)
 }
 \arguments{
 \item{aug}{An object of class \code{augmentedRCBD}.}
@@ -57,8 +57,8 @@ along with p-value from Anscombe-Glynn test of kurtosis (Anscombe and Glynn,
                        console = TRUE)
 
 # Descriptive statistics
-describe.augmentedRCBD(out1)
-describe.augmentedRCBD(out2)
+describe(out1)
+describe(out2)
 
 }
 \references{

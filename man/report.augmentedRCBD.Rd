@@ -4,7 +4,7 @@
 \alias{report.augmentedRCBD}
 \title{Generate MS Word or Excel Report from \code{augmentedRCBD} Output}
 \usage{
-report.augmentedRCBD(
+\method{report}{augmentedRCBD}(
   aug,
   target,
   file.type = c("word", "excel"),

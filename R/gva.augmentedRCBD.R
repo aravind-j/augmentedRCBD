@@ -302,8 +302,8 @@
 #'                        console = TRUE)
 #'
 #'  # Genetic variability analysis
-#'  gva.augmentedRCBD(out1)
-#'  gva.augmentedRCBD(out2)
+#'  gva(out1)
+#'  gva(out2)
 #'
 gva.augmentedRCBD <- function(aug, k = 2.063) {
 
@@ -316,7 +316,9 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
       aug$`ANOVA, Block Adjusted`[aug$`ANOVA, Block Adjusted`$Source ==
                                     "Treatment: Test", 6]
   } else {
-    pval <- aug$`ANOVA, Block Adjusted`[[1]]$`Pr(>F)`["Test"]
+    # pval <- aug$`ANOVA, Block Adjusted`[[1]]$`Pr(>F)`["Test"]
+    pval <- aug$`ANOVA, Block Adjusted`[[1]]["  Treatment: Test             ",
+                                             "Pr(>F)"]
   }
 
   if (pval > 0.05) {
@@ -336,7 +338,9 @@ gva.augmentedRCBD <- function(aug, k = 2.063) {
     EV <- unname(EV)
 
   } else {
-    PV <- aug$`ANOVA, Block Adjusted`[[1]]$`Mean Sq`["Test"]
+    # PV <- aug$`ANOVA, Block Adjusted`[[1]]$`Mean Sq`["Test"]
+    PV <- aug$`ANOVA, Block Adjusted`[[1]]["  Treatment: Test             ",
+                                           "Mean Sq"]
     PV <- unname(PV)
     EV <- aug$`ANOVA, Block Adjusted`[[1]]["Residuals", "Mean Sq"]
     EV <- unname(EV)

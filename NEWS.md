@@ -3,6 +3,8 @@
 ## NEW FUNCTIONS:
 * `augmentedRCBD.menv` - Combined analysis of augmented RCBD in multiple environments (using fixed effects model).
 * `augmentedRCBD.mix` - Analysis of augmented RCBD in single and multiple environments using mixed effects models.
+* `construct.augmentedRCBD` - Construct an Augmented Randomised Complete Block Design Layout.
+* `describe`, `freqdist`, `gva` and `report` -  S3 generics.
 
 ## UPDATED FUNCTIONS:
 * `report.augmentedRCBD.bulk` - Fixed issue with use of "DF" as a trait name because of duplication with "Df" or "Degrees of freedom" column name. Fixed warning messages for GVA.

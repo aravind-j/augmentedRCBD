@@ -66,25 +66,23 @@
 #'                        console = TRUE)
 #'
 #'  # Frequency distribution plots
-#'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
+#'  freq1 <- freqdist(out1, xlab = "Trait 1")
 #'  class(freq1)
 #'  plot(freq1)
-#'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
+#'  freq2 <- freqdist(out2, xlab = "Trait 2")
 #'  plot(freq2)
 #'
 #'  # Change check colours
 #'  colset <- c("red3", "green4", "purple3", "darkorange3")
-#'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
+#'  freq1 <- freqdist(out1, xlab = "Trait 1", check.col = colset)
 #'  plot(freq1)
-#'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
+#'  freq2 <- freqdist(out2, xlab = "Trait 2", check.col = colset)
 #'  plot(freq2)
 #'
 #'  # Without checks highlighted
-#'  freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
-#'                                  highlight.check = FALSE)
+#'  freq1 <- freqdist(out1, xlab = "Trait 1", highlight.check = FALSE)
 #'  plot(freq1)
-#'  freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
-#'                                  highlight.check = FALSE)
+#'  freq2 <- freqdist(out2, xlab = "Trait 2", highlight.check = FALSE)
 #'  plot(freq2)
 #'
 freqdist.augmentedRCBD <- function(aug, xlab, highlight.check = TRUE,
