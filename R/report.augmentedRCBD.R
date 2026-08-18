@@ -24,8 +24,9 @@
 #'
 #' @param aug An object of class \code{augmentedRCBD}.
 #' @param target The path to the report file to be created.
-#' @param file.type The file type of the report. Either \code{"word"} for MS
-#'   Word report file or \code{"excel"} for MS Excel report file.
+#' @param file.type The file type of the report. From v0.2.0, only \code{"excel"}
+#'   (MS Excel report) is supported. Generation of MS Word reports is no longer
+#'   supported.
 #' @param k The standardized selection differential or selection intensity
 #'   required for computation of Genetic advance. Default is 2.063 for 5\%
 #'   selection proportion (see \strong{Details} in
@@ -36,22 +37,22 @@
 #'   colours, hexadecimal representation, index of colours [\code{1:8}] in
 #'   default R \code{palette()} etc.).
 #'
-#' @note The raw values in the \code{augmentedRCBD} object are rounded off to 2
-#'   digits in the word and excel reports. However, in case of excel report, the
-#'   raw values are present in the cell and are formatted to display only 2
-#'   digits.
+#' @note The raw values in the \code{augmentedRCBD} object are retained with
+#'   full precision. They are only formatted to display 2 decimal places in the
+#'   Excel report.
 #'
-#'   So, if values such as adjusted means are being used of downstream
-#'   analysis, export the raw values from within R or use the excel report.
+#'   If values such as adjusted means are required for downstream analysis,
+#'   export the raw values directly from R or use the Excel report, which
+#'   preserves the underlying values.
 #'
-#'   This default rounding can be changed by setting the global options
-#'   \code{augmentedRCBD.round.digits}. For example
+#'   The default number of displayed decimal places can be changed using the
+#'   \code{augmentedRCBD.round.digits} global option. For example,
 #'   \code{setOption(augmentedRCBD.round.digits = 3)} sets the number of decimal
-#'   places for rounding to 3.
+#'   places to 3.
 #'
-#'   Values will not be rounded to zero, instead will be rounded to the nearest
-#'   decimal place. F value, t ratio and p values are not rounded to less than 3
-#'   decimal places.
+#'   Values are not rounded to zero; instead, they are rounded to the nearest
+#'   decimal place specified by \code{augmentedRCBD.round.digits}. F value, t
+#'   ratio and p values are not rounded to less than 3 decimal places.
 #'
 #' @export
 #' @import officer
@@ -88,19 +89,13 @@
 #' \donttest{
 #' report.augmentedRCBD(aug = out,
 #'                      target = file.path(tempdir(),
-#'                                         "augmentedRCBD output.docx"),
-#'                      file.type = "word",
-#'                      check.col = c("brown", "darkcyan",
-#'                                    "forestgreen", "purple"))
-#' report.augmentedRCBD(aug = out,
-#'                      target = file.path(tempdir(),
 #'                                         "augmentedRCBD output.xlsx"),
 #'                      file.type = "excel",
 #'                      check.col = c("brown", "darkcyan",
 #'                                    "forestgreen", "purple"))
 #' }
 #'
-report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
+report.augmentedRCBD <- function(aug, target, file.type = c("excel"),
                                  k = 2.063, check.col = "red"){
 
   if (!is(aug, "augmentedRCBD")) {
@@ -128,411 +123,8 @@ report.augmentedRCBD <- function(aug, target, file.type = c("word", "excel"),
   wstring2 <- "Negative adjusted means were generated for the following"
 
   if (file.type == "word") {
-    if (!grepl(x = target, pattern = "\\.(docx)$", ignore.case = TRUE)) {
-      stop(target, " should have '.docx' extension.")
-    }
-
-    suppar <- fp_text(vertical.align = "superscript")
-
-    augreport <- read_docx(file.path(system.file(package = "augmentedRCBD"),
-                                     "template.docx"))
-
-    augreport <- body_add_par(augreport, value = "augmentedRCBD",
-                              style = "Title")
-    augreport <- body_add_toc(augreport, level = 2)
-
-    # Details
-    augreport <- body_add_par(augreport, value = "Details",
-                              style = "heading 1")
-
-    Details <-
-      t(data.frame(`Number of blocks` =
-                     aug$Details$`Number of blocks`,
-                   `Number of treatments` =
-                     aug$Details$`Number of treatments`,
-                   `Number of check treatments` =
-                     aug$Details$`Number of check treatments`,
-                   `Number of test treatments` =
-                     aug$Details$`Number of test treatments`,
-                   `Check treatments` =  paste(aug$Details$`Check treatments`,
-                                               collapse = ", ")))
-    Details <- data.frame(Details)
-    Details <- cbind(gsub("\\.", " ", rownames(Details)), Details)
-    colnames(Details) <- c("Item", "Details")
-
-    Details <- regulartable(data = data.frame(Details))
-    Details <- autofit(Details)
-    augreport <- body_add_flextable(augreport, Details)
-    if (any(grepl(wstring1, aug$warnings))) {
-      dups <- aug$Means[!(aug$Means$Treatment %in% checks), ]$Treatment
-      dups <- dups[duplicated(dups)]
-      dups <- aug$Means[aug$Means$Treatment %in% dups, c("Treatment", "Block")]
-      rownames(dups) <- NULL
-      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
-      augreport <-
-        body_add_par(augreport,
-                     value = "Following test treatments are replicated.",
-                     style = "Warning")
-      augreport <-
-        body_add_flextable(augreport,
-                           theme_alafoli(autofit(regulartable(dups))))
-    }
-
-    anova_warn <- NULL
-    if (any(!grepl(paste(c(wstring1, wstring2), collapse = "|"),
-                   aug$warnings))) {
-      anova_warn <- aug$warnings[!grepl(paste(c(wstring1, wstring2),
-                                              collapse = "|"),
-                                        aug$warnings)]
-    }
-
-    # ANOVA, TA
-    augreport <- body_add_par(augreport, value = "ANOVA, Treatment Adjusted",
-                              style = "heading 1")
-    if (is.data.frame(aug$`ANOVA, Treatment Adjusted`)){
-      anovata <- aug$`ANOVA, Treatment Adjusted`
-    } else {
-      anovata <- data.frame(aug$`ANOVA, Treatment Adjusted`[[1]])
-      anovata <- cbind(Source = trimws(rownames(anovata)), anovata)
-    }
-    anovata$sig <- ifelse(anovata$Pr..F. <= 0.01, "**",
-                          ifelse(anovata$Pr..F. <= 0.05, "*", "ns"))
-    colnames(anovata) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                           "F value", "Pr(>F)", " ")
-    anovata$Df <- as.character(anovata$Df)
-    anovata[, c("Sum Sq", "Mean Sq")] <-
-      lapply(anovata[, c("Sum Sq", "Mean Sq")], conditional_round,
-             digits = round.digits)
-    anovata[, c("F value", "Pr(>F)")] <-
-      lapply(anovata[, c("F value", "Pr(>F)")], conditional_round,
-             digits = max(round.digits, 3))
-    nsindex <- which(anovata[, 7] == "ns")
-    anovata <- autofit(regulartable(anovata))
-    if (!is.null(nsindex)) {
-      anovata <- compose(anovata, part = "body", i = nsindex, j = 7,
-                         value = as_paragraph(as_sup("ns")))
-    }
-    anovata <- align(anovata, j = 2:6, align = "right", part = "all")
-    anovata <- bold(anovata, part = "header")
-    augreport <- body_add_flextable(augreport, anovata)
-    augreport <-
-      body_add_fpar(augreport,
-                    value = fpar(ftext("ns", suppar),
-                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
-    if (!is.null(anova_warn)) {
-      for (i in seq_along(anova_warn)) {
-        augreport <- body_add_par(augreport, value = anova_warn[i],
-                                  style = "Warning")
-      }
-    }
-
-    # ANOVA, BA
-    augreport <- body_add_par(augreport, value = "ANOVA, Block Adjusted",
-                              style = "heading 1")
-    if (is.data.frame(aug$`ANOVA, Block Adjusted`)){
-      anovaba <- aug$`ANOVA, Block Adjusted`
-    } else {
-      anovaba <- data.frame(aug$`ANOVA, Block Adjusted`[[1]])
-      anovaba <- cbind(Source = trimws(rownames(anovaba)), anovaba)
-    }
-    anovaba$sig <- ifelse(anovaba$Pr..F. <= 0.01, "**",
-                          ifelse(anovaba$Pr..F. <= 0.05, "*", "ns"))
-    colnames(anovaba) <- c("Source", "Df", "Sum Sq", "Mean Sq",
-                           "F value", "Pr(>F)", " ")
-    anovaba$Df <- as.character(anovaba$Df)
-    anovaba[, c("Sum Sq", "Mean Sq")] <-
-      lapply(anovaba[, c("Sum Sq", "Mean Sq")], conditional_round,
-             digits = round.digits)
-    anovaba[, c("F value", "Pr(>F)")] <-
-      lapply(anovaba[, c("F value", "Pr(>F)")], conditional_round,
-             digits = max(round.digits, 3))
-    nsindex <- which(anovaba[, 7] == "ns")
-    anovaba <- autofit(regulartable(anovaba))
-    if (!is.null(nsindex)) {
-      anovaba <- compose(anovaba, part = "body", i = nsindex, j = 7,
-                         value = as_paragraph(as_sup("ns")))
-    }
-    anovaba <- align(anovaba, j = 2:6, align = "right", part = "all")
-    anovaba <- bold(anovaba, part = "header")
-    augreport <- body_add_flextable(augreport, anovaba)
-    augreport <-
-      body_add_fpar(augreport,
-                    value = fpar(ftext("ns", suppar),
-                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
-    if (!is.null(anova_warn)) {
-      for (i in seq_along(anova_warn)) {
-        augreport <- body_add_par(augreport, value = anova_warn[i],
-                                  style = "Warning")
-      }
-    }
-
-    # Std. Errors
-    augreport <-
-      body_add_par(augreport,
-                   value = "Standard Errors and Critical Differences",
-                   style = "heading 1")
-    se <- aug$`Std. Errors`
-    se <- cbind(Comparison = row.names(se), se)
-    se <- dplyr::mutate_if(se, is.numeric, conditional_round,
-                           digits = round.digits)
-    se <- autofit(regulartable(se))
-    se <- align(se, j = 2:3, align = "right", part = "all")
-    se <- bold(se, part = "header")
-    augreport <- body_add_flextable(augreport, se)
-
-    # Overall adjusted mean
-    augreport <- body_add_par(augreport, value = "Overall Adjusted Mean",
-                              style = "heading 1")
-    augreport <-
-      body_add_par(augreport,
-                   value = as.character(
-                     conditional_round(
-                       aug$`Overall adjusted mean`,
-                       digits = round.digits)),
-                   style = "Normal")
-
-    # Coefficient of variation
-    augreport <- body_add_par(augreport, value = "Coefficient of Variation",
-                              style = "heading 1")
-    augreport <-
-      body_add_par(augreport,
-                   value = as.character(
-                     conditional_round(
-                       aug$CV,
-                       digits = round.digits)),
-                   style = "Normal")
-
-    # Means
-    augreport <- body_add_par(augreport, value = "Means", style = "heading 1")
-    Means <- aug$Means
-    Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")] <-
-      lapply(Means[, c("Means", "SE", "Min", "Max", "Adjusted Means")],
-             conditional_round, digits = round.digits)
-    if (any(grepl(wstring2, aug$warnings))) {
-      wstring2_mod <- trimws(unlist(strsplit(aug$warnings[grepl(wstring2,
-                                                                aug$warnings)],
-                                             "\n")))
-      neg_trts <- trimws(unlist(strsplit(wstring2_mod[2], ",")))
-      neg_index <- which(Means$Treatment %in% neg_trts)
-      Means$x <- ""
-      Means[neg_index, ]$x <- "\u2020"
-      colnames(Means) <- c("Treatment", "Block", "Means", "SE", "r", "Min",
-                           "Max", "Adjusted Means",  " ")
-    }
-    Means <- autofit(regulartable(Means))
-    Means <- align(Means, j = 2:8, align = "right", part = "all")
-    Means <- bold(Means, part = "header")
-    augreport <- body_add_flextable(augreport, Means)
-    if (any(grepl(wstring2, aug$warnings))) {
-      neg_msg <- gsub(" were generated for the following treatment\\(s\\)", "",
-                      wstring2_mod[1])
-      if (!is.na(wstring2_mod[3])) {
-        neg_msg <- paste(neg_msg, " (",
-                         stri_trans_totitle(gsub("They were ", "",
-                                                 wstring2_mod[3]),
-                                            type = "sentence"),
-                         ")", sep = "")
-      }
-      neg_msg <- paste("\u2020 ", neg_msg, ".", sep = "")
-      augreport <- body_add_par(augreport, value = neg_msg, style = "Normal")
-    }
-
-    # Freq dist
-    augreport <- body_add_par(augreport, value = "Frequency Distribution",
-                              style = "heading 1")
-    src <- tempfile(fileext = ".png")
-    png(filename = src, width = 6, height = 4, units = 'in', res = 300)
-    fqwarn <- NULL
-    withCallingHandlers({
-      plot(freqdist.augmentedRCBD(aug, xlab = "", check.col = check.col))
-    }, warning = function(w) {
-      fqwarn <<- append(fqwarn, cli::ansi_strip(w$message))
-      invokeRestart("muffleWarning")
-    })
-    dev.off()
-    augreport <- body_add_img(augreport, src = src, width = 6, height = 4)
-    rm(src)
-    if (!is.null(fqwarn)) {
-      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
-      for (i in seq_along(fqwarn)) {
-        augreport <- body_add_par(augreport, value = fqwarn[i],
-                                  style = "Warning")
-      }
-    }
-
-    # Desc stat
-    augreport <- body_add_par(augreport, value = "Descriptive Statistics",
-                              style = "heading 1")
-    descout <- data.frame(describe.augmentedRCBD(aug))[1, ]
-    descout$Skewness.p.value. <-
-      ifelse(descout$Skewness.p.value. <= 0.01, "**",
-             ifelse(descout$Skewness.p.value. <= 0.05,
-                    "*", "ns"))
-    descout$Kurtosis.p.value. <-
-      ifelse(descout$Kurtosis.p.value. <= 0.01, "**",
-             ifelse(descout$Kurtosis.p.value. <= 0.05,
-                    "*", "ns"))
-    desc <- c("Mean", "Std.Error", "Std.Deviation", "Min",
-              "Max", "Skewness.statistic.", "Kurtosis.statistic.")
-    descout[, desc] <- apply(descout[, desc], MARGIN = 2,
-                             FUN = conditional_round, digits = round.digits)
-    colnames(descout) <- c("Count", "Mean", "Std.Error", "Std.Deviation",
-                           "Min", "Max", "Skewness", "Skewness_sig", "Kurtosis",
-                           "Kurtosis_sig")
-    descout <- rbind(descout[, c("Count", "Mean", "Std.Error", "Std.Deviation",
-                                 "Min", "Max", "Skewness", "Kurtosis")],
-                     c(rep("", 6),
-                       unlist(descout[,
-                                      c("Skewness_sig", "Kurtosis_sig")])))
-
-    descout <- data.frame(t(descout))
-    descout <- cbind(Statistic = rownames(descout), descout)
-    rownames(descout) <- NULL
-    colnames(descout) <- c("Statistic", "Value", " ")
-    nsindex <- which(descout[, 3] == "ns")
-    descout <- autofit(regulartable(descout))
-    if (!is.null(nsindex)) {
-      descout <- compose(descout, part = "body", i = nsindex, j = 3,
-                         value = as_paragraph(as_sup("ns")))
-    }
-    descout <- align(descout, j = 2, align = "right", part = "all")
-    descout <- align(descout, j = 3, align = "left", part = "all")
-    descout <- bold(descout, part = "header")
-    augreport <- body_add_flextable(augreport, descout)
-
-    augreport <-
-      body_add_fpar(augreport,
-                    value = fpar(ftext("ns", suppar),
-                                 ftext(" P > 0.05; * P <= 0.05; ** P <= 0.01")))
-
-    # GVA
-    augreport <- body_add_par(augreport, value = "Genetic Variability Analysis",
-                              style = "heading 1")
-    gvaout <- gva.augmentedRCBD(aug, k = k)
-    gvawarn <- NULL
-    withCallingHandlers({
-      gvaout <- data.frame(gva.augmentedRCBD(aug, k = k))
-    }, warning = function(w) {
-      gvawarn <<- append(gvawarn, cli::ansi_strip(w$message))
-      invokeRestart("muffleWarning")
-    })
-    gvaout <- data.frame(gvaout)
-    gvaout <- dplyr::mutate_if(gvaout, is.numeric, conditional_round,
-                               digits = round.digits)
-    gvaout <- data.frame(t(gvaout))
-    gvaout <- cbind(Statistic = rownames(gvaout), gvaout)
-    rownames(gvaout) <- NULL
-    gvaout$x <-  c(rep("", 11), rep("*", 3))
-    gvaout$x <- ifelse(is.na(gvaout$t.gvaout.), "", gvaout$x)
-    colnames(gvaout) <- c("Statistic", "Value", " ")
-
-
-    gvaout <- autofit(regulartable(gvaout))
-    gvaout <- align(gvaout, j = 2, align = "right", part = "all")
-    gvaout <- align(gvaout, j = 3, align = "left", part = "all")
-    gvaout <- bold(gvaout, part = "header")
-    augreport <- body_add_flextable(augreport, gvaout)
-    augreport <- body_add_par(augreport, value = paste("* k =", k))
-    if (!is.null(gvawarn)) {
-      augreport <- body_add_par(augreport, value = "\r\n", style = "Normal")
-      for (i in seq_along(gvawarn)) {
-        augreport <- body_add_par(augreport, value = gvawarn[i],
-                                  style = "Warning")
-      }
-    }
-
-    # Comparisons
-    if (!is.null(aug$Comparisons)) {
-      augreport <- body_add_par(augreport, value = "Comparisons",
-                                style = "heading 1")
-      augreport <- body_add_par(augreport,
-                                value = paste("Comparison method:",
-                                              aug$`Comparison method`),
-                                style = "Normal")
-      cmp <- aug$Comparisons
-      cmp[, c("estimate", "SE")] <-
-        lapply(cmp[, c("estimate", "SE")],
-               conditional_round, digits = round.digits)
-      cmp[, c("t.ratio", "p.value")] <-
-        lapply(cmp[, c("t.ratio", "p.value")],
-               conditional_round, digits = max(round.digits, 3))
-      cmp <- autofit(regulartable(cmp))
-      cmp <- align(cmp, j = 2:6, align = "right", part = "all")
-      cmp <- bold(cmp, part = "header")
-      augreport <- body_add_flextable(augreport, cmp)
-
-      augreport <- body_add_par(augreport,
-                                value = "* P \u2264 0.05; ** P \u2264 0.01",
-                                style = "Normal")
-    }
-
-    # Groups
-    if (!is.null(aug$Groups)) {
-      augreport <- body_add_par(augreport, value = "Groups",
-                                style = "heading 1")
-      augreport <- body_add_par(augreport,
-                                value = paste("Comparison method:",
-                                              aug$`Comparison method`),
-                                style = "Normal")
-      gps <- aug$Groups
-      gps[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")] <-
-        lapply(gps[, c("Adjusted Means", "SE", "lower.CL", "upper.CL")],
-               conditional_round, digits = round.digits)
-      gps <- autofit(regulartable(gps))
-      gps <- align(gps, j = 2:5, align = "right", part = "all")
-      gps <- bold(gps, part = "header")
-      augreport <- body_add_flextable(augreport, gps)
-    }
-
-    # Warnings
-    if (!all(unlist(lapply(list(aug$warnings, fqwarn, gvawarn), is.null)))) {
-      augreport <- body_add_par(augreport, value = "Warnings",
-                                style = "heading 1")
-
-      if (!is.null(aug$warnings)) {
-        augreport <- body_add_par(augreport,
-                                  value = "Model",
-                                  style = "heading 2")
-        warn_mod <- trimws(unlist(strsplit(aug$warnings, "\n")))
-        for (i in seq_along(warn_mod)) {
-          augreport <- body_add_par(augreport,
-                                    value = warn_mod[i],
-                                    style = "Code")
-        }
-      }
-
-      if (!is.null(fqwarn)) {
-        augreport <- body_add_par(augreport,
-                                  value = "Frequency Distribution",
-                                  style = "heading 2")
-        for (i in seq_along(fqwarn)) {
-          augreport <- body_add_par(augreport, value = fqwarn[i],
-                                    style = "Code")
-        }
-      }
-
-      if (!is.null(gvawarn)) {
-        augreport <- body_add_par(augreport,
-                                  value = "Genetic Variablity Analysis",
-                                  style = "heading 2")
-        for (i in seq_along(gvawarn)) {
-          augreport <- body_add_par(augreport, value = gvawarn[i],
-                                    style = "Code")
-        }
-
-      }
-    }
-
-    augreport <- body_add_par(augreport, value = "Citation Info",
-                              style = "heading 1")
-    citout <- capture.output(citation("augmentedRCBD"))
-    citlist <- wlist2blist(citout,
-                           fp_p = fp_par(padding.bottom = 2,
-                                         word_style = "Code"))
-    augreport <- body_add_blocks(augreport, blocks = citlist)
-
-    print(augreport, target = target)
-
+    stop('The "word" file type is no longer supported. ',
+         'Use file.type = "excel" instead.')
   }
 
   if (file.type == "excel") {

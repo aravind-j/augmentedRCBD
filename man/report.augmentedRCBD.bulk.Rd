@@ -4,15 +4,16 @@
 \alias{report.augmentedRCBD.bulk}
 \title{Generate MS Word or Excel Report from \code{augmentedRCBD.bulk} Output}
 \usage{
-\method{report}{augmentedRCBD.bulk}(aug.bulk, target, file.type = c("word", "excel"))
+\method{report}{augmentedRCBD.bulk}(aug.bulk, target, file.type = c("excel"))
 }
 \arguments{
 \item{aug.bulk}{An object of class \code{augmentedRCBD.bulk}.}
 
 \item{target}{The path to the docx file to be created.}
 
-\item{file.type}{The file type of the report. Either \code{"word"} for MS
-Word report file or \code{"excel"} for MS Excel report file.}
+\item{file.type}{The file type of the report. From v0.2.0, only
+\code{"excel"} (MS Excel report) is supported. Generation of MS Word
+reports is no longer supported.}
 }
 \description{
 \code{report.augmentedRCBD.bulk} generates a tidy report from an object of
@@ -21,21 +22,22 @@ class \code{augmentedRCBD.bulk} as docx MS word file using the
 \code{\link[openxlsx]{openxlsx}} package.
 }
 \note{
-The raw values in the \code{augmentedRCBD} object are rounded off to 2
-  digits in the word and excel reports. However, in case of excel report, the
-  raw values are present in the cell and are formatted to display only 2
-  digits.
+The raw values in the \code{augmentedRCBD} object are retained with
+  full precision. They are only formatted to display 2 decimal places in the
+  Excel report.
 
-  So, if values such as adjusted means are being used of downstream
-  analysis, export the raw values from within R or use the excel report.
+  If values such as adjusted means are required for downstream analysis,
+  export the raw values directly from R or use the Excel report, which
+  preserves the underlying values.
 
-  This default rounding can be changed by setting the global options
-  \code{augmentedRCBD.round.digits}. For example
+  The default number of displayed decimal places can be changed using the
+  \code{augmentedRCBD.round.digits} global option. For example,
   \code{setOption(augmentedRCBD.round.digits = 3)} sets the number of decimal
-  places for rounding to 3.
+  places to 3.
 
-  Values will not be rounded to zero, instead will be rounded to the nearest
-  decimal place.
+  Values are not rounded to zero; instead, they are rounded to the nearest
+  decimal place specified by \code{augmentedRCBD.round.digits}. F value, t
+  ratio and p values are not rounded to less than 3 decimal places.
 }
 \examples{
 # Example data
@@ -57,11 +59,6 @@ bout <- augmentedRCBD.bulk(data = dataf, block = "blk",
                            console = FALSE)
 
 \donttest{
-report.augmentedRCBD.bulk(
-  aug.bulk = bout,
-  target = file.path(tempdir(),
-                     "augmentedRCBD bulk output.docx"),
-  file.type = "word")
 report.augmentedRCBD.bulk(
   aug.bulk = bout,
   target = file.path(tempdir(),
