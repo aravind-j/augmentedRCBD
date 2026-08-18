@@ -2,7 +2,7 @@
 % Please edit documentation in R/construct.augmentedRCBD.R
 \name{construct.augmentedRCBD}
 \alias{construct.augmentedRCBD}
-\title{Construct an Augmented Block Design}
+\title{Construct an Augmented Randomised Complete Block Design Layout}
 \usage{
 construct.augmentedRCBD(
   block.size,
@@ -40,9 +40,9 @@ A data frame with three columns:
   }
 }
 \description{
-Generates an augmented block design (Federer, 1956; Federer, 1961) in which
-test treatments are divided into blocks of a specified size. A set of check
-treatments can be randomly positioned among the test treatments, while
+Generates an augmented block design layout (Federer, 1956; Federer, 1961) in
+which test treatments are divided into blocks of a specified size. A set of
+check treatments can be randomly positioned among the test treatments, while
 another set of check treatments can be placed at fixed positions at the end
 of each block.
 }
@@ -54,17 +54,18 @@ is otherwise preserved; only the positions of the \code{random.checks} are
 randomized.
 
 The number of blocks is determined by dividing the number of test
-treatments by \code{block.size} and rounding up. The final block may
-therefore contain fewer test treatments than the specified \code{block.size}.
+  treatments by \code{block.size} and rounding up. The final block may
+  therefore contain fewer test treatments than the specified
+  \code{block.size}.
 
-Within each block, the test treatments occupy all positions not assigned to
-\code{random.checks}. The order of the test treatments is preserved. The
-positions of the random checks are selected randomly from the combined set of
-test-treatment and random-check positions. The \code{fixed.checks}, when
-supplied, are appended to the end of the block in their supplied order.
+  Within each block, the test treatments occupy all positions not assigned to
+  \code{random.checks}. The order of the test treatments is preserved. The
+  positions of the random checks are selected randomly from the combined set
+  of test-treatment and random-check positions. The \code{fixed.checks}, when
+  supplied, are appended to the end of the block in their supplied order.
 
-The elements of \code{random.checks} and \code{fixed.checks} must be
-distinct, and all must be present in \code{check.treatments}.
+  The elements of \code{random.checks} and \code{fixed.checks} must be
+  distinct, and all must be present in \code{check.treatments}.
 }
 \examples{
 checks <- paste0("C", 1:6)
