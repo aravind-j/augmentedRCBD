@@ -808,7 +808,7 @@ Such a tabular data should be imported ([see section 7.8](#impexp)) into `R` as 
 
 # 7 Data Analysis for a Single Trait
 
-Analysis of data for a single trait can be performed by using `augmentedRCBD` function. It generates an object of class `augmentedRCBD`. Such an object can then be taken as input by the several functions to print the results to console (`print.augmentedRCBD`), generate descriptive statistics from adjusted means (`describe.augmentedRCBD`), plot frequency distribution (`freqdist.augmentedRCBD`) and computed genetic variability statistics (gva.augmentedRCBD). All these outputs can also be exported as a MS Word report using the `report.augmentedRCBD` function.
+Analysis of data for a single trait can be performed by using `augmentedRCBD` function. It generates an object of class `augmentedRCBD`. Such an object can then be taken as input by the several functions to print the results to console (`print`), generate descriptive statistics from adjusted means (`describe`), plot frequency distribution (`freqdist`) and computed genetic variability statistics (`gva`). All these outputs can also be exported as a MS Word report using the `report` function.
 
 ```{r, echo = FALSE}
 
@@ -838,9 +838,9 @@ for (i in 1:dim(arrows)[1]) {
 # Textbox
 elpostext <- elpos[c(3, 4, 1, 2, 5, 6, 7),]
 flowtext <- c("Data", "augmentedRCBD",
-              "print.augmentedRCBD", "describe.augmentedRCBD",
-              "freqdist.augmentedRCBD", "gva.augmentedRCBD",
-              "report.augmentedRCBD")
+              "print", "describe",
+              "freqdist", "gva",
+              "report")
 flowfont <- c("sans", rep("sans", 6))
 flowradx <- c(0.065, 0.1, 0.13, 0.13, 0.13, 0.13, 0.13)
 flowcex <- c(0.7, rep(0.7, 6))
@@ -939,7 +939,7 @@ In case the large number of treatments or genotypes, it is advisable to avoid tr
 
 If `truncate.means = TRUE`, then any negative adjusted means will be truncated to zero with a warning.
 
-## 7.2 `print.augmentedRCBD()`
+## 7.2 `print()`
 
 The results of analysis in an object of class `augmentedRCBD` can be printed to the console as follows.
 
@@ -951,29 +951,29 @@ print(out1)
 print(out2)
 ```
 
-## 7.3 `describe.augmentedRCBD()`
+## 7.3 `describe()`
 
 The descriptive statistics such as count, mean, standard error, minimum, maximum, skewness ( with p-value from D'Agostino test of skewness (@dagostino_transformation_1970)) and kurtosis (with p-value from Anscombe-Glynn test of kurtosis (@anscombe_distribution_1983)) for the adjusted means from the results in an object of class `augmentedRCBD` can be computed as follows.
 
 ```{r}
 # Descriptive statistics for variable y1
-describe.augmentedRCBD(out1)
+describe(out1)
 
 # Descriptive statistics for variable y2
-describe.augmentedRCBD(out2)
+describe(out2)
 ```
 
-## 7.4 `freqdist.augmentedRCBD()`
+## 7.4 `freqdist()`
 
 The frequency distribution of the adjusted means from the results in an object of class `augmentedRCBD` can be plotted as follows.
 
 ```{r}
 # Frequency distribution for variable y1
-freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1")
+freq1 <- freqdist(out1, xlab = "Trait 1")
 plot(freq1)
 
 # Frequency distribution for variable y2
-freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2")
+freq2 <- freqdist(out2, xlab = "Trait 2")
 plot(freq2)
 ```
 
@@ -983,11 +983,11 @@ The colours for the check values may be specified using the argument `check.col`
 colset <- c("red3", "green4", "purple3", "darkorange3")
 
 # Frequency distribution for variable y1
-freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1", check.col = colset)
+freq1 <- freqdist(out1, xlab = "Trait 1", check.col = colset)
 plot(freq1)
 
 # Frequency distribution for variable y2
-freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2", check.col = colset)
+freq2 <- freqdist(out2, xlab = "Trait 2", check.col = colset)
 plot(freq2)
 ```
 
@@ -995,76 +995,46 @@ The default the check highlighting can be avoided using the argument `highlight.
 
 ```{r}
 # Frequency distribution for variable y1
-freq1 <- freqdist.augmentedRCBD(out1, xlab = "Trait 1",
-                                highlight.check = FALSE)
+freq1 <- freqdist(out1, xlab = "Trait 1",
+                  highlight.check = FALSE)
 plot(freq1)
 
 # Frequency distribution for variable y2
-freq2 <- freqdist.augmentedRCBD(out2, xlab = "Trait 2",
-                                highlight.check = FALSE)
+freq2 <- freqdist(out2, xlab = "Trait 2",
+                  highlight.check = FALSE)
 plot(freq2)
 ```
 
-## 7.5 `gva.augmentedRCBD()`
+## 7.5 `gva()`
 
 The genetic variability statistics such as mean, phenotypic, genotypic and environmental variation (@federerModelConsiderationsVariance1976), phenotypic, genotypic and environmental coefficient of variation (@burton_quantitative_1951, @burton_qualitative_1952), category of phenotypic and genotypic coefficient of variation according to @sivasubramaniam_genotypic_1973, broad-sense heritability (*H^2^*) (@lush_intra-sire_1940), *H^2^* category according to @robinson_quantitative_1966, Genetic advance (GA), genetic advance as per cent of mean (GAM) and GAM category according to @johnson_estimates_1955 are computed from an object of class `augmentedRCBD` as follows. Genetic variability analysis needs to be performed only if the sum of squares of "Treatment: Test" are significant. 
 
 ```{r}
 # Genetic variability statistics for variable y1
-gva.augmentedRCBD(out1)
+gva(out1)
 
 # Genetic variability statistics for variable y2
-gva.augmentedRCBD(out2)
+gva(out2)
 ```
 
 Negative estimates of variance components if computed are not abnormal. For information on how to deal with these, refer @robinson_genetic_1955 and @dudley_interpretation_1969. 
 
-## 7.5 `report.augmentedRCBD()`
+## 7.5 `report()`
 
-The results generated by the analysis can be exported to a MS Word file as follows.
-
-```{r, eval=FALSE}
-# MS word report for variable y1
-report.augmentedRCBD(aug = out1,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.docx"),
-                     file.type = "word")
-
-# MS word report for variable y2
-report.augmentedRCBD(aug = out2,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.docx"),
-                     file.type = "word")
-```
-
-```{r, echo = FALSE, results='asis'}
-switch(out_type,
-    html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDword.png" align="center" alt="The `R` download location.">'),
-    latex = cat('\\includegraphics{augRCBDword.png}'))
-```
-
-```{r, echo = FALSE, results='asis'}
-switch(out_type,
-    html = cat('<p style="text-align: left;"><strong>Fig. 6</strong>: MS Word report generated with `report.agumentedRCBD` function.</p>'),
-    latex = cat('\\begin{center}
-                \\textbf{Fig. 6}: MS Word report generated with \\texttt{report.agumentedRCBD} function.
-                \\end{center}'))
-```
-
-Alternatively, the analysis results can also be exported to a MS Excel file as follows.
+The results generated by the analysis can be exported to a MS Excel file as follows. Generation of MS Word reports is no longer supported from v0.2.0.
 
 ```{r, eval=FALSE}
 # MS excel report for variable y1
-report.augmentedRCBD(aug = out1,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.xlsx"),
-                     file.type = "excel")
+report(aug = out1,
+       target = file.path(tempdir(),
+                          "augmentedRCBD output.xlsx"),
+       file.type = "excel")
 
 # MS excel report for variable y2
-report.augmentedRCBD(aug = out2,
-                     target = file.path(tempdir(),
-                                        "augmentedRCBD output.xlsx"),
-                     file.type = "excel")
+report(aug = out2,
+       target = file.path(tempdir(),
+                          "augmentedRCBD output.xlsx"),
+       file.type = "excel")
 ```
 
 ```{r, echo = FALSE, results='asis'}
@@ -1083,7 +1053,7 @@ switch(out_type,
 
 # 8 Data Analysis for a Multiple Traits
 
-Analysis of data for a multiple traits simultaneously can be performed by using `augmentedRCBD.bulk` function. It generates an object of class `augmentedRCBD.bulk`. Such an object can then be taken as input by `print.augmentedRCBD.bulk` to print the results to console. The results can also be exported as a MS Word report using the `report.augmentedRCBD.bulk` function.
+Analysis of data for a multiple traits simultaneously can be performed by using `augmentedRCBD.bulk` function. It generates an object of class `augmentedRCBD.bulk`. Such an object can then be taken as input by `print` to print the results to console. The results can also be exported as a MS Word report using the `report` function.
 
 ```{r, echo = FALSE}
 
@@ -1115,7 +1085,7 @@ for (i in 1:dim(arrows)[1]) {
 # Textbox
 elpostext <- elpos[c(2, 3, 1, 4),]
 flowtext <- c("Data", "augmentedRCBD.bulk",
-              "print.augmentedRCBD.bulk", "report.augmentedRCBD.bulk")
+              "print", "report")
 flowfont <- c("sans", rep("sans", 3))
 flowradx <- c(0.065, 0.11, 0.13, 0.13)
 flowcex <- c(0.7, rep(0.7, 3))
@@ -1165,7 +1135,7 @@ bout <- augmentedRCBD.bulk(data = data, block = "blk",
                            console = TRUE)
 ```
 
-## 8.2 `print.augmentedRCBD.bulk()`
+## 8.2 `print()`
 
 The results of analysis in an object of class `augmentedRCBD.bulk` can be printed to the console as follows.
 
@@ -1174,40 +1144,16 @@ The results of analysis in an object of class `augmentedRCBD.bulk` can be printe
 print(bout)
 ```
 
-## 8.3 `report.augmentedRCBD.bulk()`
+## 8.3 `report()`
 
-The results generated by the analysis can be exported to a MS Word file as follows.
-
-```{r, eval=FALSE}
-# MS word report
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.docx"),
-                          file.type = "word")
-```
-
-```{r, echo = FALSE, results='asis'}
-switch(out_type,
-    html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkword.png" align="center" alt="The `R` download location.">'),
-    latex = cat('\\includegraphics{augRCBDbulkword.png}'))
-```
-
-```{r, echo = FALSE, results='asis'}
-switch(out_type,
-    html = cat('<p style="text-align: left;"><strong>Fig. 9</strong>: MS Word report generated with `report.agumentedRCBD.bulk` function.</p>'),
-    latex = cat('\\begin{center}
-                \\textbf{Fig. 9}: MS Word report generated with \\texttt{report.agumentedRCBD.bulk} function.
-                \\end{center}'))
-```
-
-Alternatively, the analysis results can also be exported to a MS Excel file as follows.
+The results generated by the analysis can be exported to a MS Excel file as follows. Generation of MS Word reports is no longer supported from v0.2.0.
 
 ```{r, eval=FALSE}
 # MS excel report
-report.augmentedRCBD.bulk(aug.bulk = bout,
-                          target = file.path(tempdir(),
-                                             "augmentedRCBD bulk output.xlsx"),
-                          file.type = "excel")
+report(aug.bulk = bout,
+       target = file.path(tempdir(),
+                          "augmentedRCBD bulk output.xlsx"),
+       file.type = "excel")
 ```
 
 ```{r, echo = FALSE, results='asis'}
