@@ -158,7 +158,7 @@ Download and install `R` for Windows from http://cran.r-project.org/bin/windows/
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
     html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/rbase.png" align="center" alt="The `R` download location.">'),
-    latex = cat('\\includegraphics{rbase.png}'))
+    latex = cat('\\includegraphics[width=\\linewidth]{rbase.png}'))
 ```
 
 ```{r, echo = FALSE, results='asis'}
@@ -178,7 +178,7 @@ Download and install `RStudio` for Windows from https://www.rstudio.com/products
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
     html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/rstudio.png" align="center" alt="The `RStudio` download location.">'),
-    latex = cat('\\includegraphics{rstudio.png}'))
+    latex = cat('\\includegraphics[width=\\linewidth]{rstudio.png}'))
 ```
 
 ```{r, echo = FALSE, results='asis'}
@@ -196,7 +196,7 @@ On opening `RStudio`, the default interface with four panes/windows is visible a
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
     html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/rstudio%20panes.png" align="center" alt="The default `RStudio` interface with the four panes.">'),
-    latex = cat('\\includegraphics{rstudio panes.png}'))
+    latex = cat('\\includegraphics[width=\\linewidth]{rstudio panes.png}'))
 ```
 
 ```{r, echo = FALSE, results='asis'}
@@ -1040,7 +1040,7 @@ report(aug = out2,
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
     html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDexcel.png" align="center" alt="The `R` download location.">'),
-    latex = cat('\\includegraphics{augRCBDexcel.png}'))
+    latex = cat('\\includegraphics[width=\\linewidth]{augRCBDexcel.png}'))
 ```
 
 ```{r, echo = FALSE, results='asis'}
@@ -1159,7 +1159,7 @@ report(aug.bulk = bout,
 ```{r, echo = FALSE, results='asis'}
 switch(out_type,
     html = cat('<img src="https://github.com/aravind-j/augmentedRCBD/raw/master/vignettes/augRCBDbulkexcel.png" align="center" alt="The `R` download location.">'),
-    latex = cat('\\includegraphics{augRCBDbulkexcel.png}'))
+    latex = cat('\\includegraphics[width=\\linewidth]{augRCBDbulkexcel.png}'))
 ```
 
 ```{r, echo = FALSE, results='asis'}
