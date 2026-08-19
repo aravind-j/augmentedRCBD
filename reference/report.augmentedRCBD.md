@@ -255,6 +255,6 @@ report(aug = out,
        file.type = "excel",
        check.col = c("brown", "darkcyan",
                      "forestgreen", "purple"))
-#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmpoimGJo/augmentedRCBD output.xlsx
+#> File created at /var/folders/df/djsxfhc17x95674wsm_g8s980000gn/T//RtmptFxruc/augmentedRCBD output.xlsx
 # }
 ```

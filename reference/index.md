@@ -13,6 +13,9 @@
 
 ## Supplementary functions
 
+- [`construct.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/construct.augmentedRCBD.md)
+  : Construct an Augmented Randomised Complete Block Design Layout
+
 - [`describe(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.md)
   :
 
@@ -32,8 +35,20 @@
   : Analysis of Augmented Randomised Complete Block Design for Multiple
   Traits/Characters
 
-- [`construct.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/construct.augmentedRCBD.md)
-  : Construct an Augmented Randomised Complete Block Design Layout
+- [`describe(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.menv.md)
+  :
+
+  Compute Descriptive Statistics from `augmentedRCBD.menv` Output
+
+- [`gva(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/gva.augmentedRCBD.menv.md)
+  :
+
+  Perform Genetic Variability Analysis on `augmentedRCBD.menv` Output
+
+- [`freqdist(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/freqdist.augmentedRCBD.menv.md)
+  :
+
+  Plot Frequency Distribution from `augmentedRCBD.menv` Output
 
 ## Print methods
 

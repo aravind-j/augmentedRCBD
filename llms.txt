@@ -30,7 +30,7 @@ Size](https://img.shields.io/github/languages/code-size/aravind-j/augmentedRCBD.
 [![Project Status:
 WIP](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Last-changedate](https://img.shields.io/badge/last%20change-2026--08--18-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2026--08--19-yellowgreen.svg)](https://github.com/aravind-j/augmentedRCBD)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1310011.svg)](https://doi.org/10.5281/zenodo.1310011)
 [![Website -
@@ -143,6 +143,9 @@ citing the package.
 
 ## Supplementary functions
 
+- [`construct.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/construct.augmentedRCBD.md)
+  : Construct an Augmented Randomised Complete Block Design Layout
+
 - [`describe(`*`<augmentedRCBD>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.md)
   :
 
@@ -162,8 +165,20 @@ citing the package.
   : Analysis of Augmented Randomised Complete Block Design for Multiple
   Traits/Characters
 
-- [`construct.augmentedRCBD()`](https://aravind-j.github.io/augmentedRCBD/reference/construct.augmentedRCBD.md)
-  : Construct an Augmented Randomised Complete Block Design Layout
+- [`describe(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/describe.augmentedRCBD.menv.md)
+  :
+
+  Compute Descriptive Statistics from `augmentedRCBD.menv` Output
+
+- [`gva(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/gva.augmentedRCBD.menv.md)
+  :
+
+  Perform Genetic Variability Analysis on `augmentedRCBD.menv` Output
+
+- [`freqdist(`*`<augmentedRCBD.menv>`*`)`](https://aravind-j.github.io/augmentedRCBD/reference/freqdist.augmentedRCBD.menv.md)
+  :
+
+  Plot Frequency Distribution from `augmentedRCBD.menv` Output
 
 ## Print methods
 

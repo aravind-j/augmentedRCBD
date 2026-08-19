@@ -396,6 +396,8 @@ The frequency distribution plot as a ggplot2 plot grob.
  freq2 <- freqdist(out2, xlab = "Trait 2")
 #> Warning: Removed 2 rows containing missing values or values outside the scale range
 #> (`geom_bar()`).
+ class(freq2)
+#> [1] "gtable" "gTree"  "grob"   "gDesc" 
  plot(freq2)
 
 
