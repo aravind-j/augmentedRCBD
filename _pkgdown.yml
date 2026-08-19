@@ -68,11 +68,14 @@ reference:
 
     - title: Supplementary functions
       contents:
+         - '`construct.augmentedRCBD`'
          - '`describe.augmentedRCBD`'
          - '`gva.augmentedRCBD`'
          - '`freqdist.augmentedRCBD`'
          - '`augmentedRCBD.bulk`'
-         - '`construct.augmentedRCBD`'
+         - '`describe.augmentedRCBD.menv`'
+         - '`gva.augmentedRCBD.menv`'
+         - '`freqdist.augmentedRCBD.menv`'
 
     - title: Print methods
       contents:
