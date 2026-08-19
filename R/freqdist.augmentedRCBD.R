@@ -71,6 +71,7 @@
 #'  class(freq1)
 #'  plot(freq1)
 #'  freq2 <- freqdist(out2, xlab = "Trait 2")
+#'  class(freq2)
 #'  plot(freq2)
 #'
 #'  # Change check colours
